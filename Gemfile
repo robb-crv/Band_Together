@@ -30,6 +30,9 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+#gem per assert_template deprecated
+gem 'rails-controller-testing'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -43,6 +46,16 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# GEMS AGGIUNTE PER LA VALIDAZIONE
+#ValidatesTimeliness provides complete validation of dates, times and datetimes
+gem 'validates_timeliness', '~> 4.0'
+
+#city-state is a very simple ruby gem to get a list of states in a country. Also, you can get a list of cities in a state, and a list of all countries of the world.
+gem 'city-state'
+
+gem 'countries', :require => 'countries/global'
+
 group :test do 
 
   #.roberto
