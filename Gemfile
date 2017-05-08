@@ -40,6 +40,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 group :test do 
 
+  gem 'cucumber-rails', :require => false
+
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
 
@@ -59,7 +61,7 @@ group :development, :test do
 
   #factory_girl is a fixtures replacement
   gem 'factory_girl_rails', '~> 4.7', :require => false
-  
+
 end
 
 group :development do
