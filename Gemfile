@@ -16,6 +16,11 @@ gem 'puma', '~> 3.0'
 #.roberto per autenticazione
 gem 'devise', '~> 4.2'
 
+
+gem 'bootstrap-sass', '~> 3.3.6'
+
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -40,6 +45,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 group :test do 
 
+  #.roberto
+  #run cucumber with: [bundle exec] cucumber
   gem 'cucumber-rails', :require => false
 
   # database_cleaner is not required, but highly recommended
@@ -47,6 +54,9 @@ group :test do
 
   #Shoulda-Matchers provides one-line matchers to RSpec used in testing Rails functionality
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+
+  #Faker is used to easily generate fake data: names, addresses, phone numbers, etc.
+  gem 'faker', '~> 1.7', '>= 1.7.3'
 
 end
 
