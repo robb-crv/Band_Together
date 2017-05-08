@@ -42,6 +42,11 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+
+  #Rspec-rails è un testing framework 
+  #usato per attuare il TDD 
+  #rspec command to run your specs: bundle exec rspec
+  gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
 end
 
 group :development do
