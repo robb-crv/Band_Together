@@ -1,5 +1,5 @@
 Given /^I am on the Home Page$/ do 
-    visit "/"
+    visit 'static_pages/home'
 end
 
 Then /^I should see "You'll never play alone!"$/ do
