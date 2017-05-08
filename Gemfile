@@ -38,6 +38,15 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+group :test do 
+
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+
+  #Shoulda-Matchers provides one-line matchers to RSpec used in testing Rails functionality
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -47,6 +56,10 @@ group :development, :test do
   #usato per attuare il TDD 
   #rspec command to run your specs: bundle exec rspec
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
+
+  #factory_girl is a fixtures replacement
+  gem 'factory_girl_rails', '~> 4.7', :require => false
+  
 end
 
 group :development do
