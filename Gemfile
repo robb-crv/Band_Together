@@ -18,6 +18,21 @@ gem 'devise', '~> 4.2'
 
 
 
+#Richiesta per far funzionare le autenticazioni specifiche dei vari provider. RezeR
+gem 'omniauth', '~> 1.3', '>= 1.3.2'
+
+#Richiesta da omniauth-google-oauth2, altrimenti non funziona niente. RezeR
+gem 'omniauth-oauth2', '~> 1.3.1'
+
+gem 'omniauth-facebook'
+
+#Gemme per l'autenticazione specifiche per ogni provider.
+
+  #.roberto autenticazione google
+gem 'omniauth-google-oauth2', '~> 0.4.1'
+
+
+
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
