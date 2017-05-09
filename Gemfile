@@ -17,6 +17,8 @@ gem 'puma', '~> 3.0'
 gem 'devise', '~> 4.2'
 
 
+
+
 gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'sprockets-rails', :require => 'sprockets/railtie'
@@ -49,6 +51,7 @@ group :test do
   #.roberto
   #run cucumber with: [bundle exec] cucumber
   gem 'cucumber-rails', :require => false
+  
   
 
   # database_cleaner is not required, but highly recommended
