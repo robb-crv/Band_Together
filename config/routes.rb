@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   get 'static_pages/contacts'
 
 #devise_for :users
-  devise_for :users, controllers: { sessions: 'users/sessions',
-  									registrations: "users/registrations" }
+  devise_for :users, controllers: { sessions: 'users/sessions'}
+
+#Route che serve nella form di signup per far apparire nella select della selezione della regione la lista delle regioni appartenenti alla nazione scelta dall'utente
+  get '/states/:nation', to: 'application#states'
   
 end

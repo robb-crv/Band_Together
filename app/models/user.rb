@@ -62,7 +62,7 @@ class User < ApplicationRecord
 	before_save { email.downcase! }
 	#Stringa composta da caratteri alfanumerici, underscore, dash, "+"" e "."
 	VALID_USERNAME_REGEX = /\A[\w+\-.]+\z/i
-  	validates :username, presence: true, length: {maximum: 64}, format: {with: VALID_USERNAME_REGEX}, uniqueness: {case_sensitive: false}
+  validates :username, presence: true, length: {maximum: 64}, format: {with: VALID_USERNAME_REGEX}, uniqueness: {case_sensitive: false}
 	#LA VALIDAZIONE DELL'EMAIL VIENE GESTITA DA DEVISE 
 	#VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z\d\-.]+\z/i
 	#validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
@@ -74,10 +74,6 @@ class User < ApplicationRecord
 	validates :region, allow_blank: false, length: {maximum: 50}, allow_nil: true, region: true 
 	VALID_GENDER_REGEX = /[MF]/
 	validates :gender, allow_blank: false, length: {maximum: 1}, format: {with: VALID_GENDER_REGEX}, allow_nil: true
-  	validates :type_of_musician, length: {maximum: 50}, type: true, allow_nil: true
-  	validates :musical_genre, length: {maximum: 50}, genre: true, allow_nil: true
-
-
-
-
+  validates :type_of_musician, length: {maximum: 50}, type: true, allow_nil: true
+  validates :musical_genre, length: {maximum: 50}, genre: true, allow_nil: true
 end
