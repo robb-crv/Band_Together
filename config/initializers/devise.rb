@@ -17,13 +17,8 @@ Devise.setup do |config|
 
 #andrea chiavi di accesso all'applicazione fb
 
-=begin
-  Per far girare l'app su cloud 9 c'è bisogno della prima riga, per girare in locale della seconda. Commentate la prima e usate la seconda.
-=end
 
- config.omniauth :facebook, "625050674363213", "3a768b0b89d6d5da459d1186d75ea8af",redirect_uri: "http://band-together-acidevil.c9users.io:8080/users/auth/facebook/callback"
-
-#config.omniauth :facebook, "625050674363213", "3a768b0b89d6d5da459d1186d75ea8af",redirect_uri: "/users/auth/facebook/callback"
+ config.omniauth :facebook, "625050674363213", "3a768b0b89d6d5da459d1186d75ea8af",redirect_uri: "/users/auth/facebook/callback"
 
 
 
