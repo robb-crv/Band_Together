@@ -2,7 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:google_oauth2,:facebook]
 
   include ActiveModel::Validations
 
@@ -62,7 +63,7 @@ class User < ApplicationRecord
 	before_save { email.downcase! }
 	#Stringa composta da caratteri alfanumerici, underscore, dash, "+"" e "."
 	VALID_USERNAME_REGEX = /\A[\w+\-.]+\z/i
-  	validates :username, presence: true, length: {maximum: 64}, format: {with: VALID_USERNAME_REGEX}, uniqueness: {case_sensitive: false}
+  validates :username, presence: true, length: {maximum: 64}, format: {with: VALID_USERNAME_REGEX}, uniqueness: {case_sensitive: false}
 	#LA VALIDAZIONE DELL'EMAIL VIENE GESTITA DA DEVISE 
 	#VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z\d\-.]+\z/i
 	#validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
@@ -74,10 +75,26 @@ class User < ApplicationRecord
 	validates :region, allow_blank: false, length: {maximum: 50}, allow_nil: true, region: true 
 	VALID_GENDER_REGEX = /[MF]/
 	validates :gender, allow_blank: false, length: {maximum: 1}, format: {with: VALID_GENDER_REGEX}, allow_nil: true
-  	validates :type_of_musician, length: {maximum: 50}, type: true, allow_nil: true
-  	validates :musical_genre, length: {maximum: 50}, genre: true, allow_nil: true
+  validates :type_of_musician, length: {maximum: 50}, type: true, allow_nil: true
+  validates :musical_genre, length: {maximum: 50}, genre: true, allow_nil: true
 
 
+    #Metodo utilizzato per l'autorizzazione dell'utente tramite google
+    def self.find_for_google_oauth2(auth)
 
+      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+        user.email = auth.info["email"]
+        user.username = auth.info["email"].split("@").first
+        user.password = Devise.friendly_token[0,20]
+      end
+    end
+
+    def self.find_for_facebook(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+        user.email = auth.info.email
+        user.username = auth.info.email.split("@").first
+        user.password = Devise.friendly_token[0,20]
+      end
+    end
 
 end
