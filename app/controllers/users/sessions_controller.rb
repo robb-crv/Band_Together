@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     #.roberto estraggo lo user dal db con "where email=email_inserita"
-    user = GenericUser.find_by(email: params[:session][:email].downcase)
+    user = User.find_by(email: params[:session][:email].downcase)
 
     #.roberto verifico che l'utente che ho estratto dal db corrisponda alla pwd inserita
     if user && user.authenticate(params[:session][:password])
