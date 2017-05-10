@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   #Metodo che fornisce alla form un json con le regioni relative ad un dato stato
 
   def states
-  	render json: CS.states(params[:nation]).to_json()  	
+  	render json: CS.states(params[:nation]).values.to_json()  	
   end
 
 end

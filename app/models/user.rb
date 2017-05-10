@@ -79,22 +79,22 @@ class User < ApplicationRecord
   validates :musical_genre, length: {maximum: 50}, genre: true, allow_nil: true
 
 
-    #Metodo utilizzato per l'autorizzazione dell'utente tramite google
-    def self.find_for_google_oauth2(auth)
+  #Metodo utilizzato per l'autorizzazione dell'utente tramite google
+  def self.find_for_google_oauth2(auth)
 
-      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-        user.email = auth.info["email"]
-        user.username = auth.info["email"].split("@").first
-        user.password = Devise.friendly_token[0,20]
-      end
+    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+      user.email = auth.info["email"]
+      user.username = auth.info["email"].split("@").first
+      user.password = Devise.friendly_token[0,20]
     end
+  end
 
-    def self.find_for_facebook(auth)
-      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-        user.email = auth.info.email
-        user.username = auth.info.email.split("@").first
-        user.password = Devise.friendly_token[0,20]
-      end
+  def self.find_for_facebook(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+      user.email = auth.info.email
+      user.username = auth.info.email.split("@").first
+      user.password = Devise.friendly_token[0,20]
     end
+  end
 
 end

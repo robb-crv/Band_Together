@@ -4,6 +4,11 @@
   <%= devise_error_messages! %>
 
   <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
@@ -21,9 +26,117 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
+  <div class="field">
+    <%= f.label :first_name , "First name"%><br />
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name , "Last name"%><br />
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :gender, "Gender"%><br />
+    <%= f.radio_button :gender, "M" %>
+    <%= f.label :gender_male , "Male"%>
+    <%= f.radio_button :gender, "F" %>
+    <%= f.label :gender_female , "Female"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :birth , "Birth date"%><br />
+    <%= f.text_field :birth, "data-provide" => 'datepicker' %>
+  </div>
+
+  <br>
+
+<!-- 
+
+    I campi della nazione e della regione sono stati modificati e sono diventati delle select. Il campo della regione si basa sul valore scelto 
+    dall'utente nel campo nazione per mostreare le regioni della nazione scelta
+
+    RezeR
+-->
+
+  <div class="field">
+    <select id="countries" name="nation">
+      <option value="" selected="">Select country</option>}
+      <% CS.countries.each do |key, value| %>
+      <option value="<%= key %>"><%= value %></option>
+      <% end %>
+    </select>
+
+    <br/>
+    <br/>
+
+    <select name="region" id="states-of-country">
+      <option value="" selected="">Select state/province</option>
+    </select>
+
+    <!-- Script che genera la select "region" quando viene selezionata una nazione nella select "nation" - RezeR -->
+
+    <script>
+      $('#countries').change(function(){
+        $("#user_nation").val($(this).find(":selected").text()); //Setta il value del campo hidden nation al valore selezionato nella select "nation"
+        $.getJSON('/states/' + $(this).val() , function(data){
+          $('#states-of-country').empty();
+          $.each(data, function(i, ele){
+            var opt = '<option value='+ ele +'>' + ele + '</option>';
+            $('#states-of-country').append(opt);
+          });
+          $("#user_region").val($('#states-of-country').find(":selected").text()); //Setta il value del campo hidden region al primo valore selezionato nella select "region" 
+        });                   
+      });
+    </script>
+
+    <!-- Script che setta il value del campo hidden "region" quando viene selezionata una nuova regione (diversa dalla prima) nella select "region" - RezeR -->
+
+    <script>
+      $('#states-of-country').change(function(){
+        $("#user_region").val($(this).find(":selected").text());
+      });      
+    </script>
+  </div>
+
+
+  <br>
+
+  <!--
+  I due campi hidden "nation" e "region" servono per salvare i valori della nazione e della regione selezioni e che verranno passati alla POST.
+  RezeR    
+  -->
+
+  <div class="field">
+    <%= f.hidden_field :nation %>
+    <%= f.hidden_field :region %>    
+  </div>
+
+  <div class="field">
+    <%= f.label :type_of_musician, "Instrument played" %><br/>
+    <%= f.select(:type_of_musician) do %>
+      <% ["Drummer", "Lead_guitarist", "Rhythmic_guitarist", "Bass_guitarist", "Keyboardist", "Singer", "Winds"].each do |c|%>
+        <%= content_tag(:option, c, value: c) %>
+      <% end %>
+    <% end %>  
+  </div>
+
+  <br>
+
+  <div class="field">
+    <%= f.label :musical_genre, "Favourite musical genre" %><br/>
+    <%= f.select(:musical_genre) do %>
+      <% ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"].each do |c|%>
+        <%= content_tag(:option, c, value: c) %>
+      <% end %>
+    <% end %>  
+  </div> 
+
+  <br>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
-<% end %>
+  <% end %>
 
-<%= render "users/shared/links" %>
+<%= render "devise/shared/links" %>
