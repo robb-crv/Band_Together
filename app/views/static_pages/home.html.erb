@@ -52,7 +52,8 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#SignIn">Sign In</a>
+                        <!--<a class="page-scroll" href="#SignIn">Sign In</a>-->
+                        <%= link_to "Sign In", new_user_session_path, :class => "page-scroll", :method => "get" %>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about">About</a>
@@ -75,7 +76,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <h1 class="brand-heading">BandTogether</h1>
                         <p class="intro-text">You'll never play alone</p>
-                        <br/>
+                        <br/>   
                         <%= button_to "Sign Up", new_user_registration_path, :class => "btn btn-primary btn-lg", :method => "get" %>
                         </a>
                     </div>
