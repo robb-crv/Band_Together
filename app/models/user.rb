@@ -11,23 +11,23 @@ class User < ApplicationRecord
 
 		#Type of musician validation
 
-	class  TypeValidator < ActiveModel::EachValidator
+class  TypeValidator < ActiveModel::EachValidator
 
-  		def validate_each(record, attribute, value)
+      def validate_each(record, attribute, value)
 
-  			record.errors.add attribute, "Non è un tipo di musicista supportato" unless ["Batterista", "Chitarrista_solista", "Chitarrista_ritmico", "Bassista", "Tastierista", "Cantante", "Fiati", ""].include? value
-  		end
-  	end
+        record.errors.add attribute, "Non è un tipo di musicista supportato" unless ["Drummer", "Lead_guitarist", "Rhythmic_guitarist", "Bass_guitarist", "Keyboardist", "Singer", "Winds", ""].include? value
+      end
+  end
 
- 	 	#Musical genre validation
+    #Musical genre validation
 
-	class  GenreValidator < ActiveModel::EachValidator
+  class  GenreValidator < ActiveModel::EachValidator
 
-	  	def validate_each(record, attribute, value)
-	  		record.errors.add attribute, "Non è un genere musicale supportato" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classica", "Latin", ""].include? value
-	  	end
-  	end
-
+    def validate_each(record, attribute, value)
+      record.errors.add attribute, "Non è un genere musicale supportato" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", ""].include? value
+    end
+  end
+  
    #Nation validation
 
   	class  NationValidator < ActiveModel::EachValidator
