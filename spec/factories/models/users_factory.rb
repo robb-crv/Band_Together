@@ -6,7 +6,7 @@ FactoryGirl.define do
 		first_name			{Faker::Name.first_name}
 		last_name			{Faker::Name.last_name}
 		birth				{Faker::Date.backward(1000)}
-		type_of_musician 	"Batterista"
+		type_of_musician 	"Drummer"
 		musical_genre 		"Rock"
 		nation   			"Italy" 
 		region              "Veneto" 
