@@ -16,6 +16,10 @@ gem 'puma', '~> 3.0'
 #.roberto per autenticazione
 gem 'devise', '~> 4.2'
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 40044250779d4a5017d58eb75ddfcdc46110e542
 #Richiesta per far funzionare le autenticazioni specifiche dei vari provider. RezeR
 gem 'omniauth', '~> 1.3', '>= 1.3.2'
 
