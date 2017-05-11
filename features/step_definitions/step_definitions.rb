@@ -1,5 +1,7 @@
 
-#static pages feature
+
+
+#STATIC PAGES FEATURE
 Given /^I am on the Home Page$/ do 
     visit root_path
 end
@@ -25,7 +27,7 @@ Then /^I should see the About Page$/ do
 end
 
 
-#sign up feature
+#SIGN IN FEATURE
 When /^I follow "Sign Up"$/ do
     click_on "Sign Up"
 end
@@ -74,6 +76,8 @@ Then /^I should be on the User Home Page$/ do
     page.should have_content "Top Advertisments"
 end
 
+
+#SIGN IN WITH GOOGLE 
 
 
 
