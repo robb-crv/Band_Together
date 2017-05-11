@@ -69,6 +69,8 @@ gem 'city-state'
 
 gem 'countries', :require => 'countries/global'
 
+gem "fakeweb", "~> 1.3"
+
 group :test do 
 
   #.roberto
