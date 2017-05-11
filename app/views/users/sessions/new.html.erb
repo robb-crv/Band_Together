@@ -1,29 +1,38 @@
-<h2>Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+<div class="row">
+  <h2 align="center">Log in</h2>
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:session, url: new_user_session_path) do |f| %>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-  <div>
-    <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
-    <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
-  </div>
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+      
+      <% if devise_mapping.rememberable? -%>
+      <br/>
+
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+      <% end -%>
+      
+      <br/>
+      <%= f.submit "Log in", class: "btn btn-primary" %>
+    <% end %>
+    <br/>
+    <div>
+      <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
+      <br/>
+      <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
     </div>
-  <% end -%>
+    <br/>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <p>New user? <%= link_to "Sign up now!", new_user_registration_path %></p>
   </div>
-<% end %>
+</div>
 
-<%= render "users/shared/links" %>
+
+<!--<%= render "users/shared/links" %>-->
