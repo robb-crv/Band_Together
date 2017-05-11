@@ -1,3 +1,4 @@
+
 class Users::SessionsController < Devise::SessionsController
 # before_action :configure_sign_in_params, only: [:create]
  
@@ -10,9 +11,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
 
     #.roberto estraggo lo user dal db con "where email=email_inserita"
-    #if !params[:session]
     user= User.find_by(email: params[:session][:email].downcase) 
-      
 
     #.roberto verifico che l'utente che ho estratto dal db corrisponda alla pwd inserita
     if user && user.authenticate(params[:session][:password])
