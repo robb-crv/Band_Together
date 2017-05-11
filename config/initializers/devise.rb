@@ -8,18 +8,15 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '1b1354e8aefac71fdd70208ebe8bb8e84a17723d4dd2b0a3a07e155281db766a7e994bb0047894bd9ca1981e3f3e2d24b0e29a213288389d5324b1d01c3a5443'
 
-
   require 'omniauth-google-oauth2'
   require 'omniauth-facebook'
   
   #andrea chiavi d'accesso applicazione google
   config.omniauth :google_oauth2, "298086471867-8kq3n7bvl5m7cv43ffh9i5cfks07nntl.apps.googleusercontent.com", "gaGjcMl-3CU4R4KtPvGsjsAf",
-                  redirect_uri: "/users/auth/google_oauth2/callback"
+                  redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback"
 
   #andrea chiavi di accesso all'applicazione fb
   config.omniauth :facebook, "625050674363213", "3a768b0b89d6d5da459d1186d75ea8af",redirect_uri: "/users/auth/facebook/callback"
-
-
 
 
   # ==> Mailer Configuration
