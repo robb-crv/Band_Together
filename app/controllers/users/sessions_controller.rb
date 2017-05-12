@@ -27,7 +27,15 @@ class Users::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
-     super
+    
+    #user= User.find(params[:id])
+    
+    session[:user_id]= nil   
+    @current_user = nil   
+    flash[:success] = "user deleted"
+    
+    redirect_to root_path
+
   end
 
   # protected

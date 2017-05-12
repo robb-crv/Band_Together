@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:google_oauth2,:facebook]
 
+  #attr_accessor :email
   include ActiveModel::Validations
 
   #Custom Validators

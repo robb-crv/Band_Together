@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
     <meta charset="utf-8">
@@ -70,6 +69,17 @@
     <% if signed_in? %>
      <h1> Home Page</h1>
      <h4> questa è l'home page che vede l'utente loggato</h4>
+
+     <p>esiste current user? 
+        <% if current_user == nil %>
+            <p> si</p>
+        <%else %>
+            <p>no</p>
+        <%end%>
+    </p>     
+    <a>
+     <%= button_to "log out", destroy_user_session_path, :class => "btn btn-primary btn-md", :method => "delete" %>
+    </a>                    
     <% else%>
 
     <!-- Intro Header -->
