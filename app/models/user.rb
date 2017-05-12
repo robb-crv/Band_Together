@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:google_oauth2,:facebook]
 
-  #attr_accessor :email
+  #attr_accessor :remember_token
   include ActiveModel::Validations
 
   #Custom Validators
@@ -96,6 +96,11 @@ class  TypeValidator < ActiveModel::EachValidator
       user.username = auth.info.email.split("@").first
       user.password = Devise.friendly_token[0,20]
     end
+  end
+
+  # Returns a random token.
+  def User.new_token
+    SecureRandom.urlsafe_base64
   end
 
 end

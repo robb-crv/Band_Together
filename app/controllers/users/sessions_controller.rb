@@ -1,5 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
-# before_action :configure_sign_in_params, only: [:create]
+before_action :configure_sign_in_params, only: [:create, :destroy]
  
   # GET /resource/sign_in
   def new
@@ -15,8 +15,8 @@ class Users::SessionsController < Devise::SessionsController
     #.roberto verifico che l'utente che ho estratto dal db corrisponda alla pwd inserita
     if user && user.authenticate(params[:session][:password])
       #.roberto  if true -> loggo l'utente
-      log_in user
-      redirect_to user
+      sign_in user
+      redirect_to root_path, :notice => 'Logged in successfully'
     else
       #.roberto altrimenti mostro messaggio d'errore
       # mostriamo un pop-up con flash.now[:danger]
@@ -28,12 +28,7 @@ class Users::SessionsController < Devise::SessionsController
   # DELETE /resource/sign_out
   def destroy
     
-    #user= User.find(params[:id])
-    
-    session[:user_id]= nil   
-    @current_user = nil   
-    flash[:success] = "user deleted"
-    
+    sign_out   
     redirect_to root_path
 
   end
@@ -41,7 +36,7 @@ class Users::SessionsController < Devise::SessionsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+  def configure_sign_in_params
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password, :id])
+  end
 end
