@@ -128,7 +128,6 @@ And /^Facebook authorizes me$/ do
     visit user_facebook_omniauth_callback    
 end 
 
-#SIGN IN WITH GOOGLE 
 
 
 
