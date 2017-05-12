@@ -28,23 +28,23 @@ class  TypeValidator < ActiveModel::EachValidator
       record.errors.add attribute, "Non è un genere musicale supportato" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", ""].include? value
     end
   end
-  
+
    #Nation validation
 
   	class  NationValidator < ActiveModel::EachValidator
 
     	def validate_each(record, attribute, value)
-      		record.errors.add attribute, "Non è una nazione valida" unless CS.countries.has_value? value      
+      		record.errors.add attribute, "Non è una nazione valida" unless CS.countries.has_value? value
     	end
   	end
-  
+
 
     #Region validation
 
   	class  RegionValidator < ActiveModel::EachValidator
 
     	def validate_each(record, attribute, value)
-      	record.errors.add attribute, "Non è una regione valida" unless CS.states(CS.countries.key(record.nation)).has_value? value      
+      	record.errors.add attribute, "Non è una regione valida" unless CS.states(CS.countries.key(record.nation)).has_value? value
     	end
   	end
 	#Validations
@@ -65,7 +65,7 @@ class  TypeValidator < ActiveModel::EachValidator
 	#Stringa composta da caratteri alfanumerici, underscore, dash, "+"" e "."
 	VALID_USERNAME_REGEX = /\A[\w+\-.]+\z/i
   validates :username, presence: true, length: {maximum: 64}, format: {with: VALID_USERNAME_REGEX}, uniqueness: {case_sensitive: false}
-	#LA VALIDAZIONE DELL'EMAIL VIENE GESTITA DA DEVISE 
+	#LA VALIDAZIONE DELL'EMAIL VIENE GESTITA DA DEVISE
 	#VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z\d\-.]+\z/i
 	#validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
 	VALID_NAME_REGEX = /\A[A-Z]'?[- a-zA-Z]+( [a-zA-Z])*\z/
@@ -73,7 +73,7 @@ class  TypeValidator < ActiveModel::EachValidator
 	validates :last_name, allow_blank: false, length: {maximum: 50}, format: {with: VALID_NAME_REGEX}, allow_nil: true
 	validates_date :birth, allow_blank: false, allow_nil: true, :after => '1900-1-1', :before => lambda{Date.current}
 	validates :nation, allow_blank: false, length: {maximum: 50}, nation: true, allow_nil: true
-	validates :region, allow_blank: false, length: {maximum: 50}, allow_nil: true, region: true 
+	validates :region, allow_blank: false, length: {maximum: 50}, allow_nil: true, region: true
 	VALID_GENDER_REGEX = /[MF]/
 	validates :gender, allow_blank: false, length: {maximum: 1}, format: {with: VALID_GENDER_REGEX}, allow_nil: true
   validates :type_of_musician, length: {maximum: 50}, type: true, allow_nil: true
