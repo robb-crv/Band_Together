@@ -64,6 +64,11 @@ gem 'jbuilder', '~> 2.5'
 #ValidatesTimeliness provides complete validation of dates, times and datetimes
 gem 'validates_timeliness', '~> 4.0'
 
+#immagine utente 
+gem 'gravatar-ultimate'
+
+gem 'gravtastic'
+
 #city-state is a very simple ruby gem to get a list of states in a country. Also, you can get a list of cities in a state, and a list of all countries of the world.
 gem 'city-state'
 
