@@ -21,14 +21,18 @@ before_action :configure_sign_up_params, only: [:create]
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+   def edit
+     @user = current_user
+   end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+   def update
+     if @user.save
+       redirect_to @user
+     else
+       render edit_registration_path
+     end
+   end
 
   # DELETE /resource
   # def destroy

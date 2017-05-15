@@ -1,5 +1,8 @@
 <h2>Sign up</h2>
 
+
+
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -51,9 +54,9 @@
 
   <br>
 
-<!-- 
+<!--
 
-    I campi della nazione e della regione sono stati modificati e sono diventati delle select. Il campo della regione si basa sul valore scelto 
+    I campi della nazione e della regione sono stati modificati e sono diventati delle select. Il campo della regione si basa sul valore scelto
     dall'utente nel campo nazione per mostreare le regioni della nazione scelta
 
     RezeR
@@ -74,6 +77,7 @@
       <option value="" selected="">Select state/province</option>
     </select>
 
+
     <!-- Script che genera la select "region" quando viene selezionata una nazione nella select "nation" - RezeR -->
 
     <script>
@@ -85,8 +89,8 @@
             var opt = '<option value='+ ele +'>' + ele + '</option>';
             $('#states-of-country').append(opt);
           });
-          $("#user_region").val($('#states-of-country').find(":selected").text()); //Setta il value del campo hidden region al primo valore selezionato nella select "region" 
-        });                   
+          $("#user_region").val($('#states-of-country').find(":selected").text()); //Setta il value del campo hidden region al primo valore selezionato nella select "region"
+        });
       });
     </script>
 
@@ -95,8 +99,13 @@
     <script>
       $('#states-of-country').change(function(){
         $("#user_region").val($(this).find(":selected").text());
-      });      
+      });
     </script>
+
+
+
+
+
   </div>
 
 
@@ -104,12 +113,12 @@
 
   <!--
   I due campi hidden "nation" e "region" servono per salvare i valori della nazione e della regione selezioni e che verranno passati alla POST.
-  RezeR    
+  RezeR
   -->
 
   <div class="field">
     <%= f.hidden_field :nation %>
-    <%= f.hidden_field :region %>    
+    <%= f.hidden_field :region %>
   </div>
 
   <div class="field">
@@ -118,7 +127,7 @@
       <% ["Drummer", "Lead_guitarist", "Rhythmic_guitarist", "Bass_guitarist", "Keyboardist", "Singer", "Winds"].each do |c|%>
         <%= content_tag(:option, c, value: c) %>
       <% end %>
-    <% end %>  
+    <% end %>
   </div>
 
   <br>
@@ -129,8 +138,8 @@
       <% ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"].each do |c|%>
         <%= content_tag(:option, c, value: c) %>
       <% end %>
-    <% end %>  
-  </div> 
+    <% end %>
+  </div>
 
   <br>
 

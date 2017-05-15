@@ -39,7 +39,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                
+
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -70,19 +70,23 @@
      <h1> Home Page</h1>
      <h4> questa è l'home page che vede l'utente loggato</h4>
 
-     
 
-     <p>esiste current user? 
+
+     <p>esiste current user?
         <%= current_user.inspect %>
         <% if current_user == nil %>
             <p> no</p>
         <%else %>
             <p>si</p>
         <%end%>
-    </p>     
+    </p>
     <a>
      <%= button_to "log out", destroy_user_session_path, :class => "btn btn-primary btn-md", :method => "delete" %>
-    </a>                    
+    </a>
+
+    <a>
+     <%= button_to "Settings", edit_user_registration_path, :class => "btn btn-primary btn-md", :method => "get" %>
+    </a>
     <% else%>
 
     <!-- Intro Header -->
@@ -93,7 +97,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <h1 class="brand-heading">BandTogether</h1>
                         <p class="intro-text">You'll never play alone</p>
-                        <br/>   
+                        <br/>
                         <%= button_to "Sign Up", new_user_registration_path, :class => "btn btn-primary btn-lg", :method => "get" %>
                         </a>
                     </div>
@@ -146,4 +150,3 @@
     <script src="app/assets/javascript/home_page.min.js"></script>
 </body>
 </html>
-
