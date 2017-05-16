@@ -1,6 +1,4 @@
 
-
-
 #STATIC PAGES FEATURE
 Given /^I am on the Home Page$/ do
     visit root_path
@@ -14,7 +12,7 @@ When /^I follow "Contacts"$/ do
     click_on "Contacts"
 end
 
- When /^I follow "About"$/ do
+When /^I follow "About"$/ do
       click_on "About"
  end
 
@@ -108,9 +106,6 @@ When /^I fill in 'Email' with 'mariorossi@gmail.com'$/ do
      fill_in('Email', with: 'mariorossi@gmail.com')
 end
 
-And /^I fill in 'Password' with '123456'$/ do
-   fill_in('Password', with: '123456')
-end
 
 When /^I follow 'Sign in with Google'$/ do
    click_on "Sign in with Google"
@@ -129,3 +124,21 @@ And /^Facebook authorizes me$/ do
 end
 
 #SIGN IN WITH GOOGLE
+
+
+#LOG OUT 
+Given /^I am on the User Profile Page$/ do
+    visit users_show_path
+end
+
+When /^I follow Sign Out$/ do
+    
+    #find(:css, ".btn-primary[id='SignOut']").click
+    find(:xpath, '//input[@id="SignOut"]')
+end
+
+Then /^I should be on the Home Page$/ do
+    expect(page.current_path).to eq root_path
+end
+
+
