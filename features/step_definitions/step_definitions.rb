@@ -108,9 +108,6 @@ When /^I fill in 'Email' with 'mariorossi@gmail.com'$/ do
      fill_in('Email', with: 'mariorossi@gmail.com')
 end
 
-And /^I fill in 'Password' with '123456'$/ do
-   fill_in('Password', with: '123456')
-end
 
 When /^I follow 'Sign in with Google'$/ do
    click_on "Sign in with Google"
