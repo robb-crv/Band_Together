@@ -77,8 +77,10 @@ group :test do
   #run cucumber with: [bundle exec] cucumber
   gem 'cucumber-rails', :require => false
 
-  gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  #gem 'selenium-webdriver'
+  #gem 'chromedriver-helper'
+
+  gem "capybara-webkit"
   
   
 

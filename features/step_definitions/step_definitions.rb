@@ -33,7 +33,7 @@ When /^I follow "Sign Up"$/ do
 end
 
 Then /^I should be on the Sign Up Page$/ do
-    expect(page).to have_content "Sign up"
+    expect(page.current_path).to eq new_user_registration_path 
 end
 
 When /^I fill in "Username" with "rossimario95"$/ do
@@ -74,6 +74,7 @@ And /^I select "Italy" from "nation"$/ do
 end
 
 And /^I select "Latium" from "region"$/ do
+    expect(page.current_path).to eq 'application#states'
     select('Latium', from: 'region')
 end
 
@@ -89,7 +90,7 @@ And /^I press "Submit"$/ do
     click_on "Submit"
 end
 
-Then /^I should be on the User Home Page$/ do
+Then /^I should be on the 'User Home Page'$/ do
     expect(page).to have_content "questa è l'home page che vede l'utente loggato"
 end
 
