@@ -46,7 +46,7 @@
      <h4> questa è l'home page che vede l'utente loggato</h4>
          
     <a>
-        <%= button_to "log out", destroy_user_session_path, :class => "btn btn-primary btn-md", :method => "delete" %>
+        <%= button_to "Sign Out", destroy_user_session_path, :class => "btn btn-primary btn-md", :method => "delete" %>
         <br/>
         <%= button_to "Profile", users_show_path, :class => "btn", :method => "show" %>
     </a>                    
