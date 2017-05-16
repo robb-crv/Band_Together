@@ -76,6 +76,9 @@ group :test do
   #.roberto
   #run cucumber with: [bundle exec] cucumber
   gem 'cucumber-rails', :require => false
+
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
   
   
 

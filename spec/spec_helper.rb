@@ -52,6 +52,11 @@ RSpec.configure do |config|
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
+  config.before(:each, type: :feature) do
+    # Note (Mike Coutermarsh): Make browser huge so that no content is hidden during tests
+    Capybara.current_session.driver.browser.manage.window.resize_to(2_500, 2_500)
+  end
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin

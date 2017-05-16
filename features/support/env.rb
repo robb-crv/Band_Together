@@ -6,6 +6,18 @@
 
 require 'cucumber/rails'
 
+Capybara.register_driver :selenium do |app|  
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.javascript_driver = :chrome
+
+Capybara.configure do |config|  
+  config.default_max_wait_time = 10 # seconds
+  config.default_driver        = :selenium
+end  
+
+
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -51,6 +63,32 @@ end
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
+
+
+Before('@omniauth_test') do
+
+	Omniauth.config.test_mode = true
+	Capybara.default_host = "http://example.com"
+
+	OmniAuth.config.add_mock(:google_oauth2, {
+    	:uid => '12345',
+    	:info => {
+      		:name => 'googleuser'
+    	}
+  	})
+
+  	OmniAuth.config.add_mock(:facebook, {
+    	:uid => '12345',
+    	:info => {
+      		:name => 'facebookuser'
+    	}
+  	})
+	
+end
+
+After('@omniauth_test') do
+  OmniAuth.config.test_mode = false
+end
 
 # Possible values are :truncation and :transaction
 # The :transaction strategy is faster, but might give you threading problems.
