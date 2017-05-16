@@ -1,43 +1,36 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 before_action :configure_sign_up_params, only: [:create]
-# before_action :configure_account_update_params, only: [:update]
+before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+   def new
+     super
+   end
 
   # POST /resource
   def create
-    @user = User.new()
-
-    if @user.save
-
-      redirect_to @user
-    else
-
-      render new_user_registration_path
-    end
+    super
   end
+
 
   # GET /resource/edit
    def edit
-     @user = current_user
+     super
    end
+
 
   # PUT /resource
    def update
-     if @user.save
-       redirect_to @user
-     else
-       render edit_registration_path
-     end
+     super
    end
 
+
+
+
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+   def destroy
+     super
+   end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
@@ -60,9 +53,13 @@ before_action :configure_sign_up_params, only: [:create]
   end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+   def configure_account_update_params
+    # devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+    devise_parameter_sanitizer.permit :account_update,  keys: [:username, :email, :first_name, :last_name,
+                                                       :gender, :birth, :nation, :password,
+                                                       :password_confirmation, :region, :type_of_musician,
+                                                       :musical_genre]
+   end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

@@ -112,6 +112,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
+#ANDREA email faker, si avvia con mailcatcher da terminale e si vedono le email sul url localhost:1080
   gem 'mailcatcher'
 end
 

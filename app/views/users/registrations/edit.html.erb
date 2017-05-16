@@ -116,7 +116,7 @@
     <%= f.label :type_of_musician, "Instrument played" %><br/>
     <%= f.select(:type_of_musician) do %>
       <% ["Drummer", "Lead_guitarist", "Rhythmic_guitarist", "Bass_guitarist", "Keyboardist", "Singer", "Winds"].each do |c|%>
-        <%= content_tag(:option, c, value: c) %>
+        <%= content_tag(:option, c, value: c, selected: c == current_user.type_of_musician) %>
       <% end %>
     <% end %>
   </div>
@@ -127,7 +127,7 @@
     <%= f.label :musical_genre, "Favourite musical genre" %><br/>
     <%= f.select(:musical_genre) do %>
       <% ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"].each do |c|%>
-        <%= content_tag(:option, c, value: c) %>
+        <%= content_tag(:option, c, value: c, selected: c == current_user.musical_genre) %>
       <% end %>
     <% end %>
   </div>
