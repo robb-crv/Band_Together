@@ -7,7 +7,6 @@ before_action :configure_sign_in_params, only: [:create, :destroy]
   end
 
 
-
   # POST /resource/sign_in
   def create
 
