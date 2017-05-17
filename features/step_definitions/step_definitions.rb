@@ -4,8 +4,8 @@ Given /^I am on the Home Page$/ do
     visit root_path
 end
 
-Then /^I should see "You'll never play alone"$/ do
-    expect(page).to have_content "You'll never play alone"
+Then /^I should see "You'll never play alone!"$/ do
+    expect(page).to have_content "You'll never play alone!"
 end
 
 When /^I follow "Contact"$/ do
@@ -25,7 +25,7 @@ Then /^I should see the About Page$/ do
 end
 
 
-#SIGN UP FEATURE
+#SIGN UP FEATURE 
 When /^I follow "Sign Up"$/ do
     click_on "Sign Up"
 end
@@ -87,20 +87,22 @@ And /^I press "Submit"$/ do
     click_on "Submit"
 end
 
-Then /^I should be on the "User Home Page"$/ do
-    expect(page).to have_content "questa è l'home page che vede l'utente loggato"
+
+Then /^I should be on the User Home Page$/ do
+    expect(page).to have_current_path(root_path)
 end
 
 
-#Sign in feature
+#Sign in via application
 
-When /^I follow "Sign In"$/ do
+When /^I follow 'Sign In'$/ do
     click_on "Sign In"
 end
 
 Then /^I should be on the Sign In Page$/ do
     expect(page).to have_content "Log in"
 end
+
 
 When /^I fill in "Email" with "mariorossi@gmail.com"$/ do
      fill_in("Email", with: "mariorossi@gmail.com")
@@ -122,22 +124,20 @@ And /^Facebook authorizes me$/ do
     visit user_facebook_omniauth_callback
 end
 
-#SIGN IN WITH GOOGLE
-
 
 #LOG OUT
 Given /^I am on the User Profile Page$/ do
+
     visit users_show_path
 end
 
-When /^I follow Sign Out$/ do
-
-    #find(:css, ".btn-primary[id="SignOut"]").click
-    find(:xpath, '/input[@id="SignOut"]')
+When /^I follow 'Sign Out'$/ do
+     
+    find(:css, '.btn-primary').click
 end
 
 Then /^I should be on the Home Page$/ do
-    expect(page.current_path).to eq root_path
+    expect(page).to have_current_path(root_path) 
 end
 
 #MODIFY PROFILE INFORMATIONS
