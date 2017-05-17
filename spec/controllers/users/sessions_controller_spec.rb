@@ -2,10 +2,18 @@ require 'rails_helper'
 
 RSpec.describe Users::SessionsController, type: :controller do
 
-	scenario 'allow a user to log in' do
-
-		render new_user_session_path	
+	
+	context "when user is registered" do 
 		
+		#se i parametri sono giusti 
+		it ""
+
+		#se i parametri non sono giusti 
+  	
+  	end
+
+  	context "when user is not registered" do 
+
   	end
 
 end

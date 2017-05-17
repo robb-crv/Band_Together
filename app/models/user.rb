@@ -1,10 +1,15 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
+
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:google_oauth2,:facebook]
+         :omniauthable, :confirmable, :omniauth_providers => [:google_oauth2,:facebook]
 
+  #is_gravtastic!
+  
+
+  #attr_accessor :remember_token
   include ActiveModel::Validations
 
   #Custom Validators
@@ -95,6 +100,11 @@ class  TypeValidator < ActiveModel::EachValidator
       user.username = auth.info.email.split("@").first
       user.password = Devise.friendly_token[0,20]
     end
+  end
+
+  # Returns a random token.
+  def User.new_token
+    SecureRandom.urlsafe_base64
   end
 
 end

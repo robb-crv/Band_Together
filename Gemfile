@@ -64,6 +64,11 @@ gem 'jbuilder', '~> 2.5'
 #ValidatesTimeliness provides complete validation of dates, times and datetimes
 gem 'validates_timeliness', '~> 4.0'
 
+#immagine utente 
+gem 'gravatar-ultimate'
+
+gem 'gravtastic'
+
 #city-state is a very simple ruby gem to get a list of states in a country. Also, you can get a list of cities in a state, and a list of all countries of the world.
 gem 'city-state'
 
@@ -71,13 +76,13 @@ gem 'countries', :require => 'countries/global'
 
 gem "fakeweb", "~> 1.3"
 
-group :test do 
+group :test do
 
   #.roberto
   #run cucumber with: [bundle exec] cucumber
   gem 'cucumber-rails', :require => false
-  
-  
+
+
 
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
@@ -94,8 +99,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
 
-  #Rspec-rails è un testing framework 
-  #usato per attuare il TDD 
+  #Rspec-rails è un testing framework
+  #usato per attuare il TDD
   #rspec command to run your specs: bundle exec rspec
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
 
@@ -111,6 +116,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+#ANDREA email faker, si avvia con mailcatcher da terminale e si vedono le email sul url localhost:1080
+  gem 'mailcatcher'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
