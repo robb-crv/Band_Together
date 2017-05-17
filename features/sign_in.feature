@@ -5,25 +5,25 @@ Feature: Generic User signs in on the application
 
 	Scenario: Sign in via the application
 
-		Given I am on the 'Home Page'
+		Given I am on the Home Page
 		When I follow 'Sign In'
-		Then I should be on the 'Sign In Page'
+		Then I should be on the Sign In Page
 		When I fill in 'Email' with 'mariorossi@gmail.com'
 		And I fill in 'Password' with '1234'
-		Then I should be on the 'User Home Page'
+		Then I should be on the User Home Page
 
 	Scenario: Sign in via Google
-		Given I am on the 'Home Page'
-		When I follow 'Sign In'
-		Then I should be on the 'Sign In Page'
+		Given I am on the Home Page
+		When I follow 'Sign In with Google'
+		Then I should be on the Sign In Page
 		When I follow 'Sign in with Google'
 		And Google authorizes me
-		Then I should be on the 'User Home Page'
+		Then I should be on the User Home Page
 
 	Scenario: Sign in via Facebook
-		Given I am on the 'Home Page'
+		Given I am on the Home Page
 		When I follow 'Sign In'
-		Then I should be on the 'Sign In Page'
-		When I follow 'Sign in with Facebook'
+		Then I should be on the Sign In Page
+		When I follow 'Sign in with Facebook'  
 		And Facebook authorizes me
-		Then I should be on the 'User Home Page'
+		Then I should be on the User Home Page

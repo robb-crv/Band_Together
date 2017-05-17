@@ -5,7 +5,7 @@ Given /^I am on the Home Page$/ do
 end
 
 Then /^I should see "You'll never play alone!"$/ do
-    page.should have_content "You'll never play alone!"
+    expect(page).to have_content "You'll never play alone!"
 end
 
 When /^I follow "Contacts"$/ do
@@ -92,9 +92,9 @@ Then /^I should be on the User Home Page$/ do
 end
 
 
-#Sign in feature
+#Sign in via application
 
-When /^I follow "Sign In"$/ do
+When /^I follow 'Sign In'$/ do
     click_on "Sign In"
 end
 
@@ -107,12 +107,10 @@ When /^I fill in 'Email' with 'mariorossi@gmail.com'$/ do
 end
 
 
+#Sign in via Google
+
 When /^I follow 'Sign in with Google'$/ do
    click_on "Sign in with Google"
-end
-
-When /^I follow 'Sign in with Facebook'$/ do
-   click_on "Sign in with Facebook"
 end
 
 And /^Google authorizes me$/ do
@@ -123,22 +121,28 @@ And /^Facebook authorizes me$/ do
     visit user_facebook_omniauth_callback
 end
 
-#SIGN IN WITH GOOGLE
+
+
+#Sign in via facebook
+When /^I follow 'Sign in with Facebook'$/ do
+   click_on "Sign in with Facebook"
+end
 
 
 #LOG OUT 
 Given /^I am on the User Profile Page$/ do
+
     visit users_show_path
 end
 
-When /^I follow Sign Out$/ do
-    
-    #find(:css, ".btn-primary[id='SignOut']").click
-    find(:xpath, '//input[@id="SignOut"]')
+When /^I follow 'Sign Out'$/ do
+     
+    find(:css, '.btn-primary').click
 end
 
 Then /^I should be on the Home Page$/ do
-    expect(page.current_path).to eq root_path
+
+    expect(page).to have_current_path(root_path) 
 end
 
 
