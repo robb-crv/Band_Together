@@ -22,9 +22,13 @@
 RSpec.configure do |config|
   require 'factory_girl_rails'
   require 'support/factory_girl'
+  require 'cucumber/rails'
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+
+  Capybara.javascript_driver = :webkit
+  
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
@@ -51,6 +55,11 @@ RSpec.configure do |config|
   # inherited by the metadata hash of host groups and examples, rather than
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.before(:each, type: :feature) do
+    # Note (Mike Coutermarsh): Make browser huge so that no content is hidden during tests
+    Capybara.current_session.driver.browser.manage.window.resize_to(2_500, 2_500)
+  end
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

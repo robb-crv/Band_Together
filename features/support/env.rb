@@ -6,6 +6,9 @@
 
 require 'cucumber/rails'
 
+Capybara.javascript_driver = :webkit
+Capybara.default_max_wait_time = 5
+
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -52,8 +55,33 @@ end
 #   end
 #
 
+
+Before('@omniauth_test') do
+
+	Omniauth.config.test_mode = true
+	Capybara.default_host = "http://example.com"
+
+	OmniAuth.config.add_mock(:google_oauth2, {
+    	:uid => '12345',
+    	:info => {
+      		:name => 'googleuser'
+    	}
+  	})
+
+  	OmniAuth.config.add_mock(:facebook, {
+    	:uid => '12345',
+    	:info => {
+      		:name => 'facebookuser'
+    	}
+  	})
+
+end
+
+After('@omniauth_test') do
+  OmniAuth.config.test_mode = false
+end
+
 # Possible values are :truncation and :transaction
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
-

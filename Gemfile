@@ -64,6 +64,11 @@ gem 'jbuilder', '~> 2.5'
 #ValidatesTimeliness provides complete validation of dates, times and datetimes
 gem 'validates_timeliness', '~> 4.0'
 
+#immagine utente
+gem 'gravatar-ultimate'
+
+gem 'gravtastic'
+
 #city-state is a very simple ruby gem to get a list of states in a country. Also, you can get a list of cities in a state, and a list of all countries of the world.
 gem 'city-state'
 
@@ -77,6 +82,9 @@ group :test do
   #run cucumber with: [bundle exec] cucumber
   gem 'cucumber-rails', :require => false
 
+#andrea. su ubuntu far girare il seguente comando prima di eseguire bundle install
+#'sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x'
+  gem "capybara-webkit"
 
 
   # database_cleaner is not required, but highly recommended

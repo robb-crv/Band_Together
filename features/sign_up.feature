@@ -2,9 +2,9 @@ Feature: Generic User Signs up on the application
   As a generic user	
   I can create an account
   Because I want to register an account
-  
-  Scenario: Generic User signs up
-    
+
+  @javascript  
+  Scenario: Generic User signs up    
     Given I am on the Home Page
     When I follow "Sign Up"
     Then I should be on the Sign Up Page
