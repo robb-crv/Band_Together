@@ -4,12 +4,17 @@ Given /^I am on the Home Page$/ do
     visit root_path
 end
 
+<<<<<<< HEAD
 Then /^I should see "You'll never play alone!"$/ do
     expect(page).to have_content "You'll never play alone!"
+=======
+Then /^I should see "You'll never play alone"$/ do
+    expect(page).to have_content "You'll never play alone"
+>>>>>>> master
 end
 
-When /^I follow "Contacts"$/ do
-    click_on "Contacts"
+When /^I follow "Contact"$/ do
+    click_on "Contact"
 end
 
 When /^I follow "About"$/ do
@@ -17,11 +22,11 @@ When /^I follow "About"$/ do
  end
 
 Then /^I should see Contact Page$/ do
-    page.should have_content "Contacts"
+    expect(page).to have_content "Contact"
 end
 
 Then /^I should see the About Page$/ do
-    page.should have_content "About"
+    expect(page).to have_content "About"
 end
 
 
@@ -31,7 +36,7 @@ When /^I follow "Sign Up"$/ do
 end
 
 Then /^I should be on the Sign Up Page$/ do
-    page.should have_content "Sign up"
+    expect(page.current_path).to eq new_user_registration_path 
 end
 
 When /^I fill in "Username" with "rossimario95"$/ do
@@ -59,7 +64,7 @@ And /^I fill in "Last name" with "Rossi"$/ do
 end
 
 And /^I select "Male" from "Gender"$/ do
-    select('Male', from: 'Gender')
+    find(:xpath, "//label[@for='user_gender']").click
 end
 
 And /^I fill in "Birth date" with "22-02-1955"$/ do
@@ -72,6 +77,7 @@ And /^I select "Italy" from "nation"$/ do
 end
 
 And /^I select "Latium" from "region"$/ do
+    expect(page.current_path).to eq 'application#states'
     select('Latium', from: 'region')
 end
 
@@ -87,8 +93,8 @@ And /^I press "Submit"$/ do
     click_on "Submit"
 end
 
-Then /^I should be on the User Home Page$/ do
-    page.should have_content "questa è l'home page che vede l'utente loggato"
+Then /^I should be on the 'User Home Page'$/ do
+    expect(page).to have_content "questa è l'home page che vede l'utente loggato"
 end
 
 
@@ -99,7 +105,7 @@ When /^I follow 'Sign In'$/ do
 end
 
 Then /^I should be on the Sign In Page$/ do
-    page.should have_content "Log in"
+    expect(page).to have_content "Log in"
 end
 
 When /^I fill in 'Email' with 'mariorossi@gmail.com'$/ do
@@ -108,6 +114,7 @@ end
 
 
 #Sign in via Google
+
 
 When /^I follow 'Sign in with Google'$/ do
    click_on "Sign in with Google"
@@ -144,5 +151,4 @@ Then /^I should be on the Home Page$/ do
 
     expect(page).to have_current_path(root_path) 
 end
-
 
