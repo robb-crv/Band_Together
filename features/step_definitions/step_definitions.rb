@@ -72,8 +72,8 @@ And /^I select "Italy" from "nation"$/ do
 end
 
 And /^I select "Latium" from "region"$/ do
-    expect(page.current_path).to eq 'application#states'
     select('Latium', from: 'region')
+    page.execute_script("$('#countries').trigger('change')")
 end
 
 And /^I select "Drummer" from "Instrument played"$/ do
