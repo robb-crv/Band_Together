@@ -142,7 +142,7 @@ end
 
 #MODIFY PROFILE INFORMATIONS
 
-Given /^I am logged in as "Mario Rossi"$/ do
+Given /^Exists user "Mario Rossi" with email: "mariorossi1998@randomdomain.com" and password: "123456"$/ do
   user = User.new({
             :email => "mariorossi1998@randomdomain.com",
             :username => "mario1998",
@@ -151,6 +151,9 @@ Given /^I am logged in as "Mario Rossi"$/ do
           })
   user.skip_confirmation!
   user.save
+end
+
+And /^I am logged in as "Mario Rossi"$/ do
   visit root_path
   click_on "Sign In"
   fill_in("Email", with: "mariorossi1998@randomdomain.com")

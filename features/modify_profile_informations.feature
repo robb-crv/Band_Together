@@ -5,7 +5,8 @@ Feature: Generic User modifies profile informations
 
 
 	Background: user is logged in as "Mario Rossi"
-		Given I am logged in as "Mario Rossi"
+		Given Exists user "Mario Rossi" with email: "mariorossi1998@randomdomain.com" and password: "123456"
+		And I am logged in as "Mario Rossi"
 		And I am on the User Home Page
 		And I follow "Settings"
 		Then I should be on the Edit User Profile Page
