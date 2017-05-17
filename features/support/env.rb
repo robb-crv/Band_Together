@@ -6,7 +6,7 @@
 
 require 'cucumber/rails'
 
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :webkit_debug
 
 
 # Capybara defaults to CSS3 selectors rather than XPath.
