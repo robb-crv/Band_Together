@@ -4,13 +4,8 @@ Given /^I am on the Home Page$/ do
     visit root_path
 end
 
-<<<<<<< HEAD
 Then /^I should see "You'll never play alone!"$/ do
     expect(page).to have_content "You'll never play alone!"
-=======
-Then /^I should see "You'll never play alone"$/ do
-    expect(page).to have_content "You'll never play alone"
->>>>>>> master
 end
 
 When /^I follow "Contact"$/ do
@@ -30,7 +25,7 @@ Then /^I should see the About Page$/ do
 end
 
 
-#SIGN UP FEATURE
+#SIGN UP FEATURE 
 When /^I follow "Sign Up"$/ do
     click_on "Sign Up"
 end
@@ -93,8 +88,8 @@ And /^I press "Submit"$/ do
     click_on "Submit"
 end
 
-Then /^I should be on the 'User Home Page'$/ do
-    expect(page).to have_content "questa è l'home page che vede l'utente loggato"
+Then /^I should be on the User Home Page$/ do
+    expect(page).to have_current_path(root_path)
 end
 
 
@@ -108,13 +103,25 @@ Then /^I should be on the Sign In Page$/ do
     expect(page).to have_content "Log in"
 end
 
-When /^I fill in 'Email' with 'mariorossi@gmail.com'$/ do
-     fill_in('Email', with: 'mariorossi@gmail.com')
+When /^I fill in 'Email' with 'roberto.caravelli@bello.com'$/ do
+     fill_in('Email', with: 'roberto.caravelli@bello.com')
+end
+
+And /^I fill in 'Password' with 'roberto'$/ do
+   fill_in('Password', with: 'roberto')
+end
+
+And /^I follow 'Log in' button$/ do
+  click_on "Log in"
+end
+
+And /^I wait (\d+) seconds?$/ do |seconds|
+  sleep seconds.to_i
 end
 
 
-#Sign in via Google
 
+#Sign in via Google
 
 When /^I follow 'Sign in with Google'$/ do
    click_on "Sign in with Google"
@@ -148,7 +155,6 @@ When /^I follow 'Sign Out'$/ do
 end
 
 Then /^I should be on the Home Page$/ do
-
     expect(page).to have_current_path(root_path) 
 end
 

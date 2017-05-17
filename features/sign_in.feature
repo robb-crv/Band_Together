@@ -8,8 +8,10 @@ Feature: Generic User signs in on the application
 		Given I am on the Home Page
 		When I follow 'Sign In'
 		Then I should be on the Sign In Page
-		When I fill in 'Email' with 'mariorossi@gmail.com'
-		And I fill in 'Password' with '1234'
+		When I fill in 'Email' with 'roberto.caravelli@bello.com'
+		And I fill in 'Password' with 'roberto'
+		And I follow 'Log in' button
+		And I wait 10 seconds
 		Then I should be on the User Home Page
 
 	Scenario: Sign in via Google
