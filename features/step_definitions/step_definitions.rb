@@ -66,14 +66,13 @@ And /^I fill in "Birth date" with "22-02-1955"$/ do
     fill_in("Birth date", with: "22/02/1955")
 end
 
-
 And /^I select "Italy" from "nation"$/ do
-    select("Italy", from: "nation")
+    select('Italy', from: 'nation')
+    page.execute_script("$('#countries').trigger('change')")
 end
 
 And /^I select "Latium" from "region"$/ do
-    expect(page.current_path).to eq "application#states"
-    select("Latium", from: "region")
+    select('Latium', from: 'region')
 end
 
 And /^I select "Drummer" from "Instrument played"$/ do
