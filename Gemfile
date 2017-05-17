@@ -82,6 +82,7 @@ group :test do
   #run cucumber with: [bundle exec] cucumber
   gem 'cucumber-rails', :require => false
 
+  gem "capybara-webkit"
 
 
   # database_cleaner is not required, but highly recommended
