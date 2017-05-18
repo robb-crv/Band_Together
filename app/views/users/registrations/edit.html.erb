@@ -76,6 +76,8 @@
 
   <!-- Script che genera la select "region" quando viene selezionata una nazione nella select "nation" - RezeR -->
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+
   <script>
     $('#countries').change(function(){
       $("#user_nation").val($(this).find(":selected").text()); //Setta il value del campo hidden nation al valore selezionato nella select "nation"
@@ -138,12 +140,17 @@
   <br>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", :id => "Update" %>
   </div>
+
+
 <% end %>
+
+<!--
 
 <h3>Cancel my account</h3>
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+-->
 
 <%= link_to "Back", :back %>

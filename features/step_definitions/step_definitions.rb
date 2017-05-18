@@ -102,9 +102,6 @@ Then /^I should be on the Sign In Page$/ do
     expect(page).to have_content "Log in"
 end
 
-When /^I fill in "Email" with "mariorossi@gmail.com"$/ do
-     fill_in("Email", with: "mariorossi@gmail.com")
-end
 
 When /^I follow "Sign in with Google"$/ do
    click_on "Sign in with Google"
@@ -122,7 +119,6 @@ And /^Facebook authorizes me$/ do
     visit user_facebook_omniauth_callback
 end
 
-#SIGN IN WITH GOOGLE
 
 
 #LOG OUT
@@ -142,13 +138,19 @@ end
 
 #MODIFY PROFILE INFORMATIONS
 
-Given /^Exists user "Mario Rossi" with email: "mariorossi1998@randomdomain.com" and password: "123456"$/ do
+Given /^Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"$/ do
+=begin
   user = User.new({
-            :email => "mariorossi1998@randomdomain.com",
+            :email => "mariorossi@gmail.com",
             :username => "mario1998",
+            :first_name => "Mario",
+            :last_name => "Rossi",
             :password => "123456",
-            :password_confirmation => "123456"
+            :password_confirmation => "123456",
+
           })
+=end
+  user = FactoryGirl.build(:user, email: "mariorossi@gmail.com", password: "123456")
   user.skip_confirmation!
   expect(user.save).to eq true
 end
@@ -156,35 +158,48 @@ end
 And /^I am logged in as "Mario Rossi"$/ do
   visit root_path
   click_on "Sign In"
-  fill_in("Email", with: "mariorossi1998@randomdomain.com")
+  fill_in("Email", with: "mariorossi@gmail.com")
   fill_in("Password", with: "123456")
   click_on "Log in"
   expect(page.current_path).to eq root_path     #deve stare sulla root, per essere sicuri che si è loggati, altrimenti rimane sulla login
 end
 
 And /^I am on the User Home Page$/ do
-  visit root_path
   expect(page).to have_content "questa è l'home page che vede l'utente loggato"
 end
 
 And /^I follow "Settings"$/ do
-  
+  click_on "Settings"
 end
 
 Then /^I should be on the Edit User Profile Page$/ do
-
+    expect(page).to have_content "Edit User"
 end
 
-When /^I fill "First Name" with "Carlo"$/ do
-
+When /^I fill "First name" with "Carlo"$/ do
+  fill_in("First name", with: "Carlo")
 end
 
-And /^I fill "Last Name" with "Rossi"$/ do
+And /^I fill "Last name" with "Rossi"$/ do
+  fill_in("Last name", with: "Rossi")
+end
 
+And /^I fill "Current password" with "123456"$/ do
+  fill_in("Current password", with: "123456")
 end
 
 And /^I follow "Update"$/ do
-
+=begin
+  user = User.find_by_email("mariorossi@gmail.com")
+  puts current_path , user.email , user.username ,  user.last_name , user.first_name
+  #click_on "Update"
+=end
+  find(:css,"#Update").click
+=begin
+  user2 = User.find_by_email("mariorossi@gmail.com")
+  puts current_path , user2.email , user2.username ,  user2.last_name , user2.first_name
+  puts user2 == nil
+=end
 end
 
 
@@ -192,11 +207,12 @@ And /^I should see a feedback that confirm the changes$/ do
 
 end
 
-When /^I fill "First Name" with "carlo"$/ do
+When /^I fill "First name" with "carlo"$/ do
+  fill_in("First name", with: "carlo")
 end
 
-And /^I fill "Last Name" with "rossi"$/ do
-
+And /^I fill "Last name" with "rossi"$/ do
+  fill_in("Last name", with: "rossi")
 end
 
 And /^I should see a feedback that shows error$/ do

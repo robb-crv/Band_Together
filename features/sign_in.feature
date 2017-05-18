@@ -9,7 +9,7 @@ Feature: Generic User signs in on the application
 		When I follow "Sign In"
 		Then I should be on the Sign In Page
 		When I fill in "Email" with "mariorossi@gmail.com"
-		And I fill in "Password" with "1234"
+		And I fill in "Password" with "123456"
 		Then I should be on the User Home Page
 
 	Scenario: Sign in via Google
