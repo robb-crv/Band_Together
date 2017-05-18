@@ -11,7 +11,6 @@ Feature: Generic User signs in on the application
 		When I fill in 'Email' with 'roberto.caravelli@bello.com'
 		And I fill in 'Password' with 'roberto'
 		And I follow 'Log in' button
-		And I wait 10 seconds
 		Then I should be on the User Home Page
 
 	Scenario: Sign in via Google
