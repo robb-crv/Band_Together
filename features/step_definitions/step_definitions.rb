@@ -87,7 +87,7 @@ And /^I press "Submit"$/ do
     click_on "Submit"
 end
 
-Then /^I should be on the "User Home Page"$/ do
+Then /^I should be on the User Home Page$/ do
     expect(page).to have_content "questa è l'home page che vede l'utente loggato"
 end
 
@@ -130,7 +130,7 @@ Given /^I am on the User Profile Page$/ do
     visit users_show_path
 end
 
-When /^I follow Sign Out$/ do
+When /^I follow "Sign Out"$/ do
 
     #find(:css, ".btn-primary[id="SignOut"]").click
     find(:xpath, '/input[@id="SignOut"]')
@@ -174,7 +174,7 @@ Then /^I should be on the Edit User Profile Page$/ do
 
 end
 
-When /^I fill "Name" with "Carlo"$/ do
+When /^I fill "First Name" with "Carlo"$/ do
 
 end
 
@@ -186,18 +186,15 @@ And /^I follow "Update"$/ do
 
 end
 
-Then /^I should be on the User Home Page$/ do
-
-end
 
 And /^I should see a feedback that confirm the changes$/ do
 
 end
 
-When /^I fill "Name" with "carlo"$/ do			#andrea. qualsiasi nome che il model non convalida va bene!+
+When /^I fill "First Name" with "carlo"$/ do
 end
 
-And /^I fill "Last Name" with "rossi"$/ do   	#andrea. qualsiasi cognome che il model non convalida va bene!
+And /^I fill "Last Name" with "rossi"$/ do   	
 
 end
 
