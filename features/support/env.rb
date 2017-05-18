@@ -58,7 +58,7 @@ end
 
 Before('@omniauth_test') do
 
-	Omniauth.config.test_mode = true
+	OmniAuth.config.test_mode = true
 	Capybara.default_host = "http://example.com"
   Capybara.current_driver = :webkit
 

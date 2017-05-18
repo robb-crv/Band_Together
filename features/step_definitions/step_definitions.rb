@@ -58,6 +58,10 @@ And /^I fill in "Last name" with "Rossi"$/ do
     fill_in("Last name", with: "Rossi")
 end
 
+And /^I fill in "Birth date" with "22-02-1955"$/ do
+    fill_in("Birth date", with: "22/02/1955")
+end
+
 And /^I select "Male" from "Gender"$/ do
     find(:xpath, "//label[@for='user_gender']").click
 end
@@ -102,7 +106,7 @@ end
 When /^I follow "Sign in with Google"$/ do
   #$stdout.puts current_path
   #Omniauth.config.test_mode = true
-
+=begin
   Capybara.default_host = "http://example.com"
   Capybara.current_driver = :webkit
 
@@ -112,12 +116,13 @@ When /^I follow "Sign in with Google"$/ do
           :name => 'googleuser'
       }
     })
+=end
 
   #within("//div[@id='oauth']") do
     #find(:css, "#GoogleSignIn").click
     #find_link("Sign in with Google", href: "/users/auth/google_oauth2").click
   #end
-  visit new_user_session_path
+  #visit new_user_session_path
   find(:css, "#GoogleSignIn").click
 end
 
