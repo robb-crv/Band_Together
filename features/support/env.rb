@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+  require 'factory_girl_rails'
 
 
 Capybara.javascript_driver = :webkit_debug

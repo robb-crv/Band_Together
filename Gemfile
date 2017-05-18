@@ -89,6 +89,11 @@ group :test do
   gem "capybara-webkit"
 
 
+  #andrea. usato per debug in cucumber.
+  gem 'pry-rails'
+  gem 'pry-byebug'
+
+
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
 

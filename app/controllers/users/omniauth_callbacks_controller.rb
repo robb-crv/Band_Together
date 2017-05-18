@@ -2,7 +2,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
- 
+
 
   def facebook
     @user = User.find_for_facebook(request.env["omniauth.auth"])

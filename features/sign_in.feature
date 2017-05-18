@@ -13,7 +13,7 @@ Feature: Generic User signs in on the application
 		When I follow "Sign In"
 		Then I should be on the User Home Page
 
-	
+
 	Scenario: Sign in via Google
 		Given I am on the Home Page
 		When I follow "Sign In"
@@ -22,7 +22,7 @@ Feature: Generic User signs in on the application
 		And Google authorizes me
 		Then I should be on the User Home Page
 
-	
+
 	Scenario: Sign in via Facebook
 		Given I am on the Home Page
 		When I follow "Sign In"
