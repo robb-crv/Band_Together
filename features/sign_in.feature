@@ -4,14 +4,16 @@ Feature: Generic User signs in on the application
 	because I want to access to my personal account
 
 	Scenario: Sign in via the application
-
 		Given I am on the Home Page
+		Given Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"
 		When I follow "Sign In"
 		Then I should be on the Sign In Page
 		When I fill in "Email" with "mariorossi@gmail.com"
-		And I fill in "Password" with "1234"
+		And I fill in "Password" with "123456"
+		When I follow "Sign In"
 		Then I should be on the User Home Page
 
+	
 	Scenario: Sign in via Google
 		Given I am on the Home Page
 		When I follow "Sign In"
@@ -20,6 +22,7 @@ Feature: Generic User signs in on the application
 		And Google authorizes me
 		Then I should be on the User Home Page
 
+	
 	Scenario: Sign in via Facebook
 		Given I am on the Home Page
 		When I follow "Sign In"
