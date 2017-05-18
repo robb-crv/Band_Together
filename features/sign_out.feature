@@ -5,5 +5,10 @@ Feature: Generic User Sign Out from the application
 
 	Scenario: Sign Out
 		Given I am on the User Profile Page
+<<<<<<< HEAD
 		When I follow 'Sign Out'
 		Then I should be on the Home Page
+=======
+		When I follow "Sign Out"
+		Then I should be on the Home Page
+>>>>>>> 1396cd73c6bdf9ccf894604542e2710c8c6c9500
