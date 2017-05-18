@@ -150,7 +150,7 @@ Given /^Exists user "Mario Rossi" with email: "mariorossi1998@randomdomain.com" 
             :password_confirmation => "123456"
           })
   user.skip_confirmation!
-  user.save
+  expect(user.save).to eq true
 end
 
 And /^I am logged in as "Mario Rossi"$/ do
@@ -163,11 +163,12 @@ And /^I am logged in as "Mario Rossi"$/ do
 end
 
 And /^I am on the User Home Page$/ do
-
+  visit root_path
+  expect(page).to have_content "questa è l'home page che vede l'utente loggato"
 end
 
 And /^I follow "Settings"$/ do
-
+  
 end
 
 Then /^I should be on the Edit User Profile Page$/ do
@@ -194,7 +195,7 @@ end
 When /^I fill "First Name" with "carlo"$/ do
 end
 
-And /^I fill "Last Name" with "rossi"$/ do   	
+And /^I fill "Last Name" with "rossi"$/ do
 
 end
 
