@@ -24,16 +24,17 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+                    <% if !signed_in? %>
                     <li>
-                        
                         <%= link_to "Sign In", new_user_session_path, :class => "page-scroll", :method => "get" %>
                     </li>
+                    <%end%>
                     <li>
                         <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
+                    </li>    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
