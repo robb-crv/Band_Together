@@ -221,7 +221,11 @@ end
 
 
 And /^I should see a feedback that confirm the changes$/ do
+  expect(page).to have_css("div[class='alert alert-notice']")
+end
 
+And /^I should see a feedback that shows error$/ do
+   expect(page).to have_css("div#error_explanation")
 end
 
 When /^I fill "First name" with "carlo"$/ do
@@ -237,8 +241,8 @@ Then /^I should be on the User Profile Page$/ do
   expect(page.current_path).to eq users_show_path
 end
 
-When /^I follow "Profile"$/ do 
- 
+When /^I follow "Profile"$/ do
+
   find(:css, '#Profile').click
 end
 
