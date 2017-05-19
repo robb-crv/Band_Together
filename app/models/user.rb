@@ -86,6 +86,9 @@ class  TypeValidator < ActiveModel::EachValidator
 
   #Metodo utilizzato per l'autorizzazione dell'utente tramite google
   def self.find_for_google_oauth2(auth)
+    if user = User.where(email: auth['info']['email']).first
+      user
+    else
 
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
       user.email = auth.info["email"]
@@ -93,6 +96,7 @@ class  TypeValidator < ActiveModel::EachValidator
       user.password = Devise.friendly_token[0,20]
       user.skip_confirmation!
     end
+  end
   end
 
   def self.find_for_facebook(auth)
