@@ -9,8 +9,14 @@
 	<h2>Profilo utente</h2>
 
 
+	<h1>
+  <%= gravatar_for @user %>
+  <%= @user.username %>
+</h1>
+
+
 	 <p>Username: <%= @user.username %><br/>
-	 
+
 	 <p>Email: <%= @user.email %> </p><br/>
 
 	 <p> <%= @user.first_name %> <%= @user.last_name %> from <%= @user.nation %></p><br/>
@@ -18,8 +24,7 @@
 	 <p>I'm a <%= @user.musical_genre %> <%= @user.type_of_musician %> !</p><br/>
 
 	 <br/><%= button_to "Sign Out", destroy_user_session_path, :id => "SignOut", :class => "btn btn-danger btn-md", :method => "delete" %>
-	 
+
 </body>
 
 </html>
-	
