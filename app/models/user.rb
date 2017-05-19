@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :omniauthable, :confirmable, :omniauth_providers => [:google_oauth2,:facebook]
 
   #is_gravtastic!
-  
+
 
   #attr_accessor :remember_token
   include ActiveModel::Validations
@@ -91,6 +91,7 @@ class  TypeValidator < ActiveModel::EachValidator
       user.email = auth.info["email"]
       user.username = auth.info["email"].split("@").first
       user.password = Devise.friendly_token[0,20]
+      user.skip_confirmation!
     end
   end
 
@@ -99,6 +100,7 @@ class  TypeValidator < ActiveModel::EachValidator
       user.email = auth.info.email
       user.username = auth.info.email.split("@").first
       user.password = Devise.friendly_token[0,20]
+      user.skip_confirmation!
     end
   end
 
