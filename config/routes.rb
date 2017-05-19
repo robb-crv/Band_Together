@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   post 'users/show'
 
+  get 'grayscales/index'
+
   #resources :users, only: [:show, :edit, :update]
 #Route che serve nella form di signup per far apparire nella select della selezione della regione la lista delle regioni appartenenti alla nazione scelta dall'utente
   get '/states/:nation', to: 'application#states'

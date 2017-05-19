@@ -84,11 +84,12 @@ And /^I select "Rock" from "Favourite musical genre"$/ do
 end
 
 And /^I press "Submit"$/ do
-    click_on "Submit"
+   
+   find(:css, '#SignUp').click
 end
 
 Then /^I should be on the User Home Page$/ do
-    expect(page).to have_content "questa è l'home page che vede l'utente loggato"
+    expect(page.current_path).to eq root_path
 end
 
 
@@ -130,13 +131,21 @@ When /^I follow "Sign in with Facebook"$/ do
    click_on "Sign in with Facebook"
 end
 
-And /^Google authorizes me$/ do
-    visit user_google_oauth2_omniauth_callback_path
+And /^I am signed in with facebook$/ do 
+  
+  visit user_facebook_omniauth_authorize_path
 end
 
 And /^Facebook authorizes me$/ do
-    visit user_facebook_omniauth_callback_path
+    
+    expect(page.current_path).to eq user_facebook_omniauth_callback_path
 end
+
+And /^Google authorizes me$/ do
+    expect(page.current_path).to eq user_google_oauth2_omniauth_callback_path
+end
+
+
 
 #LOG OUT
 Given /^I am on the User Profile Page$/ do
