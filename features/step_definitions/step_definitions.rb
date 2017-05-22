@@ -89,7 +89,7 @@ And /^I press "Submit"$/ do
 end
 
 Then /^I should be on the User Home Page$/ do
-    expect(page.current_path).to eq root_path
+    expect(page.current_path).to eq static_pages_user_home_path
 end
 
 
@@ -141,8 +141,13 @@ And /^Facebook authorizes me$/ do
     expect(page.current_path).to eq user_facebook_omniauth_callback_path
 end
 
+And /^I am signed in with google$/ do 
+  
+  visit user_google_oauth2_omniauth_authorize_path
+end
+
 And /^Google authorizes me$/ do
-    expect(page.current_path).to eq user_google_oauth2_omniauth_callback_path
+    visit user_google_oauth2_omniauth_callback_path
 end
 
 

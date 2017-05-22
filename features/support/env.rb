@@ -68,15 +68,6 @@ Before('@omniauth_test') do
       		:name => 'googleuser'
     	}
   	})
-
-  	OmniAuth.config.add_mock(:facebook, {
-    	:uid => '12345',
-    	:info => {
-      		:name => 'facebookuser',
-          :email => 'test@domain.com'
-    	}
-  	})
-
 end
 
 After('@omniauth_test') do
