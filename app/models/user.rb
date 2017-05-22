@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :omniauthable, :confirmable, :omniauth_providers => [:google_oauth2,:facebook]
 
   #is_gravtastic!
-  
+
 
   #attr_accessor :remember_token
   include ActiveModel::Validations
@@ -86,21 +86,61 @@ class  TypeValidator < ActiveModel::EachValidator
 
   #Metodo utilizzato per l'autorizzazione dell'utente tramite google
   def self.find_for_google_oauth2(auth)
-
-    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-      user.email = auth.info["email"]
-      user.username = auth.info["email"].split("@").first
-      user.password = Devise.friendly_token[0,20]
+    if user = User.where(email: auth['info']['email']).first      #andrea. controllo se esiste già un utente con la stessa mail.
+        if user.provider == auth.provider
+          #puts "PROVIDER UGUALE"
+          user
+        else
+          #puts "PROVIDER DIVERSO"
+          #andrea. se l'utente si è già registrato al sito web tramite un provider che non sia
+            #       uguale a google in questo caso allora dare errore.
+          return nil
+        end
+    else
+      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+        user.email = auth.info["email"]
+        user.username = auth.info["email"].split("@").first
+        #user.password = Devise.friendly_token[0,20]
+        user.password = "123456"
+        user.skip_confirmation!
+      end
     end
   end
+
+#andrea, ritorna un boolean, che indica se l'user è da creare. Serve per mandare la mail
+def self.find_for_email(auth)
+    if user = User.where(email: auth['info']['email']).first
+      return false
+    else
+      return true
+    end
+end
+
 
   def self.find_for_facebook(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-      user.email = auth.info.email
-      user.username = auth.info.email.split("@").first
-      user.password = Devise.friendly_token[0,20]
+    if user = User.where(email: auth['info']['email']).first      #andrea. controllo se esiste già un utente con la stessa mail.
+        if user.provider == auth.provider
+          #puts "PROVIDER UGUALE"
+         return user
+        else
+          #puts "PROVIDER DIVERSO"
+          #andrea. se l'utente si è già registrato al sito web tramite un provider che non sia
+            #       uguale a facebook in questo caso allora dare errore.
+          return nil
+        end
+    else
+      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+        user.email = auth.info.email
+        user.username = auth.info.email.split("@").first
+        #user.password = Devise.friendly_token[0,20]
+        user.password = "123456"
+        user.first_name = auth.info["first_name"]
+        user.last_name = auth.info["last_name"]
+        user.skip_confirmation!
+      end
     end
   end
+
 
   # Returns a random token.
   def User.new_token

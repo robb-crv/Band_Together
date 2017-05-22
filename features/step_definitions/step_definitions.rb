@@ -159,18 +159,7 @@ end
 #MODIFY PROFILE INFORMATIONS
 
 Given /^Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"$/ do
-=begin
-  user = User.new({
-            :email => "mariorossi@gmail.com",
-            :username => "mario1998",
-            :first_name => "Mario",
-            :last_name => "Rossi",
->>>>>>> mioBranch
-            :password => "123456",
-            :password_confirmation => "123456",
 
-          })
-=end
   user = FactoryGirl.build(:user, email: "mariorossi@gmail.com", password: "123456")
   user.skip_confirmation!
   expect(user.save).to eq true
@@ -226,7 +215,11 @@ end
 
 
 And /^I should see a feedback that confirm the changes$/ do
+  expect(page).to have_css("div[class='alert alert-notice']")
+end
 
+And /^I should see a feedback that shows error$/ do
+   expect(page).to have_css("div#error_explanation")
 end
 
 When /^I fill "First name" with "carlo"$/ do
@@ -242,8 +235,8 @@ Then /^I should be on the User Profile Page$/ do
   expect(page.current_path).to eq users_show_path
 end
 
-When /^I follow "Profile"$/ do 
- 
+When /^I follow "Profile"$/ do
+
   find(:css, '#Profile').click
 end
 
