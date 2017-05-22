@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
   def facebook
-    @user = User.find_for_omniauth(request.env["omniauth.auth"])
+    @user = User.find_for_facebook(request.env["omniauth.auth"])
     if !@user
       session["devise.facebook_data"] = request.env["omniauth.auth"].except[:extra]
         redirect_to new_user_registration_path
@@ -25,7 +25,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
   def google_oauth2
-      @user = User.find_for_omniauth(request.env["omniauth.auth"])
+      @user = User.find_for_google_oauth2(request.env["omniauth.auth"])
       if !@user
         session["devise.google"] = request.env["omniauth.auth"].except[:extra]
           redirect_to new_user_registration_path
