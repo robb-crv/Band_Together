@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515075944) do
+ActiveRecord::Schema.define(version: 20170522101914) do
+
+  create_table "bands", force: :cascade do |t|
+    t.string   "name",            default: "",     null: false
+    t.string   "musical_genre",   default: "Rock", null: false
+    t.integer  "band_manager_id"
+    t.string   "description"
+    t.string   "nation"
+    t.string   "region"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["band_manager_id"], name: "index_bands_on_band_manager_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
