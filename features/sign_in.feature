@@ -15,10 +15,12 @@ Feature: Generic User signs in on the application
 
 	@omniauth_test
 	Scenario: Sign in via Google
+
 		Given I am on the Home Page
 		When I follow "Sign In"
 		Then I should be on the Sign In Page
 		When I follow "Sign in with Google"
+		And I am signed in with google
 		And Google authorizes me
 		Then I should be on the User Home Page
 
@@ -28,5 +30,6 @@ Feature: Generic User signs in on the application
 		When I follow "Sign In"
 		Then I should be on the Sign In Page
 		When I follow "Sign in with Facebook"
-		And Facebook authorizes me
+		And I am signed in with facebook
+		
 		Then I should be on the User Home Page

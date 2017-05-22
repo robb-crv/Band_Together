@@ -17,7 +17,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         if @user.persisted?
           PasswordResetForOmniauthMailer.welcome_email(@user).deliver_later
-          sign_in_and_redirect @user, :event => :authentication
+          sign_in @user, :event => :authentication
+          redirect_to static_pages_user_home_path
           set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
         else
           session["devise.facebook_data"] = request.env["omniauth.auth"]
@@ -31,6 +32,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
       to_create = User.find_for_email(request.env["omniauth.auth"])   #andrea. indica se deve essere mandata la mail di cambio password
       @user = User.find_for_google_oauth2(request.env["omniauth.auth"])
+
       if !@user
           session["devise.google"] = request.env["omniauth.auth"].except[:extra]
           redirect_to new_user_registration_path
@@ -39,7 +41,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         else
           if @user.persisted?
             PasswordResetForOmniauthMailer.welcome_email(@user).deliver_later
-            sign_in_and_redirect @user, :event => :authentication
+            sign_in @user, :event => :authentication
+            redirect_to static_pages_user_home_path
             set_flash_message(:notice, :success, :kind => "Google") if is_navigational_format?
           else
             session["devise.google"] = request.env["omniauth.auth"].except[:extra]

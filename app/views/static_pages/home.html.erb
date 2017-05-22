@@ -24,16 +24,17 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+                    <% if !signed_in? %>
                     <li>
-                        
                         <%= link_to "Sign In", new_user_session_path, :class => "page-scroll", :method => "get" %>
                     </li>
+                    <%end%>
                     <li>
                         <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
+                    </li>    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -41,18 +42,6 @@
         <!-- /.container -->
     </nav>
 
-    <% if signed_in? %>
-     <h1> Home Page</h1>
-     <h4> questa è l'home page che vede l'utente loggato</h4>
-
-    <a>
-        <%= button_to "Sign Out", destroy_user_session_path, :class => "btn btn-primary btn-md", :method => "delete" %>
-        <br/>
-        <%= button_to "Profile", users_show_path, :class => "btn", :method => "show", :id => "Profile" %>
-        <br>
-        <%= button_to "Settings", edit_user_registration_path, :class => "btn", :method => "get" %>
-    </a>
-    <% else%>
 
     <!-- Intro Header -->
     <header class="intro">
@@ -86,16 +75,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>Contact</h2>
-                <p>Feel free to email us to provide some feedback on our application, give us suggestions for new function ,or to just say hello!</p>
+                <p>Feel free to email us to provide some feedback on our application, to give us suggestions for new function, or to just say hello!</p>
                 <p>Developers:</p>
-                <p><a href="mailto:feedback@startbootstrap.com">roberto.caravelli@gmail.com</a></p>
-                <p><a href="mailto:feedback@startbootstrap.com">xael93@gmail.com</a></p>
-                <p><a href="mailto:feedback@startbootstrap.com">coluzziandreajh@gmail.com</a></p>
+                <p><a href="mailto:feedback@startbootstrap.com">roberto.caravelli@gmail.com</a> - 
+                <a href="mailto:feedback@startbootstrap.com">xael93@gmail.com</a> - 
+                <a href="mailto:feedback@startbootstrap.com">coluzziandreajh@gmail.com</a></p>
             </div>
         </div>
     </section>
-
-<% end %>
-
 </body>
 </html>

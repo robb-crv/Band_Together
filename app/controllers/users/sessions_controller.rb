@@ -20,7 +20,7 @@ before_action :configure_sign_in_params, only: [:create, :destroy]
    if user && user.valid_password?(params[:session][:password])
       #.roberto  if true -> loggo l'utente
       sign_in user
-      redirect_to root_path, :notice => 'Logged in successfully'
+      redirect_to static_pages_user_home_path, :notice => 'Logged in successfully'
     else
       #.roberto altriting your own authentication system there.rimenti mostro messaggio d'errore
       # mostriamo un pop-up con flash.now[:danger]
