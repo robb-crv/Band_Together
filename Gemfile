@@ -62,6 +62,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data
+gem 'rails_admin', '~> 1.1.1'
+
 # GEMS AGGIUNTE PER LA VALIDAZIONE
 #ValidatesTimeliness provides complete validation of dates, times and datetimes
 gem 'validates_timeliness', '~> 4.0'

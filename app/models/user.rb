@@ -135,4 +135,9 @@ class  TypeValidator < ActiveModel::EachValidator
     SecureRandom.urlsafe_base64
   end
 
+  # Override del metodo active_for_authentication? di Devise per fare in modo che venga controllato che l'utente non sia bannato
+  def active_for_authentication?
+    super && !self.banned
+  end
+
 end
