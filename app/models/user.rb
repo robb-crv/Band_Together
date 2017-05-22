@@ -83,13 +83,67 @@ class  TypeValidator < ActiveModel::EachValidator
   validates :type_of_musician, length: {maximum: 50}, type: true, allow_nil: true
   validates :musical_genre, length: {maximum: 50}, genre: true, allow_nil: true
 
+=begin
+  andrea.
+  I DUE METODI SONO UGUALI, LI HO ACCORPATI INSIEME.
 
   #Metodo utilizzato per l'autorizzazione dell'utente tramite google
   def self.find_for_google_oauth2(auth)
-    if user = User.where(email: auth['info']['email']).first
-      user
+    if user = User.where(email: auth['info']['email']).first      #andrea. controllo se esiste già un utente con la stessa mail.
+        if user.provider == auth.provider
+          #puts "PROVIDER UGUALE"
+          user
+        else
+          #puts "PROVIDER DIVERSO"
+          #andrea. se l'utente si è già registrato al sito web tramite un provider che non sia
+            #       uguale a google in questo caso allora dare errore.
+          return nil
+        end
     else
+      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+        user.email = auth.info["email"]
+        user.username = auth.info["email"].split("@").first
+        user.password = Devise.friendly_token[0,20]
+        user.skip_confirmation!
+      end
+    end
+  end
 
+  def self.find_for_facebook(auth)
+    if user = User.where(email: auth['info']['email']).first      #andrea. controllo se esiste già un utente con la stessa mail.
+        if user.provider == auth.provider
+          #puts "PROVIDER UGUALE"
+          user
+        else
+          #puts "PROVIDER DIVERSO"
+          #andrea. se l'utente si è già registrato al sito web tramite un provider che non sia
+            #       uguale a facebook in questo caso allora dare errore.
+          return nil
+        end
+    else
+      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+        user.email = auth.info.email
+        user.username = auth.info.email.split("@").first
+        user.password = Devise.friendly_token[0,20]
+        user.skip_confirmation!
+      end
+    end
+  end
+=end
+
+def self.find_for_omniauth(auth)
+  if user = User.where(email: auth['info']['email']).first      #andrea. controllo se esiste già un utente con la stessa mail.
+      if user.provider == auth.provider
+        #puts "PROVIDER UGUALE"
+        #andrea. in questo caso ritorno l'utente che ho trovato.
+        user
+      else
+        #puts "PROVIDER DIVERSO"
+        #andrea. se l'utente si è già registrato al sito web tramite un provider che non sia
+          #       uguale a google in questo caso allora dare errore.
+        return nil
+      end
+  else
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
       user.email = auth.info["email"]
       user.username = auth.info["email"].split("@").first
@@ -97,16 +151,7 @@ class  TypeValidator < ActiveModel::EachValidator
       user.skip_confirmation!
     end
   end
-  end
-
-  def self.find_for_facebook(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-      user.email = auth.info.email
-      user.username = auth.info.email.split("@").first
-      user.password = Devise.friendly_token[0,20]
-      user.skip_confirmation!
-    end
-  end
+end
 
   # Returns a random token.
   def User.new_token

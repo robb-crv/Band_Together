@@ -5,29 +5,40 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
   def facebook
-    @user = User.find_for_facebook(request.env["omniauth.auth"])
-
-    if @user.persisted?
-      sign_in_and_redirect @user, :event => :authentication
-      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
-    else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
+    @user = User.find_for_omniauth(request.env["omniauth.auth"])
+    if !@user
+      session["devise.facebook_data"] = request.env["omniauth.auth"].except[:extra]
         redirect_to new_user_registration_path
-    end
+        #andrea. usa il file config/locales/devise.en.yml
+        flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "Facebook", :reason => "the email you are using already exists")
+      else
+        if @user.persisted?
+          sign_in_and_redirect @user, :event => :authentication
+          set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+        else
+          session["devise.facebook_data"] = request.env["omniauth.auth"]
+            redirect_to new_user_registration_path
+        end
+      end
   end
 
 
 
   def google_oauth2
-
-      @user = User.find_for_google_oauth2(request.env["omniauth.auth"])
-
-      if @user.persisted?
-        sign_in_and_redirect @user, :event => :authentication
-        set_flash_message(:notice, :success, :kind => "Google") if is_navigational_format?
-      else
+      @user = User.find_for_omniauth(request.env["omniauth.auth"])
+      if !@user
         session["devise.google"] = request.env["omniauth.auth"].except[:extra]
           redirect_to new_user_registration_path
+          #andrea. usa il file config/locales/devise.en.yml
+          flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "Google", :reason => "the email you are using already exists")
+        else
+          if @user.persisted?
+            sign_in_and_redirect @user, :event => :authentication
+            set_flash_message(:notice, :success, :kind => "Google") if is_navigational_format?
+          else
+            session["devise.google"] = request.env["omniauth.auth"].except[:extra]
+              redirect_to new_user_registration_path
+          end
       end
   end
 
