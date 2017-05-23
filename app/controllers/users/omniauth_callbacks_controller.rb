@@ -16,9 +16,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "Facebook", :reason => "the email you are using already exists")
       else
         if @user.persisted?
-          PasswordResetForOmniauthMailer.welcome_email(@user).deliver_later
-          sign_in_and_redirect @user, :event => :authentication
+        #  PasswordResetForOmniauthMailer.welcome_email(@user).deliver_later
+           @user.send_reset_password_instructions     #andrea. funzione di devise, manda email di reset passsword
+          #sign_in_and_redirect @user, :event => :authentication
           set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+          flash[:error] = t("devise.unlocks.send_paranoid_instructions")
+          redirect_to root_path
         else
           session["devise.facebook_data"] = request.env["omniauth.auth"]
           redirect_to new_user_registration_path
@@ -38,9 +41,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "Google", :reason => "the email you are using already exists")
         else
           if @user.persisted?
-            PasswordResetForOmniauthMailer.welcome_email(@user).deliver_later
-            sign_in_and_redirect @user, :event => :authentication
+            #PasswordResetForOmniauthMailer.welcome_email(@user).deliver_later
+            #sign_in_and_redirect @user, :event => :authentication
             set_flash_message(:notice, :success, :kind => "Google") if is_navigational_format?
+            flash[:error] = t("devise.unlocks.send_paranoid_instructions")
+            redirect_to root_path
           else
             session["devise.google"] = request.env["omniauth.auth"].except[:extra]
               redirect_to new_user_registration_path
