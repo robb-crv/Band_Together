@@ -58,7 +58,7 @@ end
 
 Before('@omniauth_test') do
 
-	Omniauth.config.test_mode = true
+	OmniAuth.config.test_mode = true
 	Capybara.default_host = "http://example.com"
   Capybara.current_driver = :webkit
 
@@ -68,14 +68,6 @@ Before('@omniauth_test') do
       		:name => 'googleuser'
     	}
   	})
-
-  	OmniAuth.config.add_mock(:facebook, {
-    	:uid => '12345',
-    	:info => {
-      		:name => 'facebookuser'
-    	}
-  	})
-
 end
 
 After('@omniauth_test') do

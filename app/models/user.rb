@@ -118,6 +118,7 @@ end
 
 
   def self.find_for_facebook(auth)
+<<<<<<< HEAD
     if user = User.where(email: auth['info']['email']).first      #andrea. controllo se esiste già un utente con la stessa mail.
         if user.provider == auth.provider
           #puts "PROVIDER UGUALE"
@@ -138,6 +139,12 @@ end
         user.last_name = auth.info["last_name"]
         user.skip_confirmation!
       end
+=======
+    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+      user.email = auth.info["email"]
+      user.username = auth.info["email"].split("@").first
+      user.password = Devise.friendly_token[0,20]
+>>>>>>> setup_theme
     end
   end
 

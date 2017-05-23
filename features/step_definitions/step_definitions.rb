@@ -58,6 +58,10 @@ And /^I fill in "Last name" with "Rossi"$/ do
     fill_in("Last name", with: "Rossi")
 end
 
+And /^I fill in "Birth date" with "22-02-1955"$/ do
+    fill_in("Birth date", with: "22/02/1955")
+end
+
 And /^I select "Male" from "Gender"$/ do
     find(:xpath, "//label[@for='user_gender']").click
 end
@@ -80,11 +84,12 @@ And /^I select "Rock" from "Favourite musical genre"$/ do
 end
 
 And /^I press "Submit"$/ do
-    click_on "Submit"
+   
+   find(:css, '#SignUp').click
 end
 
 Then /^I should be on the User Home Page$/ do
-    expect(page).to have_content "questa è l'home page che vede l'utente loggato"
+    expect(page.current_path).to eq static_pages_user_home_path
 end
 
 
@@ -102,7 +107,7 @@ end
 When /^I follow "Sign in with Google"$/ do
   #$stdout.puts current_path
   #Omniauth.config.test_mode = true
-
+=begin
   Capybara.default_host = "http://example.com"
   Capybara.current_driver = :webkit
 
@@ -112,12 +117,13 @@ When /^I follow "Sign in with Google"$/ do
           :name => 'googleuser'
       }
     })
+=end
 
   #within("//div[@id='oauth']") do
     #find(:css, "#GoogleSignIn").click
     #find_link("Sign in with Google", href: "/users/auth/google_oauth2").click
   #end
-  visit new_user_session_path
+  #visit new_user_session_path
   find(:css, "#GoogleSignIn").click
 end
 
@@ -125,13 +131,26 @@ When /^I follow "Sign in with Facebook"$/ do
    click_on "Sign in with Facebook"
 end
 
+And /^I am signed in with facebook$/ do 
+  
+  visit user_facebook_omniauth_authorize_path
+end
+
+And /^Facebook authorizes me$/ do
+    
+    expect(page.current_path).to eq user_facebook_omniauth_callback_path
+end
+
+And /^I am signed in with google$/ do 
+  
+  visit user_google_oauth2_omniauth_authorize_path
+end
+
 And /^Google authorizes me$/ do
     visit user_google_oauth2_omniauth_callback_path
 end
 
-And /^Facebook authorizes me$/ do
-    visit user_facebook_omniauth_callback_path
-end
+
 
 #LOG OUT
 Given /^I am on the User Profile Page$/ do
@@ -154,18 +173,7 @@ end
 #MODIFY PROFILE INFORMATIONS
 
 Given /^Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"$/ do
-=begin
-  user = User.new({
-            :email => "mariorossi@gmail.com",
-            :username => "mario1998",
-            :first_name => "Mario",
-            :last_name => "Rossi",
->>>>>>> mioBranch
-            :password => "123456",
-            :password_confirmation => "123456",
 
-          })
-=end
   user = FactoryGirl.build(:user, email: "mariorossi@gmail.com", password: "123456")
   user.skip_confirmation!
   expect(user.save).to eq true

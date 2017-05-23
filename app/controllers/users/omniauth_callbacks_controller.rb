@@ -34,6 +34,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
       to_create = User.find_for_email(request.env["omniauth.auth"])   #andrea. indica se deve essere mandata la mail di cambio password
       @user = User.find_for_google_oauth2(request.env["omniauth.auth"])
+
       if !@user
           session["devise.google"] = request.env["omniauth.auth"].except[:extra]
           redirect_to new_user_registration_path
