@@ -10,13 +10,21 @@ Rails.application.routes.draw do
 
   get 'static_pages/contacts'
 
-  get 'static_pages/user_home'
+
 
   get 'static_pages/test_log_out'
+
 
   get 'users/show'
 
   post 'users/show'
+
+  get 'users/home'
+
+  as :user do
+    get 'users', :to => 'users#home', :as => :user_root # Rails 3
+  end
+
 
   get 'grayscales/index'
 

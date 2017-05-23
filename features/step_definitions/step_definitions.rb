@@ -84,12 +84,12 @@ And /^I select "Rock" from "Favourite musical genre"$/ do
 end
 
 And /^I press "Submit"$/ do
-   
+
    find(:css, '#SignUp').click
 end
 
 Then /^I should be on the User Home Page$/ do
-    expect(page.current_path).to eq static_pages_user_home_path
+    expect(page.current_path).to eq users_home_path
 end
 
 
@@ -131,18 +131,18 @@ When /^I follow "Sign in with Facebook"$/ do
    click_on "Sign in with Facebook"
 end
 
-And /^I am signed in with facebook$/ do 
-  
+And /^I am signed in with facebook$/ do
+
   visit user_facebook_omniauth_authorize_path
 end
 
 And /^Facebook authorizes me$/ do
-    
+
     expect(page.current_path).to eq user_facebook_omniauth_callback_path
 end
 
-And /^I am signed in with google$/ do 
-  
+And /^I am signed in with google$/ do
+
   visit user_google_oauth2_omniauth_authorize_path
 end
 
@@ -185,7 +185,7 @@ And /^I am logged in as "Mario Rossi"$/ do
   fill_in("Email", with: "mariorossi@gmail.com")
   fill_in("Password", with: "123456")
   click_on "Sign In"
-  expect(page.current_path).to eq root_path     #deve stare sulla root, per essere sicuri che si è loggati, altrimenti rimane sulla login
+  expect(page.current_path).to eq users_home_path     #deve stare sulla root, per essere sicuri che si è loggati, altrimenti rimane sulla login
 end
 
 And /^I am on the User Home Page$/ do
