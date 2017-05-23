@@ -1,8 +1,7 @@
 RailsAdmin.config do |config|
 
-  RailsAdmin::Config::Actions.register(
-    MyApp::Admin::Actions::BanUserAccount
-  )
+  require Rails.root.join('lib', 'rails_admin', 'ban_user_account_action.rb').to_s
+  RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::BanUserAccount)
 
   ### Popular gems integration
 

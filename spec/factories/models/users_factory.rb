@@ -14,6 +14,7 @@ FactoryGirl.define do
 	end
 
 	factory :invalid_user, parent: :user do
-		email 				nil		
+		email 				nil	
+		banned 				true	
 	end
 end
