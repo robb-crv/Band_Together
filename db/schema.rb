@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515075944) do
+ActiveRecord::Schema.define(version: 20170523101653) do
+
+  create_table "advertisments", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.date     "start_date"
+    t.date     "term_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index [nil], name: "index_advertisments_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
