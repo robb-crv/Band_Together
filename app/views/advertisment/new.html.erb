@@ -1,0 +1,31 @@
+
+<br/>
+<h4> Create Advertisment </h4>
+
+<%= form_for(:advertisment, url: advertisment_create_path) do |f| %>
+  
+  <div class="field">
+  	<%= f.label :title%>
+  	<%= f.text_field :title %>
+  </div>
+  
+  <div class="field">
+  	<%= f.label :description %>
+  	<%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+  	<%= f.label :start_date%>
+  	<%= f.text_field :start_date, "data-provide" => 'datepicker' %><br/>
+  </div>
+  
+  <div class="field">
+  	<%= f.label :term_date%>
+  	<%= f.text_field :term_date, "data-provide" => 'datepicker' %><br/>
+  </div>
+  
+  <div class="actions">
+  	<%= f.submit "Create", :id => "CreateAdvertisment" %>
+  </div>
+
+<% end%>

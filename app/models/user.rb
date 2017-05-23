@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :confirmable, :omniauth_providers => [:google_oauth2,:facebook]
 
-  #is_gravtastic!
+  has_many :advertisments
 
 
   #attr_accessor :remember_token

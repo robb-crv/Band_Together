@@ -13,13 +13,15 @@ Rails.application.routes.draw do
 
   get 'static_pages/user_home'
 
-  get 'static_pages/test_log_out'
-
   get 'users/show'
 
   post 'users/show'
 
   get 'grayscales/index'
+
+  get 'advertisment/new'
+  
+  post 'advertisment/create'
 
   #resources :users, only: [:show, :edit, :update]
 #Route che serve nella form di signup per far apparire nella select della selezione della regione la lista delle regioni appartenenti alla nazione scelta dall'utente
