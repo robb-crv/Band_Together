@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523091809) do
+ActiveRecord::Schema.define(version: 20170524092747) do
 
   create_table "advertisments", force: :cascade do |t|
     t.string   "title"
@@ -63,6 +63,10 @@ ActiveRecord::Schema.define(version: 20170523091809) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.boolean  "banned",                 default: false
+    t.boolean  "admin_role",             default: false
+    t.boolean  "band_manager_role",      default: false
+    t.boolean  "band_member_role",       default: false
+    t.boolean  "user_role",              default: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

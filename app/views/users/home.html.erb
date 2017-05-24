@@ -14,7 +14,13 @@
         <br>
         <%= button_to "Settings", edit_user_registration_path, :class => "btn", :method => "get" %>
 
+        <br/><%= button_to "New Band", band_new_path, :id => "CreateBand", :class => "btn btn-primary btn-md", :method => "get" %>
+
         <br/><%= button_to "New Advertisment", advertisment_new_path, :id => "CreateAdvertisment", :class => "btn btn-primary btn-md", :method => "get" %>
+        <br/>
+        <% if can? :access, :rails_admin %>
+            <%= button_to "Admin Dashboard", rails_admin_path, :id => "AdminDashboard", :class => "btn btn-primary btn-md", :method => "get" %>
+        <% end %>
     </a>
 </body>
 

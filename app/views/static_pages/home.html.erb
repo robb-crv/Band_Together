@@ -29,6 +29,10 @@
                     <li>
                         <%= link_to "Sign In", new_user_session_path, :class => "page-scroll", :method => "get" %>
                     </li>
+                    <% else %>
+                    <li>
+                        <%= link_to "Sign Out", destroy_user_session_path, :class => "page-scroll", :method => "delete" %>                      
+                    </li>
                     <%end%>
                     <li>
                         <a class="page-scroll" href="#about">About</a>
@@ -36,6 +40,12 @@
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
+
+                    <% if can? :access, :rails_admin %>
+                    <li>
+                        <%= link_to "Admin", rails_admin_path, :class => "page-scroll", :method => "get" %>                        
+                    </li>
+                    <% end %>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
