@@ -1,5 +1,6 @@
 
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   # Routes per le static_pages
   root 'static_pages#home'
@@ -14,6 +15,10 @@ Rails.application.routes.draw do
   post 'users/show'
 
   get 'users/home'
+
+  get 'advertisment/new'
+
+  post 'advertisment/create'
 
   #resources :users, only: [:show, :edit, :update]
 #Route che serve nella form di signup per far apparire nella select della selezione della regione la lista delle regioni appartenenti alla nazione scelta dall'utente

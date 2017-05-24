@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+  admin:
+    actions:
+      ban_user_account:
+        menu: 'Ban this user'
