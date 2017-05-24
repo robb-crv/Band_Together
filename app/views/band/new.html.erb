@@ -1,0 +1,25 @@
+<h4>Create Band<h4/>
+
+<%= form_for(:advertisment, url: band_create_path) do |f| %>
+  
+  <div class="field">
+  	<%= f.label :name%>
+  	<%= f.text_field :name %>
+  </div>
+  
+  <div class="field">
+  	<%= f.label :description %>
+  	<%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+  	<%= f.label :musical_genre%>
+  	<%= f.text_field :musical_genre %><br/>
+  </div>
+
+  
+  <div class="actions">
+  	<%= f.submit "Create", :id => "CreateBand" %>
+  </div>
+
+<% end%>
