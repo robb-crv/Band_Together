@@ -103,10 +103,18 @@ Then /^I should be on the Sign In Page$/ do
     expect(page.current_path).to eq new_user_session_path
 end
 
+When /^I fill in "Email" with "rossimario@gmail.com"$/ do
+  fill_in("Email", with: "rossimario@gmail.com")
+end
+
+And /^I fill in "Password" with "654321"$/ do
+  fill_in("Password", with: "654321")
+end
 
 When /^I follow "Sign in with Google"$/ do
   #find(:css, "#GoogleSignIn").click
   click_on "Sign in with Google"
+  #visit "users/auth/google_oauth2/callback"
 end
 
 When /^I follow "Sign in with Facebook"$/ do
@@ -121,6 +129,10 @@ end
 
 Then /^I should see "Successfully authenticated from Google account."$/ do
   expect(page).to have_content "Successfully authenticated from Google account."
+end
+
+Then /^I should see "Could not authenticate you"$/ do
+  expect(page).to have_content "Could not authenticate you"
 end
 
 

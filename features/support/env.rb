@@ -8,6 +8,7 @@ require 'cucumber/rails'
   require 'factory_girl_rails'
 
 
+
 #Capybara.javascript_driver = :webkit_debug
 Capybara.javascript_driver = :webkit
 Capybara.ignore_hidden_elements = false
@@ -60,8 +61,6 @@ end
 Before('@omniauth_test') do
 
 	OmniAuth.config.test_mode = true
-	Capybara.default_host = "http://example.com"
-  Capybara.current_driver = :webkit
 
   OmniAuth.config.add_mock(:facebook, {
     :uid => '12345',
@@ -72,20 +71,35 @@ Before('@omniauth_test') do
       }
       )
 
-
 	OmniAuth.config.add_mock(:google_oauth2, {
     	:uid => '12345',
-    	:user_info => {
+    	:info => {
           :email => "ggluser@email.com",
       		:name => 'googleuser'
     	}
   	})
 
 
+end
+
+Before('@omniauth_test_failure') do
+
+	OmniAuth.config.test_mode = true
+
+
+
+
+  OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
+  OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
 
 end
 
+
 After('@omniauth_test') do
+  OmniAuth.config.test_mode = false
+end
+
+After('@omniauth_test_failure') do
   OmniAuth.config.test_mode = false
 end
 
