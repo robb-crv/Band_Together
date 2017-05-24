@@ -7,20 +7,17 @@ Rails.application.routes.draw do
 
   get 'static_pages/home'
 
-  get 'static_pages/about'
 
-  get 'static_pages/contacts'
 
-  get 'static_pages/user_home'
 
   get 'users/show'
 
   post 'users/show'
 
-  get 'grayscales/index'
+  get 'users/home'
 
   get 'advertisment/new'
-  
+
   post 'advertisment/create'
 
   #resources :users, only: [:show, :edit, :update]

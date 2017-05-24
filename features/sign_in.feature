@@ -13,16 +13,14 @@ Feature: Generic User signs in on the application
 		When I follow "Sign In"
 		Then I should be on the User Home Page
 
-	@omniauth_test
+ @omniauth_test
 	Scenario: Sign in via Google
-
 		Given I am on the Home Page
 		When I follow "Sign In"
 		Then I should be on the Sign In Page
 		When I follow "Sign in with Google"
-		And I am signed in with google
-		And Google authorizes me
-		Then I should be on the User Home Page
+		Then I should see "Successfully authenticated from Google account."
+
 
 	@omniauth_test
 	Scenario: Sign in via Facebook
@@ -30,6 +28,4 @@ Feature: Generic User signs in on the application
 		When I follow "Sign In"
 		Then I should be on the Sign In Page
 		When I follow "Sign in with Facebook"
-		And I am signed in with facebook
-		
-		Then I should be on the User Home Page
+		Then I should see "Successfully authenticated from Facebook account."

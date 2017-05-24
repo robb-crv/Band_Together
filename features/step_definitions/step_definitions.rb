@@ -84,12 +84,12 @@ And /^I select "Rock" from "Favourite musical genre"$/ do
 end
 
 And /^I press "Submit"$/ do
-   
+
    find(:css, '#SignUp').click
 end
 
 Then /^I should be on the User Home Page$/ do
-    expect(page.current_path).to eq static_pages_user_home_path
+    expect(page.current_path).to eq users_home_path
 end
 
 
@@ -105,44 +105,28 @@ end
 
 
 When /^I follow "Sign in with Google"$/ do
-  #$stdout.puts current_path
-  #Omniauth.config.test_mode = true
-=begin
-  Capybara.default_host = "http://example.com"
-  Capybara.current_driver = :webkit
-
-  OmniAuth.config.add_mock(:google_oauth2, {
-      :uid => '12345',
-      :info => {
-          :name => 'googleuser'
-      }
-    })
-=end
-
-  #within("//div[@id='oauth']") do
-    #find(:css, "#GoogleSignIn").click
-    #find_link("Sign in with Google", href: "/users/auth/google_oauth2").click
-  #end
-  #visit new_user_session_path
-  find(:css, "#GoogleSignIn").click
+  #find(:css, "#GoogleSignIn").click
+  click_on "Sign in with Google"
 end
 
 When /^I follow "Sign in with Facebook"$/ do
    click_on "Sign in with Facebook"
 end
 
-And /^I am signed in with facebook$/ do 
-  
-  visit user_facebook_omniauth_authorize_path
+
+
+Then /^I should see "Successfully authenticated from Facebook account."$/ do
+  expect(page).to have_content "Successfully authenticated from Facebook account."
 end
 
-And /^Facebook authorizes me$/ do
-    
-    expect(page.current_path).to eq user_facebook_omniauth_callback_path
+Then /^I should see "Successfully authenticated from Google account."$/ do
+  expect(page).to have_content "Successfully authenticated from Google account."
 end
 
-And /^I am signed in with google$/ do 
-  
+
+=begin
+And /^I am signed in with google$/ do
+
   visit user_google_oauth2_omniauth_authorize_path
 end
 
@@ -150,6 +134,16 @@ And /^Google authorizes me$/ do
     visit user_google_oauth2_omniauth_callback_path
 end
 
+And /^I am signed in with facebook$/ do
+
+  visit user_facebook_omniauth_authorize_path
+end
+
+And /^Facebook authorizes me$/ do
+
+    expect(page.current_path).to eq user_facebook_omniauth_callback_path
+end
+=end
 
 
 #LOG OUT
@@ -185,7 +179,7 @@ And /^I am logged in as "Mario Rossi"$/ do
   fill_in("Email", with: "mariorossi@gmail.com")
   fill_in("Password", with: "123456")
   click_on "Sign In"
-  expect(page.current_path).to eq root_path     #deve stare sulla root, per essere sicuri che si è loggati, altrimenti rimane sulla login
+  expect(page.current_path).to eq users_home_path     #deve stare sulla root, per essere sicuri che si è loggati, altrimenti rimane sulla login
 end
 
 And /^I am on the User Home Page$/ do
