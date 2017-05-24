@@ -3,6 +3,10 @@ RailsAdmin.config do |config|
   require Rails.root.join('lib', 'rails_admin', 'ban_user_account_action.rb').to_s
   RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::BanUserAccount)
 
+  #Setta come controller padre ApplicationController. In questo modo si può catturare l'eccezione CanCan::AccessDenied
+
+  config.parent_controller = 'ApplicationController' 
+
   ### Popular gems integration
 
   ## == Devise ==
@@ -12,7 +16,7 @@ RailsAdmin.config do |config|
   config.current_user_method(&:current_user)
 
   ## == Cancan ==
-  # config.authorize_with :cancan
+  config.authorize_with :cancan
 
   ## == Pundit ==
   # config.authorize_with :pundit
