@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523101653) do
+ActiveRecord::Schema.define(version: 20170523091809) do
+
+  create_table "advertisments", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.date     "start_date"
+    t.date     "term_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "bands", force: :cascade do |t|
     t.string   "name",            default: "",     null: false
@@ -22,16 +31,6 @@ ActiveRecord::Schema.define(version: 20170523101653) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["band_manager_id"], name: "index_bands_on_band_manager_id"
-  end
-
-  create_table "advertisments", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.date     "start_date"
-    t.date     "term_date"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    
   end
 
   create_table "users", force: :cascade do |t|
