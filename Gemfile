@@ -31,6 +31,9 @@ gem 'omniauth-google-oauth2', '~> 0.4.1'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
+#andrea It automatically adds the proper vendor prefixes to your CSS code when it is compiled.
+gem 'autoprefixer-rails'
+
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 
 gem "font-awesome-rails"

@@ -105,30 +105,33 @@ end
 
 
 When /^I follow "Sign in with Google"$/ do
-  #$stdout.puts current_path
-  #Omniauth.config.test_mode = true
-=begin
-  Capybara.default_host = "http://example.com"
-  Capybara.current_driver = :webkit
-
-  OmniAuth.config.add_mock(:google_oauth2, {
-      :uid => '12345',
-      :info => {
-          :name => 'googleuser'
-      }
-    })
-=end
-
-  #within("//div[@id='oauth']") do
-    #find(:css, "#GoogleSignIn").click
-    #find_link("Sign in with Google", href: "/users/auth/google_oauth2").click
-  #end
-  #visit new_user_session_path
-  find(:css, "#GoogleSignIn").click
+  #find(:css, "#GoogleSignIn").click
+  click_on "Sign in with Google"
 end
 
 When /^I follow "Sign in with Facebook"$/ do
    click_on "Sign in with Facebook"
+end
+
+
+
+Then /^I should see "Successfully authenticated from Facebook account."$/ do
+  expect(page).to have_content "Successfully authenticated from Facebook account."
+end
+
+Then /^I should see "Successfully authenticated from Google account."$/ do
+  expect(page).to have_content "Successfully authenticated from Google account."
+end
+
+
+=begin
+And /^I am signed in with google$/ do
+
+  visit user_google_oauth2_omniauth_authorize_path
+end
+
+And /^Google authorizes me$/ do
+    visit user_google_oauth2_omniauth_callback_path
 end
 
 And /^I am signed in with facebook$/ do
@@ -140,16 +143,7 @@ And /^Facebook authorizes me$/ do
 
     expect(page.current_path).to eq user_facebook_omniauth_callback_path
 end
-
-And /^I am signed in with google$/ do
-
-  visit user_google_oauth2_omniauth_authorize_path
-end
-
-And /^Google authorizes me$/ do
-    visit user_google_oauth2_omniauth_callback_path
-end
-
+=end
 
 
 #LOG OUT

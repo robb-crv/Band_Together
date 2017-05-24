@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 	#Metodo che fornisce alla form un json con le regioni relative ad un dato stato
 
 	def states
-		render json: CS.states(params[:nation]).values.to_json()  	
+		render json: CS.states(params[:nation]).values.to_json()
 	end
 
 	protected
@@ -17,6 +17,12 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.permit :sign_up, keys: [:username, :email, :first_name, :last_name,
 														   :gender, :birth, :nation, :password,
 														   :password_confirmation, :region, :type_of_musician,
-														   :musical_genre]				 
+														   :musical_genre]
 	end
+
+	def after_sign_in_path_for(resource)
+	  session["user_return_to"] || users_home_path
+	end
+
+	
 end

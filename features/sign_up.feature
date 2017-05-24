@@ -21,4 +21,4 @@ Feature: Generic User Signs up on the application
     And I select "Drummer" from "Instrument played"
     And I select "Rock" from "Favourite musical genre"
     And I press "Submit"
-    Then I should be on the User Home Page
+    Then I should be on the Home Page
