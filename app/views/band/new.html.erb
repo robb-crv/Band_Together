@@ -1,6 +1,6 @@
 <h4>Create Band<h4/>
 
-<%= form_for(:advertisment, url: band_create_path) do |f| %>
+<%= form_for(:band, url: band_create_path) do |f| %>
   
   <div class="field">
   	<%= f.label :name%>
@@ -13,8 +13,12 @@
   </div>
 
   <div class="field">
-  	<%= f.label :musical_genre%>
-  	<%= f.text_field :musical_genre %><br/>
+    <%= f.label :musical_genre, "Musical genre" %>
+    <%= f.select(:musical_genre) do %>
+      <% ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"].each do |c|%>
+        <%= content_tag(:option, c, value: c) %>
+      <% end %>
+    <% end %>
   </div>
 
   
