@@ -16,6 +16,16 @@ gem 'puma', '~> 3.0'
 #.roberto per autenticazione
 gem 'devise', '~> 4.2'
 
+=begin
+  
+CanCanCan is an authorization library which restricts what resources a given user is allowed to access.
+
+All permissions are defined in a single location (the Ability class) and not duplicated across controllers, views, and database queries.
+  
+=end
+
+gem 'cancancan', '~> 1.10'
+
 #Richiesta per far funzionare le autenticazioni specifiche dei vari provider. RezeR
 gem 'omniauth', '~> 1.3', '>= 1.3.2'
 

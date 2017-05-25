@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :confirmable, :omniauth_providers => [:google_oauth2,:facebook]
 
-  has_many :advertisments
+  #is_gravtastic!
 
 
   #attr_accessor :remember_token
@@ -144,11 +144,6 @@ end
   # Returns a random token.
   def User.new_token
     SecureRandom.urlsafe_base64
-  end
-
-  # Override del metodo active_for_authentication? di Devise per fare in modo che venga controllato che l'utente non sia bannato
-  def active_for_authentication?
-    super && !self.banned
   end
 
 end

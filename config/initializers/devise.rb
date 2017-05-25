@@ -11,9 +11,12 @@ Devise.setup do |config|
   require 'omniauth-google-oauth2'
   require 'omniauth-facebook'
 
+
+
+
   #andrea chiavi d'accesso applicazione google
   config.omniauth :google_oauth2, "298086471867-8kq3n7bvl5m7cv43ffh9i5cfks07nntl.apps.googleusercontent.com", "gaGjcMl-3CU4R4KtPvGsjsAf",
-                  redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback", info_fields: 'email, first_name, last_name'
+                  redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback" #, info_fields: 'email, first_name, last_name'
 
   #andrea chiavi di accesso all'applicazione fb
   config.omniauth :facebook, "625050674363213", "3a768b0b89d6d5da459d1186d75ea8af",redirect_uri: "/users/auth/facebook/callback", info_fields: 'email, first_name, last_name'
