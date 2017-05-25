@@ -18,6 +18,9 @@
 
         <br/><%= button_to "New Advertisment", advertisment_new_path, :id => "CreateAdvertisment", :class => "btn btn-primary btn-md", :method => "get" %>
         <br/>
+
+        <%= button_to "My Band", band_index_path, :class => "btn btn-primary btn-md", :method => "get" %><br/>
+
         <% if can? :access, :rails_admin %>
             <%= button_to "Admin Dashboard", rails_admin_path, :id => "AdminDashboard", :class => "btn btn-primary btn-md", :method => "get" %>
         <% end %>

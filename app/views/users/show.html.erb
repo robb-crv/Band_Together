@@ -17,11 +17,17 @@
 
 	 <p>Username: <%= @user.username %><br/>
 
-	 <p>Email: <%= @user.email %> </p><br/>
+	 <p>Email: <%= @user.email %> </p>
+	 
+	 <p>First Name: <%= @user.first_name %> <p/>
+	 
+	 <p>Last Name: <%= @user.last_name %><p/> 
 
-	 <p> <%= @user.first_name %> <%= @user.last_name %> from <%= @user.nation %></p><br/>
+	 <p>from <%= @user.nation %></p>
 
-	 <p>I'm a <%= @user.musical_genre %> <%= @user.type_of_musician %> !</p><br/>
+	 <p>I'm a: <%= @user.type_of_musician %> </p>
+	 
+	 <p>Musical Genre: <%= @user.musical_genre %> <p/>
 
 	 <br/><%= button_to "Sign Out", destroy_user_session_path, :id => "SignOut", :class => "btn btn-danger btn-md", :method => "delete" %>
 </body>

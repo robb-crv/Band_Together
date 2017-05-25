@@ -7,8 +7,7 @@ class User < ApplicationRecord
          :omniauthable, :confirmable, :omniauth_providers => [:google_oauth2,:facebook]
 
   #is_gravtastic!
-
-
+  has_many :bands, dependent: :destroy, foreign_key: 'band_manager_id'
   #attr_accessor :remember_token
   include ActiveModel::Validations
 
