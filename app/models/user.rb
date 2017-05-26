@@ -6,16 +6,18 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :confirmable, :omniauth_providers => [:google_oauth2,:facebook]
 
-  #is_gravtastic!
+  #association
   has_many :bands, dependent: :destroy, foreign_key: 'band_manager_id'
+  has_many :advertisment, dependent: :destroy, foreign_key: 'user_id'
+
   #attr_accessor :remember_token
   include ActiveModel::Validations
 
   #Custom Validators
 
-		#Type of musician validation
+	#Type of musician validation
 
-class  TypeValidator < ActiveModel::EachValidator
+  class  TypeValidator < ActiveModel::EachValidator
 
       def validate_each(record, attribute, value)
 

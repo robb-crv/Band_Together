@@ -4,7 +4,6 @@ class BandController < ApplicationController
 
 	def index
 		@bands = current_user.bands
-		
 	end
 	def new
 		render 'band/new'
@@ -24,7 +23,9 @@ class BandController < ApplicationController
 	end
 
 	def show
-		render 'band/show'
+
+		@band= Band.find(params[:id])	
+		
 	end
 
 	private 
