@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
   get 'users/home'
 
+  get 'users/edit_profile_informations'
+
+  post 'users/update_profile_informations'
+
   # Routes per l'advertisement
 
   get 'advertisment/new'
