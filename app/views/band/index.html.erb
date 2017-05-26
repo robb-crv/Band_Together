@@ -1,7 +1,12 @@
-<h5>My Band: </h5>
+<h3>My Bands: </h3>
 
     <ol>
-    	<% @bands.each do |b| %>
-    	<%= b.name %>
+    	<% @bands.each do |b| %><br/>
+    		
+    		<li><%= link_to b.name, band_show_path(:id => b.id), :method => "get" %></li>
+    	
     	<% end %>
-    <ol>
+    </ol>
+
+
+</br><%= button_to "New Band", band_new_path, :id => "CreateBand", :class => "btn btn-primary btn-md", :method => "get" %>

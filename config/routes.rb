@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post 'band/create'
 
   get 'band/show'
+  
   get 'band/index'
 
   #resources :users, only: [:show, :edit, :update]

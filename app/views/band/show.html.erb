@@ -1,1 +1,11 @@
-<h4>Bands info<h4/>
+
+<h4><%= @band.name %> info</h4>
+
+<p> Description : </br><%= @band.description %> </p>
+
+<p> created at: <%= @band.created_at %>, by <%= @band.band_manager.username %></p>
+
+<br/><%= button_to "New Advertisment", advertisment_new_path, :id => "CreateAdvertisment", :class => "btn btn-primary btn-md", :method => "get" %>
+
+<br/>
+
