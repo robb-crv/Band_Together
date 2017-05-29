@@ -18,8 +18,11 @@ class AdvertismentController < ApplicationController
 
 	def new
 		puts params.inspect
-		@band= params[:band_id]
-		render 'advertisment/new'
+		band_id = params[:band_id] if params[:band_id]
+		if band_id.nil? 
+			redirect_to root_path 
+		end
+		#render 'advertisment/new'
 	end
 
 	def create
