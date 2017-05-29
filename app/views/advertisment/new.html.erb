@@ -1,8 +1,8 @@
 
 <br/>
-<h4> Create Advertisment </h4>
+<h4> Create Advertisment </h4>  
 
-<%= form_for(:advertisment, url: advertisment_create_path) do |f| %>
+<%= form_for(:advertisment, url: advertisment_create_path(:band_id => @band.id)) do |f| %>
   
   <div class="field">
   	<%= f.label :title%>

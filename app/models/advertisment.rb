@@ -1,8 +1,8 @@
 class Advertisment < ApplicationRecord
 	
 	#association
-	belongs_to :users
-	belongs_to :bands
+	belongs_to :users, foreign_key: "band_id"
+	belongs_to :bands, foreign_key: "user_id"
 
 	#validation
 

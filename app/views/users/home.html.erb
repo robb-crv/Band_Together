@@ -9,7 +9,7 @@
 
     <a>
         
-        <p><%= button_to "Profile", users_show_path, :class => "btn", :method => "show", :id => "Profile" %>
+        <p><%= button_to "Profile", users_show_path(:id => current_user.id), :class => "btn", :method => "show", :id => "Profile" %>
         <br/>
         <%= button_to "Settings", edit_user_registration_path, :class => "btn", :method => "get" %>
         <br/>

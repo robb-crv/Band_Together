@@ -19,6 +19,10 @@ Rails.application.routes.draw do
 
   # Routes per l'advertisement
 
+  get 'advertisment/index'
+
+  get 'advertisment/show'
+  
   get 'advertisment/new'
 
   post 'advertisment/create'
@@ -40,5 +44,6 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations',
   									:omniauth_callbacks => "users/omniauth_callbacks" }
+
 
 end

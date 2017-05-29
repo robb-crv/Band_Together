@@ -2,13 +2,19 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!
 
-  #.roberto show user profile
   def show
-  	@user = current_user
+    
+    if(!params[:id].nil? )
+  	   @user= User.find(params[:id]) 
+    else
+      redirect_to "/404"
+    end
   end
 
   def home
     @user = current_user
   end
+
+
 
 end
