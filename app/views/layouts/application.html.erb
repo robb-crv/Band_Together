@@ -28,7 +28,10 @@
   </head>
 
 
-  <body class="<%= controller_name %>_<%= action_name %>">
+
+  <body class="<%= controller_name %>_<%= action_name %>" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <%= render :partial => 'layouts/navigation_bar' %>
 
     <!-- andrea.  renderizzo i messaggi ma solo per le pagine che non hanno un layout particolare -->
     <% current_uri = request.env['PATH_INFO'] %>

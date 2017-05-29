@@ -7,7 +7,6 @@
 
      <h4> questa è l'home page che vede l'utente loggato</h4>
 
-    <a>
 
         <p><%= button_to "Profile", users_show_path, :class => "btn", :method => "show", :id => "Profile" %>
         <br/>
@@ -24,7 +23,6 @@
 
         </br></br></br><%= button_to "Sign Out", destroy_user_session_path, :class => "btn btn-primary btn-md", :method => "delete" %>
         <br/>
-    </a>
 </body>
 
 </html>
