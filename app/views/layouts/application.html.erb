@@ -28,9 +28,16 @@
   </head>
 
 
+
   <body class="<%= controller_name %>_<%= action_name %>">
 
+    <%= render :partial => 'layouts/navigation_bar' %>
+
+    <!-- andrea.  renderizzo i messaggi ma solo per le pagine che non hanno un layout particolare -->
+    <% current_uri = request.env['PATH_INFO'] %>
+    <% if !(current_uri == "/users/edit_profile_informations" || current_uri == "users/edit" ) %>
       <%= render 'layouts/messages' %>
+    <% end %>
 
     <%= yield %>
 

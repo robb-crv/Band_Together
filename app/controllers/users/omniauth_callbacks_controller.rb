@@ -13,7 +13,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         session["devise.facebook_data"] = request.env["omniauth.auth"].except[:extra]
         redirect_to new_user_registration_path
         #andrea. usa il file config/locales/devise.en.yml
-        flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "Facebook", :reason => "the email you are using already exists")
+        flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "Facebook", :reason => "the email you are using already exists. Please Sign Up first")
       else
         if @user.persisted?
 =begin
@@ -43,7 +43,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           session["devise.google"] = request.env["omniauth.auth"].except[:extra]
           redirect_to new_user_registration_path
           #andrea. usa il file config/locales/devise.en.yml
-          flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "Google", :reason => "the email you are using already exists")
+          flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "Google", :reason => "the email you are using already exists. Please Sign Up first")
         else
           if @user.persisted?
 =begin
@@ -68,8 +68,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "service", :reason => "credentials aren't correct.")
-    redirect_to new_user_registration_path
+    flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "service", :reason => "credentials aren't correct. Please Sign Up first")
+    redirect_to request.referer
 end
   # protected
 
