@@ -8,16 +8,16 @@
      <h4> questa è l'home page che vede l'utente loggato</h4>
 
     <a>
-        
+
         <p><%= button_to "Profile", users_show_path, :class => "btn", :method => "show", :id => "Profile" %>
         <br/>
 
-        <%= button_to "Settings", edit_user_registration_path, :class => "btn", :method => "get" %>
+        <%= button_to "Settings", users_edit_profile_informations_path, :class => "btn", :method => "get" %>
         <br/>
         <%= button_to "My Band", band_index_path, :class => "btn", :method => "get" %><br/>
         <br/>
         </p>
-        
+
         <% if can? :access, :rails_admin %>
             <%= button_to "Admin Dashboard", rails_admin_path, :id => "AdminDashboard", :class => "btn btn-primary btn-md", :method => "get" %>
         <% end %>

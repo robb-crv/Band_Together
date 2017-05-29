@@ -201,10 +201,15 @@ end
 And /^I follow "Settings"$/ do
   click_on "Settings"
 end
-
+=begin
 Then /^I should be on the Edit User Profile Page$/ do
 
     expect(page).to have_content "Edit User"
+end
+=end
+Then /^I should be on the Edit User Profile Informations Page$/ do
+
+  expect(page.current_path).to eq users_edit_profile_informations_path
 end
 
 When /^I fill "First name" with "Carlo"$/ do
@@ -235,11 +240,11 @@ end
 
 
 And /^I should see a feedback that confirm the changes$/ do
-  expect(page).to have_css("div[class='alert alert-notice']")
+  expect(page).to have_css(".alert-success")
 end
 
 And /^I should see a feedback that shows error$/ do
-   expect(page).to have_css("div#error_explanation")
+   expect(page).to have_css(".alert-danger")
 end
 
 When /^I fill "First name" with "carlo"$/ do
