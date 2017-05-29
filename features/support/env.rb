@@ -5,13 +5,17 @@
 # files.
 
 require 'cucumber/rails'
-  require 'factory_girl_rails'
+require 'factory_girl_rails'
 
 
 
 #Capybara.javascript_driver = :webkit_debug
 Capybara.javascript_driver = :webkit
 Capybara.ignore_hidden_elements = false
+
+Capybara::Webkit.configure do |config|
+  config.block_unknown_urls
+end
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
@@ -67,9 +71,8 @@ Before('@omniauth_test') do
      :info => {
         :email => "fbuser@email.com",
         :name => 'facebookuser'
-        }
-      }
-      )
+     }
+  })
 
 	OmniAuth.config.add_mock(:google_oauth2, {
     	:uid => '12345',
@@ -77,7 +80,7 @@ Before('@omniauth_test') do
           :email => "ggluser@email.com",
       		:name => 'googleuser'
     	}
-  	})
+  })
 
 
 end
@@ -85,10 +88,6 @@ end
 Before('@omniauth_test_failure') do
 
 	OmniAuth.config.test_mode = true
-
-
-
-
   OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
   OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
 

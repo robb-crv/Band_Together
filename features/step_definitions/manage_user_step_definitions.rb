@@ -15,25 +15,36 @@ And /^I am logged in as "Admin"$/ do
 	expect(page.current_path).to eq users_home_path     #deve stare sulla root, per essere sicuri che si è loggati, altrimenti rimane sulla login
 end
 
-And /^I am on the User Home Page$/ do
-	expect(page.current_path).to eq users_home_path
-end
-
-And /^I follow "Admin Dashboard"$/ do |variable|
+And /^I follow "Admin Dashboard"$/ do 
 	find(:css, '#AdminDashboard').click	
 end
 
-Then /^I should be on the Admin Dashboard$/ do |variable|
-	expect(page.current_path).to eq rails_admin.dashboard_path	
+Then /^I should be on the Admin Dashboard$/ do 
+	expect(page.current_path).to eq rails_admin_path
 end
 
 And /^I follow "Users"$/ do
-	click_on "Users"
+	find(:xpath, "//a[@href='/admin/user']").click
 end
 
-Then /^I should be on the Users Index$/ do |variable|
-	expect(page.current_path).to eq rails_admin.index_path(model_name: 'users')	
+Then /^I should be on the Users Index$/ do 
+	expect(page.current_path).to eq rails_admin.index_path(model_name: 'user')
+	visit rails_admin.index_path(model_name: 'user')
 end
+
+#Ban User
+
+When /^I follow "Ban this user"$/ do 
+	page.all(:css, 'li.icon.ban_user_account_member_link')[0].click
+end
+
+Then /^user "Mario Rossi" should be banned$/ do
+	$stdout.puts(page.body) 
+	user = User.find_by_email("mariorossi@gmail.com")
+	expect(user.banned).to eq true	
+end
+
+
 
 
 
