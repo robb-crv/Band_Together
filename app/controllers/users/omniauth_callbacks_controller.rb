@@ -69,7 +69,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def failure
     flash[:error] = t("devise.omniauth_callbacks.failure",:kind => "service", :reason => "credentials aren't correct. Please Sign Up first")
-    redirect_to request.referer
+    redirect_to new_user_registration_path
 end
   # protected
 
