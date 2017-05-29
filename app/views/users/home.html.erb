@@ -5,24 +5,9 @@
 </head>
 <body>
 
-     <h4> questa è l'home page che vede l'utente loggato</h4>
+     <h4>logged as: <%=current_user.username%></h4>
 
-        <p><%= button_to "Profile", users_show_path(:id => current_user.id), :class => "btn", :method => "show", :id => "Profile" %>
-
-        <br/>
-
-        <%= button_to "Settings", users_edit_profile_informations_path, :class => "btn", :method => "get" %>
-        <br/>
-        <%= button_to "My Band", band_index_path, :class => "btn", :method => "get" %><br/>
-        <br/>
-        </p>
-
-        <% if can? :access, :rails_admin %>
-            <%= button_to "Admin Dashboard", rails_admin_path, :id => "AdminDashboard", :class => "btn btn-primary btn-md", :method => "get" %>
-        <% end %>
-
-        </br></br></br><%= button_to "Sign Out", destroy_user_session_path, :class => "btn btn-primary btn-md", :method => "delete" %>
-        <br/>
+        
 </body>
 
 </html>
