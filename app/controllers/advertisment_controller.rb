@@ -1,7 +1,7 @@
 class AdvertismentController < ApplicationController
 
 	before_action :authenticate_user!
-		
+
 	def index
 
 	end
@@ -9,37 +9,29 @@ class AdvertismentController < ApplicationController
 	def show
 
 		if(!params[:id].nil?)
-			@advertisment= Advertisment.find(params[:id])	
+			@advertisment= Advertisment.find(params[:id])
 		else
 			redirect_to "/404"
 		end
-		
+
 	end
 
 	def new
-		puts params.inspect
-		band_id = params[:band_id] if params[:band_id]
-		if band_id.nil? 
-			redirect_to root_path 
-		end
-		#render 'advertisment/new'
+		@band = Band.find(params[:band_id])
+		puts @band.inspect
 	end
 
 	def create
 
-		@band_id= params[:band_id]
-		
 		@advertisment= Advertisment.new(advertisment_params)
-		@advertisment.band_id= @band_id
-		@advertisment.user_id= current_user.id
-			
+
 		if @advertisment.save
-				
+
 			redirect_to advertisment_show_path(:id => @advertisment.id)
 		else
 			render 'advertisment/new'
 		end
-	end 
+	end
 
 	private
 
