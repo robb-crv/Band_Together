@@ -1,6 +1,7 @@
   <%= render :partial => 'layouts/settings_sidebar' , :locals => {:currentPage => "ProfileInformations" }  %>
 
 <div class="col-md-6 col-md-offset-3" id="SettingsMainContainer">
+    <%= render 'layouts/messages' %>
   <%= form_for(:user, as: :user, url: users_update_profile_informations_path, html: {method: :post}) do |f| %>
 
     <div class="field">
