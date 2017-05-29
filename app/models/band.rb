@@ -11,7 +11,7 @@ class Band < ApplicationRecord
 
   	#association
   	belongs_to :band_manager, class_name: "User"
-	has_many :avertisment, dependent: :destroy, foreign_key: 'band_id'
+	has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 
 	#validation
 

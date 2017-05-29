@@ -5,6 +5,7 @@ class BandController < ApplicationController
 	def index
 		@bands = current_user.bands
 	end
+
 	def new
 		render 'band/new'
 	end
@@ -24,13 +25,16 @@ class BandController < ApplicationController
 
 	def show
 
-		@band= Band.find(params[:id])	
-		
+		if(!params[:id].nil?)
+			@band= Band.find(params[:id])	
+		else
+			redirect_to "/404"
+		end
 	end
 
 	private 
   	def band_params()
-    	params.require(:band).permit(:name, :description, :musical_genre)
+    	params.require(:band).permit(:name, :description, :musical_genre, :band_manager_id)
    	end
 
 end
