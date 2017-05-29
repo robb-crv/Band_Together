@@ -68,12 +68,23 @@
                                <%= link_to "Sign In", new_user_session_path, :class => "page-scroll", :method => "get" %>
                            </li>
 
-                           <li>
-                               <a class="page-scroll" href="#about">About</a>
-                           </li>
-                           <li>
-                               <a class="page-scroll" href="#contact">Contact</a>
-                           </li>
+                           <% current_uri = request.env['PATH_INFO'] %>
+                           <% if current_uri == root_path %>
+                             <li>
+                                 <a class="page-scroll" href="#about">About</a>
+                             </li>
+                             <li>
+                                 <a class="page-scroll" href="#contact">Contact</a>
+                             </li>
+                           <% else %>
+                             <li>
+                                 <a class="page-scroll" href="/static_pages/home#about">About</a>
+                             </li>
+                             <li>
+                                 <a class="page-scroll" href="/static_pages/home#contact">Contact</a>
+                             </li>
+                           <% end %>
+
 
                            <% if can? :access, :rails_admin %>
                            <li>
