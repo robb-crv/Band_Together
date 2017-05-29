@@ -1,5 +1,5 @@
-Feature: 
-	As a Generic User 
+Feature:
+	As a Generic User
 	I can see user's information (like username, email, birth date etc )
 
 	Background:
@@ -9,7 +9,7 @@ Feature:
 		Then I should be on the Sign In Page
 		When I fill in "Email" with "mariorossi@gmail.com"
 		And I fill in "Password" with "123456"
-		When I follow "Sign In"
+		When I press "Sign In" button
 		Then I should be on the User Home Page
 
 

@@ -94,9 +94,13 @@ end
 
 
 #Sign in feature
-
 When /^I follow "Sign In"$/ do
     click_on "Sign In"
+end
+
+When /^I press "Sign In" button$/ do
+    #click_on "Sign In"
+    find(:css, '#btnLogin').click
 end
 
 Then /^I should be on the Sign In Page$/ do
@@ -190,12 +194,12 @@ And /^I am logged in as "Mario Rossi"$/ do
   click_on "Sign In"
   fill_in("Email", with: "mariorossi@gmail.com")
   fill_in("Password", with: "123456")
-  click_on "Sign In"
+  find(:css, '#btnLogin').click
   expect(page.current_path).to eq users_home_path     #deve stare sulla root, per essere sicuri che si è loggati, altrimenti rimane sulla login
 end
 
 And /^I am on the User Home Page$/ do
-  expect(page).to have_content "questa è l'home page che vede l'utente loggato"
+    expect(page.current_path).to eq users_home_path
 end
 
 And /^I follow "Settings"$/ do
