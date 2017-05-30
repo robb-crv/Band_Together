@@ -1,6 +1,6 @@
 
 <div class="row">
-  <h2 align="center" style= "margin-bottom: 30px">Sign in</h2>
+  <h1 align="center" style= "margin-bottom: 30px">Sign in</h1>
   <div class="col-md-4 col-md-offset-4" align="center" style= "margin-bottom: 30px">
     <div class="oauth" style="text-align: center;" >
       <%= button_to user_google_oauth2_omniauth_authorize_path, :class => "btn btn-danger btn-social btn-google" ,:style =>"margin-right: 10px;" do %>
@@ -32,7 +32,7 @@
 
       <br/>
 
-      <%= f.submit "Sign In", class: "btn btn-primary btn-lg",style: "margin-left: 165px", id: "btnLogin" %>
+      <%= f.submit "Sign In", class: "btn btn-primary btn-md", id: "btnLogin" %>
 
     <% end %>
     <br/>
