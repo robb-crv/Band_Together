@@ -34,7 +34,7 @@ end
 
 #Ban User
 
-When /^I follow "Ban this user"$/ do 
+When /^I follow "Ban this user" on user "Mario Rossi"$/ do 
 	page.all(:css, 'li.icon.ban_user_account_member_link')[0].click
 end
 

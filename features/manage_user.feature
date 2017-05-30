@@ -15,6 +15,6 @@ Feature: Admin manages user information via Rails_Admin Dashboard
 
 	@javascript
 	Scenario: Ban user
-		When I follow "Ban this user"
+		When I follow "Ban this user" on user "Mario Rossi"
 		Then user "Mario Rossi" should be banned 
 
