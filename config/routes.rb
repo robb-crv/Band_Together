@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get 'advertisment/index'
 
   get 'advertisment/show'
-  
+
   get 'advertisment/new'
 
   post 'advertisment/create'
@@ -38,13 +38,16 @@ Rails.application.routes.draw do
   post 'band/create'
 
   get 'band/show'
-  
+
   get 'band/index'
 
   #resources :users, only: [:show, :edit, :update]
 
   #Route che serve nella form di signup per far apparire nella select della selezione della regione la lista delle regioni appartenenti alla nazione scelta dall'utente
   get '/states/:nation', to: 'application#states'
+
+  #Route che serve nella form di signup per far apparire nella select della selezione della città la lista delle città appartenenti alla nazione e regione scelta dall'utente
+  get  '/states/:nation/:region', to: 'application#cities'
 
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations',
   									:omniauth_callbacks => "users/omniauth_callbacks" }

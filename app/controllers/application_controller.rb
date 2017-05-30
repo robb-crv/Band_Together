@@ -17,7 +17,11 @@ class ApplicationController < ActionController::Base
 	#Metodo che fornisce alla form un json con le regioni relative ad un dato stato
 
 	def states
-		render json: CS.states(params[:nation]).values.to_json()
+		render json: CS.states(params[:nation]).to_json()
+	end
+
+	def cities
+		render json: CS.cities(params[:region],params[:nation]).to_json()
 	end
 
 	protected
@@ -34,5 +38,5 @@ class ApplicationController < ActionController::Base
 	  session["user_return_to"] || users_home_path
 	end
 
-	
+
 end

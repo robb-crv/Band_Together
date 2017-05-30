@@ -4,9 +4,9 @@
   <div class="col-md-4 col-md-offset-4" align="center" style= "margin-bottom: 30px">
     <div class="oauth" style="text-align: center;" >
       <%= button_to user_google_oauth2_omniauth_authorize_path, :class => "btn btn-danger btn-social btn-google" ,:style =>"margin-right: 10px;" do %>
-      <span class="fa fa-google"></span> Sign in with Google 
+      <span class="fa fa-google"></span> Sign in with Google
       <%end%>
-     or  
+     or
       <%= button_to user_facebook_omniauth_authorize_path, :class => "btn btn-primary btn-social-icon btn-facebook" ,:style =>"margin-left: 10px;" do %>
       <span class="fa fa-facebook"></span> Sign in with Facebook
       <%end%>
@@ -74,8 +74,9 @@
       RezeR
   -->
 
-    <%= f.label :nation , "Nation"%>
+
     <div class="field">
+      <%= f.label :nation , "Nation"%>
       <select id="countries" name="nation" class="form-control">
         <option value="" selected="">Select country</option>}
         <% CS.countries.each do |key, value| %>
@@ -90,30 +91,57 @@
         <option value="" selected="">Select state/province</option>
       </select>
 
+<br/>
+  <%= f.label :city , "City"%>
+  <select name="city" id="city-of-region" class="form-control">
+    <option value="" selected="">Select City</option>
+  </select>
 
-      <!-- Script che genera la select "region" quando viene selezionata una nazione nella select "nation" - RezeR -->
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
 
       <script>
+
+
+      //Andrea. ho scelto di usare il trigger dell'evento di change della select dipendente da quella che si cambia, così
+        //      ad ogni cambio di select a monte corrisponde un cambio a valle, eliminando il trigger non funzionava.
+
+       // al cambio di nazione
         $('#countries').change(function(){
           $("#user_nation").val($(this).find(":selected").text()); //Setta il value del campo hidden nation al valore selezionato nella select "nation"
+
+          //interroga la gemma per prendere le regioni corrispondenti
           $.getJSON('/states/' + $(this).val() , function(data){
             $('#states-of-country').empty();
-            $.each(data, function(i, ele){
-              var opt = '<option value='+ ele +'>' + ele + '</option>';
+            $('#city-of-region').empty();
+            $.each(data, function(k, ele){
+              var opt = '<option value='+ k +'>' + ele + '</option>';
               $('#states-of-country').append(opt);
             });
-            $("#user_region").val($('#states-of-country').find(":selected").text()); //Setta il value del campo hidden region al primo valore selezionato nella select "region"
+
+          //$("#user_region").val($('#states-of-country').find(":selected").text()); //Setta il value del campo hidden region al primo valore selezionato nella select "region"
+          $("#states-of-country").trigger('change');
           });
         });
-      </script>
 
-      <!-- Script che setta il value del campo hidden "region" quando viene selezionata una nuova regione (diversa dalla prima) nella select "region" - RezeR -->
 
-      <script>
+        // al cambio di regione
         $('#states-of-country').change(function(){
           $("#user_region").val($(this).find(":selected").text());
+
+          //interroga la gemma per prendere le città corrispondenti
+          $.getJSON('/states/' + $('#countries').val()  + '/' +  $(this).val() , function(data){
+            $('#city-of-region').empty();
+            $.each(data, function(k, ele){
+              var opt = '<option value='+ k +'>' + ele + '</option>';
+              $('#city-of-region').append(opt);
+            });
+          //$("#user_city").val($(this).find(":selected").text());
+          $("#city-of-region").trigger('change');
+        });
+      });
+
+        //al cambio di città
+        $('#city-of-region').change(function(){
+          $("#user_city").val($(this).find(":selected").text());
         });
       </script>
 
@@ -127,13 +155,14 @@
     <br>
 
     <!--
-    I due campi hidden "nation" e "region" servono per salvare i valori della nazione e della regione selezioni e che verranno passati alla POST.
+    I campi hidden "nation" e "region" e "city" servono per salvare i valori della nazione e della regione e della città selezioni e che verranno passati alla POST.
     RezeR
     -->
 
     <div class="field">
       <%= f.hidden_field :nation %>
       <%= f.hidden_field :region %>
+      <%= f.hidden_field :city %>
     </div>
 
     <div class="field">
@@ -158,7 +187,7 @@
     </div>
     <% end %>
 <br/>
-  
+
 </div>
 
 </div>

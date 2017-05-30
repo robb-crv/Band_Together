@@ -8,13 +8,14 @@ FactoryGirl.define do
 		birth				{Faker::Date.backward(1000)}
 		type_of_musician 	"Drummer"
 		musical_genre 		"Rock"
-		nation   			"Italy" 
-		region              "Veneto" 
+		nation   			"Italy"
+		region              "Veneto"
+		city 					"Venice"
 		gender   			"M"
 	end
 
 	factory :invalid_user, parent: :user do
-		email 				nil	
-		banned 				true	
+		email 				nil
+		banned 				true
 	end
 end
