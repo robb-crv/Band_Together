@@ -17,4 +17,11 @@ FactoryGirl.define do
 		email 				nil	
 		banned 				true	
 	end
+
+	factory :admin, parent: :user do |variable|
+		username			"Admin"
+		email				"admin@email.com"
+		password			"admin1"
+		admin_role			true				
+	end
 end
