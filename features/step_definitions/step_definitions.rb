@@ -93,7 +93,7 @@ Then /^I should be on the User Home Page$/ do
 end
 
 
-#Sign in feature
+#SIGN IN FEATURE
 When /^I follow "Sign In"$/ do
     click_on "Sign In"
 end
@@ -137,6 +137,10 @@ end
 
 Then /^I should see "Could not authenticate you"$/ do
   expect(page).to have_content "Could not authenticate you"
+end
+
+And /^I should see "Your account is locked"$/ do
+  expect(page).to have_content "Your account is locked"  
 end
 
 
@@ -185,6 +189,13 @@ end
 Given /^Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"$/ do
 
   user = FactoryGirl.build(:user, email: "mariorossi@gmail.com", password: "123456")
+  user.skip_confirmation!
+  expect(user.save).to eq true
+end
+
+Given /^Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456" that is banned$/ do
+
+  user = FactoryGirl.build(:invalid_user, email: "mariorossi@gmail.com", password: "123456")
   user.skip_confirmation!
   expect(user.save).to eq true
 end

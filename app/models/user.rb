@@ -147,4 +147,18 @@ end
     SecureRandom.urlsafe_base64
   end
 
+  # Override del metodo di devise che controlla se un utente è attivo per l'autenticazione
+  # In questo modo controlla se l'utente è bannato prima di autenticarlo
+
+  def active_for_authentication?
+    super && !self.banned
+  end
+
+  # Override del metodo inactive_message di Devise che cambia il messaggio di errore quando l'utente è bannto in
+  # "Your account is locked"
+
+  def inactive_message
+    !self.banned ? super : :locked
+  end
+
 end
