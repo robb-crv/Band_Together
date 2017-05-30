@@ -1,0 +1,37 @@
+<!--
+<div class="navbar navbar-inverse navbar-fixed-left">
+  <a class="navbar-brand inactiveLink" href="#" >Settings</a>
+  <ul class="nav navbar-nav">
+   <li><a href="#">Profile Informations</a></li>
+   <li><a href="#">Account</a></li>
+  </ul>
+</div>
+
+-->
+<!--
+<div class="col-sm-3 col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <li class="active"><%= link_to "Settings" , "#" , :class => "inactiveLink" %></li>
+    <li class="sidebar_entry"><%= link_to "Profile Informations"  , :class => "inactiveLink" %></li>
+    <li class="sidebar_entry"><%= link_to "Account" , edit_user_registration_path %></li>
+  </ul>
+</div>
+
+-->
+<div class="col-sm-3 col-md-2 sidebar">
+          <nav class="nav-sidebar">
+              <ul class="nav">
+                  <% case currentPage %>
+                    <% when "ProfileInformations"  %>
+                      <li class="active"><%= link_to "Profile Informations" , users_edit_profile_informations_path %></li>
+                      <li ><%= link_to "Account" , edit_user_registration_path %></li>
+                    <% when "Account" %>
+                      <li><%= link_to "Profile Informations" , users_edit_profile_informations_path %></li>
+                      <li class="active"><%= link_to "Account" , edit_user_registration_path %></li>
+
+                    <% else %>
+
+                  <% end %>
+              </ul>
+          </nav>
+      </div>

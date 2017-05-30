@@ -94,9 +94,13 @@ end
 
 
 #Sign in feature
-
 When /^I follow "Sign In"$/ do
     click_on "Sign In"
+end
+
+When /^I press "Sign In" button$/ do
+    #click_on "Sign In"
+    find(:css, '#btnLogin').click
 end
 
 Then /^I should be on the Sign In Page$/ do
@@ -190,21 +194,26 @@ And /^I am logged in as "Mario Rossi"$/ do
   click_on "Sign In"
   fill_in("Email", with: "mariorossi@gmail.com")
   fill_in("Password", with: "123456")
-  click_on "Sign In"
+  find(:css, '#btnLogin').click
   expect(page.current_path).to eq users_home_path     #deve stare sulla root, per essere sicuri che si è loggati, altrimenti rimane sulla login
 end
 
 And /^I am on the User Home Page$/ do
-  expect(page).to have_content "questa è l'home page che vede l'utente loggato"
+    expect(page.current_path).to eq users_home_path
 end
 
 And /^I follow "Settings"$/ do
   click_on "Settings"
 end
-
+=begin
 Then /^I should be on the Edit User Profile Page$/ do
 
     expect(page).to have_content "Edit User"
+end
+=end
+Then /^I should be on the Edit User Profile Informations Page$/ do
+
+  expect(page.current_path).to eq users_edit_profile_informations_path
 end
 
 When /^I fill "First name" with "Carlo"$/ do
@@ -235,11 +244,11 @@ end
 
 
 And /^I should see a feedback that confirm the changes$/ do
-  expect(page).to have_css("div[class='alert alert-notice']")
+  expect(page).to have_css(".alert-success")
 end
 
 And /^I should see a feedback that shows error$/ do
-   expect(page).to have_css("div#error_explanation")
+   expect(page).to have_css(".alert-danger")
 end
 
 When /^I fill "First name" with "carlo"$/ do

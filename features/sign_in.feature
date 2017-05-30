@@ -10,7 +10,7 @@ Feature: Generic User signs in on the application
 		Then I should be on the Sign In Page
 		When I fill in "Email" with "mariorossi@gmail.com"
 		And I fill in "Password" with "123456"
-		When I follow "Sign In"
+		When I press "Sign In" button
 		Then I should be on the User Home Page
 
 		Scenario: Sign in via the application (sad way)
@@ -20,7 +20,7 @@ Feature: Generic User signs in on the application
 			Then I should be on the Sign In Page
 			When I fill in "Email" with "rossimario@gmail.com"
 			And I fill in "Password" with "654321"
-			When I follow "Sign In"
+			When I press "Sign In" button
 			Then I should be on the Sign In Page
 
  @omniauth_test

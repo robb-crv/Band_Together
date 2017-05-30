@@ -4,12 +4,12 @@
   
   <div class="field">
   	<%= f.label :name%>
-  	<%= f.text_field :name %>
+  	<%= f.text_field :name , autofocus: true, :required => 'required'%>
   </div>
   
   <div class="field">
   	<%= f.label :description %>
-  	<%= f.text_field :description %>
+  	<%= f.text_field :description, autofocus: true, :required => 'required' %>
   </div>
 
   <div class="field">

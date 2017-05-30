@@ -17,8 +17,16 @@ Rails.application.routes.draw do
 
   get 'users/home'
 
+  get 'users/edit_profile_informations'
+
+  post 'users/update_profile_informations'
+
   # Routes per l'advertisement
 
+  get 'advertisment/index'
+
+  get 'advertisment/show'
+  
   get 'advertisment/new'
 
   post 'advertisment/create'
@@ -30,6 +38,8 @@ Rails.application.routes.draw do
   post 'band/create'
 
   get 'band/show'
+  
+  get 'band/index'
 
   #resources :users, only: [:show, :edit, :update]
 
@@ -38,5 +48,6 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations',
   									:omniauth_callbacks => "users/omniauth_callbacks" }
+
 
 end

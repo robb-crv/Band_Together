@@ -9,10 +9,13 @@ class Band < ApplicationRecord
     	end
   	end
 
-
+  	#association
   	belongs_to :band_manager, class_name: "User"
-		
-	validates :name, presence: true, allow_blank: false
+	has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
+
+	#validation
+
+	validates :name, :presence => true, length: {maximum: 100}, :allow_blank => false
 	validates :description, presence: true
 	validates :musical_genre, presence: true, genre: true
 	
