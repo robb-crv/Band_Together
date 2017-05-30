@@ -2,32 +2,30 @@
 <br/>
 <h4> Create Advertisment </h4>
 
-<%= form_for(:advertisment, url: advertisment_create_path) do |f| %>
+<%= form_for(:advertisment, url: advertisment_create_path(:band_id => @band.id)) do |f| %>
 
   <div class="field">
-  	<%= f.label :title%>
-  	<%= f.text_field :title %>
-  </div>
+  	<%= f.label :title%><br/>
+  	<%= f.text_field :title , :required => true%>
+  </div><br/>
 
   <div class="field">
-  	<%= f.label :description %>
-  	<%= f.text_field :description %>
-  </div>
+  	<%= f.label :description %><br/>
+  	<%= f.text_field :description, :required => true %>
+  </div><br/>
 
   <div class="field">
-  	<%= f.label :start_date%>
-  	<%= f.text_field :start_date, "data-provide" => 'datepicker' %><br/>
-  </div>
+  	<%= f.label :start_date%><br/>
+  	<%= f.text_field :start_date, "data-provide" => 'datepicker' , :required => true%><br/>
+  </div><br/>
 
   <div class="field">
-  	<%= f.label :term_date%>
-  	<%= f.text_field :term_date, "data-provide" => 'datepicker' %><br/>
-  </div>
-
-  <%= f.text_field :band_id, :value => @band.id %>
+  	<%= f.label :term_date%><br/>
+  	<%= f.text_field :term_date, "data-provide" => 'datepicker' , :required => true%><br/>
+  </div><br/>
 
   <div class="actions">
-  	<%= f.submit "Create", :id => "CreateAdvertisment" %>
+  	<%= f.submit "Create", :id => "CreateAdvertisment" , :class => "btn btn-md btn-primary"%>
   </div>
 
 <% end%>

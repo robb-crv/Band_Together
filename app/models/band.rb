@@ -13,7 +13,7 @@ class Band < ApplicationRecord
   	belongs_to :band_manager, class_name: "User"
 	has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 
-	#validation
+	#Validations
 
 	validates :name, :presence => true, length: {maximum: 100}, :allow_blank => false
 	validates :description, presence: true
