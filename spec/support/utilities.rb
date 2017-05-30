@@ -36,6 +36,10 @@ def invalid_regions
 	%w[Alsace Aragon Brandeburg]
 end
 
+def invalid_cities
+	%w[Latina Bongo Ciccio]
+end
+
 #Valid cases
 
 def valid_usernames

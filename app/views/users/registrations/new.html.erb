@@ -74,6 +74,12 @@
       RezeR
   -->
 
+  <div class="field">
+    <%= f.hidden_field :nation %>
+    <%= f.hidden_field :region %>
+    <%= f.hidden_field :city %>
+  </div>
+
 
     <div class="field">
       <%= f.label :nation , "Nation"%>
@@ -159,11 +165,7 @@
     RezeR
     -->
 
-    <div class="field">
-      <%= f.hidden_field :nation %>
-      <%= f.hidden_field :region %>
-      <%= f.hidden_field :city %>
-    </div>
+
 
     <div class="field">
       <%= f.label :type_of_musician, "Instrument played" %>
