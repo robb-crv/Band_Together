@@ -30,13 +30,15 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
     user ||= User.new # guest user (not logged in)
+
         if user.admin_role?
             can :manage, :all
             can :access, :rails_admin       # only allow admin users to access Rails Admin
             can :dashboard                  # allow access to dashboard
         end
+
         if user.band_manager_role?
-            can :manage, Band, Advertisment
+            can :manage, [Band, Advertisment]
         end
     end
 end
