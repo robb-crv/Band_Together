@@ -50,6 +50,14 @@ Rails.application.routes.draw do
   
   get 'band/index'
 
+  post 'band/destroy'
+
+  delete 'band/destroy'
+
+  get 'band/edit'
+
+  post 'band/update'
+
   #resources :users, only: [:show, :edit, :update]
 
   #Route che serve nella form di signup per far apparire nella select della selezione della regione la lista delle regioni appartenenti alla nazione scelta dall'utente

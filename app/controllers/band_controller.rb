@@ -32,6 +32,31 @@ class BandController < ApplicationController
 		end
 	end
 
+	def edit
+		@band= Band.find(params[:id])
+	end
+
+
+	def update
+		@band= Band.find(params[:id])
+		@band.update(band_params)
+		redirect_to band_index_path(:id => @band.band_manager)
+	end
+
+	def destroy
+		@band= Band.find(params[:id])
+		@bm= @band.band_manager.id
+
+		if(@band.delete)
+
+			flash[:success] = "The Band has been deleted correctly."
+			redirect_to band_index_path(:id => @bm)
+		else 
+			flash[:danger] = "An error occurred deleting band..."
+		end
+
+	end
+
 	private 
   	def band_params()
     	params.require(:band).permit(:name, :description, :musical_genre, :band_manager_id)

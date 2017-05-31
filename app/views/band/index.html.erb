@@ -3,7 +3,10 @@
     <ol>
     	<% @bands.each do |b| %><br/>
     		
-    		<li><%= link_to b.name, band_show_path(:id => b.id), :method => "get" %></li>
+    		<li><%= link_to b.name, band_show_path(:id => b.id), :method => "get" %> 
+    			<%= link_to "edit", band_edit_path(:id => b.id), :method => "get" %> 
+    			<%= link_to "delete", band_destroy_path(:id => b.id), :method => "delete", data:  { confirm: "Are you sure?" }%>
+    		</li>
     	
     	<% end %>
     </ol>

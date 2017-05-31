@@ -1,5 +1,7 @@
 #Invalid cases
 
+#USER
+
 def invalid_usernames
 	["$%&/", "dotto93&", "Al&ss4ndro", "+G1g10.%_+", "---/---", "^w^v^", "2^4", "&Beast", "\__A__/", " G0/\/G0l0", "Gigio Gigi", "BiagioigaiB ", "  2  "]	
 end
@@ -36,6 +38,23 @@ def invalid_regions
 	%w[Alsace Aragon Brandeburg]	
 end
 
+
+#BAND
+
+def invalid_band_names
+	["", " ", " Band", "  "]
+end	
+
+#ADVERTISMENT
+
+def invalid_advertisment_titles
+	["", " ", " Cercasi", "  "]
+end
+
+
+
+
+
 #Valid cases
 
 def valid_usernames
@@ -65,4 +84,22 @@ end
 
 def valid_genders
 	%w[M F]	
+end
+
+#BAND
+
+def valid_band_names
+	["Band01", "BBBB", "Band 01", "@rock'n_rool", "BaNd01", "BbBb"]
+end 
+
+def valid_genre 
+	["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"]
+end
+
+
+
+#ADVERTISMENT
+
+def valid_advertisment_titles
+	["Cercasi", "Cercasi Batterista", "CercasiBatterista", "cErCaSi BatTeRiStA"]
 end
