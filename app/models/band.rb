@@ -14,10 +14,10 @@ class Band < ApplicationRecord
 	has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 
 	#Validations
-
-	validates :name, :presence => true, length: {maximum: 100}, :allow_blank => false
-	validates :description, presence: true
-	validates :musical_genre, presence: true, genre: true
+	VALID_NAME_REGEX = /\A[^ ].*\z/ #il nome non può iniziare con uno spazio
+	validates :name, presence: true, length: {maximum: 100}, format: {with: VALID_NAME_REGEX}, allow_blank: false
+	validates :description, presence: true, length: {maximum: 1000}, allow_blank: false
+	validates :musical_genre, length: {maximum: 50}, presence: true, genre: true
 	
 
 end
