@@ -19,15 +19,222 @@ RSpec.describe Ability, type: :model do
     			it {should be_able_to(:access, :rails_admin)}    				
     		end
 
-    		#Da modificare quando saranno specificate definitivamente le ability dello user_role
-
     		context "when is a User" do 
-    			let(:user){FactoryGirl.build(:user)}
+    			let(:user){FactoryGirl.create(:user)}
 
-    			it {should_not be_able_to(:manage, User.new)}
-    			it {should_not be_able_to(:manage, Advertisment.new)}
-    			it {should_not be_able_to(:manage, Band.new)}
-    			it {should_not be_able_to(:access, :rails_admin)}    				
+    			context "#create ability" do 
+
+    				it {should be_able_to(:create, Band.new)}
+    				it {should_not be_able_to(:create, User.new)}
+    				it {should_not be_able_to(:create, Advertisment.new)}    				
+    			end
+
+    			context "#read ability" do 
+
+    				it {should be_able_to(:read, User.new)}
+    				it {should be_able_to(:read, Advertisment.new)}
+    				it {should be_able_to(:read, Band.new)}    				
+    			end    			
+
+    			context "#update ability" do 
+
+    				context "on himself" do 
+
+    					it{should be_able_to(:update, user)}   					    					
+    				end
+
+    				context "on others" do 
+
+    					it {should_not be_able_to(:update, FactoryGirl.create(:user))}    					
+    				end    				
+    			end
+
+    			context "#destroy ability" do 
+
+    				context "on himself" do 
+
+    					it{should be_able_to(:destroy, user)}   					    					
+    				end
+
+    				context "on others" do 
+
+    					it {should_not be_able_to(:destroy, FactoryGirl.create(:user))}    					
+    				end    				
+    			end
+    		end
+
+    		context "when is a Band Manager" do 
+
+    			let(:user){FactoryGirl.create(:band_manager)}
+
+    			context "#create ability" do 
+
+    				it {should be_able_to(:create, Band.new)}
+    				it {should be_able_to(:create, Advertisment.new)}
+    				it {should_not be_able_to(:create, User.new)}    				    				
+    			end
+
+    			context "#read ability" do 
+
+    				it {should be_able_to(:read, User.new)}
+    				it {should be_able_to(:read, Advertisment.new)}
+    				it {should be_able_to(:read, Band.new)}    				
+    			end    			
+
+    			context "#update ability" do 
+
+    				context "on Users" do 
+
+    					context "on himself" do 
+
+    						it{should be_able_to(:update, user)}   					    					
+    					end
+
+    					context "on others" do 
+
+    						it {should_not be_able_to(:update, FactoryGirl.create(:user))}    					
+    					end  					
+    				end
+
+    				context "on Bands" do 
+
+    					context "on the ones which he created" do 
+
+    						it{should be_able_to(:update, FactoryGirl.create(:band, band_manager_id: user.id))}    						
+    					end
+
+    					context "on the ones created by the others" do 
+
+    						it{should_not be_able_to(:update, FactoryGirl.create(:band))}    						
+    					end    					
+    				end
+
+    				context "on Advertisments" do 
+
+    					context "on the ones which he created" do 
+
+    						it{should be_able_to(:update, FactoryGirl.create(:advertisment, user_id: user.id))}    						
+    					end
+
+    					context "on the ones created by the others" do 
+
+    						it{should_not be_able_to(:update, FactoryGirl.create(:advertisment))}    						
+    					end    					
+    				end    				    				
+    			end
+
+    			context "#destroy ability" do 
+
+    				context "on Users" do 
+
+    					context "on himself" do 
+
+    						it{should be_able_to(:destroy, user)}   					    					
+    					end
+
+    					context "on others" do 
+
+    						it {should_not be_able_to(:destroy, FactoryGirl.create(:user))}    					
+    					end  					
+    				end
+
+    				context "on Bands" do 
+
+    					context "on the ones which he created" do 
+
+    						it{should be_able_to(:destroy, FactoryGirl.create(:band, band_manager_id: user.id))}    						
+    					end
+
+    					context "on the ones created by the others" do 
+
+    						it{should_not be_able_to(:destroy, FactoryGirl.create(:band))}    						
+    					end    					
+    				end
+
+    				context "on Advertisments" do 
+
+    					context "on the ones which he created" do 
+
+    						it{should be_able_to(:destroy, FactoryGirl.create(:advertisment, user_id: user.id))}    						
+    					end
+
+    					context "on the ones created by the others" do 
+
+    						it{should_not be_able_to(:destroy, FactoryGirl.create(:advertisment))}    						
+    					end    					
+    				end    				
+    			end
+    		end
+
+    		context "when is a Band Member" do 
+
+    			let(:user){FactoryGirl.create(:band_member)}
+
+    			context "#create ability" do 
+
+    				it {should be_able_to(:create, Band.new)}
+    				it {should_not be_able_to(:create, Advertisment.new)}
+    				it {should_not be_able_to(:create, User.new)}    				    				
+    			end
+
+    			context "#read ability" do 
+
+    				it {should be_able_to(:read, User.new)}
+    				it {should be_able_to(:read, Advertisment.new)}
+    				it {should be_able_to(:read, Band.new)}    				
+    			end    			
+
+    			context "#update ability" do 
+
+    				context "on Users" do 
+
+    					context "on himself" do 
+
+    						it{should be_able_to(:update, user)}   					    					
+    					end
+
+    					context "on others" do 
+
+    						it {should_not be_able_to(:update, FactoryGirl.create(:user))}    					
+    					end  					
+    				end
+
+    				context "on Bands" do 
+
+    					it{should_not be_able_to(:update, Band.new)}    						   					
+    				end
+
+    				context "on Advertisments" do 
+
+    					it{should_not be_able_to(:update, Advertisment.new)}    					
+    				end    				    				
+    			end
+
+    			context "#destroy ability" do 
+
+    				context "on Users" do 
+
+    					context "on himself" do 
+
+    						it{should be_able_to(:destroy, user)}   					    					
+    					end
+
+    					context "on others" do 
+
+    						it {should_not be_able_to(:destroy, FactoryGirl.create(:user))}    					
+    					end  					
+    				end
+
+    				context "on Bands" do 
+
+    					it{should_not be_able_to(:destroy, Band.new)}    					
+    				end
+
+    				context "on Advertisments" do 
+
+    					it{should_not be_able_to(:destroy, Advertisment.new)}    					
+    				end    				
+    			end
     		end
     	end		
 	end	

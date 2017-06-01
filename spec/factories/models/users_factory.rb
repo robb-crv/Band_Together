@@ -18,10 +18,18 @@ FactoryGirl.define do
 		banned 				true	
 	end
 
-	factory :admin, parent: :user do |variable|
+	factory :admin, parent: :user do 
 		username			"Admin"
 		email				"admin@email.com"
 		password			"admin1"
 		admin_role			true				
+	end
+
+	factory :band_manager, parent: :user do 
+		band_manager_role true		
+	end
+
+	factory :band_member, parent: :user do 
+		band_member_role true		
 	end
 end
