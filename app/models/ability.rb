@@ -37,8 +37,22 @@ class Ability
             can :dashboard                  # allow access to dashboard
         end
 
+        if user.user_role?
+            can :read, [User, Band, Advertisment]
+            can :create, Band
+            can [:update, :destroy], User, id: user.id
+        end
+
         if user.band_manager_role?
-            can :manage, [Band, Advertisment]
+            can :create, [Band, Advertisment]
+            can :update, Band, band_manager_id: user.id
+            can :update, Advertisment, user_id: user.id
+            can :destroy, Band, band_manager_id: user.id
+            can :destroy, Advertisment, user_id: user.id
+        end
+
+        if user.band_member_role?
+            can :read, [User, Band, Advertisment]
         end
     end
 end
