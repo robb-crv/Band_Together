@@ -17,11 +17,11 @@ gem 'puma', '~> 3.0'
 gem 'devise', '~> 4.2'
 
 =begin
-  
+
 CanCanCan is an authorization library which restricts what resources a given user is allowed to access.
 
 All permissions are defined in a single location (the Ability class) and not duplicated across controllers, views, and database queries.
-  
+
 =end
 
 gem 'cancancan', '~> 1.10'
@@ -65,6 +65,10 @@ gem 'rails-controller-testing'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
+# jquery library for animation
+gem 'jquery-easing-rails'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
