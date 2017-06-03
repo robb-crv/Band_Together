@@ -52,6 +52,13 @@ class User < ApplicationRecord
       	record.errors.add attribute, "Non è una regione valida" unless CS.states(CS.countries.key(record.nation)).has_value? value
     	end
   	end
+
+    class  CityValidator < ActiveModel::EachValidator
+
+    	def validate_each(record, attribute, value)
+      	record.errors.add attribute, "Not a valid city." unless CS.cities(CS.states(CS.countries.key(record.nation)).key(record.region),CS.countries.key(record.nation)).include? value
+    	end
+  	end
 	#Validations
 
 =begin
@@ -79,6 +86,7 @@ class User < ApplicationRecord
 	validates_date :birth, allow_blank: false, allow_nil: true, :after => '1900-1-1', :before => lambda{Date.current}
 	validates :nation, allow_blank: false, length: {maximum: 50}, nation: true, allow_nil: true
 	validates :region, allow_blank: false, length: {maximum: 50}, allow_nil: true, region: true
+  validates :city, allow_blank: false, length: {maximum: 50}, allow_nil: true, city: true
 	VALID_GENDER_REGEX = /[MF]/
 	validates :gender, allow_blank: false, length: {maximum: 1}, format: {with: VALID_GENDER_REGEX}, allow_nil: true
   validates :type_of_musician, length: {maximum: 50}, type: true, allow_nil: true

@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    
+
     if(!params[:id].nil? )
-  	   @user= User.find(params[:id]) 
+  	   @user= User.find(params[:id])
     else
       redirect_to "/404"
     end
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name,:last_name,:gender,:birth,:nation,:region, :musical_genre, :type_of_musician)
+    params.require(:user).permit(:first_name,:last_name,:gender,:birth,:nation,:region, :city, :musical_genre, :type_of_musician)
   end
 
 end

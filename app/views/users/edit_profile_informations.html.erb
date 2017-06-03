@@ -1,111 +1,173 @@
   <%= render :partial => 'layouts/settings_sidebar' , :locals => {:currentPage => "ProfileInformations" }  %>
 
-<div class="col-md-6 col-md-offset-3" id="SettingsMainContainer">
+<div class="col-md-4 col-md-offset-3" id="SettingsMainContainer">
     <%= render 'layouts/messages' %>
   <%= form_for(:user, as: :user, url: users_update_profile_informations_path, html: {method: :post}) do |f| %>
 
     <div class="field">
       <%= f.label :first_name , "First name"%><br />
-      <%= f.text_field :first_name %>
+      <%= f.text_field :first_name , class: 'form-control' %>
     </div>
 
-    <div class="field">
-      <%= f.label :last_name , "Last name"%><br />
-      <%= f.text_field :last_name %>
-    </div>
+    <br/>
 
     <div class="field">
-      <%= f.label :gender, "Gender"%><br />
-      <%= f.radio_button :gender, "M" %>
-      <%= f.label :gender_male , "Male"%>
-      <%= f.radio_button :gender, "F" %>
-      <%= f.label :gender_female , "Female"%>
+      <%= f.label :last_name , "Last name"%>
+      <%= f.text_field :last_name , class: 'form-control' %>
     </div>
 
+    <br/>
     <div class="field">
-      <%= f.label :birth , "Birth date"%><br />
-      <%= f.text_field :birth, "data-provide" => 'datepicker' %>
+      <%= f.label :gender, "Gender"%>
+      <%= f.select(:gender, options_for_select([["Male","M"],["Female","F"]] ), {}, {:class => 'form-control'})  %>
+
+      </div>
+      <br/>
+
+    <div class="field">
+      <%= f.label :birth , "Birth date"%>
+      <%= f.date_field :birth,  class: 'form-control' ,  "data-provide" => 'datepicker' %>
     </div>
 
     <br>
 
-
-    <div class="field">
-      <select id="countries" name="nation">
-        <option value="" selected="">Select country</option>}
-        <% CS.countries.each do |key, value| %>
-        <option value="<%= key %>"><%= value %></option>
-        <% end %>
-      </select>
-
-      <br/>
-      <br/>
-
-      <select name="region" id="states-of-country">
-        <option value="" selected="">Select state/province</option>
-      </select>
-
-    <!-- Script che genera la select "region" quando viene selezionata una nazione nella select "nation" - RezeR -->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
-
-    <script>
-      $('#countries').change(function(){
-        $("#user_nation").val($(this).find(":selected").text()); //Setta il value del campo hidden nation al valore selezionato nella select "nation"
-        $.getJSON('/states/' + $(this).val() , function(data){
-          $('#states-of-country').empty();
-          $.each(data, function(i, ele){
-            var opt = '<option value='+ ele +'>' + ele + '</option>';
-            $('#states-of-country').append(opt);
-          });
-          $("#user_region").val($('#states-of-country').find(":selected").text()); //Setta il value del campo hidden region al primo valore selezionato nella select "region"
-        });
-      });
-    </script>
-
-    <!-- Script che setta il value del campo hidden "region" quando viene selezionata una nuova regione (diversa dalla prima) nella select "region" - RezeR -->
-
-    <script>
-      $('#states-of-country').change(function(){
-        $("#user_region").val($(this).find(":selected").text());
-      });
-    </script>
-
-
-    <!--
-    I due campi hidden "nation" e "region" servono per salvare i valori della nazione e della regione selezioni e che verranno passati alla POST.
-    RezeR
-    -->
 
     <div class="field">
       <%= f.hidden_field :nation %>
       <%= f.hidden_field :region %>
+      <%= f.hidden_field :city %>
     </div>
+
+
+    <div class="field">
+      <%= f.label :nation , "Nation"%>
+      <select id="countries" name="nation" class="form-control">
+        <option value="" selected="">Select country</option>}
+        <% CS.countries.each do |key, value| %>
+          <% if @user.nation == value %>
+            <% @nationKey = key %>
+            <option value="<%= key %>" selected><%= value %></option>
+          <% else %>
+            <option value="<%= key %>"><%= value %></option>
+          <% end %>
+        <% end %>
+      </select>
+
+      <br/>
+
+  <%= f.label :region , "Region"%>
+      <select name="region" id="states-of-country" class="form-control">
+        <% if @user.nation != nil %>
+          <% CS.states(@nationKey).each do |key, value| %>
+            <% if @user.region == value %>
+              <% @regionKey = key %>
+              <option value="<%= key %>" selected><%= value %></option>
+            <% else %>
+              <option value="<%= key %>"><%= value %></option>
+            <% end %>
+          <% end %>
+        <% else %>
+          <option value="" selected="">Select state/province</option>
+        <% end %>
+      </select>
+
+  <br/>
+
+
+  <%= f.label :city , "City"%>
+
+
+  <select name="city" id="city-of-region" class="form-control">
+    <% if @user.region != nil %>
+      <% CS.cities(@regionKey,@nationKey).each do |value| %>
+        <% if @user.city == value %>
+          <option value="<%= value %>" selected><%= value %></option>
+        <% else %>
+          <option value="<%= value %>"><%= value %></option>
+        <% end %>
+      <% end %>
+    <% else %>
+        <option value="" selected="">Select City</option>
+    <% end %>
+  </select>
+
+
+      <script>
+
+
+
+      //Andrea. ho scelto di usare il trigger dell'evento di change della select dipendente da quella che si cambia, così
+        //      ad ogni cambio di select a monte corrisponde un cambio a valle, eliminando il trigger non funzionava.
+
+       // al cambio di nazione
+        $('#countries').change(function(){
+          $("#user_nation").val($(this).find(":selected").text()); //Setta il value del campo hidden nation al valore selezionato nella select "nation"
+
+          //interroga la gemma per prendere le regioni corrispondenti
+          $.getJSON('/states/' + $(this).val() , function(data){
+            $('#states-of-country').empty();
+            $('#city-of-region').empty();
+            $.each(data, function(k, ele){
+              var opt = '<option value='+ k +'>' + ele + '</option>';
+              $('#states-of-country').append(opt);
+            });
+
+          //$("#user_region").val($('#states-of-country').find(":selected").text()); //Setta il value del campo hidden region al primo valore selezionato nella select "region"
+          $("#states-of-country").trigger('change');
+          });
+        });
+
+
+        // al cambio di regione
+        $('#states-of-country').change(function(){
+          $("#user_region").val($(this).find(":selected").text());
+
+          //interroga la gemma per prendere le città corrispondenti
+          $.getJSON('/states/' + $('#countries').val()  + '/' +  $(this).val() , function(data){
+            $('#city-of-region').empty();
+            $.each(data, function(k, ele){
+              var opt = '<option value='+ k +'>' + ele + '</option>';
+              $('#city-of-region').append(opt);
+            });
+          //$("#user_city").val($(this).find(":selected").text());
+          $("#city-of-region").trigger('change');
+        });
+      });
+
+        //al cambio di città
+        $('#city-of-region').change(function(){
+          $("#user_city").val($(this).find(":selected").text());
+        });
+      </script>
+
+
+
+
+
     </div>
+
+
 
 
     <br>
 
     <div class="field">
-      <%= f.label :type_of_musician, "Instrument played" %><br/>
-      <%= f.select(:type_of_musician) do %>
-        <% ["Drummer", "Lead_guitarist", "Rhythmic_guitarist", "Bass_guitarist", "Keyboardist", "Singer", "Winds"].each do |c|%>
-          <%= content_tag(:option, c, value: c, selected: c == current_user.type_of_musician) %>
-        <% end %>
-      <% end %>
+      <%= f.label :type_of_musician, "Instrument played" %>
+
+      <%= f.select(:type_of_musician, options_for_select(
+                  ["Drummer" ,["Lead Guitar", "Lead_guitarist"], ["Rhythm Guitar", "Rhythmic_guitarist"],
+                  ["Bass", "Bass_guitarist"], "Keyboardist", "Singer", "Winds"] , :selected => @user.type_of_musician
+              ), {} , {:class => 'form-control'})  %>
+
     </div>
 
     <br>
 
     <div class="field">
-      <%= f.label :musical_genre, "Favourite musical genre" %><br/>
-      <%= f.select(:musical_genre) do %>
-        <% ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"].each do |c|%>
-          <%= content_tag(:option, c, value: c, selected: c == current_user.musical_genre) %>
-        <% end %>
-      <% end %>
-    </div>
+      <%= f.label :musical_genre, "Favourite musical genre" %>
+      <%= f.select(:musical_genre, options_for_select(["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"] , :selected => @user.musical_genre), {}, {:class => 'form-control'})  %>
 
+    </div>
     <br>
 
     <div class="actions">

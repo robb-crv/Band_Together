@@ -16,15 +16,15 @@ RSpec.describe User, type: :model do
 
 			context 'when format is invalid' do
 				invalid_usernames.each do |invalid_username|
-					it { should_not allow_value(invalid_username).for(:username) }					
-				end				
-			end	
+					it { should_not allow_value(invalid_username).for(:username) }
+				end
+			end
 
 			context 'when format is valid' do
 				valid_usernames.each do |valid_username|
-					it { should allow_value(valid_username).for(:username) }					
-				end				
-			end	
+					it { should allow_value(valid_username).for(:username) }
+				end
+			end
 		end
 
 		context 'for email' do
@@ -34,23 +34,23 @@ RSpec.describe User, type: :model do
 				subject { FactoryGirl.build(:user) }
 				it { should validate_uniqueness_of(:email).case_insensitive }
 			end
-			
+
 			context 'when format is invalid' do
 				invalid_emails.each do |invalid_email|
-					it { should_not allow_value(invalid_email).for(:email) }					
-				end				
-			end	
+					it { should_not allow_value(invalid_email).for(:email) }
+				end
+			end
 
 			context 'when format is valid' do
 				valid_emails.each do |valid_email|
-					it { should allow_value(valid_email).for(:email) }					
-				end				
+					it { should allow_value(valid_email).for(:email) }
+				end
 			end
 		end
 
 		context 'for password' do
 			it { should validate_presence_of :password }
-			it { should validate_length_of :password }			
+			it { should validate_length_of :password }
 		end
 
 		context 'for first_name and last_name' do
@@ -64,62 +64,82 @@ RSpec.describe User, type: :model do
 			context 'when format is invalid' do
 				invalid_names.each do |invalid_name|
 					it { should_not allow_value(invalid_name).for(:first_name) }
-					it { should_not allow_value(invalid_name).for(:last_name) }					
-				end				
+					it { should_not allow_value(invalid_name).for(:last_name) }
+				end
 			end
 
 			context 'when format is valid' do
 				valid_names.each do |valid_name|
 					it { should allow_value(valid_name).for(:first_name) }
-					it { should allow_value(valid_name).for(:last_name) }					
-				end				
-			end			
+					it { should allow_value(valid_name).for(:last_name) }
+				end
+			end
 		end
 
 		context 'for birth' do
-			it {should_not allow_value("").for(:birth)}	
+			it {should_not allow_value("").for(:birth)}
 
 			context 'when the date is not in the accepted range' do
 				invalid_dates.each do |invalid_date|
-					it { should_not allow_value(invalid_date).for(:birth) }					
-				end				
-			end		
+					it { should_not allow_value(invalid_date).for(:birth) }
+				end
+			end
 		end
 
-		context 'for nation and region' do 
+		context 'for location' do
 			it {should_not allow_value("").for(:nation)}
 			it { should validate_length_of :nation }
 
+
 			context "when nation's format is not valid" do
 				invalid_nations.each do |invalid_nation|
-					it {should_not allow_value(invalid_nation).for(:nation)}					
-				end				
+					it {should_not allow_value(invalid_nation).for(:nation)}
+				end
 			end
 
 			context "when nation's format is valid" do
 				valid_nations.each do |valid_nation|
-					it {should allow_value(valid_nation).for(:nation)}					
-				end				
+					it {should allow_value(valid_nation).for(:nation)}
+				end
 			end
 
 			it {should_not allow_value("").for(:region)}
 			it { should validate_length_of :region }
-			
+
 			context "when region's format is not valid" do
 				valid_nations.each do |valid_nation|
 					subject { FactoryGirl.build(:user, nation: valid_nation)}
 					invalid_regions.each do |invalid_region|
-						it { should_not allow_value(invalid_region).for(:region)}						
+						it { should_not allow_value(invalid_region).for(:region)}
 					end
 				end
 			end
 
-			context "when region's format is valid" do				
+			context "when region's format is valid" do
 				subject { FactoryGirl.build(:user, nation: "Andorra")}
 				valid_regions.each do |valid_region|
-					it { should allow_value(valid_region).for(:region)}						
+					it { should allow_value(valid_region).for(:region)}
 				end
-			end			
+			end
+
+			it {should_not allow_value("").for(:city)}
+			it { should validate_length_of :city }
+
+			context "when city's format is not valid" do
+					valid_regions.each do |valid_region|
+						subject { FactoryGirl.build(:user, nation: "Andorra", region: valid_region)}
+						invalid_cities.each do |invalid_city|
+							it { should_not allow_value(invalid_cities).for(:city)}
+						end
+					end
+			end
+
+			context "when city's format is valid" do
+				subject { FactoryGirl.build(:user, nation: "Italy" , region: "Latium")}
+				valid_cities.each do |valid_city|
+					it { should allow_value(valid_city).for(:city)}
+				end
+			end
 		end
 
 		context 'for gender' do
@@ -128,14 +148,14 @@ RSpec.describe User, type: :model do
 
 			context 'when format is invalid' do
 				invalid_genders.each do |invalid_gender|
-					it { should_not allow_value(invalid_gender).for(:gender) }					
-				end				
+					it { should_not allow_value(invalid_gender).for(:gender) }
+				end
 			end
 
 			context 'when format is valid' do
 				valid_genders.each do |valid_gender|
-					it { should allow_value(valid_gender).for(:gender) }					
-				end				
+					it { should allow_value(valid_gender).for(:gender) }
+				end
 			end
 		end
 
@@ -144,8 +164,8 @@ RSpec.describe User, type: :model do
 
 			context 'when its value is invalid' do
 				invalid_types.each do |invalid_type|
-					it { should_not allow_value(invalid_type).for(:type_of_musician)}					
-				end				
+					it { should_not allow_value(invalid_type).for(:type_of_musician)}
+				end
 			end
 		end
 
@@ -154,10 +174,10 @@ RSpec.describe User, type: :model do
 
 			context 'when its value is invalid' do
 				invalid_genres.each do |invalid_genre|
-					it { should_not allow_value(invalid_genre).for(:musical_genre)}					
-				end				
+					it { should_not allow_value(invalid_genre).for(:musical_genre)}
+				end
 			end
 		end
 	end
-	
+
 end
