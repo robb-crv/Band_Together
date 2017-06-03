@@ -1,6 +1,6 @@
   <%= render :partial => 'layouts/settings_sidebar'  , :locals => {:currentPage => "Account" } %>
 
-  <div class="col-md-6 col-md-offset-3" id="SettingsMainContainer">
+  <div class="col-md-4 col-md-offset-3" id="SettingsMainContainer">
 <!--
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 -->
@@ -10,30 +10,34 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email, autofocus: true , class: "form-control" %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
+  <br/>
+
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.label :new_password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "off" , class: "form-control"%>
     <% if @minimum_password_length %>
-      <br />
       <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
   </div>
 
+  <br/>
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
   </div>
+
+  <br/>
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
+    <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
   </div>
 
   <br>
@@ -47,17 +51,19 @@
   <br>
 
   <div class="actions">
-    <%= f.submit "Update", :id => "Update" %>
+    <%= f.submit "Update", :id => "Update",class: "btn btn-primary" %>
   </div>
 
 
 <% end %>
 
+<br/>
+
 <div>
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete ,class: "btn btn-danger"%></p>
 </div>
 
 </div>

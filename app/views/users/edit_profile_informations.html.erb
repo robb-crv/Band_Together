@@ -79,11 +79,11 @@
 
   <select name="city" id="city-of-region" class="form-control">
     <% if @user.region != nil %>
-      <% CS.cities(@regionKey,@nationKey).each do |key, value| %>
+      <% CS.cities(@regionKey,@nationKey).each do |value| %>
         <% if @user.city == value %>
-          <option value="<%= key %>" selected><%= value %></option>
+          <option value="<%= value %>" selected><%= value %></option>
         <% else %>
-          <option value="<%= key %>"><%= value %></option>
+          <option value="<%= value %>"><%= value %></option>
         <% end %>
       <% end %>
     <% else %>
