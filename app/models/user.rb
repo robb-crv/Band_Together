@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
       def validate_each(record, attribute, value)
 
-        record.errors.add attribute, "Non è un tipo di musicista supportato" unless ["Drummer", "Lead_guitarist", "Rhythmic_guitarist", "Bass_guitarist", "Keyboardist", "Singer", "Winds", ""].include? value
+        record.errors.add attribute, "Not a supported musician type" unless ["Drummer", "Lead_guitarist", "Rhythmic_guitarist", "Bass_guitarist", "Keyboardist", "Singer", "Winds", ""].include? value
       end
   end
 
@@ -30,35 +30,35 @@ class User < ApplicationRecord
   class  GenreValidator < ActiveModel::EachValidator
 
     def validate_each(record, attribute, value)
-      record.errors.add attribute, "Non è un genere musicale supportato" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", ""].include? value
+      record.errors.add attribute, "Not a supported musical genre" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", ""].include? value
     end
   end
 
    #Nation validation
 
-  	class  NationValidator < ActiveModel::EachValidator
+   class  NationValidator < ActiveModel::EachValidator
 
-    	def validate_each(record, attribute, value)
-      		record.errors.add attribute, "Non è una nazione valida" unless CS.countries.has_value? value
-    	end
-  	end
+     def validate_each(record, attribute, value)
+         record.errors.add attribute, "Not a valid Nation" unless CS.countries.has_value? value
+     end
+   end
 
 
-    #Region validation
+   #Region validation
 
-  	class  RegionValidator < ActiveModel::EachValidator
+   class  RegionValidator < ActiveModel::EachValidator
 
-    	def validate_each(record, attribute, value)
-      	record.errors.add attribute, "Non è una regione valida" unless CS.states(CS.countries.key(record.nation)).has_value? value
-    	end
-  	end
+     def validate_each(record, attribute, value)
+       record.errors.add attribute, "Not a valid Region" unless CS.states(CS.countries.key(record.nation)).has_value? value
+     end
+   end
 
-    class  CityValidator < ActiveModel::EachValidator
+   class  CityValidator < ActiveModel::EachValidator
 
-    	def validate_each(record, attribute, value)
-      	record.errors.add attribute, "Not a valid city." unless CS.cities(CS.states(CS.countries.key(record.nation)).key(record.region),CS.countries.key(record.nation)).include? value
-    	end
-  	end
+     def validate_each(record, attribute, value)
+       record.errors.add attribute, "Not a valid City" unless CS.cities(CS.states(CS.countries.key(record.nation)).key(record.region),CS.countries.key(record.nation)).include? value
+     end
+   end
 	#Validations
 
 =begin

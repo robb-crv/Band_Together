@@ -5,7 +5,11 @@ $(function(){
 
        // al cambio di nazione
         $('#countries').change(function(){
+
           $("#user_nation").val($(this).find(":selected").text()); //Setta il value del campo hidden nation al valore selezionato nella select "nation"
+
+ //andrea. questo script viene usato anche dalla view di band new, perciò riempie tutti e due i campi, uno non lo troverà
+          $("#band_nation").val($(this).find(":selected").text());
 
           //interroga la gemma per prendere le regioni corrispondenti
           $.getJSON('/states/' + $(this).val() , function(data){
@@ -25,6 +29,7 @@ $(function(){
         // al cambio di regione
         $('#states-of-country').change(function(){
           $("#user_region").val($(this).find(":selected").text());
+          $("#band_region").val($(this).find(":selected").text());
 
           //interroga la gemma per prendere le città corrispondenti
           $.getJSON('/states/' + $('#countries').val()  + '/' +  $(this).val() , function(data){
@@ -41,5 +46,6 @@ $(function(){
         //al cambio di città
         $('#city-of-region').change(function(){
           $("#user_city").val($(this).find(":selected").text());
+          $("#band_city").val($(this).find(":selected").text());
         });
 });

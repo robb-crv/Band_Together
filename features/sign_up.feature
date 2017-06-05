@@ -16,9 +16,10 @@ Feature: Generic User Signs up on the application
     And I fill in "Last name" with "Rossi"
     And I select "Male" from "Gender"
     And I fill in "Birth date" with "22-02-1955"
-    And I select "Italy" from "nation"
-    And I select "Latium" from "region"
+    And I select "Italy" from "Nation"
+    And I select "Latium" from "Region"
+    And I select "Rome" from "City"
     And I select "Drummer" from "Instrument played"
     And I select "Rock" from "Favourite musical genre"
     And I press "Submit"
-    Then I should be on the Home Page
+    Then I should see "A message with a confirmation link has been sent to your email address"

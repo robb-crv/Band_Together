@@ -6,28 +6,47 @@
 
 
 <body>
-	<h2>Profilo utente</h2>
+	<h1>User's Profile</h1>
 
 
-	<h1>
+	<h2>
   <%= gravatar_for @user %>
   <%= @user.username %>
-</h1>
+</h2>
 
 
 	 <p>Username: <%= @user.username %><br/>
 
 	 <p>Email: <%= @user.email %> </p>
-	 
+
 	 <p>First Name: <%= @user.first_name %> <p/>
-	 
-	 <p>Last Name: <%= @user.last_name %><p/> 
+
+	 <p>Last Name: <%= @user.last_name %><p/>
 
 	 <p>from <%= @user.nation %></p>
 
 	 <p>I'm a: <%= @user.type_of_musician %> </p>
-	 
+
 	 <p>Musical Genre: <%= @user.musical_genre %> <p/>
+
+	 <div>
+
+		 <h2>Created Bands</h2>
+
+		 <ol>
+			<% @createdBands.each do |b| %><br/>
+
+				<li><%= link_to b.name, band_show_path(:id => b.id), :method => "get" %>
+					<% if b.band_manager == current_user %>
+						<%= link_to "edit", band_edit_path(:id => b.id), :method => "get" %>
+						<%= link_to "delete", band_destroy_path(:id => b.id), :method => "delete", data:  { confirm: "Are you sure?" }%>
+					<% end %>
+				</li>
+
+			<% end %>
+		 </ol>
+
+	 </div>
 
 </body>
 

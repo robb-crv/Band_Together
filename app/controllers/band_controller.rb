@@ -7,26 +7,28 @@ class BandController < ApplicationController
 	end
 
 	def new
-		render 'band/new'
 	end
 
 	def create
-		
+
 		@band = Band.new(band_params)
 		@band.band_manager = current_user
-		
+
 		if @band.save
-			
-			redirect_to band_index_path
+
+			redirect_to band_show_path(:id => @band.id)
+			flash[:success] = "The band has been created successfully."
 		else
-			render 'band/new'
+
+			redirect_to band_new_path
+			flash[:danger] = "Invalid parameters."
 		end
 	end
 
 	def show
 
 		if(!params[:id].nil?)
-			@band= Band.find(params[:id])	
+			@band= Band.find(params[:id])
 		else
 			redirect_to "/404"
 		end
@@ -51,15 +53,15 @@ class BandController < ApplicationController
 
 			flash[:success] = "The Band has been deleted correctly."
 			redirect_to band_index_path(:id => @bm)
-		else 
+		else
 			flash[:danger] = "An error occurred deleting band..."
 		end
 
 	end
 
-	private 
+	private
   	def band_params()
-    	params.require(:band).permit(:name, :description, :musical_genre, :band_manager_id)
+    	params.require(:band).permit(:name, :description, :musical_genre, :band_manager_id, :nation , :region, :city)
    	end
 
 end

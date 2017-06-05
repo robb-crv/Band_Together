@@ -1,4 +1,4 @@
-Feature:
+Feature: Generic User see user's information
 	As a Generic User
 	I can see user's information (like username, email, birth date etc )
 

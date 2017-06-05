@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
     if(!params[:id].nil? )
   	   @user= User.find(params[:id])
+       @createdBands = @user.bands
     else
       redirect_to "/404"
     end

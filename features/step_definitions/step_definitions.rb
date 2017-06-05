@@ -66,13 +66,19 @@ And /^I select "Male" from "Gender"$/ do
     find(:xpath, "//label[@for='user_gender']").click
 end
 
-And /^I select "Italy" from "nation"$/ do
+And /^I select "Italy" from "Nation"$/ do
     select('Italy', from: 'nation')
     page.execute_script("$('#countries').trigger('change')")
 end
 
-And /^I select "Latium" from "region"$/ do
+And /^I select "Latium" from "Region"$/ do
     select('Latium', from: 'region')
+    page.execute_script("$('#states').trigger('change')")
+end
+
+And /^I select "Rome" from "City"$/ do
+  select('Rome', from: 'city')
+  page.execute_script("$('#cities').trigger('change')")
 end
 
 And /^I select "Drummer" from "Instrument played"$/ do
@@ -140,8 +146,13 @@ Then /^I should see "Could not authenticate you"$/ do
 end
 
 And /^I should see "Your account is locked"$/ do
-  expect(page).to have_content "Your account is locked"  
+  expect(page).to have_content "Your account is locked"
 end
+
+Then /^I should see "A message with a confirmation link has been sent to your email address"$/ do
+  expect(page).to have_content "A message with a confirmation link has been sent to your email address"
+end
+
 
 
 =begin
