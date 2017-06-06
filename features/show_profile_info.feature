@@ -17,4 +17,4 @@ Feature: Generic User see user's information
 		Given I am on the User Home Page
 		When I follow "Profile"
 		Then I should be on the User Profile Page
-		And I should see "PROFILO UTENTE"
+		And I should see "User's Profile"
