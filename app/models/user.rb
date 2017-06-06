@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :bands, dependent: :destroy, foreign_key: 'band_manager_id'
   has_many :advertisment, dependent: :destroy, foreign_key: 'user_id'
 
+  #andrea association for band member
+  has_many :member_associations, :dependent => :delete_all
+  has_many :joined_bands, class_name: "Band",  through: :member_associations
+
   #attr_accessor :remember_token
   include ActiveModel::Validations
 

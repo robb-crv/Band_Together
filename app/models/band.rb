@@ -7,6 +7,10 @@ class Band < ApplicationRecord
 	belongs_to :band_manager, class_name: "User"
 has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 
+#andrea association for band member
+	has_many :member_associations, :dependent => :delete_all
+	has_many :users,  through: :member_associations
+
    	class  GenreValidator < ActiveModel::EachValidator
 
     	def validate_each(record, attribute, value)
