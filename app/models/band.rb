@@ -11,12 +11,17 @@ has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 	has_many :member_associations, :dependent => :delete_all
 	has_many :users,  through: :member_associations
 
-   	class  GenreValidator < ActiveModel::EachValidator
+=begin
+
+	class  GenreValidator < ActiveModel::EachValidator
 
     	def validate_each(record, attribute, value)
       		record.errors.add attribute, "Not a supported musical genre" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", ""].include? value
     	end
-  	end
+  	end	
+=end
+
+   	
 
 		#Nation validation
 
@@ -50,10 +55,10 @@ has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 	VALID_NAME_REGEX = /\A[^ ].*\z/ #il nome non può iniziare con uno spazio
 	validates :name, presence: true, length: {maximum: 100}, format: {with: VALID_NAME_REGEX}, allow_blank: false
 	validates :description, presence: true, length: {maximum: 1000}, allow_blank: false
-	validates :musical_genre, length: {maximum: 50}, presence: true, genre: true
+	#validates :musical_genre, length: {maximum: 50}, presence: true, genre: true
 	validates :nation, allow_blank: false, length: {maximum: 50}, nation: true, allow_nil: true
 	validates :region, allow_blank: false, length: {maximum: 50}, allow_nil: true, region: true
-  validates :city, allow_blank: false, length: {maximum: 50}, allow_nil: true, city: true
+  	validates :city, allow_blank: false, length: {maximum: 50}, allow_nil: true, city: true
 
 
 end

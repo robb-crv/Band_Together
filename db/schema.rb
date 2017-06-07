@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606130632) do
+ActiveRecord::Schema.define(version: 20170607124318) do
 
   create_table "advertisments", force: :cascade do |t|
     t.string   "title"
@@ -64,8 +64,6 @@ ActiveRecord::Schema.define(version: 20170606130632) do
     t.string   "first_name"
     t.string   "last_name"
     t.date     "birth"
-    t.string   "type_of_musician"
-    t.string   "musical_genre"
     t.string   "nation"
     t.string   "region"
     t.string   "gender"
@@ -82,6 +80,8 @@ ActiveRecord::Schema.define(version: 20170606130632) do
     t.boolean  "band_member_role",       default: false
     t.boolean  "user_role",              default: true
     t.string   "city"
+    t.integer  "type_of_musician_id"
+    t.integer  "musical_genre_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
