@@ -12,7 +12,8 @@ created at: <%= @band.created_at %>, by <%= link_to @band.band_manager.username,
 <% @advs= Advertisment.where("band_id= ?", @band.id) %>
 <% if !@advs.empty? %>
 
-	<h4><%= @band.name %> advertisments <h4/>
+<div id="pnlActiveAdvertisments" >
+	<h4> Active Advertisments <h4/>
 	<ol>
     	<% @advs.each do |a| %><br/>
 
@@ -27,6 +28,7 @@ created at: <%= @band.created_at %>, by <%= link_to @band.band_manager.username,
     	<% end %>
     </ol>
 <% end %>
+</div>
 
 <!-- andrea
 		se l'utente è band manager

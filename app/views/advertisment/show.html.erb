@@ -1,6 +1,10 @@
 
 <p> <h2> <%= @advertisment.title %> </h2></p>
 
+<p> Band: <%= @advertisment.band.name %> </p>
+
+<p> Created by: <%= @advertisment.user.first_name + " " + @advertisment.user.last_name %> </p>
+
 <p> description: <%= @advertisment.description%> </p>
 
 <p> valido da <%= @advertisment.start_date %> , a <%= @advertisment.term_date %> </p>

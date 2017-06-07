@@ -32,3 +32,7 @@ end
 And /^I press on "Create"$/ do
   click_on "Create"
 end
+
+And /^I select "Guitarist" and "Bassist" as "Musicians Needed"$/ do
+  pending
+end
