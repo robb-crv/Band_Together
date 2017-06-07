@@ -1,8 +1,8 @@
 class Advertisment < ApplicationRecord
 
 	#association
-	belongs_to :users, foreign_key: "user_id"
-	belongs_to :bands, dependent: :destroy, foreign_key: "band_id"
+	belongs_to :user, foreign_key: "user_id"
+	belongs_to :band, dependent: :destroy, foreign_key: "band_id"
 
 	#validation
 	VALID_TITLE_REGEX = /\A[^ ].*\z/ #il titolo non può iniziare con uno spazio
