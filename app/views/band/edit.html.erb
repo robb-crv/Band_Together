@@ -1,21 +1,29 @@
-<h3> Edit <%= @band.name%></h3>
 
-<%= form_for(@band, url: band_update_path(:id => @band.id) , html: { method: :post }) do |f| %>
-  </br>
-  <div class="field">
-      <%= f.label :name%><i>(leave blank if you don't want to change it)</i><br/>
-      <%= f.text_field :name %>
-    </div><br/>
+<div class="col-md-4 col-md-offset-4 ">
+  <h3> Edit <%= @band.name%></h3>
 
-    <div class="field">
-      <%= f.label :description %><i>(leave blank if you don't want to change it)</i><br/>
-      <%= f.text_field :description %>
-    </div><br/>
-
-
+  <%= form_for(@band, url: band_update_path(:id => @band.id) , html: { method: :post }) do |f| %>
     </br>
-    <div class="actions">
-      <%= f.submit "Update", :class => "btn btn-primary btn-md",:id => "Update", data:  { confirm: "Confirm changes?" }%>
-    </div>
+    <div class="field">
+        <%= f.label :name%><i>(leave blank if you don't want to change it)</i><br/>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div><br/>
 
-<% end %>
+      <div class="field">
+        <%= f.label :description %><i>(leave blank if you don't want to change it)</i><br/>
+        <%= f.text_field :description, class: 'form-control' %>
+      </div><br/>
+
+      <div class="field">
+        <%= f.label :musical_genre_id , "Favourite musical genre"%>
+        <%= collection_select :band, :musical_genre_id, MusicalGenre.all, :id, :name, {:selected => @band.musical_genre_id}, {class: 'form-control'} %>
+      </div>
+
+
+      </br>
+      <div class="actions">
+        <%= f.submit "Update", :class => "btn btn-primary btn-md",:id => "Update", data:  { confirm: "Confirm changes?" }%>
+      </div>
+
+  <% end %>
+</div>

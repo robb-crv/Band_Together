@@ -20,9 +20,8 @@
   <br/>
 
       <div class="field">
-        <%= f.label :musical_genre, "Musical genre" %>
-        <%= f.select(:musical_genre, options_for_select(["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"] ), {}, {:class => 'form-control'})  %>
-
+        <%= f.label :musical_genre_id, "Musical genre" %>
+        <%= collection_select :band, :musical_genre_id, MusicalGenre.all, :id, :name, {}, {class: 'form-control'} %>
       </div>
 
         <br/>

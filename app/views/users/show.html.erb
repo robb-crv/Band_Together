@@ -25,9 +25,9 @@
 
 	 <p>from <%= @user.nation %></p>
 
-	 <p>I'm a: <%= @user.type_of_musician %> </p>
+	 <p>I'm a: <%= TypeOfMusician.find_by_id(@user.type_of_musician_id).name %> </p>
 
-	 <p>Musical Genre: <%= @user.musical_genre %> <p/>
+	 <p>Musical Genre: <%= MusicalGenre.find_by_id(@user.musical_genre_id).name %> <p/>
 
 	 <div id="pnlCreatedBands">
 

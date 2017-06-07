@@ -100,6 +100,9 @@ gem 'countries', :require => 'countries/global'
 
 gem "fakeweb", "~> 1.3"
 
+#ActiveHash is a simple base class that allows you to use a ruby hash as a readonly datasource for an ActiveRecord-like model
+gem 'active_hash'
+
 group :test do
 
   #.roberto
@@ -124,7 +127,6 @@ group :test do
 
   #Faker is used to easily generate fake data: names, addresses, phone numbers, etc.
   gem 'faker', '~> 1.7', '>= 1.7.3'
-
 end
 
 group :development, :test do

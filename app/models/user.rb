@@ -19,17 +19,19 @@ class User < ApplicationRecord
 
   #Custom Validators
 
-	#Type of musician validation
+=begin
+
+  #Type of musician validation
 
   class  TypeValidator < ActiveModel::EachValidator
 
       def validate_each(record, attribute, value)
 
-        record.errors.add attribute, "Not a supported musician type" unless ["Drummer", "Lead_guitarist", "Rhythmic_guitarist", "Bass_guitarist", "Keyboardist", "Singer", "Winds", ""].include? value
+        record.errors.add attribute, "Not a supported musician type" unless TypeOfMusician.find_by_id == value
       end
   end
 
-    #Musical genre validation
+  #Musical genre validation
 
   class  GenreValidator < ActiveModel::EachValidator
 
@@ -37,6 +39,10 @@ class User < ApplicationRecord
       record.errors.add attribute, "Not a supported musical genre" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", ""].include? value
     end
   end
+
+
+  
+=end
 
    #Nation validation
 
@@ -93,8 +99,8 @@ class User < ApplicationRecord
   validates :city, allow_blank: false, length: {maximum: 50}, allow_nil: true, city: true
 	VALID_GENDER_REGEX = /[MF]/
 	validates :gender, allow_blank: false, length: {maximum: 1}, format: {with: VALID_GENDER_REGEX}, allow_nil: true
-  validates :type_of_musician, length: {maximum: 50}, type: true, allow_nil: true
-  validates :musical_genre, length: {maximum: 50}, genre: true, allow_nil: true
+  #validates :type_of_musician_id, allow_nil: true
+  #validates :musical_genre_id, allow_nil: true
 
 
   #Metodo utilizzato per l'autorizzazione dell'utente tramite google
