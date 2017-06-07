@@ -31,10 +31,11 @@ Given /^I am logged in as "Utente Generico"$/ do
   expect(page.current_path).to eq users_home_path
 end
 
-When /^I search for the band "Band di Rossi"$/ do
 
+When /^I visit the page of the band "Band di Rossi"$/ do
+  rossiBand = Band.find_by name: "Band di Rossi"
+  visit band_show_path(:id => rossiBand.id)
 end
-
 
 Then /^I should see the "Join Band" link$/ do
   expect(page).to have_content "Join Band"
@@ -42,15 +43,15 @@ end
 
 Then /^I should see "Band di Rossi" in the "Created Bands" table$/ do
 
-  expect(page).to have_css("#pnlCreatedBands ol li a:contains(Band.di.Rossi)")
+  expect(page).to have_css("#pnlCreatedBands ol li a", :text => "Band di Rossi")
 end
 
 When /^I follow the link to "Band di Rossi"$/ do
     click_on "Band di Rossi"
 end
 
-Then /^I should see the "Edit Band Informations" link$/ do
-  expect(page).to have_content "Edit Band Informations"
+Then /^I should see the "New Advertisment" link$/ do
+  expect(page).to have_content "New Advertisment"
 end
 
 
@@ -64,7 +65,7 @@ Given /^I am logged in as "Giulio Bianchi"$/ do
 end
 
 Then /^I should see "Band di Rossi" in the "Joined Bands" table$/ do
-
+  expect(page).to have_css("#pnlJoinedBands ol li a", :text => "Band di Rossi")
 end
 
 Then /^I should see the "Leave Band" link$/ do

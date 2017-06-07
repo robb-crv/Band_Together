@@ -48,6 +48,21 @@
 
 	 </div>
 
+
+	 <div id="pnlJoinedBands">
+
+		 <h2>Joined Bands</h2>
+
+		 <ol>
+			<% @joinedBands.each do |b| %><br/>
+
+				<li><%= link_to b.name, band_show_path(:id => b.id), :method => "get" %></li>
+
+			<% end %>
+		 </ol>
+
+	 </div>
+
 </body>
 
 </html>
