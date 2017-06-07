@@ -129,5 +129,31 @@ RSpec.describe BandController, type: :controller do
 		end
 	end
 
+	describe 'band#delete' do
+
+		describe 'advertisment#delete' do
+		before(:each) do 
+			@user= FactoryGirl.create(:user)
+			@band1= FactoryGirl.create(:band, :band_manager_id => @user.id)
+			@band2= FactoryGirl.create(:band, :band_manager_id => @user.id)
+			
+			expect{ 
+        		delete :destroy, :id => @band1.id
+      		}.to change(Band, :count).by(-1) 
+		end
+
+		it 'should return status 302 (redirection)' do 
+			expect(response.status).to eq 302
+		end
+
+		it 'should delete the advertisment from the band' do
+
+			expect(@user.bands).not_to include(@band1)
+			expect(@user.bands).to include(@band2)
+			
+		end
+	end
+	end
+
 
 end
