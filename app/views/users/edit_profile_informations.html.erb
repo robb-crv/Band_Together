@@ -102,21 +102,17 @@
     <br>
 
     <div class="field">
-      <%= f.label :type_of_musician, "Instrument played" %>
 
-      <%= f.select(:type_of_musician, options_for_select(
-                  ["Drummer" ,["Lead Guitar", "Lead_guitarist"], ["Rhythm Guitar", "Rhythmic_guitarist"],
-                  ["Bass", "Bass_guitarist"], "Keyboardist", "Singer", "Winds"] , :selected => @user.type_of_musician
-              ), {} , {:class => 'form-control'})  %>
+      <%= f.label :type_of_musician_id , "Instrument Played"%>
+      <%= collection_select :user, :type_of_musician_id, TypeOfMusician.all, :id, :name, {:selected => @user.type_of_musician_id}, {class: 'form-control'} %>
 
     </div>
 
     <br>
 
     <div class="field">
-      <%= f.label :musical_genre, "Favourite musical genre" %>
-      <%= f.select(:musical_genre, options_for_select(["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"] , :selected => @user.musical_genre), {}, {:class => 'form-control'})  %>
-
+      <%= f.label :musical_genre_id , "Favourite musical genre"%>
+      <%= collection_select :user, :musical_genre_id, MusicalGenre.all, :id, :name, {:selected => @user.musical_genre_id}, {class: 'form-control'} %>
     </div>
     <br>
 

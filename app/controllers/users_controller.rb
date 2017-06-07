@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name,:last_name,:gender,:birth,:nation,:region, :city, :musical_genre, :type_of_musician)
+    params.require(:user).permit(:first_name,:last_name,:gender,:birth,:nation,:region, :city, :musical_genre_id, :type_of_musician_id)
   end
 
 end

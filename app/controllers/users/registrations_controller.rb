@@ -47,8 +47,8 @@ before_action :configure_account_update_params, only: [:update]
   def configure_sign_up_params
     devise_parameter_sanitizer.permit :sign_up, keys: [:username, :email, :first_name, :last_name,
                                                        :gender, :birth, :nation, :password,
-                                                       :password_confirmation, :region, :city, :type_of_musician,
-                                                       :musical_genre]
+                                                       :password_confirmation, :region, :city, :type_of_musician_id,
+                                                       :musical_genre_id]
 
   end
 
@@ -57,8 +57,8 @@ before_action :configure_account_update_params, only: [:update]
     # devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
     devise_parameter_sanitizer.permit :account_update,  keys: [:username, :email, :first_name, :last_name,
                                                        :gender, :birth, :nation, :password,
-                                                       :password_confirmation, :region, :type_of_musician,
-                                                       :musical_genre]
+                                                       :password_confirmation, :region, :type_of_musician_id,
+                                                       :musical_genre_id]
    end
 
   # The path used after sign up.
