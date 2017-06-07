@@ -25,13 +25,13 @@ And /^I press "Create"$/ do
 end
 
 Then /^I should be on the Band Page$/ do
-  
+  expect(page.current_path).to eq band_show_path
 end
 
-And /^I should see "The band has been created successfully."$/ do
-
+And /^I should see "The band has been created successfully"$/ do
+  expect(page).to have_content "The band has been created successfully"
 end
 
-And /^I should see "Invalid parameters."$/ do
-
+And /^I should see "Invalid parameters"$/ do
+  expect(page).to have_content "Invalid parameters"
 end

@@ -22,7 +22,7 @@ Feature: User creates a Band
     And I select "Rome" from "City"
     And I press "Create"
     Then I should be on the Band Page
-    And I should see "The band has been created successfully."
+    And I should see "The band has been created successfully"
 
   @javascript
     Scenario: User "Mario Rossi" tries to create a new band without band's location (sad way)
@@ -33,4 +33,4 @@ Feature: User creates a Band
       And I select "Jazz" from "Musical Genre"
       And I press "Create"
       Then I should be on the New Band Page
-      And I should see "Invalid parameters."
+      And I should see "Invalid parameters"

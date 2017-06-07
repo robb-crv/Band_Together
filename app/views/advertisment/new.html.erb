@@ -1,27 +1,27 @@
-  
-<br/>
+
+<div class="col-md-4 col-md-offset-4 ">
 <h4> Create Advertisment </h4>
 
 <%= form_for(:advertisment, url: advertisment_create_path(:band_id => @band.id)) do |f| %>
 
   <div class="field">
   	<%= f.label :title%><br/>
-  	<%= f.text_field :title , :required => true%>
+  	<%= f.text_field :title , :required => true , class: 'form-control' %>
   </div><br/>
 
   <div class="field">
   	<%= f.label :description %><br/>
-  	<%= f.text_field :description, :required => true %>
+  	<%= f.text_area :description, :required => true , class: 'form-control' %>
   </div><br/>
 
-  <div class="field">
-  	<%= f.label :start_date%><br/>
-  	<%= f.text_field :start_date, "data-provide" => 'datepicker' , :required => true%><br/>
-  </div><br/>
+  <!--
+    andrea
+      start date viene impostata dal controller come la data corrente.
+  -->
 
   <div class="field">
   	<%= f.label :term_date%><br/>
-  	<%= f.text_field :term_date, "data-provide" => 'datepicker' , :required => true%><br/>
+  	<%= f.date_field :term_date, "data-provide" => 'datepicker' , :required => true , class: 'form-control' %><br/>
   </div><br/>
 
   <div class="actions">
@@ -29,3 +29,4 @@
   </div>
 
 <% end%>
+</div>

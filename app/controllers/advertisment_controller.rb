@@ -22,6 +22,9 @@ class AdvertismentController < ApplicationController
 	def create
 
 		@advertisment= Advertisment.new(advertisment_params)
+
+		@advertisment.start_date = Time.now			#andrea start date prende la data corrente
+
 		@advertisment.band_id= params[:band_id]
 		@advertisment.user_id= current_user.id
 		if @advertisment.save
@@ -38,7 +41,7 @@ class AdvertismentController < ApplicationController
 	end
 
 	def update
-		
+
 		@adv= Advertisment.find(params[:id])
 		@adv.update(advertisment_params)
 		redirect_to advertisment_show_path(:id => @adv.id)
