@@ -8,7 +8,7 @@ class Band < ApplicationRecord
 has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 
 #andrea association for band member
-	has_many :member_associations, :dependent => :delete_all
+	has_many :member_associations, :dependent => :delete_all, foreign_key: :joined_band_id, inverse_of: :joined_band
 	has_many :users,  through: :member_associations
 
    	class  GenreValidator < ActiveModel::EachValidator

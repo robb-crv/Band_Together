@@ -10,26 +10,52 @@ created at: <%= @band.created_at %>, by <%= link_to @band.band_manager.username,
 <br/>
 
 <% @advs= Advertisment.where("band_id= ?", @band.id) %>
-<% if !@advs.empty? %>  
-	
+<% if !@advs.empty? %>
+
 	<h4><%= @band.name %> advertisments <h4/>
 	<ol>
     	<% @advs.each do |a| %><br/>
-    		
+
     		<li>
     			<%= link_to a.title, advertisment_show_path(:id => a.id), :method => "get" %>
-    			
+
     			<%= link_to "edit" , advertisment_edit_path(:id => a.id), :method => "get"%>
-    			
+
     			<%= link_to "delete" , advertisment_destroy_path({:id => a.id, :band_id => @band.id}), :method => "delete", data:  { confirm: "Are you sure?" } %>
     		</li>
-    	
+
     	<% end %>
     </ol>
 <% end %>
 
-<% if (current_user.id==@band.band_manager_id) %>
+<!-- andrea
+		se l'utente è band manager
+-->
 
+<% if (current_user.id==@band.band_manager_id) %>
+<!-- andrea
+		se l'utente è band manager
+-->
 	<br/><br/><%= link_to "New Advertisment", advertisment_new_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+
+
+<% else %>
+	 	<% if @band.users.include? current_user %>
+		<!-- andrea
+				se l'utente è band member
+		-->
+			<br/><%= link_to "Leave Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
+
+			<% else %>
+
+			<!-- andrea
+					se l'utente è generic user
+			-->
+					<br/><%= link_to "Join Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
+
+			<% end %>
+
 <% end %>
+
+
 <br/>

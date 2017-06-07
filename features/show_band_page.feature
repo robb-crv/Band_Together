@@ -14,8 +14,7 @@ Background: user "Mario Rossi" created a band named "Band di Rossi" and "Giulio 
 
 Scenario: Generic user visit "Band di Rossi" page
   Given I am logged in as "Utente Generico"
-  When I search for the band "Band di Rossi"
-  And I follow the link to "Band di Rossi"
+  When I visit the page of the band "Band di Rossi"
   Then I should see the "Join Band" link
 
 Scenario: "Mario Rossi" visit "Rossi's Band" page (as band manager)
@@ -23,7 +22,7 @@ Scenario: "Mario Rossi" visit "Rossi's Band" page (as band manager)
   When I follow "Profile"
   Then I should see "Band di Rossi" in the "Created Bands" table
   When I follow the link to "Band di Rossi"
-  Then I should see the "Edit Band Informations" link
+  Then I should see the "New Advertisment" link
 
 Scenario: "Giulio Bianchi" visit "Band di Rossi" page (as a band member)
   Given I am logged in as "Giulio Bianchi"
