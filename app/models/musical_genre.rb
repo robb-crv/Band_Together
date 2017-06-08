@@ -1,5 +1,6 @@
 class MusicalGenre < ActiveHash::Base
 	self.data = [
+		{id: 0, name: "Undefined"},
 		{id: 1, name: "Rock"},
 		{id: 2, name: "Metal"},
 		{id: 3, name: "Jazz"},
