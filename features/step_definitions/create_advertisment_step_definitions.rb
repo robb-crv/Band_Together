@@ -24,7 +24,7 @@ And /^I select as a "Term Date" 1 month from now$/ do
   fill_in("Term date", with: fra1Mese)
 end
 
-Then /^I should be on the Advertisment Page of the advertisment just created for the band "Band di Rossi"$/ do
+Then /^I should be on the Advertisment Page of the advertisment "Cercasi chitarrista" of the band "Band di Rossi"$/ do
   expect(page.current_path).to eq advertisment_show_path
     expect(page).to have_content "La Band di Rossi cerca chitarrista con passione per il rock"
 end
