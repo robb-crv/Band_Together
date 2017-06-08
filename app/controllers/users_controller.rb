@@ -20,17 +20,18 @@ class UsersController < ApplicationController
   #GET
   def edit_profile_informations
     @user = current_user
+
   end
 
   def update_profile_informations
-    user = current_user
-    updated = user.update_without_password(user_params)
+    @user = current_user
+    updated = @user.update_without_password(user_params)
     if updated
       redirect_to users_home_path
       flash[:success] = "Successfully updated informations."
     else
-      redirect_to users_edit_profile_informations_path
-      flash[:danger] = "Invalid parameters."
+      render users_edit_profile_informations_path
+    #  flash[:danger] = "Invalid parameters : " + user.errors.full_messages
     end
   end
 

@@ -24,4 +24,13 @@ en:
   admin:
     actions:
       ban_user_account:
-        menu: 'Ban this user'
+        menu: "Ban this user"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            birth:
+              invalid_date: "Date not valid"
+              before: "Date is incorrect, it's in the future!"
+              after: "Date is incorrect, it's too old"
