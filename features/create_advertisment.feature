@@ -19,7 +19,7 @@ Feature: Band Manager creates a new advertisment
     And I select "Guitarist" and "Bassist" as "Musicians Needed"
     And I select as a "Term Date" 1 month from now
     And I press on "Create"
-    Then I should be on the Advertisment Page of the advertisment just created for the band "Band di Rossi"
+    Then I should be on the Advertisment Page of the advertisment "Cercasi chitarrista" of the band "Band di Rossi"
 
 
     Scenario: User "Mario Rossi" tries to create a new advertisment relative to the band "Band di Rossi" providing a wrong term date (sad way)

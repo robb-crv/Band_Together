@@ -1,7 +1,7 @@
 And /^Exists advertisment "Cercasi chitarrista" for the band "Band di Rossi"$/ do
   marioRossiUser = User.find_by email: "mariorossi@gmail.com"
   bandRossi = Band.find_by band_manager: marioRossiUser
-  adv = FactoryGirl.build(:advertisment, user: marioRossiUser, band: bandRossi, title: "Cercasi chitarrista")
+  adv = FactoryGirl.build(:advertisment, user: marioRossiUser, band: bandRossi, title: "Cercasi chitarrista", description: "La Band di Rossi cerca chitarrista con passione per il rock")
   expect(adv.save).to eq true
 end
 
