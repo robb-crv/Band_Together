@@ -34,12 +34,13 @@ Rails.application.routes.draw do
   post 'advertisment/destroy'
 
   delete 'advertisment/destroy'
-  
+
   post 'advertisment/update'
 
   get 'advertisment/edit'
 
-  
+
+
   # Routes per le band
 
   get 'band/new'

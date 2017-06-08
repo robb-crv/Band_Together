@@ -28,6 +28,11 @@ en:
   activerecord:
     errors:
       models:
+        advertisment:
+          attributes:
+            term_date:
+              after: "not valid, it must come after the creation of the advertisment."
+
         user:
           attributes:
             birth:

@@ -3,7 +3,7 @@
 <div class="col-md-4 col-md-offset-3" id="SettingsMainContainer">
 
   <%= form_for(@user, as: :user, url: users_update_profile_informations_path, html: {method: :post}) do |f| %>
-  <%= render 'layouts/user_error_messages' %>
+  <%= render 'layouts/model_error_messages', object: @user %>
     <div class="field">
       <%= f.label :first_name , "First name"%><br />
       <%= f.text_field :first_name , class: 'form-control' %>

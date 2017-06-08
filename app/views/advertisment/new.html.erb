@@ -1,9 +1,9 @@
 
 <div class="col-md-4 col-md-offset-4 ">
-<h4> Create Advertisment </h4>
+<h2> Create Advertisment for the band '<%= @band.name %>'</h2>
 
-<%= form_for(:advertisment, url: advertisment_create_path(:band_id => @band.id)) do |f| %>
-
+<%= form_for(:advertisment,as: :advertisment, url: advertisment_create_path(:band_id => @band.id)) do |f| %>
+  <%= render 'layouts/model_error_messages', object: @advertisment %>
   <div class="field">
   	<%= f.label :title%><br/>
   	<%= f.text_field :title , :required => true , class: 'form-control' %>
