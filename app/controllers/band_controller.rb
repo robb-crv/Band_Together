@@ -30,6 +30,8 @@ class BandController < ApplicationController
 
 		if(!params[:id].nil?)
 			@band= Band.find(params[:id])
+			@advs= Advertisment.where("band_id= ?", @band.id)
+			@bandMembers = @band.users
 		else
 			redirect_to "/404"
 		end

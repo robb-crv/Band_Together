@@ -1,19 +1,28 @@
 
-<h4><%= @band.name %> info</h4>
-
-<p> Description : </br><%= @band.description %> </p>
+<h2>Band '<%= @band.name %>'</h2>
+<br/>
+<p>
+	<strong>Description: </strong> 	<%= @band.description %>
+</p>
 
 <p>
-created at: <%= @band.created_at %>, by <%= link_to @band.band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%>
+	<strong>Created At:</strong>	 <%= @band.created_at %>, by <%= link_to @band.band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%>
+</p>
+
+<p>
+	<strong>Active in:</strong> <%= @band.city %>, <%= @band.region %>, <%= @band.nation %>
+</p>
+
+<p>
+	<strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@band.musical_genre_id).name %>
 </p>
 
 <br/>
 
-<% @advs= Advertisment.where("band_id= ?", @band.id) %>
-<% if !@advs.empty? %>
+<br/>
 
 <div id="pnlActiveAdvertisments" >
-	<h4> Active Advertisments <h4/>
+	<h4> Active Advertisments </h4>
 	<ol>
     	<% @advs.each do |a| %><br/>
 
@@ -27,7 +36,24 @@ created at: <%= @band.created_at %>, by <%= link_to @band.band_manager.username,
 
     	<% end %>
     </ol>
-<% end %>
+
+</div>
+
+<br/>
+
+<div id="pnlBandMembers" >
+	<h4> Band Members </h4>
+	<ol>
+    	<% @bandMembers.each do |member| %><br/>
+
+    		<li>
+    			<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>:
+					<%= TypeOfMusician.find_by_id(member.type_of_musician_id).name %>
+				</li>
+
+    	<% end %>
+    </ol>
+
 </div>
 
 <!-- andrea

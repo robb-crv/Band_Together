@@ -256,9 +256,10 @@ And /^I follow "Update"$/ do
 =begin
   user = User.find_by_email("mariorossi@gmail.com")
   puts current_path , user.email , user.username ,  user.last_name , user.first_name
-  #click_on "Update"
+
 =end
-  find(:css,"#Update").click
+click_on "Update"
+  #find(:css,"#Update").click
 =begin
   user2 = User.find_by_email("mariorossi@gmail.com")
   puts current_path , user2.email , user2.username ,  user2.last_name , user2.first_name
