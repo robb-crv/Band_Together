@@ -73,16 +73,16 @@ end
 
 And /^I select "Latium" from "Region"$/ do
     select('Latium', from: 'region')
-    page.execute_script("$('#states').trigger('change')")
+    page.execute_script("$('#states-of-country').trigger('change')")
 end
 
 And /^I select "Rome" from "City"$/ do
   select('Rome', from: 'city')
-  page.execute_script("$('#cities').trigger('change')")
+  page.execute_script("$('#city-of-region').trigger('change')")
 end
 
 And /^I select "Drummer" from "Instrument played"$/ do
-    select("Drummer", from: "Instrument played")
+    select("Drummer", from: "Instrument Played")
 end
 
 And /^I select "Rock" from "Favourite musical genre"$/ do
@@ -235,7 +235,9 @@ end
 =end
 Then /^I should be on the Edit User Profile Informations Page$/ do
 
-  expect(page.current_path).to eq users_edit_profile_informations_path
+    expect(page).to have_content "Edit Profile Informations"
+  #expect(page.current_path).to eq users_edit_profile_informations_path
+
 end
 
 When /^I fill "First name" with "Carlo"$/ do

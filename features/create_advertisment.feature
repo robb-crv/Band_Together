@@ -29,4 +29,4 @@ Feature: Band Manager creates a new advertisment
       And I select as a "Term Date" 1 month ago
       And I press on "Create"
       Then I should be on the New Advertisment Page
-      And I should see "Invalid parameters"
+      And I should see an error that tells me that the object couldn't be saved

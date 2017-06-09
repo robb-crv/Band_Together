@@ -5,7 +5,9 @@ When /^I follow "New Band"$/ do
 end
 
 Then /^I should be on the New Band Page$/ do
-  expect(page.current_path).to eq band_new_path
+  #expect(page.current_path).to eq band_new_path
+  expect(page).to have_content "Create Band"
+    expect(page).to have_css("#CreateBand")
 end
 
 And /^I fill "Name" with "Jazz Band"$/ do
@@ -32,6 +34,6 @@ And /^I should see "The band has been created successfully"$/ do
   expect(page).to have_content "The band has been created successfully"
 end
 
-And /^I should see "Invalid parameters"$/ do
-  expect(page).to have_content "Invalid parameters"
+And /^I should see an error that tells me that the object couldn't be saved$/ do
+  expect(page).to have_content "There were problems with the following fields:"
 end

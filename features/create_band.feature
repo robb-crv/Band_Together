@@ -21,6 +21,7 @@ Feature: User creates a Band
     And I select "Latium" from "Region"
     And I select "Rome" from "City"
     And I press "Create"
+
     Then I should be on the Band Page
     And I should see "The band has been created successfully"
 
@@ -33,4 +34,4 @@ Feature: User creates a Band
       And I select "Jazz" from "Musical Genre"
       And I press "Create"
       Then I should be on the New Band Page
-      And I should see "Invalid parameters"
+      And I should see an error that tells me that the object couldn't be saved

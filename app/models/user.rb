@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
 
-  
+
 =end
 
    #Nation validation
