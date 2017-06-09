@@ -48,7 +48,7 @@ class BandController < ApplicationController
 
 
 		if updated
-			redirect_to band_index_path(:id => @band.band_manager)
+			redirect_to band_show_path(:id => @band.id)
 			flash[:success] = "Successfully updated informations."
 		else
 			render band_edit_path

@@ -18,10 +18,10 @@ has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
     	def validate_each(record, attribute, value)
       		record.errors.add attribute, "Not a supported musical genre" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", ""].include? value
     	end
-  	end	
+  	end
 =end
 
-   	
+
 
 		#Nation validation
 
@@ -45,7 +45,9 @@ has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 		 class  CityValidator < ActiveModel::EachValidator
 
 			 def validate_each(record, attribute, value)
-				 record.errors.add attribute, "Not a valid City" unless CS.cities(CS.states(CS.countries.key(record.nation)).key(record.region),CS.countries.key(record.nation)).include? value
+				 nationKey = CS.countries.key(record.nation)
+				 regionKey = CS.states(nationKey).key(record.region)
+				 record.errors.add attribute, "Not a valid City" unless CS.get( nationKey ,regionKey ).include? value
 			 end
 		 end
 
