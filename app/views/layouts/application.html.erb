@@ -25,7 +25,7 @@
 
     <!-- andrea.  renderizzo i messaggi ma solo per le pagine che non hanno un layout particolare -->
     <% current_uri = request.env['PATH_INFO'] %>
-    <% if !(current_uri == "/users/edit_profile_informations" || current_uri == "users/edit" ) %>
+    <% if !uri_without_flash_messages.include? current_uri %>
       <%= render 'layouts/messages' %>
     <% end %>
 

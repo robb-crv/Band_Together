@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170608094017) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "city"
-    t.integer  "musical_genre_id"
+    t.integer  "musical_genre_id", default: 0
     t.index ["band_manager_id"], name: "index_bands_on_band_manager_id"
   end
 

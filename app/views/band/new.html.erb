@@ -1,14 +1,13 @@
 
-
-
 <div class="col-md-4 col-md-offset-4 ">
-  <h4>Create Band<h4/>
+  <h2> Create Band </h2>
 
-    
-<%= form_for(:band, url: band_create_path) do |f| %>
+<%= form_for(@band, url: band_create_path(:id => @band.id) , html: { method: :post }) do |f| %>
+
+<%= render 'layouts/model_error_messages', object: @band %>
 
   <div class="field">
-  	<%= f.label :name%>
+  	<%= f.label :name %>
   	<%= f.text_field :name , autofocus: true, :required => 'required', class: 'form-control' %>
   </div>
 

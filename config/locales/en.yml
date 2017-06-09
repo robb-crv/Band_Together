@@ -24,4 +24,18 @@ en:
   admin:
     actions:
       ban_user_account:
-        menu: 'Ban this user'
+        menu: "Ban this user"
+  activerecord:
+    errors:
+      models:
+        advertisment:
+          attributes:
+            term_date:
+              after: "not valid, it must come after the creation of the advertisment."
+
+        user:
+          attributes:
+            birth:
+              invalid_date: "Date not valid"
+              before: "Date is incorrect, it's in the future!"
+              after: "Date is incorrect, it's too old"

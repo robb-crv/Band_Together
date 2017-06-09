@@ -1,10 +1,20 @@
 
-<p> <h2> <%= @advertisment.title %> </h2></p>
+<p> <h2>Advertisment '<%= @advertisment.title %>'</h2></p>
 
-<p> Band: <%= @advertisment.band.name %> </p>
+<p> <strong>Band:</strong> <%= @advertisment.band.name %> </p>
 
 <p> Created by: <%= @advertisment.user.username%> </p>
 
-<p> description: <%= @advertisment.description%> </p>
+<p>
+	<strong>Band Active in:</strong> <%= @advertisment.band.city %>, <%= @advertisment.band.region %>, <%= @advertisment.band.nation %>
+</p>
 
-<p> valido da <%= @advertisment.start_date %> , a <%= @advertisment.term_date %> </p>
+<p>
+	<strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@advertisment.band.musical_genre_id).name %>
+</p>
+
+<p> <strong>Created by:</strong> <%= @advertisment.user.username %> </p>
+
+<p> <strong>Description:</strong> <%= @advertisment.description%> </p>
+
+<p> <strong>Valid From:</strong> <%= @advertisment.start_date %>  <strong> To:</strong> <%= @advertisment.term_date %> </p>

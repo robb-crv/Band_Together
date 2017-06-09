@@ -11,23 +11,22 @@
 
 	<h2>
   <%= gravatar_for @user %>
-  <%= @user.username %>
 </h2>
 
 
-	 <p>Username: <%= @user.username %><br/>
+	 <p> <strong>Username:</strong> <%= @user.username %><br/>
 
-	 <p>Email: <%= @user.email %> </p>
+	 <p><strong>Email:</strong> <%= @user.email %> </p>
 
-	 <p>First Name: <%= @user.first_name %> <p/>
+	 <p><strong>First Name:</strong> <%= @user.first_name %> <p/>
 
-	 <p>Last Name: <%= @user.last_name %><p/>
+	 <p><strong>Last Name:</strong> <%= @user.last_name %><p/>
 
-	 <p>from <%= @user.nation %></p>
+	 <p><strong>From:</strong> <%= @user.city %>, <%= @user.region %>, <%= @user.nation %></p>
 
-	 <p>I'm a: <%= TypeOfMusician.find_by_id(@user.type_of_musician_id).name %> </p>
+	 <p><strong>I'm a:</strong> <%= TypeOfMusician.find_by_id(@user.type_of_musician_id).name %> </p>
 
-	 <p>Musical Genre: <%= MusicalGenre.find_by_id(@user.musical_genre_id).name %> <p/>
+	 <p><strong>Musical Genre:</strong> <%= MusicalGenre.find_by_id(@user.musical_genre_id).name %> <p/>
 
 	 <div id="pnlCreatedBands">
 
