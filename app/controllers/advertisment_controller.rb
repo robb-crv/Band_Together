@@ -27,6 +27,9 @@ class AdvertismentController < ApplicationController
 
 		@advertisment.band_id= params[:band_id]
 		@advertisment.user_id= current_user.id
+
+		#salvataggio dell'hash contente i tipi richiesti nell'annuncio
+
 		if @advertisment.save
 			flash[:success] = "Successfully operation"
 			redirect_to advertisment_show_path(:id => @advertisment.id)

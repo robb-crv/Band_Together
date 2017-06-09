@@ -19,10 +19,13 @@ created at: <%= @band.created_at %>, by <%= link_to @band.band_manager.username,
 
     		<li>
     			<%= link_to a.title, advertisment_show_path(:id => a.id), :method => "get" %>
-
-    			<%= link_to "edit" , advertisment_edit_path(:id => a.id), :method => "get"%>
-
+    			<ul>
+    			<li>
+    				<%= link_to "edit" , advertisment_edit_path(:id => a.id), :method => "get"%>
+    			
     			<%= link_to "delete" , advertisment_destroy_path({:id => a.id, :band_id => @band.id}), :method => "delete", data:  { confirm: "Are you sure?" } %>
+    			</li>
+    			</ul>
     		</li>
 
     	<% end %>
