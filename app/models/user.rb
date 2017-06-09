@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class User < ApplicationRecord 
   # Include default devise modules. Others available are:
 
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -17,7 +17,23 @@ class User < ApplicationRecord
   #attr_accessor :remember_token
   include ActiveModel::Validations
 
-  #Custom Validators
+#SEARCH ENGINE PARAMETER DEFINITIONS
+
+  # Include integration with searchkick
+  searchkick
+
+  def search_data
+    {
+      username: username,
+      nation: nation,
+      region: region,
+      city: city
+      #type_of_musician_id: type_of_musician_id,
+      #musical_genre_id: musical_genre_id 
+    }
+  end
+  
+#CUSTOM VALIDATORS
 
 =begin
 
@@ -40,8 +56,6 @@ class User < ApplicationRecord
     end
   end
 
-
-  
 =end
 
    #Nation validation

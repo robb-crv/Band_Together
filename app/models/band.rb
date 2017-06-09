@@ -11,6 +11,22 @@ has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 	has_many :member_associations, :dependent => :delete_all, foreign_key: :joined_band_id, inverse_of: :joined_band
 	has_many :users,  through: :member_associations
 
+#SEARCH ENGINE PARAMETER DEFINITIONS
+
+  # Include integration with searchkick
+  searchkick word_middle: [:name, description:]
+
+  def search_data
+  	{
+  		name: name,
+  		nation: nation,
+  		region: region,
+  		city: city,
+  		description: description
+  		#musical_genre_id: musical_genre_id
+  	}  	
+  end
+
 =begin
 
 	class  GenreValidator < ActiveModel::EachValidator

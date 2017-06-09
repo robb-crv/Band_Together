@@ -103,6 +103,9 @@ gem "fakeweb", "~> 1.3"
 #ActiveHash is a simple base class that allows you to use a ruby hash as a readonly datasource for an ActiveRecord-like model
 gem 'active_hash'
 
+#Application Search Engine
+gem 'searchkick'
+
 group :test do
 
   #.roberto
