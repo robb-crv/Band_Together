@@ -7,9 +7,9 @@ Mailboxer.setup do |config|
   config.default_from = "no-reply@mailboxer.com"
 
   #Configures the methods needed by mailboxer
-  config.email_method = :email
-  config.name_method = :username
-  config.notify_method = :notify
+  config.email_method = :mailboxer_email
+  config.name_method = :mailboxer_name
+  config.notify_method = :mailboxer_notify
 
   #Configures if you use or not a search engine and which one you are using
   #Supported engines: [:solr,:sphinx,:pg_search]

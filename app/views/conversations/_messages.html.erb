@@ -1,0 +1,20 @@
+<% @receipts.each do |receipt| %>
+    <% message = receipt.message %>
+    <div class="media">
+      <div class="media-left">
+        <!-- user avators can go here -->
+
+        <%= link_to users_show_path(:id => message.sender.id) do %>
+            <%= gravatar_for message.sender %>
+        <% end %>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= message.sender.username %> <br>
+          <small><b>Subject: </b><%= message.subject %></small><br>
+          <small><b>Date: </b><%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
+        </h4>
+        <%= message.body %>
+      </div>
+    </div>
+<% end %>

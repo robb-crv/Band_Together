@@ -183,4 +183,14 @@ end
     !self.banned ? super : :locked
   end
 
+
+  def mailboxer_name
+    self.username
+  end
+
+  def mailboxer_email(object)
+    #self.email
+    nil
+  end
+
 end

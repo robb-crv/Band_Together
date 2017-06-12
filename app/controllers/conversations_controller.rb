@@ -1,99 +1,50 @@
 class ConversationsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :get_mailbox, :get_box, :get_actor
-  before_filter :check_current_subject_in_conversation, :only => [:show, :update, :destroy]
+  before_action :authenticate_user!
 
-  def index
-    if @box.eql? "inbox"
-      @conversations = @mailbox.inbox.page(params[:page]).per(9)
-    elsif @box.eql? "sentbox"
-      @conversations = @mailbox.sentbox.page(params[:page]).per(9)
-    else
-      @conversations = @mailbox.trash.page(params[:page]).per(9)
-    end
+  def new
+  end
 
-    respond_to do |format|
-      format.html { render @conversations if request.xhr? }
-    end
+
+  def create
+    recipients = User.where(id: conversation_params[:recipients])
+    conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
+    flash[:success] = "Your message was successfully sent!"
+    redirect_to conversation_path(conversation)
   end
 
   def show
-    if @box.eql? 'trash'
-      @receipts = @mailbox.receipts_for(@conversation).trash
-    else
-      @receipts = @mailbox.receipts_for(@conversation).not_trash
-    end
-    render :action => :show
-    @receipts.mark_as_read
+    @receipts = conversation.receipts_for(current_user)
+    # mark conversation as read
+    conversation.mark_as_read(current_user)
   end
 
-  def update
-    if params[:untrash].present?
-    @conversation.untrash(@actor)
-    end
-
-    if params[:reply_all].present?
-      last_receipt = @mailbox.receipts_for(@conversation).last
-      @receipt = @actor.reply_to_all(last_receipt, params[:body])
-    end
-
-    if @box.eql? 'trash'
-      @receipts = @mailbox.receipts_for(@conversation).trash
-    else
-      @receipts = @mailbox.receipts_for(@conversation).not_trash
-    end
-    redirect_to :action => :show
-    @receipts.mark_as_read
-
+  def reply
+   current_user.reply_to_conversation(conversation, message_params[:body])
+   flash[:notice] = "Your reply message was successfully sent!"
+   redirect_to conversation_path(conversation)
   end
 
-  def destroy
 
-    @conversation.move_to_trash(@actor)
-
-    respond_to do |format|
-      format.html {
-        if params[:location].present? and params[:location] == 'conversation'
-          redirect_to conversations_path(:box => :trash)
-	else
-          redirect_to conversations_path(:box => @box,:page => params[:page])
-	end
-      }
-      format.js {
-        if params[:location].present? and params[:location] == 'conversation'
-          render :js => "window.location = '#{conversations_path(:box => @box,:page => params[:page])}';"
-	else
-          render 'conversations/destroy'
-	end
-      }
-    end
+  def trash
+    conversation.move_to_trash(current_user)
+    redirect_to mailbox_inbox_path
   end
+
+  def untrash
+    conversation.untrash(current_user)
+    redirect_to mailbox_inbox_path
+  end
+
+
 
   private
 
-  def get_mailbox
-    @mailbox = current_user.mailbox
+  def conversation_params
+    params.require(:conversation).permit(:subject, :body,recipients:[])
   end
 
-  def get_actor
-    @actor = current_user
-  end
-
-  def get_box
-    if params[:box].blank? or !["inbox","sentbox","trash"].include?params[:box]
-      params[:box] = 'inbox'
-    end
-
-    @box = params[:box]
-  end
-
-  def check_current_subject_in_conversation
-    @conversation = Conversation.find_by_id(params[:id])
-
-    if @conversation.nil? or !@conversation.is_participant?(@actor)
-      redirect_to conversations_path(:box => @box)
-    return
-    end
+  def message_params
+    params.require(:message).permit(:body, :subject)
   end
 
 end

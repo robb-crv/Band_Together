@@ -62,8 +62,19 @@ Rails.application.routes.draw do
 
 
   #andrea. per la messaggistica
-  resources :messages
-  resources :conversations
+
+  # mailbox folder routes
+  get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
+  get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
+  get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
+
+  resources :conversations do
+   member do
+     post :reply
+     post :trash
+     post :untrash
+   end
+ end
 
   #Route che serve nella form di signup per far apparire nella select della selezione della regione la lista delle regioni appartenenti alla nazione scelta dall'utente
   get '/states/:nation', to: 'application#states'

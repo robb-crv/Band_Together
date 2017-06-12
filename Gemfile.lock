@@ -67,6 +67,10 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     city-state (0.0.13)
       rubyzip (~> 1.1)
     coderay (1.1.1)
@@ -375,6 +379,7 @@ DEPENDENCIES
   byebug
   cancancan (~> 1.10)
   capybara-webkit
+  chosen-rails
   city-state
   coffee-rails (~> 4.2)
   countries

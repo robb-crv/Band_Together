@@ -17,8 +17,10 @@ gem 'puma', '~> 3.0'
 gem 'devise', '~> 4.2'
 
 
-#andrea. usata per la messaggistica 
+#andrea. usata per la messaggistica
 gem 'mailboxer'
+
+gem 'chosen-rails'
 
 =begin
 
