@@ -9,8 +9,11 @@ require 'factory_girl_rails'
 
 
 
-Capybara.javascript_driver = :webkit_debug
-#Capybara.javascript_driver = :webkit
+
+
+
+#Capybara.javascript_driver = :webkit_debug
+Capybara.javascript_driver = :webkit
 Capybara.ignore_hidden_elements = false
 
 Capybara::Webkit.configure do |config|

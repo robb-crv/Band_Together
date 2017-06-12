@@ -29,7 +29,7 @@ Feature: User creates a Band
     Scenario: User "Mario Rossi" tries to create a new band without band's location (sad way)
       When I follow "New Band"
       Then I should be on the New Band Page
-      When I fill "Name" with "Jazz Band"
+      When I fill "Name" with "Band di Rossi"
       And I fill "Description" with "My new band"
       And I select "Jazz" from "Musical Genre"
       And I press "Create"
