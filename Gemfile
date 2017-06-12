@@ -16,6 +16,10 @@ gem 'puma', '~> 3.0'
 #.roberto per autenticazione
 gem 'devise', '~> 4.2'
 
+
+#andrea. usata per la messaggistica 
+gem 'mailboxer'
+
 =begin
 
 CanCanCan is an authorization library which restricts what resources a given user is allowed to access.
