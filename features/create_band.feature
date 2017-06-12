@@ -14,7 +14,7 @@ Feature: User creates a Band
   Scenario: User "Mario Rossi" creates a new band (happy way)
     When I follow "New Band"
     Then I should be on the New Band Page
-    And I fill "Name" with "Jazz Band"
+    And I fill "Name" with "Band di Rossi"
     And I fill "Description" with "My new band"
     And I select "Jazz" from "Musical Genre"
     And I select "Italy" from "Nation"
@@ -22,14 +22,14 @@ Feature: User creates a Band
     And I select "Rome" from "City"
     And I press "Create"
 
-    Then I should be on the Band Page
+    Then I should be on the Band Page of "Band di Rossi"
     And I should see "The band has been created successfully"
 
   @javascript
     Scenario: User "Mario Rossi" tries to create a new band without band's location (sad way)
       When I follow "New Band"
       Then I should be on the New Band Page
-      When I fill "Name" with "Jazz Band"
+      When I fill "Name" with "Band di Rossi"
       And I fill "Description" with "My new band"
       And I select "Jazz" from "Musical Genre"
       And I press "Create"
