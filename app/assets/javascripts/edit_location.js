@@ -1,5 +1,5 @@
 
-$(function(){
+document.addEventListener("turbolinks:load", function() {
       //Andrea. ho scelto di usare il trigger dell'evento di change della select dipendente da quella che si cambia, così
         //      ad ogni cambio di select a monte corrisponde un cambio a valle, eliminando il trigger non funzionava.
 
