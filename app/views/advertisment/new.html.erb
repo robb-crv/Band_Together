@@ -25,7 +25,29 @@
   	<%= f.label :term_date%><br/>
   	<%= f.date_field :term_date, "data-provide" => 'datepicker' , :required => true , class: 'form-control' %><br/>
   </div><br/>
+  
+  
+  <div class="field">
+    <%= f.fields_for :musicians do |f2| %>
+      <%= f2.label :drummer %>
+      <%= f2.text_field :drummer, :size => 2%></br>
+      <%= f2.label :lead_guitarist %>
+      <%= f2.text_field :lead_guitarist, :size => 2%></br>
+      <%= f2.label :rhythmic_guitarist %>
+      <%= f2.text_field :rhythmic_guitarist, :size => 2%></br>
+      <%= f2.label :bass_guitarist %>
+      <%= f2.text_field :bass_guitarist, :size => 2%></br>
+      <%= f2.label :keyboardist %>
+      <%= f2.text_field :keyboardist, :size => 2%></br>
+      <%= f2.label :singer %>
+      <%= f2.text_field :singer, :size => 2%></br>
+      <%= f2.label :winds %>
+      <%= f2.text_field :winds, :size => 2%>
+    <%end%>
+  </div>
 
+
+<!--
   <fieldset>
     <legend>Needed Musicians</legend>
 
@@ -180,9 +202,8 @@
     </div>
       </ul>
   </fieldset>
-
-  <div class="field">
-  </div>
+-->
+  
 
   </br></br><div class="actions">
   	<%= f.submit "Create", :id => "CreateAdvertisment" , :class => "btn btn-md btn-primary"%>
