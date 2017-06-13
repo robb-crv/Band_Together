@@ -33,6 +33,8 @@ class AdvertismentController < ApplicationController
 		@advertisment.user_id= current_user.id
 
 		#salvataggio dell'hash contente i tipi richiesti nell'annuncio
+		#@advertisment.musicians = ???
+
 
 		if @advertisment.save
 			flash[:success] = "Successfully operation"
@@ -71,7 +73,7 @@ class AdvertismentController < ApplicationController
 	private
 
   	def advertisment_params
-    	params.require(:advertisment).permit(:title, :description, :start_date, :term_date, :band_id, :user_id)
+    	params.require(:advertisment).permit(:title, :description, :start_date, :term_date, :band_id, :user_id, :musicians => [:drummer, :lead_guitarist, :rhythmic_guitarist, :bass_guitarist, :keyboardist, :singer, :winds])
    	end
 
 

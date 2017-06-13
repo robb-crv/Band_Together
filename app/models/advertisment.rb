@@ -1,10 +1,9 @@
 class Advertisment < ApplicationRecord
-
+	serialize :musicians, Hash
 	#association
 	belongs_to :user, foreign_key: "user_id"
 	belongs_to :band, dependent: :destroy, foreign_key: "band_id"
 
-	serialize :musicians, Hash
 
 	#validation
 	VALID_TITLE_REGEX = /\A[^ ].*\z/ #il titolo non può iniziare con uno spazio

@@ -6,7 +6,7 @@
 <p> Created by: <%= @advertisment.user.username%> </p>
 
 <p>
-	<strong>Band Active in:</strong> <%= @advertisment.band.city %>, <%= @advertisment.band.region %>, <%= @advertisment.band.nation %>
+	<strong>Band Active in:</strong> <%= @advertisment.band.city %> (<%= @advertisment.band.region %> , <%= @advertisment.band.nation %>)
 </p>
 
 <p>
@@ -18,3 +18,18 @@
 <p> <strong>Description:</strong> <%= @advertisment.description%> </p>
 
 <p> <strong>Valid From:</strong> <%= @advertisment.start_date %>  <strong> To:</strong> <%= @advertisment.term_date %> </p>
+<p> <strong>musicians: </strong>
+	<ul> 
+	<% @advertisment.musicians.each do |m| %>
+		<% if m[1]!='' %>
+			
+			<% s=m[0].split (/_/) %>
+			
+			<li> <%= s[0].capitalize%>:
+				<%if !s[1].nil? %>
+					<%= s[1].capitalize%>
+				<%end%> 
+			<%=m[1]%></li>
+		<%end%>
+	<%end%>
+	</ul> 
