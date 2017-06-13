@@ -1,0 +1,28 @@
+
+
+<div class="media">
+  <div class="media-left">
+    <%= link_to users_show_path(:id => conversation.originator.id) do %>
+        <%= gravatar_for conversation.originator %>
+    <% end %>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= conversation.originator.username %> <br>
+      <small><b>Subject: </b><%= conversation.subject %></small><br>
+      <small><b>Date: </b><%=  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
+    </h4>
+    <%= truncate conversation.messages.last.body, length: 145 %>
+    <%= link_to "View", conversation_path(conversation)  %>
+  </div>
+  <div class="media-right">
+    <div class="col-md-6 text-right">
+   <% if conversation.is_trashed?(current_user) %>
+       <%= link_to 'Untrash', untrash_conversation_path(conversation), class: 'btn btn-info', method: :post %>
+   <% else %>
+       <%= link_to 'Move to trash', trash_conversation_path(conversation), class: 'btn btn-danger', method: :post,
+                   data: {confirm: 'Are you sure?'} %>
+   <% end %>
+ </div>
+  </div>
+</div>

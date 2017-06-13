@@ -6,6 +6,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :confirmable, :omniauth_providers => [:google_oauth2,:facebook]
 
+
+  #andrea. prepara il model per il modulo di messaggistica
+  acts_as_messageable
+
   #association
   has_many :bands, dependent: :destroy, foreign_key: 'band_manager_id'
   has_many :advertisment, dependent: :destroy, foreign_key: 'user_id'
@@ -177,6 +181,16 @@ end
 
   def inactive_message
     !self.banned ? super : :locked
+  end
+
+
+  def mailboxer_name
+    self.username
+  end
+
+  def mailboxer_email(object)
+    #self.email
+    nil
   end
 
 end

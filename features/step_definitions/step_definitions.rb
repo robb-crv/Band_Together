@@ -69,16 +69,19 @@ end
 And /^I select "Italy" from "Nation"$/ do
     select('Italy', from: 'nation')
     page.execute_script("$('#countries').trigger('change')")
+    wait_for_ajax
 end
 
 And /^I select "Latium" from "Region"$/ do
     select('Latium', from: 'region')
     page.execute_script("$('#states-of-country').trigger('change')")
+    wait_for_ajax
 end
 
 And /^I select "Rome" from "City"$/ do
   select('Rome', from: 'city')
   page.execute_script("$('#city-of-region').trigger('change')")
+  wait_for_ajax
 end
 
 And /^I select "Drummer" from "Instrument played"$/ do

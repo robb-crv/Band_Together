@@ -63,6 +63,14 @@ GEM
     capybara-webkit (1.14.0)
       capybara (>= 2.3.0, < 2.14.0)
       json
+    carrierwave (1.1.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     city-state (0.0.13)
       rubyzip (~> 1.1)
     coderay (1.1.1)
@@ -159,6 +167,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.5)
       mime-types (>= 1.16, < 4)
+    mailboxer (0.15.1)
+      carrierwave (>= 0.5.8)
+      rails (>= 5.0.0)
     mailcatcher (0.2.4)
       eventmachine
       haml
@@ -368,6 +379,7 @@ DEPENDENCIES
   byebug
   cancancan (~> 1.10)
   capybara-webkit
+  chosen-rails
   city-state
   coffee-rails (~> 4.2)
   countries
@@ -385,6 +397,7 @@ DEPENDENCIES
   jquery-easing-rails
   jquery-rails
   listen (~> 3.0.5)
+  mailboxer
   mailcatcher
   omniauth (~> 1.3, >= 1.3.2)
   omniauth-facebook

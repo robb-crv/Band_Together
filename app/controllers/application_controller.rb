@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
 	before_action :configure_permitted_parameters, if: :devise_controller?
 
+	helper_method :mailbox, :conversation
+
 	#Code to catch CanCan::AccessDenied exception. This exception will be raised when user authorization fails
 
 	rescue_from CanCan::AccessDenied do |exception|
@@ -37,6 +39,16 @@ class ApplicationController < ActionController::Base
 	def after_sign_in_path_for(resource)
 	  session["user_return_to"] || users_home_path
 	end
+
+	private
+
+	def mailbox
+		@mailbox ||= current_user.mailbox
+	end
+
+	def conversation
+    @conversation ||= mailbox.conversations.find(params[:id])
+  end
 
 
 end

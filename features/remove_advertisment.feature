@@ -11,7 +11,7 @@ Feature: Band Manager removes an advertisment from the relative band
       And I am logged in as "Mario Rossi"
       When I follow "Profile"
       And I follow the link to "Band di Rossi"
-      Then I should be on the Band Page
+      Then I should be on the Band Page of "Band di Rossi"
       And I should see "Cercasi chitarrista" in the "Active Advertisments" table
       When I press "delete" for the advertisment "Cercasi chitarrista"
       Then I should not see "Cercasi chitarrista" in the "Active Advertisments" table anymore

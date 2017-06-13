@@ -3,6 +3,7 @@
 
 <%= form_for(@band, url: band_update_path(:id => @band.id) , html: { method: :post }) do |f| %>
   <%= render 'layouts/model_error_messages', object: @band %>
+  </br>
   <div class="field">
       <%= f.label :name, :required => 'required' %><br/>
       <%= f.text_field :name , class: 'form-control'%>
@@ -19,10 +20,75 @@
         <%= collection_select :band, :musical_genre_id, MusicalGenre.all, :id, :name, {:selected => @band.musical_genre_id}, {class: 'form-control'} %>
       </div>
 
+      <br/>
 
-      </br>
+      <div class="field">
+        <%= f.hidden_field :nation %>
+        <%= f.hidden_field :region %>
+        <%= f.hidden_field :city %>
+      </div>
+
+
+      <div class="field">
+        <%= f.label :nation , "Nation"%>
+        <select id="countries" name="nation" class="form-control">
+          <option value="" selected="">Select country</option>}
+          <% CS.countries.each do |key, value| %>
+            <% if @band.nation == value %>
+              <% @nationKey = key %>
+              <option value="<%= key %>" selected><%= value %></option>
+            <% else %>
+              <option value="<%= key %>"><%= value %></option>
+            <% end %>
+          <% end %>
+        </select>
+
+        <br/>
+
+    <%= f.label :region , "Region"%>
+        <select name="region" id="states-of-country" class="form-control">
+          <% if @band.nation != nil %>
+            <% CS.states(@nationKey).each do |key, value| %>
+              <% if @band.region == value %>
+                <% @regionKey = key %>
+                <option value="<%= key %>" selected><%= value %></option>
+              <% else %>
+                <option value="<%= key %>"><%= value %></option>
+              <% end %>
+            <% end %>
+          <% else %>
+            <option value="" selected="">Select state/province</option>
+          <% end %>
+        </select>
+
+    <br/>
+
+
+    <%= f.label :city , "City"%>
+
+
+    <select name="city" id="city-of-region" class="form-control">
+      <% if @band.region != nil %>
+        <% CS.cities(@regionKey,@nationKey).each do |value| %>
+          <% if @band.city == value %>
+            <option value="<%= value %>" selected><%= value %></option>
+          <% else %>
+            <option value="<%= value %>"><%= value %></option>
+          <% end %>
+        <% end %>
+      <% else %>
+          <option value="" selected="">Select City</option>
+      <% end %>
+    </select>
+
+
+
+
+      </div>
+
+      </br></br>
       <div class="actions">
-        <%= f.submit "Update", :class => "btn btn-primary btn-md",:id => "Update"%>
+        <%= f.submit "Update", :class => "btn btn-primary btn-md",:id => "UpdateBand"%>
       </div>
 
   <% end %>
