@@ -9,6 +9,11 @@ class ConversationsController < ApplicationController
     recipients = User.where(id: conversation_params[:recipients])
     conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
     flash[:success] = "Your message was successfully sent!"
+
+    recipients.each do |usr|
+      usr.notify("#{current_user.username} has just sent you a message.")
+    end
+
     redirect_to conversation_path(conversation)
   end
 

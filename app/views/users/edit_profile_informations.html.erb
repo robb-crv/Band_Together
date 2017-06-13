@@ -2,8 +2,16 @@
 
 
 <div class="col-md-4 col-md-offset-3" id="SettingsMainContainer">
-  <h2> Edit Profile Informations </h2>
-    <br/>
+
+
+
+    <div class="panel panel-default">
+      <div class = "panel-heading">
+      <h2 class = "panel-title">
+        Edit Profile Informations
+      </h2>
+    </div>
+      <div class="panel-body">
 
   <%= form_for(@user, as: :user, url: users_update_profile_informations_path, html: {method: :post}) do |f| %>
   <%= render 'layouts/model_error_messages', object: @user %>
@@ -127,5 +135,8 @@
     <br>
 
   <% end %>
+
+</div>
+</div>
 
 </div>
