@@ -15,4 +15,5 @@
 //= require jquery.easing
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require smart_listing
 //= require_tree .

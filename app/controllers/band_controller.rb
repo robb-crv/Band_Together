@@ -3,7 +3,12 @@ class BandController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@bands = current_user.bands
+		search = params[:search].present? ? params[:search] : nil
+		@bands = if search
+			Band.search(search)
+		else
+			Band.all
+		end				
 	end
 
 	def new
@@ -61,7 +66,7 @@ class BandController < ApplicationController
 
 	private
   	def band_params()
-    	params.require(:band).permit(:name, :description, :musical_genre, :band_manager_id, :nation , :region, :city)
+    	params.require(:band).permit(:name, :description, :musical_genre_id, :band_manager_id, :nation , :region, :city)
    	end
 
 end

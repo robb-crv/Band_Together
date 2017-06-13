@@ -323,6 +323,11 @@ GEM
       eventmachine (~> 1.0.0)
       thin (>= 1.5, < 1.7)
     slop (3.6.0)
+    smart_listing (1.2.0)
+      coffee-rails
+      jquery-rails
+      kaminari (~> 0.17)
+      rails (>= 3.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -412,6 +417,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   searchkick
   shoulda-matchers (~> 3.1, >= 3.1.1)
+  smart_listing
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets-rails
