@@ -19,8 +19,10 @@
 
 -->
 <div class="col-sm-3 col-md-2 sidebar">
-          <nav class="nav-sidebar">
-              <ul class="nav">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
                   <% case currentPage %>
                     <% when "ProfileInformations"  %>
                       <li class="active"><%= link_to "Profile Informations" , users_edit_profile_informations_path %></li>
@@ -33,5 +35,6 @@
 
                   <% end %>
               </ul>
-          </nav>
+      </div>
+      </div>
       </div>

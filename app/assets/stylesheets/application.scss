@@ -20,3 +20,27 @@
  */
  @import "bootstrap";
  @import "bootstrap-sprockets";
+
+
+
+
+ html {
+   width: 100%;
+   height: 100%;
+ }
+
+ body {
+    padding-top: 50px;
+ }
+
+
+
+ .mailbox_inbox,
+ .mailbox_sent,
+ .mailbox_trash,
+ .conversations_show,
+ .conversations_new,
+ .users_edit_profile_informations,
+ .registrations_edit{
+   margin: 10px;
+ }
