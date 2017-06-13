@@ -76,7 +76,11 @@ Rails.application.routes.draw do
      end
   end
 
-  resources :notifications
+  resources :notifications do
+    collection do
+      post :mark_as_read
+    end
+  end
 
 
 

@@ -1,0 +1,4 @@
+<% @notifications.each do |notification| %>
+  <%= notification.actor.username %>
+  <%= notification.action %>
+<% end %>
