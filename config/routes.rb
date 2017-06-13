@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   get 'users/home'
 
+  get 'users/index'
+
   get 'users/edit_profile_informations'
 
   post 'users/update_profile_informations'

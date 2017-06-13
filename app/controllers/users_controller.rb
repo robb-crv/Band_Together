@@ -13,6 +13,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    search = params[:search].present? ? params[:search] : nil
+    @users = if search
+      User.search(search)
+    else
+      User.all
+    end       
+  end
+
   def home
     @user = current_user
   end
