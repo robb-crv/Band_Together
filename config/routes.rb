@@ -69,12 +69,16 @@ Rails.application.routes.draw do
   get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
 
   resources :conversations do
-   member do
-     post :reply
-     post :trash
-     post :untrash
-   end
- end
+     member do
+       post :reply
+       post :trash
+       post :untrash
+     end
+  end
+
+  resources :notifications
+
+
 
   #Route che serve nella form di signup per far apparire nella select della selezione della regione la lista delle regioni appartenenti alla nazione scelta dall'utente
   get '/states/:nation', to: 'application#states'

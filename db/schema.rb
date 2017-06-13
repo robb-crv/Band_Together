@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612115952) do
+ActiveRecord::Schema.define(version: 20170613143658) do
 
   create_table "advertisments", force: :cascade do |t|
     t.string   "title"
@@ -100,6 +100,17 @@ ActiveRecord::Schema.define(version: 20170612115952) do
     t.datetime "updated_at",     null: false
     t.index ["joined_band_id"], name: "index_member_associations_on_joined_band_id"
     t.index ["user_id"], name: "index_member_associations_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "recipient_id",    null: false
+    t.integer  "actor_id"
+    t.datetime "read_at"
+    t.string   "action"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "users", force: :cascade do |t|

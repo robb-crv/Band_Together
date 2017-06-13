@@ -10,8 +10,9 @@ class ConversationsController < ApplicationController
     conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
     flash[:success] = "Your message was successfully sent!"
 
+    #andrea. crea la notifica per gli utenti destinatari, salvando il riferimento alla conversazione.
     recipients.each do |usr|
-      usr.notify("#{current_user.username} has just sent you a message.")
+        Notification.create(recipient: usr, actor: current_user, action: "has just sent you a message in the conversation with subject:", notifiable: conversation)
     end
 
     redirect_to conversation_path(conversation)
