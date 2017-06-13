@@ -29,6 +29,13 @@
   <fieldset>
     <legend>Needed Musicians</legend>
 
+
+      <%= f.fields_for :options do |o| %>
+        <%= o.text_field :drummer, :size => 10, :value => @adv.musicians["drummer"] %>
+        <%= o.text_field :lead_guitarist, :size => 10, :value => @adv.options["lead_gutarist"] %>
+      <% end %>
+  
+
       <div class="row">
       <div class="col-md-4">
       <li><h4>Drummer<h4>
