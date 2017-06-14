@@ -23,7 +23,7 @@ class Band < ApplicationRecord
 			city: city,
 			description: description,
 			band_manager: band_manager,
-			musical_genre_id: musical_genre_id
+			musical_genre_id: MusicalGenre.find_by_id(musical_genre_id).name
 		}  	
 	end
 

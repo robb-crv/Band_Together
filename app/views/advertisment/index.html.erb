@@ -1,0 +1,29 @@
+<h1>Advertisments</h1>
+<br>
+<div>
+    <%= form_tag(advertisment_index_path, :method => "get", id: "search-form") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Advertisments" %>
+        <%= submit_tag "Search", :name => nil %>
+    <% end %>
+</div>
+<br>
+<table class="col-md-6">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>Term Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @advertisments.each do |ad| %>
+            <tr>
+                <td><%=ad.title%></td>
+                <td><%=ad.description%></td>
+                <td><%=ad.start_date%></td>
+                <td><%=ad.term_date%></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

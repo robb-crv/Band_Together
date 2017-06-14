@@ -5,6 +5,7 @@ class Advertisment < ApplicationRecord
 	belongs_to :band, dependent: :destroy, foreign_key: "band_id"
 
 #SEARCH ENGINE PARAMETER DEFINITIONS
+#Da aggiornare quando sarà finita la form per l'advertisment
 
 	# Include integration with searchkick
 	searchkick word_middle: [:title, :description]

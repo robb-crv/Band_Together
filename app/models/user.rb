@@ -20,7 +20,7 @@ class User < ApplicationRecord
 #SEARCH ENGINE PARAMETER DEFINITIONS
 
   # Include integration with searchkick
-  searchkick word_middle: [:email]
+  searchkick text_middle: [:email]
 
   def search_data
     {
@@ -29,8 +29,8 @@ class User < ApplicationRecord
       nation: nation,
       region: region,
       city: city,
-      type_of_musician_id: type_of_musician_id,
-      musical_genre_id: musical_genre_id 
+      type_of_musician_id: TypeOfMusician.find_by_id(type_of_musician_id).name,
+      musical_genre_id: MusicalGenre.find_by_id(musical_genre_id).name 
     }
   end
   
