@@ -1,5 +1,5 @@
 class AdvertismentController < ApplicationController
-
+	include AdvertismentHelper
 	before_action :authenticate_user!
 
 	def index
@@ -23,26 +23,24 @@ class AdvertismentController < ApplicationController
 	def create
 
 		@advertisment = Advertisment.new(advertisment_params)
+		
+		
 
-		@band = Band.find(params[:band_id])
+			@band = Band.find(params[:band_id])
 
+			@advertisment.start_date = Time.now			#andrea start date prende la data corrente
 
-		@advertisment.start_date = Time.now			#andrea start date prende la data corrente
+			@advertisment.band_id= params[:band_id]
+			@advertisment.user_id= current_user.id
 
-		@advertisment.band_id= params[:band_id]
-		@advertisment.user_id= current_user.id
-
-		#salvataggio dell'hash contente i tipi richiesti nell'annuncio
-		#@advertisment.musicians = ???
-
-
-		if @advertisment.save
-			flash[:success] = "Successfully operation"
-			redirect_to advertisment_show_path(:id => @advertisment.id)
-		else
-			#flash[:danger] = "Invalid parameters"
-			render advertisment_new_path
-		end
+			if @advertisment.save
+				flash[:success] = "Successfully operation"
+				redirect_to advertisment_show_path(:id => @advertisment.id)
+			else
+				#flash[:danger] = "Invalid parameters"
+				render advertisment_new_path
+			end
+		
 	end
 
 	def edit
@@ -73,8 +71,10 @@ class AdvertismentController < ApplicationController
 	private
 
   	def advertisment_params
-    	params.require(:advertisment).permit(:title, :description, :start_date, :term_date, :band_id, :user_id, :musicians => [:drummer, :lead_guitarist, :rhythmic_guitarist, :bass_guitarist, :keyboardist, :singer, :winds])
+  		mus= musicians_sym
+    	params.require(:advertisment).permit(:title, :description, :start_date, :term_date, :band_id, :user_id, :musicians => mus )
    	end
 
+   	#:musicians => [:drummer, :lead_guitarist, :rhythmic_guitarist, :bass_guitarist, :keyboardist, :singer, :winds]
 
 end

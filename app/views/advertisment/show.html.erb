@@ -21,15 +21,18 @@
 <p> <strong>musicians: </strong>
 	<ul> 
 	<% @advertisment.musicians.each do |m| %>
-		<% if m[1]!='' %>
+		<% if m[1]!='' and m[1]!='0'%>
 			
 			<% s=m[0].split (/_/) %>
 			
-			<li> <%= s[0].capitalize%>:
+			<li>
+				<%=m[1]%> 
 				<%if !s[1].nil? %>
 					<%= s[1].capitalize%>
 				<%end%> 
-			<%=m[1]%></li>
+				
+				<%= s[0].capitalize%>
+			</li>
 		<%end%>
 	<%end%>
 	</ul> 

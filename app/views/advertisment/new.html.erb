@@ -26,195 +26,30 @@
   	<%= f.date_field :term_date, "data-provide" => 'datepicker' , :required => true , class: 'form-control' %><br/>
   </div><br/>
   
-  
+  <legend>Needed Musicians</legend>
   <div class="field">
     <%= f.fields_for :musicians do |f2| %>
-      <%= f2.label :drummer %>
-      <%= f2.text_field :drummer, :size => 2%></br>
-      <%= f2.label :lead_guitarist %>
-      <%= f2.text_field :lead_guitarist, :size => 2%></br>
-      <%= f2.label :rhythmic_guitarist %>
-      <%= f2.text_field :rhythmic_guitarist, :size => 2%></br>
-      <%= f2.label :bass_guitarist %>
-      <%= f2.text_field :bass_guitarist, :size => 2%></br>
-      <%= f2.label :keyboardist %>
-      <%= f2.text_field :keyboardist, :size => 2%></br>
-      <%= f2.label :singer %>
-      <%= f2.text_field :singer, :size => 2%></br>
-      <%= f2.label :winds %>
-      <%= f2.text_field :winds, :size => 2%>
-    <%end%>
-  </div>
-
-
-<!--
-  <fieldset>
-    <legend>Needed Musicians</legend>
-
-
-      <%= f.fields_for :options do |o| %>
-        <%= o.text_field :drummer, :size => 10, :value => @adv.musicians["drummer"] %>
-        <%= o.text_field :lead_guitarist, :size => 10, :value => @adv.options["lead_gutarist"] %>
-      <% end %>
-  
-
-      <div class="row">
-      <div class="col-md-4">
-      <li><h4>Drummer<h4>
-      <div class="input-group">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="drummer">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-            </span>
-            <input type="text" name="drummer" class="form-control input-number" value="0" min="0" max="10">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="drummer">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </span>
-        </div>
-        </li>
-      </div>
-      </div>
-
-      <div class="row">
-      <div class="col-md-4">
-        <li>
-          <h4>Lead Guitarist</h4>
-          <div class="input-group">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="lead_guitarist">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-            </span>
-            <input type="text" name="lead_guitarist" class="form-control input-number" value="0" min="0" max="10">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="lead_guitarist">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </span>
+      <table>
+      <% TypeOfMusician.all.each do |t| %>
+        <% if t[:id]!=0 %>
+          <div class="row">
+            <% tmp=  t[:name].parameterize.underscore.to_sym %>
+            <div class="col-md-5">
+              <%= f2.label tmp %>
+            </div>
+            
+            <div class="col-sm-3">
+              <%= f2.number_field tmp, :min => 0, :max => 5, :value => 0%></br>
+            </div>
           </div>
-        </li>
-      </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-4">
-        <li>
-          <h4>Rhythmic Guitarist</h4>
-          <div class="input-group">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="rhytmic_guitarist">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-            </span>
-            <input type="text" name="rhytmic_guitarist" class="form-control input-number" value="0" min="0" max="10">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="rhytmic_guitarist">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </span>
-        </div>
-        </li>
-      </div>
-      </div>
-
-      <div class="row">
-      <div class="col-md-4">
-        <li>
-          <h4>Bass Guitarist</h4>
-          <div class="input-group">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="bass_guitarist">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-            </span>
-            <input type="text" name="bass_guitarist" class="form-control input-number" value="0" min="0" max="10">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="bass_guitarist">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </span>
-        </div>
-        </li>
-      </div>  
-    </div>
-
-
-      <div class="row">
-
-      <div class="col-md-4">
-        <li>
-          <h4>Keyboardist</h4>
-          <div class="input-group">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="keyboardist">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-            </span>
-            <input type="text" name="keyboardist" class="form-control input-number" value="0" min="0" max="10">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="keyboardist">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </span>
-        </div>
-        </li>
-      </div>
-    </div>
-
-      <div class="row">
-
-      <div class="col-md-4">
-        <li>
-          <h4>Singer</h4>
-          <div class="input-group">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="singer">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-            </span>
-            <input type="text" name="singer" class="form-control input-number" value="0" min="0" max="10">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="singer">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </span>
-        </div>
-        </li>
-      </div>
-    </div>
-
-      <div class="row">
-
-      <div class="col-md-4">
-        <li>
-          <h4>Winds</h4>
-          <div class="input-group">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="winds">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-            </span>
-            <input type="text" name="winds" class="form-control input-number" value="0" min="0" max="10">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="winds">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </span>
-        </div>
-        </li>
-      </div>
-    </div>
-      </ul>
-  </fieldset>
--->
-  
+        <%end%>
+      <%end%>
+    <%end%>
+  </div>  
 
   </br></br><div class="actions">
   	<%= f.submit "Create", :id => "CreateAdvertisment" , :class => "btn btn-md btn-primary"%>
-  </div>
+  </div><br/>
 
 <% end%>
 </div>

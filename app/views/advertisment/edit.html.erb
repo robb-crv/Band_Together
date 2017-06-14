@@ -23,7 +23,28 @@
 	<div class="field">
 		<%= f.label :term_date%><br/>
 		<%= f.date_field :term_date, "data-provide" => 'datepicker' , :required => true , class: 'form-control' %><br/>
-	</div><br/><br/>
+	</div><br/>
+
+	<legend>Needed Musicians</legend>
+	  <div class="field">
+	    <%= f.fields_for :musicians do |f2| %>
+	      <table>
+	      <% TypeOfMusician.all.each do |t| %>
+	        <% if t[:id]!=0 %>
+	          <div class="row">
+	            <% tmp=  t[:name].parameterize.underscore.to_sym %>
+	            <div class="col-md-5">
+	              <%= f2.label tmp %>
+	            </div>
+	            
+	            <div class="col-sm-3">
+	              <%= f2.number_field tmp, :min => 1, :max => 5, :value => @advertisment.musicians[tmp] %></br>
+	            </div>
+	          </div>
+	        <%end%>
+	      <%end%>
+	    <%end%>
+	  </div> <br/> 
 
   	<div class="actions">
     	<%= f.submit "Update", :class => "btn btn-primary btn-md",:id => "UpdateAdvertisment"%>
