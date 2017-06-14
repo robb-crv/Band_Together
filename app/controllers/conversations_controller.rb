@@ -12,7 +12,7 @@ class ConversationsController < ApplicationController
 
     #andrea. crea la notifica per gli utenti destinatari, salvando il riferimento alla conversazione.
     recipients.each do |usr|
-        Notification.create(recipient: usr, actor: current_user, action: "has just sent you a message", notifiable: conversation)
+        Notification.create(recipient: usr, actor: current_user, action: "has just sent you a message!", notifiable: conversation)
     end
 
     redirect_to conversation_path(conversation)

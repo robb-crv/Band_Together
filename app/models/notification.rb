@@ -6,7 +6,8 @@ class Notification < ApplicationRecord
    scope :unread, ->{where read_at: nil}
 
    def label
-     "#{action}"
+     "#{actor.username} #{action}"
    end
+
 
 end
