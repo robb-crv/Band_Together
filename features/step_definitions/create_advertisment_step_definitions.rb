@@ -35,6 +35,8 @@ And /^I press on "Create"$/ do
   click_on "Create"
 end
 
-And /^I select "Guitarist" and "Bassist" as "Musicians Needed"$/ do
-  pending
+And /^I select "Lead Guitarist" and "Bass Guitarist" as "Musicians Needed"$/ do
+  
+  fill_in("advertisment[musicians][drummer]", with: 1)
+  fill_in("advertisment[musicians][bass_guitarist]", with: 1)
 end

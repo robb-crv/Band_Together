@@ -23,7 +23,7 @@
 	<% @advertisment.musicians.each do |m| %>
 		<% if m[1]!='' and m[1]!='0'%>
 			
-			<% s=m[0].split (/_/) %>
+			<% s=m[0].to_s.split(/_/) %>
 			
 			<li>
 				<%=m[1]%> 

@@ -16,7 +16,7 @@ Feature: Band Manager creates a new advertisment
 
     When I fill in "Title" with "Cercasi chitarrista"
     And I fill in "Description" with "La Band di Rossi cerca chitarrista con passione per il rock"
-    And I select "Guitarist" and "Bassist" as "Musicians Needed"
+    And I select "Lead Guitarist" and "Bass Guitarist" as "Musicians Needed"
     And I select as a "Term Date" 1 month from now
     And I press on "Create"
     Then I should be on the Advertisment Page of the advertisment "Cercasi chitarrista" of the band "Band di Rossi"

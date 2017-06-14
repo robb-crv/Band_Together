@@ -23,5 +23,5 @@ When /^I press "edit" for the band "Band di Rossi"$/ do
 end
 
  And /^I should see "Rome" for the field "City"$/ do
-   expect(page).to have_content "Active in: Rome, Latium, Italy"
+   expect(page).to have_content "Active in: Rome (Latium, Italy)"
  end

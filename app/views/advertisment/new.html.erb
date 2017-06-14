@@ -29,7 +29,6 @@
   <legend>Needed Musicians</legend>
   <div class="field">
     <%= f.fields_for :musicians do |f2| %>
-      <table>
       <% TypeOfMusician.all.each do |t| %>
         <% if t[:id]!=0 %>
           <div class="row">
