@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   get 'static_pages/home'
 
+  #Routes per il controller della ricerca generica
+
+  get 'search/index'
+
   # Routes per lo user
 
   get 'users/show'
