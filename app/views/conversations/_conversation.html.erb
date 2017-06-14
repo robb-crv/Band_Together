@@ -8,11 +8,11 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">
-      <%= conversation.originator.username %> <br>
+      <b>Started by:</b> <%= conversation.originator.username %> <br>
       <small><b>Subject: </b><%= conversation.subject %></small><br>
       <small><b>Date: </b><%=  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
     </h4>
-    <%= truncate conversation.messages.last.body, length: 145 %>
+    <small>Last Message: </small> <b> <%= conversation.messages.last.sender.username %></b> <%= truncate conversation.messages.last.body, length: 145 %>
     <%= link_to "View", conversation_path(conversation)  %>
   </div>
   <div class="media-right">

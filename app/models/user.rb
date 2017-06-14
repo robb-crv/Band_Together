@@ -10,6 +10,8 @@ class User < ApplicationRecord
   #andrea. prepara il model per il modulo di messaggistica
   acts_as_messageable
 
+  has_many :notifications, foreign_key: 'recipient_id'
+
   #association
   has_many :bands, dependent: :destroy, foreign_key: 'band_manager_id'
   has_many :advertisment, dependent: :destroy, foreign_key: 'user_id'

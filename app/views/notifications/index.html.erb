@@ -1,0 +1,49 @@
+
+
+
+<div class="col-md-8">
+  <div class="panel panel-default">
+    <div class = "panel-heading">
+    <h2 class = "panel-title">
+      Notifications
+    </h2>
+    </div>
+    <div class="panel-body">
+
+      <% @notifications.reorder('id DESC').each do |n| %><br/>
+
+          <div class="media">
+
+
+            <div class="media-left">
+              <%= link_to users_show_path(:id => n.actor.id) do %>
+                  <%= gravatar_for n.actor %>
+              <% end %>
+            </div>
+
+            <div class="media-body">
+
+              <%= link_to  n.url do %>
+                <h4 class="media-heading">
+                  <%= n.actor.username %> <%= n.action %> <br>
+                  <small><b>Date: </b><%=  n.created_at.strftime("%B %d, %Y at %H:%M") %></small>
+                </h4>
+              <% end %>
+            </div>
+
+            <div class="media-right">
+                <div class="col-md-6 text-right">
+
+                     <%= link_to 'Delete', notification_path(n), class: 'btn btn-danger', method: :delete,
+                                 data: {confirm: 'Are you sure?'} %>
+
+             </div>
+            </div>
+
+      </div>
+      <hr />
+
+    	<% end %>
+    </div>
+  </div>
+</div>
