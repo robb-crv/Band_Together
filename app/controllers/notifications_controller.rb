@@ -9,7 +9,7 @@ class NotificationsController < ApplicationController
          @notifications = Notification.where(recipient: current_user)
        end
        respond_to do |format|
-         format.json { render json: @notifications.to_json() }
+         format.json
          format.html { render 'index' }
        end
    end
