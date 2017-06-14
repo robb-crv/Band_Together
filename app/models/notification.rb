@@ -10,4 +10,14 @@ class Notification < ApplicationRecord
    end
 
 
+   def url
+     case notifiable.class
+       when Mailboxer::Conversation.class
+             "/conversations/#{notifiable.id}"
+           else
+             '#'
+       end
+   end
+
+
 end
