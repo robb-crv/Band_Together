@@ -2,6 +2,8 @@ class SearchController < ApplicationController
 
 	def index
 	    search = params[:search].present? ? params[:search] : nil
-	    @result = Searchkick.search(search, index_name: [User, Band, Advertisment])       
+	    @users = User.search(search)
+	    @advertisments = Advertisment.search(search)
+	    @bands = Band.search(search)       
   	end
 end

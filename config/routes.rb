@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   #Routes per il controller della ricerca generica
 
-  get 'search/index'
+  get '/search/index'
 
   # Routes per lo user
 

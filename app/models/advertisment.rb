@@ -11,12 +11,13 @@ class Advertisment < ApplicationRecord
 	searchkick word_middle: [:title, :description]
 
 	def search_data
-		{
+		attributes.merge(
 			title: title,
 			description: description,
 			start_date: start_date,
-			term_date: term_date
-		}
+			term_date: term_date,
+			band_name: band(&:name)
+		)
 		
 	end
 
