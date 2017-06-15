@@ -16,17 +16,30 @@
 
   <div class="col-md-8">
     <div class="panel panel-default">
-      <div class="panel-body">
         <% if is_conversation %>
-            <%= render 'conversations/form' %>
+              <div class = "panel-heading">
+                <h2 class = "panel-title">
+                  New Conversation
+                </h2>
+              </div>
+              <div class="panel-body">
+                  <%= render 'conversations/form' %>
+              </div>
         <% else %>
-            <% if messages.empty? %>
-              There are no messages yet
-            <% else %>
-              <%= render partial: 'conversations/conversation', collection: messages %>
-            <% end %>
+              <div class = "panel-heading">
+                  <h2 class = "panel-title">
+                    Conversations:
+                  </h2>
+              </div>
+              <div class="panel-body">
+                  <% if messages.empty? %>
+                    There are no messages yet
+                  <% else %>
+                    <%= render partial: 'conversations/conversation', collection: messages %>
+                  <% end %>
+              </div>
         <% end %>
-      </div>
+
     </div>
   </div>
 

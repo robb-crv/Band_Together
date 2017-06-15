@@ -8,6 +8,11 @@ class ConversationsController < ApplicationController
   def create
     recipients = User.where(id: conversation_params[:recipients])
     conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
+=begin
+    band = current_user.bands.first
+    band.conversations << conversation
+=end
+
     flash[:success] = "Your message was successfully sent!"
 
     #andrea. crea la notifica per gli utenti destinatari, salvando il riferimento alla conversazione.
@@ -19,8 +24,8 @@ class ConversationsController < ApplicationController
   end
 
   def show
+    @recipients = conversation.recipients
     @receipts = conversation.receipts_for(current_user)
-    # mark conversation as read
     conversation.mark_as_read(current_user)
   end
 

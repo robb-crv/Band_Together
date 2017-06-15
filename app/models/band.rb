@@ -7,6 +7,12 @@ class Band < ApplicationRecord
 	belongs_to :band_manager, class_name: "User"
 has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 
+
+has_many :band_conversations, :dependent => :delete_all, :foreign_key => "band_id"
+has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_conversations
+
+
+
 #andrea association for band member
 	has_many :member_associations, :dependent => :delete_all, foreign_key: :joined_band_id, inverse_of: :joined_band
 	has_many :users,  through: :member_associations
