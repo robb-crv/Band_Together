@@ -1,3 +1,90 @@
 // Place all the styles related to the conversations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.contacts{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+#pnlConversations{
+  overflow-y: scroll;
+  height: 390px;
+}
+
+
+.conversation-entry
+{
+    margin-top: 3px;
+
+}
+
+.conversation-link{
+  overflow: hidden;
+}
+
+
+
+
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.chat li
+{
+    margin-bottom: 5px;
+    padding: 5px;
+    border-style: solid;
+
+}
+
+
+.chat li.my-messages{
+  padding: 5px;
+  border-width: 0 13px 13px 0;
+  border-color: transparent #ffffff  transparent  transparent;
+}
+
+.chat li.others-messages{
+
+  border-color: transparent   transparent  transparent #ffffff ;
+   border-width: 0px 0px 13px 13px;
+}
+
+
+.chat li .chat-body
+{
+    margin-left: 5px;
+}
+
+.chat li span img{
+    margin-right: 5px;
+}
+
+
+
+.chat li .chat-body .body-of-message
+{
+    margin: 0;
+    color: #777777;
+    overflow-wrap: break-word;
+      margin-left: 25px;
+      margin-right: 10px;
+}
+
+
+
+#pnlChat
+{
+    overflow-y: scroll;
+    height: 350px;
+}

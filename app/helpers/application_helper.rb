@@ -3,7 +3,7 @@ module ApplicationHelper
      [users_edit_profile_informations_path, edit_user_registration_path]
   end
 
-  def mailboxer_active_page(active_page)
-    @mailboxer_active == active_page ? "active" : ""
+  def button_class_active_recipient(active_page)
+    @mailboxer_active == active_page ? "btn btn-primary" : "btn btn-notice"
   end
 end

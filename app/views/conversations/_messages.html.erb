@@ -1,25 +1,54 @@
+
+
+
 <% @receipts.each do |receipt| %>
     <% message = receipt.message %>
-      <div class="media">
-        <% if message.sender != current_user %>
-          <div class="media-left">
-            <%= link_to users_show_path(:id => message.sender.id) do %>
-                <%= gravatar_for message.sender %>
-            <% end %>
+    <% if message.sender == current_user %>
+
+
+      <li class="right clearfix my-messages" style="background-color:<%= colors[message.sender.username] %>">
+          <div class="chat-body clearfix">
+              <div class="header">
+                  <strong class="primary-font">You:</strong>
+                <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-time"></span> <%=  message.created_at.strftime("%B %d, %Y at %H:%M") %></small>
+
+              </div>
+              <div class="body-of-message">
+                  <%= message.body %>
+              </div>
+
           </div>
-        <% end %>
-        <div class="media-body">
-          <h4 class="media-heading">
-            <% if message.sender != current_user %>
-                  <%= message.sender.username %>
-            <% else %>
-                You
-            <% end %>
-              <br>
-            <small><b>Subject: </b><%= message.subject %></small><br>
-            <small><b>Date: </b><%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
-          </h4>
-          <%= message.body %>
+      </li>
+
+    <% else %>
+
+      <li class="left clearfix others-messages" style="background-color:<%= colors[message.sender.username] %>">
+        <span class="chat-img pull-left">
+          <%= link_to users_show_path(:id => message.sender.id) do %>
+              <%= gravatar_for message.sender %>
+          <% end %>
+        </span>
+        <div class="chat-body clearfix">
+            <div class="header">
+                <strong class="primary-font"><%= message.sender.username %>:</strong>
+                <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-time"></span> <%=  message.created_at.strftime("%B %d, %Y at %H:%M") %></small>
+            </div>
+            <div class="body-of-message">
+                <%= message.body %>
+            </div>
+
         </div>
-      </div>
+    </li>
+
+    <% end %>
+
+
+
+
+
+
+
+
 <% end %>

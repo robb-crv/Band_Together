@@ -37,8 +37,17 @@
                       <span class="label label-danger" id="txtUnreadQty"></span>
                         <span class="caret"></span>
                       </a>
-                       <ul class="dropdown-menu scrollable-menu" id="pnlNotifications">
+                       <ul class="dropdown-menu" >
 
+                          <div id="pnlNotifications" class="scrollable-menu-notifications">
+                          </div>
+                        <div><li role="separator" class="divider"></li>
+                        <li style="display:table;margin:0px auto 0px auto;">
+                        <form class="button_to" method="get" action="/notifications">
+                          <input class="btn btn-primary" type="submit" value="Show All" />
+                        </form>
+                      </li>
+                    </div>
 
                        </ul>
                     </li>

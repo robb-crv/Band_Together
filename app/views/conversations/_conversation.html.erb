@@ -1,28 +1,52 @@
+<% htmlForUsernames = "" %>
+<% conversation.recipients.each do |usr| %>
+  <% if usr != current_user %>
+    <%  htmlForUsernames = "#{htmlForUsernames}#{usr.username}&nbsp;" %>
+  <% end %>
+<% end %>
 
 
-<div class="media">
-  <div class="media-left">
-    <%= link_to users_show_path(:id => conversation.originator.id) do %>
-        <%= gravatar_for conversation.originator %>
-    <% end %>
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">
-      <b>Started by:</b> <%= conversation.originator.username %> <br>
-      <small><b>Subject: </b><%= conversation.subject %></small><br>
-      <small><b>Date: </b><%=  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
-    </h4>
-    <small>Last Message: </small> <b> <%= conversation.messages.last.sender.username %></b> <%= truncate conversation.messages.last.body, length: 145 %>
-    <%= link_to "View", conversation_path(conversation)  %>
-  </div>
-  <div class="media-right">
-    <div class="col-md-6 text-right">
-   <% if conversation.is_trashed?(current_user) %>
-       <%= link_to 'Untrash', untrash_conversation_path(conversation), class: 'btn btn-info', method: :post %>
-   <% else %>
-       <%= link_to 'Move to trash', trash_conversation_path(conversation), class: 'btn btn-danger', method: :post,
-                   data: {confirm: 'Are you sure?'} %>
+
+<% if conversation.is_trashed?(current_user) %>
+
+              <% htmlForTrash = " <span onclick='untrashItem(#{conversation.id});' class='glyphicon glyphicon-retweet btn btn-info pull-right'></span>" %>
+<% else %>
+                <% htmlForTrash = " <span onclick='trashItem(#{conversation.id});' class='glyphicon glyphicon-trash btn btn-danger pull-right'></span>" %>
+<% end %>
+
+
+
+<% if conversation.is_unread?(current_user) %>
+  <% htmlForLinkClass = "list-group-item list-group-item-info" %>
+<% else %>
+  <% htmlForLinkClass = "list-group-item list-group-item-action" %>
+<% end %>
+
+
+<li class="right clearfix conversation-entry" >
+  <%= link_to conversation_path(:id => conversation,:folder => @mailboxer_active), class: "#{htmlForLinkClass} conversation-link" do %>
+
+      <%= "
+        <strong class='primary-font'>
+
+                      #{htmlForUsernames}
+
+                </strong><br/>
+
+                #{htmlForTrash}
+                <i>#{conversation.subject}</i>
+             <br/>
+                <small class='pull-left text-muted'>
+            <u> Last Message:</u><br/>
+               <b> #{conversation.messages.last.sender.username}</b>
+                #{truncate conversation.messages.last.body, length: 20}
+               <br/>
+               <span class='glyphicon glyphicon-time'></span>
+                #{conversation.messages.last.created_at.strftime("%B %d, %Y at %H:%M") }
+             </small>
+          ".html_safe %>
+
+
    <% end %>
- </div>
-  </div>
-</div>
+
+</li>

@@ -2,17 +2,13 @@ class MailboxController < ApplicationController
   before_action :authenticate_user!
 
  def inbox
-   @inbox = mailbox.inbox
+   @folder = mailbox.inbox.or mailbox.sentbox
    @mailboxer_active = :inbox
  end
 
- def sent
-   @sent = mailbox.sentbox
-   @mailboxer_active = :sent
- end
 
  def trash
-   @trash = mailbox.trash
+   @folder = mailbox.trash
    @mailboxer_active = :trash
  end
 end
