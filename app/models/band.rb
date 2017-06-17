@@ -5,15 +5,12 @@ class Band < ApplicationRecord
 
 	#association
 	belongs_to :band_manager, class_name: "User"
-has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
+	has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 
+	has_many :band_conversations, :dependent => :delete_all, :foreign_key => "band_id"
+	has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_conversations
 
-has_many :band_conversations, :dependent => :delete_all, :foreign_key => "band_id"
-has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_conversations
-
-
-
-#andrea association for band member
+	#andrea association for band member
 	has_many :member_associations, :dependent => :delete_all, foreign_key: :joined_band_id, inverse_of: :joined_band
 	has_many :users,  through: :member_associations
 
@@ -26,8 +23,6 @@ has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_
     	end
   	end
 =end
-
-
 
 		#Nation validation
 
@@ -58,7 +53,6 @@ has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_
 		 end
 
 
-
 	#Validations
 	VALID_NAME_REGEX = /\A[^ ].*\z/ #il nome non può iniziare con uno spazio
 	validates :name, presence: true, length: {maximum: 100}, format: {with: VALID_NAME_REGEX}
@@ -67,6 +61,5 @@ has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_
 	validates :nation, allow_blank: false, length: {maximum: 50}, nation: true, allow_nil: true
 	validates :region, allow_blank: false, length: {maximum: 50}, allow_nil: true, region: true
   	validates :city, allow_blank: false, length: {maximum: 50}, allow_nil: true, city: true
-
 
 end

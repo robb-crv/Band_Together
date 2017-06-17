@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615073042) do
+ActiveRecord::Schema.define(version: 20170617131107) do
 
   create_table "advertisments", force: :cascade do |t|
     t.string   "title"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 20170615073042) do
     t.string   "city"
     t.integer  "musical_genre_id", default: 0
     t.index ["band_manager_id"], name: "index_bands_on_band_manager_id"
+  end
+
+  create_table "following_relationships", force: :cascade do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["followed_id"], name: "index_following_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_following_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_following_relationships_on_follower_id"
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|

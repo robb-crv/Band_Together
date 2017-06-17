@@ -28,6 +28,16 @@
 
 	 <p><strong>Musical Genre:</strong> <%= MusicalGenre.find_by_id(@user.musical_genre_id).name %> <p/>
 
+	<% if @user.id != current_user.id %>
+	<div id="following">
+		<% if !current_user.following?(@user) %>
+			<%= button_to "Follow", following_relationships_create_path(:followed_id => @user), :method => "post", :class => "btn btn-primary btn-md" %>
+		<%else%>
+			<%=button_to "Un-Follow", following_relationships_destroy_path(:followed_id => @user), :class => "btn btn-primary btn-md" %>
+		<%end%>
+	<div/>
+	<%end%>
+
 	 <div id="pnlCreatedBands">
 
 		 <h2>Created Bands</h2>
