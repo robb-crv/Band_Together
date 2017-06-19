@@ -22,15 +22,17 @@ class User < ApplicationRecord
 
 
   #FollowingRelationship
-  has_many :following_relationships, foreign_key: "follower_id", dependent: :destroy
-  
-  has_many :following, through: :following_relationships, source: :followed
+  has_many :active_relationships, class_name: "FollowingRelationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "FollowingRelationship", foreign_key: "followed_id", dependent: :destroy
+
+
+  has_many :followings, through: :active_relationships, source: :followed
   #ho usato following perche utilizzando la convenzione del plurale di rails
   #followeds sarebbe grammaticalmente sbagliato
   #quindi viene usato following come plurale di followed
   #'source: :followed' indica che following si va a mappare su followed_id
 
-  has_many :followers, through: :following_relationships, source: :follower
+  has_many :followers, through: :passive_relationships, source: :follower
   #followers si va a mappare su follower_id
 
 
@@ -211,17 +213,17 @@ end
 
 
   def follow(other_user)
-    following << other_user
+    followings << other_user
   end
 
   
   def unfollow(other_user)
-    following.delete(other_user)
+    followings.delete(other_user)
   end
 
   # true if the current user is following 'other_user'.
   def following?(other_user)
-    following.include?(other_user)
+    followings.include?(other_user)
   end
 
 

@@ -4,15 +4,12 @@
 	<title>User Pofile</title>
 </head>
 
-
 <body>
 	<h1>User's Profile</h1>
-
 
 	<h2>
   <%= gravatar_for @user %>
 </h2>
-
 
 	 <p> <strong>Username:</strong> <%= @user.username %><br/>
 
@@ -39,39 +36,27 @@
 	<%end%>
 
 	 <div id="pnlCreatedBands">
-
 		 <h2>Created Bands</h2>
-
 		 <ol>
 			<% @createdBands.each do |b| %><br/>
-
 				<li><%= link_to b.name, band_show_path(:id => b.id), :method => "get" %>
 					<% if b.band_manager == current_user %>
 						<%= link_to "edit", band_edit_path(:id => b.id), :method => "get" %>
 						<%= link_to "delete", band_destroy_path(:id => b.id), :method => "delete", data:  { confirm: "Are you sure?" }%>
 					<% end %>
 				</li>
-
 			<% end %>
 		 </ol>
-
 	 </div>
-
 
 	 <div id="pnlJoinedBands">
-
 		 <h2>Joined Bands</h2>
-
 		 <ol>
 			<% @joinedBands.each do |b| %><br/>
-
 				<li><%= link_to b.name, band_show_path(:id => b.id), :method => "get" %></li>
-
 			<% end %>
 		 </ol>
-
 	 </div>
-
 </body>
 
 </html>
