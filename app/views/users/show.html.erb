@@ -30,7 +30,7 @@
 		<% if !current_user.following?(@user) %>
 			<%= button_to "Follow", following_relationships_create_path(:followed_id => @user), :method => "post", :class => "btn btn-primary btn-md" %>
 		<%else%>
-			<%=button_to "Un-Follow", following_relationships_destroy_path(:followed_id => @user), :class => "btn btn-primary btn-md" %>
+			<%=button_to "Unfollow", following_relationships_destroy_path(:followed_id => @user), :class => "btn btn-primary btn-md" %>
 		<%end%>
 	<div/>
 	<%end%>

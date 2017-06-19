@@ -11,11 +11,14 @@ Feature: User could follow or be followed
   		Given I am on the Profile Page of "Giulio Bianchi"
 		
 	Scenario: "Mario Rossi" start following "Giulio Bianchi"
-		
+		Given I should see 'Follow' button
 		When I press 'Follow'
 		Then I start to follow "Giulio Bianchi"
+		And I should see 'Unfollow' button instead of 'Follow' button
 
 	Scenario: "Mario Rossi" stop following "Giulio Bianchi"
-		
-		When I press 'Un-Follow'
+		Given "Mario Rossi" follows "Giulio Bianchi"
+		Given I should see 'Unfollow' button
+		When I press 'Unfollow'
 		Then I stop following "Giulio Bianchi"
+		And I should see 'Follow' button instead of 'Unfollow' button 
