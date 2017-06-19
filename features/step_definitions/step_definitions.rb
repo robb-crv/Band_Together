@@ -158,28 +158,6 @@ end
 
 
 
-=begin
-And /^I am signed in with google$/ do
-
-  visit user_google_oauth2_omniauth_authorize_path
-end
-
-And /^Google authorizes me$/ do
-    visit user_google_oauth2_omniauth_callback_path
-end
-
-And /^I am signed in with facebook$/ do
-
-  visit user_facebook_omniauth_authorize_path
-end
-
-And /^Facebook authorizes me$/ do
-
-    expect(page.current_path).to eq user_facebook_omniauth_callback_path
-end
-=end
-
-
 #LOG OUT
 Given /^I am on the User Profile Page$/ do
     visit users_show_path
@@ -256,18 +234,7 @@ And /^I fill "Current password" with "123456"$/ do
 end
 
 And /^I follow "Update"$/ do
-=begin
-  user = User.find_by_email("mariorossi@gmail.com")
-  puts current_path , user.email , user.username ,  user.last_name , user.first_name
-
-=end
-click_on "Update"
-  #find(:css,"#Update").click
-=begin
-  user2 = User.find_by_email("mariorossi@gmail.com")
-  puts current_path , user2.email , user2.username ,  user2.last_name , user2.first_name
-  puts user2 == nil
-=end
+  click_on "Update"
 end
 
 

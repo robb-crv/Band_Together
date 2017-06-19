@@ -1,9 +1,8 @@
 Feature: User creates a Band
+  
   As a generic user
   I can create a band
-  Because I want to start the band activities
-
-
+  Because I want to start the band activities1
 
   Background: user is logged in as "Mario Rossi" and he is in the User Home Page
 		Given Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"
