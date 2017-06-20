@@ -57,6 +57,13 @@ Rails.application.configure do
 
   #andrea configurazione sender mail
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {:address => "localhost", :port => 1025}
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => "bandtgt.info",
+    :password             => "alessandroandrearoberto",
+    :authentication       => "plain",
+   :enable_starttls_auto => true
+}
 
 end
