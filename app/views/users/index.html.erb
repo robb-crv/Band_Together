@@ -1,9 +1,9 @@
 <h1>Users</h1>
 <br>
-<div>
-    <%= form_tag(users_index_path, :method => "get", id: "search-form") do %>
-        <%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
-        <%= submit_tag "Search", :name => nil %>
+<div class="form-group">
+    <%= form_tag(users_index_path, :method => "get", id: "search-form", class: "form-inline") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Users", size: 45, class: "form-control"%>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %>
     <% end %>
 </div>
 <br>

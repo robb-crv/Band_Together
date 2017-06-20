@@ -13,10 +13,24 @@
         <% if signed_in? %>
         <!-- andrea. form di ricerca -->
         <div class="navbar-form navbar-left">
-          <%= form_tag(search_index_path, :method => "get", id: "search-form") do %>
-            <%= text_field_tag :search, params[:search], placeholder: "Search" %>
-            <%= submit_tag "Search", :name => nil %>
-          <% end %>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= form_tag(search_index_path, :method => "get", id: "search-form") do %>
+                <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control", size: 45%>
+                <%= submit_tag "Search", :name => nil, class: "btn btn-secondary"%>
+              <% end %>            
+            </li>
+            <li class="dropdown">
+              <a href="#" id="btnDrpdown" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-menu-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>  <%= link_to "Users", users_index_path, :method => "get" %></li>
+                <li>  <%= link_to "Bands", band_index_path, :method => "get" %></li>
+                <li>  <%= link_to "Advertisments", advertisment_index_path, :method => "get" %></li>
+              </ul>            
+            </li>
+          </ul>
         </div>        
 
            <div class="collapse navbar-collapse">
