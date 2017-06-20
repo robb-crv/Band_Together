@@ -40,10 +40,12 @@ Rails.application.routes.draw do
   get 'advertisment/edit'
 
   get 'following_relationships/create'
+
   post 'following_relationships/create'
-  get 'following_relationships/destroy'
+  
   post 'following_relationships/destroy'
 
+  delete 'following_relationships/destroy' 
   # Routes per le band
 
   get 'band/new'

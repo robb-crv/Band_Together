@@ -109,7 +109,7 @@ RSpec.describe BandController, type: :controller do
 
 				post :update, :id => band.id, :band => {:name => "ModifiedName", :description => "descr"}
 				band.reload
-				expect(response).to redirect_to(band_index_path)
+				expect(response).to redirect_to(band_show_path(:id => band.id))
 				expect(band.name).to eq("ModifiedName")
 			end
 		end
