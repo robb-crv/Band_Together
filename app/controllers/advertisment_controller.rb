@@ -3,7 +3,13 @@ class AdvertismentController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-	end
+    	search = params[:search].present? ? params[:search] : nil
+    	@advertisments = if search
+      		Advertisment.search(search)
+    	else
+      		Advertisment.all
+    	end       
+  	end
 
 	def show
 

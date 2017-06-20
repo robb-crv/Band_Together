@@ -1,0 +1,26 @@
+<table class="table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Band Manager</th>
+            <th>Description</th>
+            <th>Musical Genre</th>
+            <th>Nation</th>
+            <th>Region</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @bands.each do |band| %>
+            <tr>
+                <td><%=band.name%></td>
+                <td><%=band.band_manager.username%></td>
+                <td><%=band.description%></td>
+                <td><%= MusicalGenre.find_by_id(band.musical_genre_id).name %></td>
+                <td><%=band.nation%></td>
+                <td><%=band.region%></td>
+                <td><%=band.city%></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

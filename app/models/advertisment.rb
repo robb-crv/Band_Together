@@ -15,6 +15,22 @@ class Advertisment < ApplicationRecord
 			record.errors.add attribute, "choose at least one musicians type" unless ret
 		end
 	end
+	
+#SEARCH ENGINE PARAMETER DEFINITIONS
+#Da aggiornare quando sarà finita la form per l'advertisment
+
+	# Include integration with searchkick
+	searchkick word_middle: [:title, :description]
+
+	def search_data
+		{
+			title: title,
+			description: description,
+			start_date: start_date,
+			term_date: term_date,
+			band_name: self.band.name
+		}	
+	end
 
 	#validation
 	VALID_TITLE_REGEX = /\A[^ ].*\z/ #il titolo non può iniziare con uno spazio
@@ -23,6 +39,5 @@ class Advertisment < ApplicationRecord
 	validates_date :start_date, presence: true
 	validates_date :term_date, presence: true,:after => :start_date
 	validates :musicians, presence: true, musicians: true
-
 
 end

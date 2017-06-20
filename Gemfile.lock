@@ -113,6 +113,14 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    elasticsearch (5.0.4)
+      elasticsearch-api (= 5.0.4)
+      elasticsearch-transport (= 5.0.4)
+    elasticsearch-api (5.0.4)
+      multi_json
+    elasticsearch-transport (5.0.4)
+      faraday
+      multi_json
     erubis (2.7.0)
     eventmachine (1.0.9.1)
     execjs (2.7.0)
@@ -310,6 +318,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    searchkick (2.3.0)
+      activemodel (>= 4.1)
+      elasticsearch (>= 1)
+      hashie
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     sinatra (2.0.0)
@@ -322,6 +334,11 @@ GEM
       eventmachine (~> 1.0.0)
       thin (>= 1.5, < 1.7)
     slop (3.6.0)
+    smart_listing (1.2.0)
+      coffee-rails
+      jquery-rails
+      kaminari (~> 0.17)
+      rails (>= 3.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -411,7 +428,9 @@ DEPENDENCIES
   rails_admin (~> 1.1.1)
   rspec-rails (~> 3.5, >= 3.5.2)
   sass-rails (~> 5.0)
+  searchkick
   shoulda-matchers (~> 3.1, >= 3.1.1)
+  smart_listing
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets-rails

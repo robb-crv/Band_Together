@@ -1,0 +1,12 @@
+<h1>Advertisments</h1>
+<br>
+<div class="form-group">
+    <%= form_tag(advertisment_index_path, :method => "get", id: "search-form", class: "form-inline") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Advertisments", size: 45, class: "form-control" %>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %>
+    <% end %>
+</div>
+<br>
+<div>
+    <%= render partial: "advertisment/search", locals: {advertisments: @advertisments} %>
+</div>

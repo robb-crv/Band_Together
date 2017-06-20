@@ -1,0 +1,27 @@
+<div class="col-md-4 col-md-offset-4 ">
+	<h1>Search Results</h1>
+	<br>
+
+	<!-- Div per risultati ricerca su Advertisment -->
+	<h3>Results for Advertisments</h3>
+	<div>
+		<%= render partial: "advertisment/search", locals: {advertisments: @advertisments} %>
+	</div>
+
+	<br>
+
+	<!-- Div per risultati ricerca su User-->
+	<h3>Results for Users</h3>
+	<div>
+		<%= render partial: "users/search", locals: {users: @users} %>
+	</div>
+
+	<br>
+
+	<!-- Div per risultati ricerca su Band -->
+	<h3>Results for Bands</h3>
+	<div>
+		<%= render partial: "band/search", locals: {bands: @bands} %>
+	</div>	
+</div>
+

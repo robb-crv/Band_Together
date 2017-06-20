@@ -16,4 +16,5 @@
 //= require chosen-jquery
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require smart_listing
 //= require_tree .

@@ -1,12 +1,13 @@
-<h3>My Bands: </h3>
+<h1>Bands</h1>
+<br>
+<div class="form-group">
+    <%= form_tag(band_index_path, :method => "get", id: "search-form", class: "form-inline") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Bands", size: 45, class: "form-control" %>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-secondary" %>
+    <% end %>
+</div>
+<br>
+<div>
+    <%= render partial: "band/search", locals: {bands: @bands} %>
+</div>
 
-    <ol>
-    	<% @bands.each do |b| %><br/>
-    		
-    		<li><%= link_to b.name, band_show_path(:id => b.id), :method => "get" %> 
-    			<%= link_to "edit", band_edit_path(:id => b.id), :method => "get" %> 
-    			<%= link_to "delete", band_destroy_path(:id => b.id), :method => "delete", data:  { confirm: "Are you sure?" }%>
-    		</li>
-    	
-    	<% end %>
-    </ol>
