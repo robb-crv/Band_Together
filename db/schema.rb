@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617131107) do
+ActiveRecord::Schema.define(version: 20170621124157) do
 
   create_table "advertisments", force: :cascade do |t|
     t.string   "title"
@@ -128,6 +128,18 @@ ActiveRecord::Schema.define(version: 20170617131107) do
     t.string   "notifiable_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "reviewer_id"
+    t.integer  "reviewed_id"
+    t.text     "description"
+    t.integer  "rating"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["reviewed_id", "reviewer_id"], name: "index_reviews_on_reviewed_id_and_reviewer_id", unique: true
+    t.index ["reviewed_id"], name: "index_reviews_on_reviewed_id"
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
   end
 
   create_table "users", force: :cascade do |t|

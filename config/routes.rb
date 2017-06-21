@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   post 'users/update_profile_informations'
 
   # Routes per l'advertisement
-
   get 'advertisment/index'
 
   get 'advertisment/show'
@@ -45,13 +44,20 @@ Rails.application.routes.draw do
 
   get 'advertisment/edit'
 
+  #Routest per FollowingRelationship
   get 'following_relationships/create'
-
   post 'following_relationships/create'
-  
   post 'following_relationships/destroy'
-
   delete 'following_relationships/destroy' 
+  
+
+  #Routes per Review
+
+  get 'reviews/create'
+  post 'reviews/create'
+  post 'reviews/destroy'
+  delete 'reviews/destroy'
+
   # Routes per le band
 
   get 'band/new'

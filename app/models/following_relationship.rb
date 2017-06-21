@@ -12,8 +12,7 @@ class FollowingRelationship < ApplicationRecord
 	#il follower_id uguale al followed_id (un utente non followa se stesso e 
 	#non è followato da se stesso)
 	def does_not_follow_self
-    	errors.add(:followed_id, "Can't follows themself") unless follower_id != followed_id
-    	#self.errors.add attribute, "User can't follow itself" unless self.follower.id != self.followed.id
+    	errors.add(:followed_id, "Can't follows itself") unless follower_id != followed_id
   	end	
 
 end

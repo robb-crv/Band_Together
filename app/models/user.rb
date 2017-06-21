@@ -35,6 +35,11 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   #followers si va a mappare su follower_id
 
+  has_many :active_reviews, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
+  has_many :passive_reviews, class_name: 'Review', foreign_key: "reviewed_id", dependent: :destroy
+
+  has_many :reviewing, through: :active_reviews, source: :reviewed
+  has_many :reviewers, through: :passive_reviews, source: :reviewer
 
   #attr_accessor :remember_token
   include ActiveModel::Validations
