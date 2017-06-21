@@ -5,6 +5,8 @@ class ConversationsController < ApplicationController
     @folder = mailbox.inbox.or mailbox.sentbox
     @mailboxer_active = :inbox
 
+    
+
      @bands = Band.active_bands_for(current_user)
   end
 
@@ -12,7 +14,7 @@ class ConversationsController < ApplicationController
   def create
     if conversation_params[:band] != nil
       band = Band.find(conversation_params[:band])
-      recipients = band.active_users 
+      recipients = band.active_users
       recipients.delete current_user  #cancella l'user corrente perchè a lui non si deve mandare un messaggio
     else
       recipients = User.where(id: conversation_params[:recipients])

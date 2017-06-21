@@ -1,4 +1,7 @@
 
+
+
+
   <div class="col-md-4">
     <div class="panel panel-default">
       <div class = "panel-heading">
@@ -29,7 +32,21 @@
         <strong>
             Band:
         </strong>
-      <%= select_tag 'cmbBandConversationsFilter', options_for_select(@bands.collect{ |b| [b.name, b.id] }), include_blank: "No Band Selected" , :class => "selectpicker" %>
+
+
+
+
+        <% if @selected_band.nil? %>
+        <%    selectedBandID = " " %>
+        <% else %>
+        <%    selectedBandID = @selected_band.id %>
+        <% end %>
+
+
+
+
+
+      <%= select_tag 'cmbBandConversationsFilter', options_for_select(@bands.collect{ |b| [b.name, b.id] },selectedBandID), include_blank: "No Band Selected" ,:onchange => "filterBands(event,this);", :class => "selectpicker" %>
 
 
       </div>

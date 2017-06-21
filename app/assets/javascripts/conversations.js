@@ -38,26 +38,21 @@ document.addEventListener("turbolinks:load", function() {
           });
 
 
-          //andrea. esegue una get ogni volta che viene cambiata la band di interesse
-          $('#cmbBandConversationsFilter').change(function(evt){
-              selected = $(this).find(":selected").val();
-
-              //selected_band_id
-
-              $.ajax({
-                  type: 'GET',
-                  url: "mailbox/inbox",
-                  data: {}
-                });
-
-              alert(selected);
-          });
-
-
-
 
 });
 
+
+
+function filterBands(event,elemento){
+      selected_id = elemento.value;
+
+      if(selected_id != ""){
+        window.location.href = '/mailbox/inbox?selected_band_id=' + selected_id;
+      }else{
+          window.location.href = '/mailbox/inbox';
+      }
+
+};
 
 
 
