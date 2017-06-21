@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_many :member_associations, :dependent => :delete_all, :foreign_key => "user_id"
   has_many :joined_bands, class_name: "Band",  through: :member_associations
 
+
+
   #attr_accessor :remember_token
   include ActiveModel::Validations
 

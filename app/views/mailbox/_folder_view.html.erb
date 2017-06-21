@@ -1,5 +1,5 @@
 
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="panel panel-default">
       <div class = "panel-heading">
 
@@ -14,20 +14,36 @@
       <div style="margin-top:10px;">
 
 
-      <%= link_to mailbox_inbox_path ,class: inbox_btn_class ,style: "width: 130px;" do  %>
+      <%= link_to mailbox_inbox_path ,class: inbox_btn_class ,style: "width: 48%;" do  %>
           <span class="label label-danger pull-right"><%=unread_messages_count%></span>
           <em class="fa fa-inbox fa-lg"></em>
           <span>Inbox</span>
       <% end %>
-      <%= link_to mailbox_trash_path ,class: trash_btn_class ,style: "width: 130px;" do %>
+      <%= link_to mailbox_trash_path ,class: trash_btn_class ,style: "width: 48%;" do %>
           <em class="fa fa-trash-o fa-lg"></em>
           <span>Trash</span>
       <% end %>
       </div>
-      <hr/>
-      <h2 class = "panel-title">
+
+      <div style="margin-top:10px;">
+        <strong>
+            Band:
+        </strong>
+      <%= select_tag 'cmbBandConversationsFilter', options_for_select(@bands.collect{ |b| [b.name, b.id] }), include_blank: "No Band Selected" , :class => "selectpicker" %>
+
+
+      </div>
+
+
+      <h2 class = "panel-title" style="margin-top:5px;">
         <b>Conversations:</b>
+
+
       </h2>
+
+
+
+
 
 
         </div>
@@ -111,7 +127,7 @@
               <div class="panel-footer">
                 <%= form_for :message, url: reply_conversation_path(conversation) do |f| %>
                     <div class="form-group">
-                      <%= f.text_area :body, placeholder: "Reply Message", rows: 3, class: "form-control" %>
+                      <%= f.text_area :body, placeholder: "Reply Message", rows: 3, class: "form-control", required: "required" %>
                     </div>
                     <%= f.submit "Reply", class: 'btn btn-primary pull-right' %>
                 <% end %>

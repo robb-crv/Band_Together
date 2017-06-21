@@ -16,4 +16,10 @@
 //= require chosen-jquery
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require bootstrap-select
 //= require_tree .
+
+
+document.addEventListener("turbolinks:load", function() {
+    $('.selectpicker').selectpicker();
+});

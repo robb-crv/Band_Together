@@ -9,9 +9,9 @@
 
 <% if conversation.is_trashed?(current_user) %>
 
-              <% htmlForTrash = " <span onclick='untrashItem(#{conversation.id});' class='glyphicon glyphicon-retweet btn btn-info pull-right'></span>" %>
+              <% htmlForTrash = " <span onclick='untrashItem(event,#{conversation.id});' class='glyphicon glyphicon-retweet btn btn-info pull-right'></span>" %>
 <% else %>
-                <% htmlForTrash = " <span onclick='trashItem(#{conversation.id});' class='glyphicon glyphicon-trash btn btn-danger pull-right'></span>" %>
+                <% htmlForTrash = " <span onclick='trashItem(event,#{conversation.id});' class='glyphicon glyphicon-trash btn btn-danger pull-right'></span>" %>
 <% end %>
 
 
