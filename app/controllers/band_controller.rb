@@ -34,9 +34,13 @@ class BandController < ApplicationController
 	def show
 
 		if(!params[:id].nil?)
-			@band= Band.find(params[:id])
-			@advs= Advertisment.where("band_id= ?", @band.id)
-			@bandMembers = @band.users
+			begin
+				@band= Band.find(params[:id])
+				@advs= Advertisment.where("band_id= ?", @band.id)
+				@bandMembers = @band.users
+			rescue ActiveRecord::RecordNotFound
+        		redirect_to "/404"
+      		end
 		else
 			redirect_to "/404"
 		end

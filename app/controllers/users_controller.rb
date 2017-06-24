@@ -5,9 +5,13 @@ class UsersController < ApplicationController
   def show
 
     if(!params[:id].nil? )
-  	   @user= User.find(params[:id])
-       @createdBands = @user.bands
-       @joinedBands = @user.joined_bands
+      begin  	 
+        @user = User.find(params[:id])
+        @createdBands = @user.bands
+        @joinedBands = @user.joined_bands
+      rescue ActiveRecord::RecordNotFound
+        redirect_to "/404"
+      end
     else
       redirect_to "/404"
     end

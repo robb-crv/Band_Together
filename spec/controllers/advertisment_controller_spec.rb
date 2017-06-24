@@ -15,9 +15,6 @@ RSpec.describe AdvertismentController, type: :controller do
 				expect(response).to have_http_status(200)
 			end
 
-			it 'and it should shows only the advertisment of the advertisment with specified id' do
-					
-			end
 		end	
 		
 	end

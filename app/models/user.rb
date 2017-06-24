@@ -26,20 +26,20 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "FollowingRelationship", foreign_key: "followed_id", dependent: :destroy
 
 
-  has_many :followings, through: :active_relationships, source: :followed
+  has_many :followings, through: :active_relationships, source: :followed, dependent: :destroy
   #ho usato following perche utilizzando la convenzione del plurale di rails
   #followeds sarebbe grammaticalmente sbagliato
   #quindi viene usato following come plurale di followed
   #'source: :followed' indica che following si va a mappare su followed_id
 
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
   #followers si va a mappare su follower_id
 
   has_many :active_reviews, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
   has_many :passive_reviews, class_name: 'Review', foreign_key: "reviewed_id", dependent: :destroy
 
-  has_many :reviewing, through: :active_reviews, source: :reviewed
-  has_many :reviewers, through: :passive_reviews, source: :reviewer
+  has_many :reviewings, through: :active_reviews, source: :reviewed, dependent: :destroy
+  has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
 
   #attr_accessor :remember_token
   include ActiveModel::Validations
@@ -220,7 +220,6 @@ end
     !self.banned ? super : :locked
   end
 
-
   def mailboxer_name
     self.username
   end
@@ -230,11 +229,9 @@ end
     nil
   end
 
-
   def follow(other_user)
     followings << other_user
   end
-
   
   def unfollow(other_user)
     followings.delete(other_user)
@@ -245,5 +242,20 @@ end
     followings.include?(other_user)
   end
 
+  def reviewed?(other_user_id)
+      Review.exists?(reviewer_id: self.id, reviewed_id: other_user_id)
+  end
+
+  #review lasciate da self
+  def sended_reviews
+    Review.where(:reviewer_id => self)
+  end
+
+  def received_reviews
+    Review.where(:reviewed_id => self)
+  end
+
+  #review lasciato a self
+  
 
 end

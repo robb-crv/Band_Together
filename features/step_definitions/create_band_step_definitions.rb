@@ -1,13 +1,13 @@
 When /^I follow "New Band"$/ do
 
-    find(:css,"#btnPlusDrpdown").click  #andrea prima abbasso la tendina del +
+  find(:css,"#btnPlusDrpdown").click  #andrea prima abbasso la tendina del +
   click_on "New Band"
 end
 
 Then /^I should be on the New Band Page$/ do
   #expect(page.current_path).to eq band_new_path
   expect(page).to have_content "Create Band"
-    expect(page).to have_css("#CreateBand")
+  expect(page).to have_css("#CreateBand")
 end
 
 And /^I fill "Name" with "Band di Rossi"$/ do

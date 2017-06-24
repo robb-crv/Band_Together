@@ -11,11 +11,16 @@ class Notification < ApplicationRecord
 
 
    def url
-     case notifiable.class
-       when Mailboxer::Conversation.class
-             "/conversations/#{notifiable.id}"
-           else
-             '#'
+     case notifiable
+          
+        when User
+          "/users/show?id=#{notifiable.id}"
+
+        when Mailboxer::Conversation
+          "/conversations/#{notifiable.id}"
+        
+        else
+          '#'
        end
    end
 

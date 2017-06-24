@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   
 
   #Routes per Review
-
+  get 'reviews/new'
   get 'reviews/create'
   post 'reviews/create'
   post 'reviews/destroy'

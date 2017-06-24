@@ -11,7 +11,6 @@ class Review < ApplicationRecord
 
 	validate :does_not_review_self
 
-	#verifica che un untente non recensisca se stesso
 	def does_not_review_self
 		errors.add(:reviewer_id, "Can't review itself") unless reviewer_id != reviewed_id
 	end
