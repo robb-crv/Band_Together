@@ -1,8 +1,12 @@
 <% htmlForUsernames = "" %>
-<% conversation.recipients.each do |usr| %>
-  <% if usr != current_user %>
-    <%  htmlForUsernames = "#{htmlForUsernames}#{usr.username}&nbsp;" %>
+<% if conversation.band_id.nil? %>
+  <% conversation.recipients.each do |usr| %>
+    <% if usr != current_user %>
+      <%  htmlForUsernames = "#{htmlForUsernames}#{usr.username}&nbsp;" %>
+    <% end %>
   <% end %>
+<% else %>
+  <%  htmlForUsernames = get_band_by_id(conversation.band_id).name %>
 <% end %>
 
 

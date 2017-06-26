@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
     @folder = mailbox.inbox.or mailbox.sentbox
     @mailboxer_active = :inbox
 
-    
+
 
      @bands = Band.active_bands_for(current_user)
   end
@@ -32,6 +32,8 @@ class ConversationsController < ApplicationController
 
     if conversation_params[:band] != nil
       band.conversations << conversation
+      conversation.band_id = band.id
+      conversation.save
     end
 
     redirect_to conversation_path( conversation,:folder => "inbox")
@@ -48,9 +50,14 @@ class ConversationsController < ApplicationController
     if folder == "trash"
       @folder = mailbox.trash
       @mailboxer_active = :trash
-
     else
-      @folder = mailbox.inbox.or mailbox.sentbox
+      if conversation.band_id.nil?
+        @selected_band = nil
+        @folder = (mailbox.inbox.or (mailbox.sentbox)).where(band_id: nil)
+      else
+        @selected_band = Band.find(conversation.band_id)
+        @folder = @selected_band.conversations.not_trash(current_user)
+      end
       @mailboxer_active = :inbox
     end
 

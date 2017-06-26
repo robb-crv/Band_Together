@@ -10,10 +10,10 @@ class MailboxController < ApplicationController
 
    if params[:selected_band_id]
      @selected_band = Band.find(params[:selected_band_id])
-     @folder = @selected_band.conversations
+     @folder = @selected_band.conversations.not_trash(current_user)
    else
      @selected_band = nil
-     @folder = BandConversation.get_conversations_not_related_to_band_for(current_user)
+     @folder = (mailbox.inbox.or (mailbox.sentbox)).where(band_id: nil)
    end
 
  end

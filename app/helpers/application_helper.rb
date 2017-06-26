@@ -8,4 +8,9 @@ module ApplicationHelper
   end
 
 
+  def get_band_by_id(id)
+    Band.find(id)
+  end
+
+
 end

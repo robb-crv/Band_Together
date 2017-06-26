@@ -28,28 +28,21 @@
       <% end %>
       </div>
 
-      <div style="margin-top:10px;">
-        <strong>
-            Band:
-        </strong>
+     <% if @mailboxer_active != :trash %>
+          <div style="margin-top:10px;">
+            <strong>
+                Band:
+            </strong>
 
+                  <% if @selected_band.nil? %>
+                  <%    selectedBandID = " " %>
+                  <% else %>
+                  <%    selectedBandID = @selected_band.id %>
+                  <% end %>
 
-
-
-        <% if @selected_band.nil? %>
-        <%    selectedBandID = " " %>
-        <% else %>
-        <%    selectedBandID = @selected_band.id %>
-        <% end %>
-
-
-
-
-
-      <%= select_tag 'cmbBandConversationsFilter', options_for_select(@bands.collect{ |b| [b.name, b.id] },selectedBandID), include_blank: "No Band Selected" ,:onchange => "filterBands(event,this);", :class => "selectpicker" %>
-
-
-      </div>
+                <%= select_tag 'cmbBandConversationsFilter', options_for_select(@bands.collect{ |b| [b.name, b.id] },selectedBandID), include_blank: "No Band Selected" ,:onchange => "filterBands(event,this);", :class => "selectpicker" %>
+          </div>
+      <% end %>
 
 
       <h2 class = "panel-title" style="margin-top:5px;">
