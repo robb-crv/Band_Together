@@ -15,27 +15,12 @@
 	</div>
   </div>
 
-  	<script>
-  		$('.rating span').click(function(){
-  			
-  			var boundary= $(this).attr('id');
-  			for(var i=1; i<= 5; i++ ) {
-  				$('#'+i).css('color', '#A9A9A9');
-  			}
-  			for(var i=1; i<= boundary; i++ ) {
-  				
-  				$('#'+i).css('color', '#FFD700');
-  			}
-
-  			document.getElementById('rating_element').value= boundary;
-		});
-	</script>
 
 
   <!-- rating è un hidden element, in quanto l'untente "colora" le stelline, ma il valore
  	numerico reale del rating viene passato in maniera indiretta, in base a quante stelline ha colorato
  -->
- 	<%= f.number_field :rating, type: 'hidden', class: 'form-control' , id: 'rating_element' %>
+ 	<%= f.number_field :rating, type: 'hidden', class: 'form-control' , id: 'rating_element'%>
  	<%= f.number_field :reviewer_id, type: 'hidden', class: 'form-control', :value => current_user.id %>
  	<%= f.number_field :reviewed_id, type: 'hidden', class: 'form-control', :value => @reviewed.id %>
   </br><br/>
@@ -47,7 +32,7 @@
 
 
   <div class="actions">
-  	<%= f.submit "Send", :id => "CreateReview",:class => "btn btn-primary btn-md", data: { confirm: "Confirm review?" }%>
+  	<%= f.submit "Send", :id => "CreateReview",:class => "btn btn-primary btn-md"%>
   </div>
 <% end%>
 
