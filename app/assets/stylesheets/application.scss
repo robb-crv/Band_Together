@@ -16,6 +16,7 @@
  *= require_bootstrap
  *= require_bootstrap-sprockets
  *= require font-awesome
+ *= require fullcalendar
  *= require chosen
  *= require bootstrap-select
  */
@@ -47,4 +48,3 @@
  .registrations_edit{
    margin: 10px;
  }
-

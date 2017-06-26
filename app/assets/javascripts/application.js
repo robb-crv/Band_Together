@@ -17,6 +17,8 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require smart_listing
+//= require moment
+//= require fullcalendar
 //= require bootstrap-select
 //= require_tree .
 

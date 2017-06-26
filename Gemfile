@@ -24,6 +24,9 @@ gem 'chosen-rails'
 
 gem 'bootstrap-select-rails'
 
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 =begin
 
 CanCanCan is an authorization library which restricts what resources a given user is allowed to access.

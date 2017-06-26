@@ -42,6 +42,12 @@
 
 </div>
 
+
+<br/>
+
+<h4> Band Activities </h4>
+<div id='calendar'></div>
+
 <br/>
 
 <div id="pnlBandMembers" >
@@ -67,8 +73,9 @@
 <!-- andrea
 		se l'utente è band manager
 -->
-	<br/><br/><%= link_to "New Advertisment", advertisment_new_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
-
+	<br/><br/>
+	<%= link_to "New Advertisment", advertisment_new_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+	<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
 <% else %>
 	 	<% if @band.users.include? current_user %>

@@ -48,8 +48,8 @@ Rails.application.routes.draw do
   get 'following_relationships/create'
   post 'following_relationships/create'
   post 'following_relationships/destroy'
-  delete 'following_relationships/destroy' 
-  
+  delete 'following_relationships/destroy'
+
 
   #Routes per Review
   get 'reviews/new'
@@ -97,6 +97,9 @@ Rails.application.routes.draw do
       post :mark_as_read
     end
   end
+
+
+  resources :activities
 
 
 

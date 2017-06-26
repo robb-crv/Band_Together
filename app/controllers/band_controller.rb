@@ -32,8 +32,6 @@ class BandController < ApplicationController
 	end
 
 	def show
-
-		if(!params[:id].nil?)
 			begin
 				@band= Band.find(params[:id])
 				@advs= Advertisment.where("band_id= ?", @band.id)
@@ -42,9 +40,6 @@ class BandController < ApplicationController
 			rescue ActiveRecord::RecordNotFound
         		redirect_to "/404"
       end
-		else
-			redirect_to "/404"
-		end
 	end
 
 	def edit
@@ -68,12 +63,12 @@ class BandController < ApplicationController
 
 	def destroy
 		@band= Band.find(params[:id])
-		@bm= @band.band_manager.id
+		#@bm= @band.band_manager.id
 
 		if(@band.delete)
 
 			flash[:success] = "The Band has been deleted correctly."
-			redirect_to band_index_path(:id => @bm)
+			redirect_to users_show_path(:id => current_user.id)
 		else
 			flash[:danger] = "An error occurred deleting band..."
 		end

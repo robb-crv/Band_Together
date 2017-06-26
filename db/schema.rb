@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170621133451) do
+ActiveRecord::Schema.define(version: 20170626135610) do
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "band_manager_id"
+    t.integer  "band_id"
+    t.datetime "date"
+    t.string   "description"
+    t.string   "accessibility"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "title"
+    t.string   "location"
+    t.time     "start_hours"
+    t.float    "duration"
+    t.index ["band_id"], name: "index_activities_on_band_id"
+    t.index ["band_manager_id"], name: "index_activities_on_band_manager_id"
+  end
 
   create_table "advertisments", force: :cascade do |t|
     t.string   "title"
