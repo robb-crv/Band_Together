@@ -14,13 +14,13 @@ document.addEventListener("turbolinks:load", function() {
 
 $('.rating span').click(function(){
   			
-  			var boundary= $(this).attr('id');
+  			var boundary= $(this).attr('value');
   			for(var i=1; i<= 5; i++ ) {
-  				$('#'+i).css('color', '#A9A9A9');
+  				$('#star_'+i).css('color', '#A9A9A9');
   			}
   			for(var i=1; i<= boundary; i++ ) {
   				
-  				$('#'+i).css('color', '#FFD700');
+  				$('#star_'+i).css('color', '#FFD700');
   			}
 
   			document.getElementById('rating_element').value= boundary;

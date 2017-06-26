@@ -8,7 +8,11 @@ Then /^I should be on the New review Page$/ do
 end
 
 When /^I fill star ratings with 4 stars$/ do 
-	find(:css,"#4").click
+	within(:xpath, '//div[@class="rating_field"]') do
+		find(:xpath, "//span[@value='4']").click
+	end
+
+	expect(find(:xpath, "//input[@id='rating_element']").value).to eq('4')
 end
 
 And /^I fill in "description" with "descr"$/ do 
@@ -16,17 +20,9 @@ And /^I fill in "description" with "descr"$/ do
 end
 
 And /^I press on "Send"$/ do
-	click_on "Send"
-end
 
-And /^I press on "OK" on pop-up$/ do
-	begin
-    	main, popup = page.driver.browser.window_handles
-    	within_window(popup) do
-      		click_on("OK")
-    	end
-  	rescue
-  end
+	click_on "Send"
+	expect(page).to have_content "User's Profile"
 end
 
 Then /^I should be on Giulio Bianchi profile Page$/ do

@@ -11,6 +11,7 @@ Feature: "Mario Rossi" reviews "Giulio Bianchi"
   		Given Exists user "Giulio Bianchi" with email: "giuliobianchi@gmail.com" and password: "123456"
   		Given I am on the Profile Page of "Giulio Bianchi"
 
+    @javascript
   	Scenario: User "Mario Rossi" create a review for "Giulio Bianchi"
 
   		When I follow the link "Review this User"
@@ -18,6 +19,4 @@ Feature: "Mario Rossi" reviews "Giulio Bianchi"
   		When I fill star ratings with 4 stars
   		And I fill in "description" with "descr"
   		And I press on "Send"
-  		And I press on "OK" on pop-up
   		Then I should be on Giulio Bianchi profile Page
-  		And I should see a message "Review Correctly created" 
