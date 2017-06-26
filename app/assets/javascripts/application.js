@@ -17,4 +17,10 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require smart_listing
+//= require bootstrap-select
 //= require_tree .
+
+
+document.addEventListener("turbolinks:load", function() {
+    $('.selectpicker').selectpicker();
+});

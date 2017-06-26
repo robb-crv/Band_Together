@@ -1,17 +1,21 @@
 <% htmlForUsernames = "" %>
-<% conversation.recipients.each do |usr| %>
-  <% if usr != current_user %>
-    <%  htmlForUsernames = "#{htmlForUsernames}#{usr.username}&nbsp;" %>
+<% if conversation.band_id.nil? %>
+  <% conversation.recipients.each do |usr| %>
+    <% if usr != current_user %>
+      <%  htmlForUsernames = "#{htmlForUsernames}#{usr.username}&nbsp;" %>
+    <% end %>
   <% end %>
+<% else %>
+  <%  htmlForUsernames = get_band_by_id(conversation.band_id).name %>
 <% end %>
 
 
 
 <% if conversation.is_trashed?(current_user) %>
 
-              <% htmlForTrash = " <span onclick='untrashItem(#{conversation.id});' class='glyphicon glyphicon-retweet btn btn-info pull-right'></span>" %>
+              <% htmlForTrash = " <span onclick='untrashItem(event,#{conversation.id});' class='glyphicon glyphicon-retweet btn btn-info pull-right'></span>" %>
 <% else %>
-                <% htmlForTrash = " <span onclick='trashItem(#{conversation.id});' class='glyphicon glyphicon-trash btn btn-danger pull-right'></span>" %>
+                <% htmlForTrash = " <span onclick='trashItem(event,#{conversation.id});' class='glyphicon glyphicon-trash btn btn-danger pull-right'></span>" %>
 <% end %>
 
 

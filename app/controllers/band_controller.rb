@@ -8,7 +8,7 @@ class BandController < ApplicationController
 			Band.search(search)
 		else
 			Band.all
-		end				
+		end
 	end
 
 	def new
@@ -38,9 +38,10 @@ class BandController < ApplicationController
 				@band= Band.find(params[:id])
 				@advs= Advertisment.where("band_id= ?", @band.id)
 				@bandMembers = @band.users
+				@active_users = @band.active_users
 			rescue ActiveRecord::RecordNotFound
         		redirect_to "/404"
-      		end
+      end
 		else
 			redirect_to "/404"
 		end

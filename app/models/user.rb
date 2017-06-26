@@ -1,4 +1,4 @@
-class User < ApplicationRecord 
+class User < ApplicationRecord
   # Include default devise modules. Others available are:
 
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -57,10 +57,10 @@ class User < ApplicationRecord
       region: region,
       city: city,
       type_of_musician_id: TypeOfMusician.find_by_id(type_of_musician_id).name,
-      musical_genre_id: MusicalGenre.find_by_id(musical_genre_id).name 
+      musical_genre_id: MusicalGenre.find_by_id(musical_genre_id).name
     }
   end
-  
+
 #CUSTOM VALIDATORS
 
 =begin
@@ -232,7 +232,7 @@ end
   def follow(other_user)
     followings << other_user
   end
-  
+
   def unfollow(other_user)
     followings.delete(other_user)
   end
@@ -256,6 +256,6 @@ end
   end
 
   #review lasciato a self
-  
+
 
 end

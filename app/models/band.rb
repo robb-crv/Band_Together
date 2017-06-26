@@ -40,6 +40,30 @@ class Band < ApplicationRecord
   	end
 =end
 
+		def active_users
+			@actives = []
+
+			users.each do |usr|
+				@actives << usr
+			end
+
+			@actives << band_manager
+
+			@actives
+		end
+
+
+		def self.active_bands_for(user)
+			@bands = []
+			Band.where(band_manager:user).each do |b|
+				@bands << b
+			end
+			user.joined_bands.each do |b|
+				@bands << b
+			end
+			@bands
+		end
+
 
 	#Nation validation
 

@@ -6,4 +6,11 @@ module ApplicationHelper
   def button_class_active_recipient(active_page)
     @mailboxer_active == active_page ? "btn btn-primary" : "btn btn-notice"
   end
+
+
+  def get_band_by_id(id)
+    Band.find(id)
+  end
+
+
 end

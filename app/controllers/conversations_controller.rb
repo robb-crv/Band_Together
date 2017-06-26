@@ -4,40 +4,60 @@ class ConversationsController < ApplicationController
   def new
     @folder = mailbox.inbox.or mailbox.sentbox
     @mailboxer_active = :inbox
+
+
+
+     @bands = Band.active_bands_for(current_user)
   end
 
 
   def create
-    recipients = User.where(id: conversation_params[:recipients])
+    if conversation_params[:band] != nil
+      band = Band.find(conversation_params[:band])
+      recipients = band.active_users
+      recipients.delete current_user  #cancella l'user corrente perchè a lui non si deve mandare un messaggio
+    else
+      recipients = User.where(id: conversation_params[:recipients])
+    end
+
     conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
-=begin
-    band = current_user.bands.first
-    band.conversations << conversation
-=end
+    if conversation.nil?
+      flash[:danger] = "Couldn't send message, please retry."
+      redirect_to new_conversation_path
+    end
 
-    #flash[:success] = "Your message was successfully sent!"
-
-    #andrea. crea la notifica per gli utenti destinatari, salvando il riferimento alla conversazione.
     recipients.each do |usr|
         Notification.create(recipient: usr, actor: current_user, action: "has just sent a new message in the conversation '#{conversation.subject}'!", notifiable: conversation)
     end
 
-  #  redirect_to controller: 'conversation', action: 'show', id: conversation.id, folder: @mailboxer_active
+    if conversation_params[:band] != nil
+      band.conversations << conversation
+      conversation.band_id = band.id
+      conversation.save
+    end
 
     redirect_to conversation_path( conversation,:folder => "inbox")
   end
+
 
   def show
     @recipients = conversation.recipients
     @receipts = conversation.receipts_for(current_user)
 
+     @bands = Band.active_bands_for(current_user)
+
     folder = params[:folder]
     if folder == "trash"
       @folder = mailbox.trash
       @mailboxer_active = :trash
-
     else
-      @folder = mailbox.inbox.or mailbox.sentbox
+      if conversation.band_id.nil?
+        @selected_band = nil
+        @folder = (mailbox.inbox.or (mailbox.sentbox)).where(band_id: nil)
+      else
+        @selected_band = Band.find(conversation.band_id)
+        @folder = @selected_band.conversations.not_trash(current_user)
+      end
       @mailboxer_active = :inbox
     end
 
@@ -73,7 +93,7 @@ class ConversationsController < ApplicationController
   private
 
   def conversation_params
-    params.require(:conversation).permit(:subject, :body,recipients:[])
+    params.require(:conversation).permit(:band, :subject, :body,recipients:[])
   end
 
   def message_params
