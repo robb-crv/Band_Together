@@ -17,7 +17,8 @@ class ReviewsController < ApplicationController
 				flash[:success] = "Review correctly created"
 				redirect_to users_show_path(:id => @review.reviewed_id)
 		else 
-			flash[:danger] = "oops...it seems to have already reviewed this user !"
+			flash[:danger] = "---- RATING: #{@review.rating}, DESCRIPTION #{@review.description}, REVIEWED_ID: #{@reviewed.id}, CURRENT_USER: #{@review.reviewer_id} ----"
+			#flash[:danger] = "oops...it seems to have already reviewed this user !"
 			redirect_to reviews_new_path(:id => @review.reviewed_id)
 		end
 	end
