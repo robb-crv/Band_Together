@@ -28,15 +28,11 @@
 
 
 <div class="field">
-  <%= f.label :date%>
-  <%= f.date_field :date, "data-provide" => 'datepicker' , :required => true , class: 'form-control' %>
+  <%= f.label :start_date%>
+  <%= f.datetime_field :start_date, "data-provide" => 'datepicker' , :required => true , class: 'form-control' %>
 </div><br/>
 
 
-<div class="field">
-  <%= f.label :start_hours%>
-  <%= f.time_field :start_hours, :required => true , class: 'form-control' %>
-</div><br/>
 
 
 
@@ -50,7 +46,7 @@
 
 <div class="field">
   <%= f.label :accessibility%>
-  <%= f.select(:accessibility, options_for_select([["Public","PUB"],["Private","PRI"]] ), {}, {:class => 'form-control'})  %>
+  <%= f.select(:accessibility, options_for_select([["Public","Public"],["Private","Private"]] ), {}, {:class => 'form-control'})  %>
 </div><br/>
 
 

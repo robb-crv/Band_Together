@@ -1,3 +1,6 @@
+<%= javascript_tag do %>
+  showed_band_id = <%= @band.id %>
+<% end %>
 
 <h2>Band '<%= @band.name %>'</h2>
 <br/>
@@ -45,8 +48,10 @@
 
 <br/>
 
-<h4> Band Activities </h4>
-<div id='calendar'></div>
+<div>
+	<h4> Band Activities </h4>
+	<div id='calendar'></div>
+</div>
 
 <br/>
 

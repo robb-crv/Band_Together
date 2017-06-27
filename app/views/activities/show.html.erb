@@ -1,0 +1,16 @@
+
+<p> <h2>Activity '<%= @activity.title %>'</h2></p>
+
+<p> <strong>Band:</strong> <%= @activity.band.name %> </p>
+
+<p>
+	<strong>Band Active in:</strong> <%= @activity.band.city %> (<%= @activity.band.region %> , <%= @activity.band.nation %>)
+</p>
+
+<p> <strong>Description:</strong> <%= @activity.description%> </p>
+
+<p> <strong>Start at:</strong> <%= @activity.start_date.strftime("%B %d, %Y at %H:%M") %>
+
+  <p> <strong>End at:</strong> <%= @activity.end_date.strftime("%B %d, %Y at %H:%M") %>
+
+<p> <strong>Location:</strong> <%= @activity.location %>

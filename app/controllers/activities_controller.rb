@@ -1,4 +1,5 @@
 class ActivitiesController < ApplicationController
+  before_action :authenticate_user!
 
   def new
     @activity = Activity.new()
@@ -21,13 +22,28 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def index
+    @band = Band.find(params[:id])
+    @activities = Activity.where(band: @band)
+
+    respond_to do |format|
+      format.json
+      format.html { render 'index' }
+    end
+  end
+
+
+  def show
+    @activity = Activity.find(params[:id])
+  end
+
 
 
 
 
   private
     def activity_params()
-      params.require(:activity).permit(:title, :description, :location, :accessibility, :date, :duration, :start_hours)
+      params.require(:activity).permit(:title, :description, :location, :accessibility, :start_date, :duration, :start_hours)
     end
 
 end
