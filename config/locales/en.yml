@@ -39,3 +39,8 @@ en:
               invalid_date: "Date not valid"
               before: "Date is incorrect, it's in the future!"
               after: "Date is incorrect, it's too old"
+        activity:
+          attributes:
+            start_date:
+              invalid_date: "Date not valid"
+              after: "Date is incorrect, must not be passed."
