@@ -18,9 +18,9 @@ Feature: User Sends message to others
     And I am on the User Home Page
     When I go to the Messages Page
     And I follow "New Conversation"
-    And I fill "To" with "giuliobianchi@gmail.com"
+    And I select "giuliobianchi" from "To your contacts:"
     And I fill "Subject" with "Test Subject"
-    And I fill "Body" with "Hi Giulio, are you OK?"
+    And I fill "Message" with "Hi Giulio, I hope you are OK"
     And I press "Send Message"
     Then I should see in the Conversations Table the conversation "Test Subject"
 

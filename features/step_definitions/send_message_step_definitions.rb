@@ -1,3 +1,7 @@
+When /^I fill "Message" with "Hi Giulio, I hope you are OK"$/ do
+  fill_in("Message", with: "Hi Giulio, I hope you are OK")
+end
+
 When /^I go to the Messages Page$/  do
 
         find(:css,"#btnDrpdownMenu").click  #andrea prima abbasso la tendina del +
@@ -5,30 +9,29 @@ When /^I go to the Messages Page$/  do
 end
 
 When /^I follow "New Conversation"$/ do
-  pending # Write code here that turns the phrase above into concrete actions
+    click_on "New Conversation"
 end
 
-When /^I fill "To" with "giuliobianchi@gmail.com"$/ do
-
+When /^I select "giuliobianchi" from "To your contacts:"$/ do
+    select('giuliobianchi', from: 'To your contacts:')
 end
 
 
 When /^I fill "Subject" with "Test Subject"$/ do
-
+    fill_in("Subject", with: "Test Subject")
 end
 
-When /^I fill "Body" with "Hi Giulio, are you OK?"$/ do
 
-end
 
 When /^I press "Send Message"$/ do
-
+  click_on "Send Message"
 end
 
 Then /^I should see in the Conversations Table the conversation "Test Subject"$/ do
-
+  expect(page).to have_css("#pnlConversations ul li a", :text => "Test Subject")
 end
 
 Given /^I am not logged in$/ do
-
+            find(:css,"#btnDrpdownMenu").click  #andrea prima abbasso la tendina del +
+        click_on "Sign Out"
 end

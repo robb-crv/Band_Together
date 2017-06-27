@@ -7,31 +7,31 @@ document.addEventListener("turbolinks:load", function() {
 
 
 
-      $('#cmbDestinatari').change(function(){
+      $('#conversation_recipients').change(function(){
 
-          if($('#cmbDestinatari').val() != null){
+          if($('#conversation_recipients').val() != null){
           //  $('#cmbBandDestinatari').val('');
         //    $('#cmbBandDestinatari').selectpicker('refresh');
-            $('#cmbBandDestinatari').prop('disabled', true);
+            $('#conversation_band').prop('disabled', true);
           }else{
-              $('#cmbBandDestinatari').prop('disabled', false);
+              $('#conversation_band').prop('disabled', false);
           }
 
         });
 
 
-          $('#cmbBandDestinatari').change(function(){
-            if($('#cmbBandDestinatari').val() != ''){
+          $('#conversation_band').change(function(){
+            if($('#conversation_band').val() != ''){
             //  $('#cmbDestinatari').val(null);
-              $('#cmbDestinatari').prop('disabled', true).trigger("chosen:updated");
+              $('#conversation_recipients').prop('disabled', true).trigger("chosen:updated");
             }else{
-                $('#cmbDestinatari').prop('disabled', false).trigger("chosen:updated");
+                $('#conversation_recipients').prop('disabled', false).trigger("chosen:updated");
             }
           });
 
 
           $('#btnCreateConversation').click(function(evt){
-              if($('#cmbBandDestinatari').val() == '' && $('#cmbDestinatari').val() == null){
+              if($('#conversation_band').val() == '' && $('#conversation_recipients').val() == null){
                   alert('Please choose the receiver of this message, they could be members of your bands or your contacts');
                   evt.preventDefault();
               }

@@ -12,7 +12,7 @@ class ConversationsController < ApplicationController
 
 
   def create
-    if conversation_params[:band] != nil
+    if conversation_params[:band] != nil && conversation_params[:band] != ""
       band = Band.find(conversation_params[:band])
       recipients = band.active_users
       recipients.delete current_user  #cancella l'user corrente perchè a lui non si deve mandare un messaggio
@@ -30,7 +30,7 @@ class ConversationsController < ApplicationController
         Notification.create(recipient: usr, actor: current_user, action: "has just sent a new message in the conversation '#{conversation.subject}'!", notifiable: conversation)
     end
 
-    if conversation_params[:band] != nil
+    if conversation_params[:band] != nil && conversation_params[:band] != ""
       band.conversations << conversation
       conversation.band_id = band.id
       conversation.save
