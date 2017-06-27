@@ -16,9 +16,8 @@ class ActivitiesController < ApplicationController
     if @activity.save
       redirect_to band_show_path(:id => @band.id)
       flash[:success] = "The activity has been created successfully."
-
     else
-      render new_activity_path(:band_id => @band.id)
+      render new_activity_path
     end
   end
 
