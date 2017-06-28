@@ -1,6 +1,4 @@
-<%= javascript_tag do %>
-  showed_band_id = <%= @band.id %>
-<% end %>
+<%= hidden_field_tag 'showed_band_id', @band.id %>
 
 <h2>Band '<%= @band.name %>'</h2>
 <br/>

@@ -12,9 +12,8 @@ And /^I should see "New Description" for the field "Description"$/ do
 end
 
 When /^I visit my Profile Page$/ do
-
-      find(:css,"#btnDrpdownMenu").click  #andrea prima abbasso la tendina del +
-    click_on "Profile"
+  user = User.find_by email: "mariorossi@gmail.com"
+	visit users_show_path(:id => user.id)
 end
 
 

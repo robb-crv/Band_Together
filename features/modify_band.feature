@@ -4,6 +4,7 @@ Feature: Band Manager modify band's informations
   Because I want to update band informations
 
 
+
   Background: user "Mario Rossi" created a band named "Band di Rossi"
       Given Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"
       And Exists band "Band di Rossi" created by user "Mario Rossi"

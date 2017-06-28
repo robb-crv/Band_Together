@@ -2,8 +2,9 @@ document.addEventListener("turbolinks:load", function() {
    $('#calendar').empty();
     $('#calendar').fullCalendar(
       {
+
            // put your options and callbacks here
-           events: '/activities?id=' + showed_band_id, // showed_band_id is defined in band/show.html.erb
+           events: '/activities?id=' + $("#showed_band_id").val(), // showed_band_id is defined in band/show.html.erb
            eventMouseover: function(event, jsEvent, view) {
              //alert(event.description);
              $(this).popover({html:true,title: "<b>" + event.title + "</b>",content:
@@ -21,7 +22,7 @@ document.addEventListener("turbolinks:load", function() {
            }
 
 
-       },
+       }
 
      );
 

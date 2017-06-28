@@ -1,7 +1,6 @@
 When /^I follow "New Band"$/ do
 
-  find(:css,"#btnPlusDrpdown").click  #andrea prima abbasso la tendina del +
-  click_on "New Band"
+  visit band_new_path
 end
 
 Then /^I should be on the New Band Page$/ do
