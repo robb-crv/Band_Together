@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626135610) do
+ActiveRecord::Schema.define(version: 20170626201415) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "band_manager_id"
@@ -148,13 +148,14 @@ ActiveRecord::Schema.define(version: 20170626135610) do
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "reviewer_id"
-    t.integer  "reviewed_id"
     t.text     "description"
     t.integer  "rating"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["reviewed_id", "reviewer_id"], name: "index_reviews_on_reviewed_id_and_reviewer_id", unique: true
-    t.index ["reviewed_id"], name: "index_reviews_on_reviewed_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "reviewable_type"
+    t.integer  "reviewable_id"
+    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable_type_and_reviewable_id"
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewed_id_and_reviewer_id", unique: true
     t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
   end
 

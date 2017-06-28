@@ -35,11 +35,11 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
   #followers si va a mappare su follower_id
 
-  has_many :active_reviews, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
-  has_many :passive_reviews, class_name: 'Review', foreign_key: "reviewed_id", dependent: :destroy
+  has_many :active_reviews, as: :reviewable, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
+  has_many :passive_reviews, as: :reviewable, class_name: 'Review', foreign_key: "reviewable_id", dependent: :destroy
 
-  has_many :reviewings, through: :active_reviews, source: :reviewed, dependent: :destroy
-  has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
+  #has_many :reviewings, through: :active_reviews, source: :reviewable, dependent: :destroy
+  #has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
 
   #attr_accessor :remember_token
   include ActiveModel::Validations
@@ -243,7 +243,7 @@ end
   end
 
   def reviewed?(other_user_id)
-      Review.exists?(reviewer_id: self.id, reviewed_id: other_user_id)
+      Review.exists?(reviewer_id: self.id, reviewable_id: other_user_id)
   end
 
   #review lasciate da self
@@ -252,7 +252,7 @@ end
   end
 
   def received_reviews
-    Review.where(:reviewed_id => self)
+    Review.where(:reviewable_id => self)
   end
 
   #review lasciato a self

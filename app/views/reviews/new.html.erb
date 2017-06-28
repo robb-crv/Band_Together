@@ -1,20 +1,28 @@
 <div class="col-md-4 col-md-offset-4 ">
-<br/><h2> Review <%=@reviewed.username%> !</h2>
 
-<%= form_for(@review, url: reviews_create_path , html: { method: :post }) do |f| %>
+<% @name=""%>
+<% if @reviewable.class == User %>
+  <%@name=@reviewable.username%>
+<%elsif @reviewable.class == Band %>
+  <% @name= @reviewable.name %>
+<%end%>
+
+<br/><h2> Review <%= @name %></h2>
+
+
+<%= form_for(@review, url: reviews_create_path(:id => @reviewable.id, :reviewable_type => @reviewable.class) , html: { method: :post }) do |f| %>
 
 <%= render 'layouts/model_error_messages', object: @review %>
 <br/>
   <div class="rating_field">
   	<div class="rating">
-	  <span id="star_5" class="glyphicon glyphicon-star" value="5"></span>
-	  <span id="star_4" class="glyphicon glyphicon-star" value="4"></span>
-	  <span id="star_3" class="glyphicon glyphicon-star" value="3"></span>
-	  <span id="star_2" class="glyphicon glyphicon-star" value="2"></span>
-	  <span id="star_1" class="glyphicon glyphicon-star" value="1"></span>
-	</div>
+  	  <span id="star_5" class="glyphicon glyphicon-star" value="5"></span>
+  	  <span id="star_4" class="glyphicon glyphicon-star" value="4"></span>
+  	  <span id="star_3" class="glyphicon glyphicon-star" value="3"></span>
+  	  <span id="star_2" class="glyphicon glyphicon-star" value="2"></span>
+  	  <span id="star_1" class="glyphicon glyphicon-star" value="1"></span>
+	 </div>
   </div>
-
 
 
   <!-- rating è un hidden element, in quanto l'untente "colora" le stelline, ma il valore
@@ -22,7 +30,8 @@
  -->
  	<%= f.number_field :rating, type: 'hidden', class: 'form-control' , id: 'rating_element'%>
  	<%= f.number_field :reviewer_id, type: 'hidden', class: 'form-control', :value => current_user.id %>
- 	<%= f.number_field :reviewed_id, type: 'hidden', class: 'form-control', :value => @reviewed.id %>
+ 	<%= f.number_field :reviewable_id, type: 'hidden', class: 'form-control', :value => @reviewable.id %>
+  <%= f.number_field :reviewable_type, type: 'hidden', class: 'form-control', :value => @reviewable.class %>
   </br><br/>
   <div class="field">
   	<%= f.label :description %>
