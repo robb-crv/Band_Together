@@ -13,6 +13,8 @@ class Band < ApplicationRecord
 	has_many :member_associations, :dependent => :delete_all, foreign_key: :joined_band_id, inverse_of: :joined_band
 	has_many :users,  through: :member_associations
 
+	has_many :rewiews, as: :reviewable
+	
 	#SEARCH ENGINE PARAMETER DEFINITIONS
 
 	# Include integration with searchkick

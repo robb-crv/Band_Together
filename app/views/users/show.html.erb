@@ -63,51 +63,11 @@
 	 <%if !current_user.reviewed?(@user.id) %>
 		 <div id="review">
 		 	<%if current_user != @user %> 
-		 		<h3><%= link_to "Review this user", reviews_new_path(:id => @user.id), :method => "get" %></h3>
+		 		<h3><%= link_to "Review this user", reviews_new_path(:id => @user.id, reviewable_type: "User"), :method => "get" %></h3>
 		 	<%end%>
 		 </div>
 	 <%end%>
 	 <br/><br/>
-
-	
-	<h3>People says about me...</h3>
-	 
-	 <div id ="received_review">
-
-	 	<%@user.received_reviews.each do |rev| %>
-	 		<%@reviewer = User.find(rev.reviewer_id)%>
-		 	<% (1..rev.rating).each do |i| %>
-		 		<span id=i class="glyphicon glyphicon-star" style="color:#FFD700;font-size: 20px;"></span>
-		 	<%end%>
-		 	<% (rev.rating..4).each do |i| %>
-		 		<span id=i class="glyphicon glyphicon-star" style="color:#A9A9A9;font-size: 20px;"></span>
-		 	<%end%>
-
-	 		<br/>
-			<%= rev.description%><br/>
-			from: <b><%= link_to @reviewer.username, users_show_path(:id => @reviewer.id)%></b> 
-	 	<%end%>
-		
-	 </div><br/>
-
-	 <h3> My Reviews</h3>
-	 <div id ="sended_review">
-
-	 	<%@user.sended_reviews.each do |rev| %>
-	 		<%@reviewed = User.find(rev.reviewed_id)%>
-		 	<% (1..rev.rating).each do |i| %>
-		 		<span id=i class="glyphicon glyphicon-star" style="color:#FFD700;font-size: 20px;"></span>
-		 	<%end%>
-		 	<% (rev.rating..4).each do |i| %>
-		 		<span id=i class="glyphicon glyphicon-star" style="color:#A9A9A9;font-size: 20px;"></span>
-		 	<%end%>
-
-	 		<br/>
-			<%= rev.description%><br/>
-			<b>to: <%= link_to @reviewed.username, users_show_path(:id => @reviewed.id)%><b/>
-	 	<%end%>
-	 	
-	 </div>
 
 </body>
 

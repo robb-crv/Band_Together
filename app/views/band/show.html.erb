@@ -93,4 +93,6 @@
 		<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 	<% end %>
 
+	<br/><br/>
+	<h3><%= link_to "Review this Band", reviews_new_path(:id => @band.id, reviewable_type: 'Band')%></h3>
 <br/>
