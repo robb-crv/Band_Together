@@ -23,23 +23,18 @@ class User < ApplicationRecord
 
   #FollowingRelationship
   has_many :active_relationships, class_name: "FollowingRelationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :passive_relationships, class_name: "FollowingRelationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "FollowingRelationship", foreign_key: "followable_id", dependent: :destroy
 
 
-  has_many :followings, through: :active_relationships, source: :followed, dependent: :destroy
-  #ho usato following perche utilizzando la convenzione del plurale di rails
-  #followeds sarebbe grammaticalmente sbagliato
-  #quindi viene usato following come plurale di followed
-  #'source: :followed' indica che following si va a mappare su followed_id
-
+  has_many :followings, through: :active_relationships, source: :followable, dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
-  #followers si va a mappare su follower_id
+
 
   has_many :active_reviews, as: :reviewable, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
   has_many :passive_reviews, as: :reviewable, class_name: 'Review', foreign_key: "reviewable_id", dependent: :destroy
 
-  #has_many :reviewings, through: :active_reviews, source: :reviewable, dependent: :destroy
-  #has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
+  has_many :reviewings, through: :active_reviews, source: :reviewable, dependent: :destroy
+  has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
 
   #attr_accessor :remember_token
   include ActiveModel::Validations

@@ -10,7 +10,6 @@ class CreateFollowingRelationships < ActiveRecord::Migration[5.0]
 
     add_index :following_relationships, :follower_id
     add_index :following_relationships, :followed_id
-    add_index :following_relationships, [:follower_id, :followed_id], unique: true 
 
   end
 end
