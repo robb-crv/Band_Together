@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
 
    def index
 
-         @notifications = Notification.where(recipient: current_user)
+       @notifications = Notification.where(recipient: current_user)
 
        respond_to do |format|
          format.json
