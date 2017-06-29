@@ -55,6 +55,22 @@ def invalid_advertisment_titles
 	["", " ", " Cercasi", "  "]
 end
 
+#Notification
+
+def invalid_ids
+	[50000,1200000,6525]
+end
+
+
+
+def invalid_read_at_date
+	Faker::Date.forward(1000)
+end
+
+
+def invalid_notifiable_types
+	["Dog","Cat"]
+end
 
 
 
@@ -110,4 +126,16 @@ end
 
 def valid_advertisment_titles
 	["Cercasi", "Cercasi Batterista", "CercasiBatterista", "cErCaSi BatTeRiStA"]
+end
+
+
+
+#Notification
+
+def valid_read_at_date
+	Faker::Date.backward(1000)
+end
+
+def valid_notifiable_types
+	["User","Mailboxer::Conversation"]
 end
