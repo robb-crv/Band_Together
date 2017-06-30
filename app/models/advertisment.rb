@@ -15,7 +15,19 @@ class Advertisment < ApplicationRecord
 			record.errors.add attribute, "choose at least one musicians type" unless ret
 		end
 	end
-	
+
+	class BandValidator < ActiveModel::EachValidator
+		def validate_each(record, attribute, value)
+			record.errors.add attribute, "It's not a valid band" unless !Band.find_by_id(value).nil?
+		end
+	end
+
+	class UserValidator < ActiveModel::EachValidator
+		def validate_each(record, attribute, value)
+			record.errors.add attribute, "It's not a valid user" unless !User.find_by_id(value).nil?
+		end
+	end
+
 #SEARCH ENGINE PARAMETER DEFINITIONS
 #Da aggiornare quando sarà finita la form per l'advertisment
 
@@ -29,7 +41,7 @@ class Advertisment < ApplicationRecord
 			start_date: start_date,
 			term_date: term_date,
 			band_name: self.band.name
-		}	
+		}
 	end
 
 	#validation
@@ -39,5 +51,7 @@ class Advertisment < ApplicationRecord
 	validates_date :start_date, presence: true
 	validates_date :term_date, presence: true,:after => :start_date
 	validates :musicians, presence: true, musicians: true
+	validates :band_id, presence: true, allow_nil: false, band: true
+	validates :user_id, presence: true, allow_nil: false, user: true
 
 end
