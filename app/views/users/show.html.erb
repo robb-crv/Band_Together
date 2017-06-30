@@ -29,9 +29,9 @@
 	<% if @user.id != current_user.id %>
 	<div id="following">
 		<% if !current_user.following?(@user) %>
-			<%= button_to "Follow", following_relationships_create_path(:followed_id => @user), :method => "post", :class => "btn btn-primary btn-md" %>
+			<%= button_to "Follow", following_relationships_create_path(:followable_id => @user.id, :followable_type => "User"), :method => "post", :class => "btn btn-primary btn-md" %>
 		<%else%>
-			<%=button_to "Unfollow", following_relationships_destroy_path(:followed_id => @user), :class => "btn btn-primary btn-md" %>
+			<%=button_to "Unfollow", following_relationships_destroy_path(:followable_id => @user, :followable_type => "User"), :class => "btn btn-primary btn-md" %>
 		<%end%>
 	<div/>
 	<%end%>

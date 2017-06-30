@@ -1,16 +1,18 @@
 class FollowingRelationship < ApplicationRecord
 
-	belongs_to :followable, class_name: "User"
-	belongs_to :follower, class_name: "User"
+	belongs_to :followable, polymorphic: true, foreign_key: 'followable_id'
+	belongs_to :follower, class_name: "User", foreign_key: 'follower_id'
 
-	#validate :does_not_follow_self
+	validate :user_does_not_follow_self
 	validates :follower_id, presence: true
 	validates :followable_id, presence: true
-	#validates_uniqueness_of :follower_id, scope: :followed_id	
+	validates :followable_type, presence: true
 
-	
-	#def does_not_follow_self
-    	#errors.add(:followed_id, "Can't follows itself") unless follower_id != followed_id
-  	#end	
+	def user_does_not_follow_self
+
+		if (followable_type == 'User') and (follower_id == followable_id)
+			errors.add(:followable_id, "Can't follows itself")
+		end
+  	end	
 
 end

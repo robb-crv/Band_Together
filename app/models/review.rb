@@ -4,6 +4,7 @@ class Review < ApplicationRecord
 
 	validates :reviewer_id, presence: true
 	validates :reviewable_id, presence: true
+	
 	validates :rating, presence: true,  numericality: { only_integer: true, :greather_than_or_equal_to => 1, :less_than_or_equal_to => 5 }
 	validates :description, presence: true, allow_blank: false, length: {maximum: 150}
 	#validates_uniqueness_of :reviewer_id, scope: :reviewable_id

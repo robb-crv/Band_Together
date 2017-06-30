@@ -131,7 +131,7 @@ RSpec.describe BandController, type: :controller do
 
 	describe 'band#delete' do
 
-		describe 'advertisment#delete' do
+		
 		before(:each) do 
 			@user= FactoryGirl.create(:user)
 			@band1= FactoryGirl.create(:band, :band_manager_id => @user.id)
@@ -146,13 +146,13 @@ RSpec.describe BandController, type: :controller do
 			expect(response.status).to eq 302
 		end
 
-		it 'should delete the advertisment from the band' do
+		it 'should delete the band from the bands of user' do
 
 			expect(@user.bands).not_to include(@band1)
 			expect(@user.bands).to include(@band2)
 			
 		end
-	end
+	
 	end
 
 

@@ -26,10 +26,13 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "FollowingRelationship", foreign_key: "followable_id", dependent: :destroy
 
 
-  has_many :followings, through: :active_relationships, source: :followable, dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
+  has_many :followings_bands, through: :active_relationships, source: :followable, source_type: 'Band', dependent: :delete_all
+  has_many :followings_users, through: :active_relationships, source: :followable, source_type: 'User', dependent: :delete_all
+
+  has_many :followers, through: :passive_relationships, source: :follower, source_type: 'User', dependent: :delete_all
 
 
+  #Review
   has_many :active_reviews, as: :reviewable, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
   has_many :passive_reviews, as: :reviewable, class_name: 'Review', foreign_key: "reviewable_id", dependent: :destroy
 
@@ -224,21 +227,13 @@ end
     nil
   end
 
-  def follow(other_user)
-    followings << other_user
+  def following?(followed)
+    followings_bands.include?(followed) or followings_users.include?(followed)
   end
 
-  def unfollow(other_user)
-    followings.delete(other_user)
-  end
 
-  # true if the current user is following 'other_user'.
-  def following?(other_user)
-    followings.include?(other_user)
-  end
-
-  def reviewed?(other_user_id)
-      Review.exists?(reviewer_id: self.id, reviewable_id: other_user_id)
+  def reviewed?(reviewed_id)
+      Review.exists?(reviewer_id: self.id, reviewable_id: reviewed_id)
   end
 
   #review lasciate da self
@@ -249,8 +244,6 @@ end
   def received_reviews
     Review.where(:reviewable_id => self)
   end
-
-  #review lasciato a self
 
 
 end

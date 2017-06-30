@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   #Routest per FollowingRelationship
   get 'following_relationships/create'
   post 'following_relationships/create'
+  get 'following_relationships/destroy'
   post 'following_relationships/destroy'
   delete 'following_relationships/destroy'
 
