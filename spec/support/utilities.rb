@@ -73,6 +73,16 @@ def invalid_notifiable_types
 end
 
 
+#Activity
+
+def invalid_accessibilities
+	["Home","School","Quarter"]
+end
+
+def invalid_start_dates
+	["dssdfsdf",Faker::Date.backward(1000),Date.current]
+end
+
 
 
 #Valid cases
@@ -138,4 +148,15 @@ end
 
 def valid_notifiable_types
 	["User","Mailboxer::Conversation"]
+end
+
+
+#Activity
+
+def valid_accessibilities
+	["Private","Public"]
+end
+
+def valid_start_dates
+	[Faker::Date.forward(1000),Faker::Date.forward(1000),Faker::Date.forward(1000)]
 end
