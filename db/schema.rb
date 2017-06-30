@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170628215431) do
+ActiveRecord::Schema.define(version: 20170629152035) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "band_manager_id"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170628215431) do
     t.index ["followable_type", "followable_id"], name: "reference_followable"
     t.index ["follower_id", "followable_type", "followable_id"], name: "index_on_follower_followable_type", unique: true
     t.index ["follower_id"], name: "index_following_relationships_on_follower_id"
+    t.index ["follower_id"], name: "index_following_relationships_on_follower_id_and_followed_id", unique: true
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
@@ -133,6 +134,7 @@ ActiveRecord::Schema.define(version: 20170628215431) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["joined_band_id"], name: "index_member_associations_on_joined_band_id"
+    t.index ["user_id", "joined_band_id"], name: "index_on_user_joined_band", unique: true
     t.index ["user_id"], name: "index_member_associations_on_user_id"
   end
 

@@ -12,17 +12,54 @@ class Notification < ApplicationRecord
 
    def url
      case notifiable
-          
+
         when User
           "/users/show?id=#{notifiable.id}"
 
         when Mailboxer::Conversation
           "/conversations/#{notifiable.id}"
-        
+
         else
           '#'
        end
    end
+
+
+
+
+
+   class  TypeValidator < ActiveModel::EachValidator
+
+     def validate_each(record, attribute, value)
+       record.errors.add attribute, "Not a valid notifiable type" unless ["Mailboxer::Conversation","User"].include? value
+     end
+   end
+
+   class UserValidator < ActiveModel::EachValidator
+     def validate_each(record, attribute, value)
+       record.errors.add attribute, "It's not a valid user" unless !User.find_by_id(value).nil?
+     end
+   end
+
+   def notifiable_exists
+     case notifiable_type
+      when "User"
+          errors.add(:notifiable_id, "It's not a valid user") unless !User.find_by_id(notifiable_id).nil?
+      when "Mailboxer::Conversation"
+        errors.add(:notifiable_id, "It's not a valid conversation") unless !Mailboxer::Conversation.find_by_id(notifiable_id).nil?
+      else
+          nil
+       end
+   end
+
+   validate :notifiable_exists
+   validates :recipient_id, presence: true, allow_nil:false,user:true
+   validates :actor_id, presence: true, allow_nil:false,user:true
+   validates_date :read_at, allow_blank: false, allow_nil: true, :before => lambda{Date.current}
+   validates :action, presence: true,allow_blank: false, allow_nil: false
+   validates :notifiable_id, presence: true, allow_nil:false
+   validates :notifiable_type, presence: true, allow_nil:false, allow_blank: false, type:true
+
 
 
 end

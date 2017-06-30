@@ -5,8 +5,6 @@ class ConversationsController < ApplicationController
     @folder = mailbox.inbox.or mailbox.sentbox
     @mailboxer_active = :inbox
 
-
-
      @bands = Band.active_bands_for(current_user)
   end
 
@@ -24,6 +22,7 @@ class ConversationsController < ApplicationController
     if conversation.nil?
       flash[:danger] = "Couldn't send message, please retry."
       redirect_to new_conversation_path
+      return
     end
 
     recipients.each do |usr|
@@ -65,6 +64,13 @@ class ConversationsController < ApplicationController
   end
 
   def reply
+
+    if message_params[:body] == nil || message_params[:body] == ""
+      flash[:danger] = "Your reply message was not sent!"
+      redirect_to conversation_path(conversation)
+      return
+    end
+
    current_user.reply_to_conversation(conversation, message_params[:body])
 
    conversation.recipients.each do |usr|
