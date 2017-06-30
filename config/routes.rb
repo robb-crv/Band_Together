@@ -59,6 +59,11 @@ Rails.application.routes.draw do
   post 'reviews/destroy'
   delete 'reviews/destroy'
 
+
+  get 'join_requests/index'
+  get 'join_requests/create'
+  post 'join_requests/create'
+
   # Routes per le band
 
   get 'band/new'

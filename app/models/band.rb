@@ -18,6 +18,8 @@ class Band < ApplicationRecord
 	has_many :passive_relationships, class_name: "FollowingRelationship", foreign_key: "followable_id", dependent: :destroy
 	has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
 
+	has_many :join_requests, dependent: :destroy, foreign_key: "band_id", source: :band, dependent: :delete_all
+
 	#SEARCH ENGINE PARAMETER DEFINITIONS
 
 	# Include integration with searchkick

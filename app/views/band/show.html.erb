@@ -1,27 +1,15 @@
 <%= hidden_field_tag 'showed_band_id', @band.id %>
 
-<h2>Band '<%= @band.name %>'</h2>
-<br/>
-<p>
-	<strong>Description: </strong> 	<%= @band.description %>
-</p>
+<h2>Band '<%= @band.name %>'</h2><br/>
+<p><strong>Description: </strong> 	<%= @band.description %></p>
 
-<p>
-	<strong>Created At:</strong>	 <%= @band.created_at %>, by <%= link_to @band.band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%>
-</p>
+<p><strong>Created At:</strong>	 <%= @band.created_at %>, by <%= link_to @band.band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%></p>
 
-<p>
-	<strong>Active in:</strong> <%= @band.city %> (<%= @band.region %>, <%= @band.nation %>)
-</p>
+<p><strong>Active in:</strong> <%= @band.city %> (<%= @band.region %>, <%= @band.nation %>)</p>
 
-<p>
-	<strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@band.musical_genre_id).name %>
-</p>
+<p><strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@band.musical_genre_id).name %></p>
 
-<br/>
-
-<br/>
-
+<br/><br/>
 <div id="pnlActiveAdvertisments" >
 	<h4> Active Advertisments </h4>
 	<ol>
@@ -37,14 +25,9 @@
     			</li>
     			</ul>
     		</li>
-
     	<% end %>
     </ol>
-
-</div>
-
-
-<br/>
+</div><br/>
 
 <div>
 	<h4> Band Activities </h4>
@@ -55,63 +38,60 @@
 
 <div id="pnlBandMembers" >
 	<h4> Band Members </h4>
-	<ol>
+	<ol>																																																																						
     	<% @bandMembers.each do |member| %><br/>
 
     		<li>
     			<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>:
 					<%= TypeOfMusician.find_by_id(member.type_of_musician_id).name %>
 				</li>
-
     	<% end %>
     </ol>
-
 </div>
 
-<!-- andrea
-		se l'utente è band manager
--->
 
 <% if (current_user.id==@band.band_manager_id) %>
-<!-- andrea
-		se l'utente è band manager
--->
+<!--se l'utente è band manager-->
 	<br/><br/>
 	<%= link_to "New Advertisment", advertisment_new_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 	<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
+	<div id="manage_pending_join_req">
+
+	</div>
+
 <% else %>
 	 	<% if @band.users.include? current_user %>
-		<!-- andrea
-				se l'utente è band member
-		-->
+		<!--se l'utente è band member-->
 			<br/><%= link_to "Leave Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
 
 			<% else %>
+			<!--se l'utente è generic user-->
 
-			<!-- andrea
-					se l'utente è generic user
-			-->
-					<br/><%= link_to "Join Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
-
-			<% end %>
-
+			<div id="join_req">
+				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
+				<%if !current_user.is_waiting_for_join_response(@band) %>
+				<%= button_to "Join!", join_requests_create_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band.band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %> 
+				<%end%>
+			</div><br/>
+		<% end %>
 <% end %>
 
-	<div id="following">
+<%if !current_user.id==@band.band_manager %>
+<div id="following">
 
-		<% if !current_user.following?(@band) %>
-			<%= button_to "Follow the Band!", following_relationships_create_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
-		<%else%>
-			<%=button_to "Unfollow", following_relationships_destroy_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
-		<%end%>
-	<div/>
+	<% if !current_user.following?(@band) %>
+		<%= button_to "Follow the Band!", following_relationships_create_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+	<%else%>
+		<%=button_to "Unfollow", following_relationships_destroy_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+	<%end%>
+<div/>
+<%end%>
 
+<% if @active_users.include? current_user %>
+	<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+<% end %>
 
-	<% if @active_users.include? current_user %>
-		<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
-	<% end %>
-
-	<br/><br/>
-	<h3><%= link_to "Review this Band", reviews_new_path(:id => @band.id, reviewable_type: 'Band')%></h3>
+<br/><br/>
+<h3><%= link_to "Review this Band", reviews_new_path(:id => @band.id, reviewable_type: 'Band')%></h3>
 <br/>

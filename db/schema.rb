@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629152035) do
+ActiveRecord::Schema.define(version: 20170630182140) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "band_manager_id"
@@ -70,7 +70,19 @@ ActiveRecord::Schema.define(version: 20170629152035) do
     t.index ["followable_type", "followable_id"], name: "reference_followable"
     t.index ["follower_id", "followable_type", "followable_id"], name: "index_on_follower_followable_type", unique: true
     t.index ["follower_id"], name: "index_following_relationships_on_follower_id"
-    t.index ["follower_id"], name: "index_following_relationships_on_follower_id_and_followed_id", unique: true
+  end
+
+  create_table "join_requests", force: :cascade do |t|
+    t.integer  "band_id"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.boolean  "pending"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["band_id", "sender_id", "receiver_id"], name: "index_join_requests_on_band_id_and_sender_id_and_receiver_id", unique: true
+    t.index ["band_id"], name: "index_join_requests_on_band_id"
+    t.index ["receiver_id"], name: "index_join_requests_on_receiver_id"
+    t.index ["sender_id"], name: "index_join_requests_on_sender_id"
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|

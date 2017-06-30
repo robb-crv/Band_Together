@@ -245,5 +245,9 @@ end
     Review.where(:reviewable_id => self)
   end
 
+  def is_waiting_for_join_response(band)
+
+    !JoinRequest.where(band_id: band.id).where(sender_id: self.id).where(receiver_id: band.band_manager_id).where(pending: true).empty?
+  end
 
 end
