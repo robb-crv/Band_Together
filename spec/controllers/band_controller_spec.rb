@@ -55,7 +55,7 @@ RSpec.describe BandController, type: :controller do
 
 		context 'with valid band id' do
 			it 'should render the show page of the band with that id' do
-				band= FactoryGirl.create(:band)
+				band= FactoryGirl.create(:band, band_manager_id: subject.current_user.id)
 				get :show, :id => band.id
 				assigns(:band).should eq(band)
 			end
@@ -63,11 +63,9 @@ RSpec.describe BandController, type: :controller do
 
 		context 'with invalid band id' do
 			it 'should render error 404 page not found' do
-				band= FactoryGirl.create(:band)
-
-				expect{
-					get :show, :id => "10"
-				}.to raise_error(ActiveRecord::RecordNotFound)
+				band= FactoryGirl.create(:band, band_manager_id: subject.current_user.id)
+					get :show, :id => invalid_ids[0]
+					expect(response).to redirect_to('/404')
 			end
 		end
 	end
@@ -87,13 +85,13 @@ RSpec.describe BandController, type: :controller do
 		context "when user request the 'edit' page for specified band" do
 
 			it "the request should succeed" do
-				band= FactoryGirl.create(:band)
+				band= FactoryGirl.create(:band,band_manager_id: subject.current_user.id)
 				get :edit, :id => band.id
 				expect(response).to have_http_status(200)
 			end
 
 			it 'and it should render the edit page of the band with that id' do
-				band= FactoryGirl.create(:band)
+				band= FactoryGirl.create(:band, band_manager_id: subject.current_user.id)
 				get :show, :id => band.id
 				assigns(:band).should eq(band)
 			end
@@ -106,7 +104,7 @@ RSpec.describe BandController, type: :controller do
 		context 'when user insert valid parameters' do
 
 			it "should update the band information" do
-				band= FactoryGirl.create(:band)
+				band= FactoryGirl.create(:band,band_manager_id: subject.current_user.id)
 
 				post :update, :id => band.id, :band => {:name => "ModifiedName", :description => "descr"}
 				band.reload
@@ -119,7 +117,7 @@ RSpec.describe BandController, type: :controller do
 
 			it "shouldn't update the band information" do
 
-				band= FactoryGirl.create(:band)
+				band= FactoryGirl.create(:band,band_manager_id: subject.current_user.id)
 
 				post :update, :id => band.id, :band => {:name => ""}
 				band.reload

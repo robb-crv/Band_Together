@@ -20,6 +20,8 @@ class Band < ApplicationRecord
 
 	has_many :join_requests, dependent: :destroy, foreign_key: "band_id", source: :band, dependent: :delete_all
 
+	has_many :activities,  :dependent => :delete_all
+
 	#SEARCH ENGINE PARAMETER DEFINITIONS
 
 	# Include integration with searchkick
