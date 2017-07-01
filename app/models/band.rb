@@ -15,6 +15,8 @@ class Band < ApplicationRecord
 
 	has_many :rewiews, as: :reviewable
 
+	has_many :activities,  :dependent => :delete_all
+
 	#SEARCH ENGINE PARAMETER DEFINITIONS
 
 	# Include integration with searchkick

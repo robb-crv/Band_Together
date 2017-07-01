@@ -7,6 +7,11 @@ class ActivitiesController < ApplicationController
   end
 
   def create
+    if params[:band_id] == nil || params[:band_id] == ''
+      flash[:danger] = "Can't create an activity, miss band ID."
+      redirect_to users_home_path
+      return
+    end
     @activity = Activity.new(activity_params)
     @band= Band.find(params[:band_id])
 
@@ -27,13 +32,17 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       format.json
-      format.html { render 'index' }
     end
   end
 
 
   def show
-    @activity = Activity.find(params[:id])
+      begin
+        @activity = Activity.find(params[:id])
+        @band = @activity.band
+      rescue ActiveRecord::RecordNotFound
+         redirect_to "/404"
+      end
   end
 
 
