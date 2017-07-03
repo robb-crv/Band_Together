@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BandController, type: :controller do
+RSpec.describe BandsController, type: :controller do
 
 	login_user
 
@@ -129,15 +129,15 @@ RSpec.describe BandController, type: :controller do
 	end
 
 	describe 'band#delete' do
-		
-		before(:each) do 
+
+		before(:each) do
 			@user= FactoryGirl.create(:user)
 			@band1= FactoryGirl.create(:band, :band_manager_id => @user.id)
 			@band2= FactoryGirl.create(:band, :band_manager_id => @user.id)
-			
-			expect{ 
+
+			expect{
         		delete :destroy, :id => @band1.id
-      		}.to change(Band, :count).by(-1) 
+      		}.to change(Band, :count).by(-1)
 		end
 
 
@@ -148,7 +148,7 @@ RSpec.describe BandController, type: :controller do
 		it 'should delete the band from the bands of user' do
 
 			expect(@user.bands).not_to include(@band1)
-			expect(@user.bands).to include(@band2)		
+			expect(@user.bands).to include(@band2)
 		end
 
 	end

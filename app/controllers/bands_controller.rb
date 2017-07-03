@@ -1,4 +1,4 @@
-class BandController < ApplicationController
+class BandsController < ApplicationController
 
 	before_action :authenticate_user!
 
@@ -22,12 +22,11 @@ class BandController < ApplicationController
 
 		if @band.save
 
-			redirect_to band_show_path(:id => @band.id)
+			redirect_to band_path(@band)
 			flash[:success] = "The band has been created successfully."
 		else
 
-			render band_new_path
-			#flash[:danger] = "Invalid parameters."
+			render 'new'
 		end
 	end
 
@@ -53,11 +52,10 @@ class BandController < ApplicationController
 
 
 		if updated
-			redirect_to band_show_path(:id => @band.id)
+			redirect_to band_path( @band)
 			flash[:success] = "Successfully updated informations."
 		else
-			render band_edit_path
-		#  flash[:danger] = "Invalid parameters : " + user.errors.full_messages
+			render 'edit'
 		end
 	end
 

@@ -1,6 +1,6 @@
 When /^I follow "New Band"$/ do
 
-  visit band_new_path
+  visit new_band_path
 end
 
 Then /^I should be on the New Band Page$/ do
@@ -26,7 +26,6 @@ And /^I press "Create"$/ do
 end
 
 Then /^I should be on the Band Page of "Band di Rossi"$/ do
-  expect(page.current_path).to eq band_show_path
   expect(page).to have_content "Band di Rossi"
 end
 

@@ -14,7 +14,7 @@ class Notification < ApplicationRecord
      case notifiable
 
         when Band
-          "/band/show?id=#{notifiable.id}"
+          "/bands/#{notifiable.id}"
 
         when User
           "/users/show?id=#{notifiable.id}"
@@ -51,14 +51,14 @@ class Notification < ApplicationRecord
 
           errors.add(:notifiable_id, "It's not a valid band") unless !Band.find_by_id(notifiable_id).nil?
       when "User"
-          
+
           errors.add(:notifiable_id, "It's not a valid user") unless !User.find_by_id(notifiable_id).nil?
 
       when "Mailboxer::Conversation"
-          
+
           errors.add(:notifiable_id, "It's not a valid conversation") unless !Mailboxer::Conversation.find_by_id(notifiable_id).nil?
       else
-          
+
           nil
        end
    end

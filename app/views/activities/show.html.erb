@@ -14,3 +14,6 @@
   <p> <strong>End at:</strong> <%= @activity.end_date.strftime("%B %d, %Y at %H:%M") %>
 
 <p> <strong>Location:</strong> <%= @activity.location %>
+
+
+	<%= link_to "Edit" , edit_activity_path(:id => @activity.id), :method => "get"%>

@@ -21,7 +21,7 @@
     			<li>
     				<%= link_to "edit" , edit_advertisment_path(a), :method => "get"%>
 
-    			<%= link_to "delete" , advertisment_path(a), :method => "delete", data:  { confirm: "Are you sure?" } %>
+    			<%= link_to "delete" , advertisment_path(a, band_id: @band.id), :method => "delete", data:  { confirm: "Are you sure?" } %>
     			</li>
     			</ul>
     		</li>
@@ -50,6 +50,8 @@
 </div>
 
 
+
+
 <% if (current_user.id==@band.band_manager_id) %>
 <!--se l'utente è band manager-->
 	<br/><br/>
@@ -70,7 +72,7 @@
 
 			<div id="join_req">
 				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
-				<%if !current_user.is_waiting_for_join_response(@band) %>
+				<% if !current_user.is_waiting_for_join_response(@band) %>
 					<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band.band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %>
 				<%end%>
 			</div><br/>

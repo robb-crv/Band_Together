@@ -1,4 +1,4 @@
-class AdvertismentController < ApplicationController
+class AdvertismentsController < ApplicationController
 	include AdvertismentHelper
 	before_action :authenticate_user!
 
@@ -8,7 +8,7 @@ class AdvertismentController < ApplicationController
       		Advertisment.search(search)
     	else
       		Advertisment.all
-    	end       
+    	end
   	end
 
 	def show
@@ -29,8 +29,8 @@ class AdvertismentController < ApplicationController
 	def create
 
 		@advertisment = Advertisment.new(advertisment_params)
-		
-		
+
+
 
 			@band = Band.find(params[:band_id])
 
@@ -41,12 +41,11 @@ class AdvertismentController < ApplicationController
 
 			if @advertisment.save
 				flash[:success] = "Successfully operation"
-				redirect_to advertisment_show_path(:id => @advertisment.id)
+				redirect_to advertisment_path(@advertisment)
 			else
-				#flash[:danger] = "Invalid parameters"
-				render advertisment_new_path
+				render 'new'
 			end
-		
+
 	end
 
 	def edit
@@ -57,10 +56,10 @@ class AdvertismentController < ApplicationController
 
 		@advertisment= Advertisment.find(params[:id])
 		if @advertisment.update(advertisment_params)
-			redirect_to advertisment_show_path(:id => @advertisment.id)
+			redirect_to advertisment_path(@advertisment)
 			flash[:success] = "Successfully operation"
 		else
-			render advertisment_edit_path
+			render 'edit'
 		end
 
 	end
@@ -70,7 +69,7 @@ class AdvertismentController < ApplicationController
 		@adv= Advertisment.find(params[:id])
 		if(@adv.delete)
     		flash[:success] = "The advertisment has been deleted correctly."
-    		redirect_to band_show_path(:id => params[:band_id])
+    		redirect_to band_path(:id => params[:band_id])
     	end
 	end
 
