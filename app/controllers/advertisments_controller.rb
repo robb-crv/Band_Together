@@ -12,11 +12,10 @@ class AdvertismentsController < ApplicationController
   	end
 
 	def show
-
-		if(!params[:id].nil?)
+		begin
 			@advertisment= Advertisment.find(params[:id])
-		else
-			redirect_to "/404"
+		rescue ActiveRecord::RecordNotFound
+			 redirect_to "/404"
 		end
 	end
 
@@ -27,6 +26,11 @@ class AdvertismentsController < ApplicationController
 	end
 
 	def create
+		if params[:band_id] == nil || params[:band_id] == ''
+			flash[:danger] = "Can't create an advertisment, miss band ID."
+			redirect_to users_home_path
+			return
+		end
 
 		@advertisment = Advertisment.new(advertisment_params)
 
@@ -69,7 +73,7 @@ class AdvertismentsController < ApplicationController
 		@adv= Advertisment.find(params[:id])
 		if(@adv.delete)
     		flash[:success] = "The advertisment has been deleted correctly."
-    		redirect_to band_path(:id => params[:band_id])
+    		redirect_to band_path(@adv.band)
     	end
 	end
 

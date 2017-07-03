@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe Advertisment, type: :model do
 
   	it "has a valid factory" do
-  		expect(FactoryGirl.build(:advertisment)).to be_valid
+      @band_manager = FactoryGirl.create(:user)
+      @band = FactoryGirl.create(:band, band_manager_id: @band_manager.id)
+  		expect(FactoryGirl.build(:advertisment, user_id: @band_manager.id, band_id: @band.id )).to be_valid
   	end
 
   	context 'validations' do
@@ -27,7 +29,7 @@ RSpec.describe Advertisment, type: :model do
   				end
   			end
   		end
-      
+
       context 'for description' do
 
         it { should validate_presence_of :description}

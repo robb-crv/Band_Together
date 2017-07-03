@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Band, type: :model do
 
   	it "has a valid factory" do
-  		expect(FactoryGirl.build(:band)).to be_valid
+      @band_manager = FactoryGirl.create(:user)
+  		expect(FactoryGirl.build(:band, band_manager_id: @band_manager.id)).to be_valid
   	end
 
   	context 'validations' do
