@@ -36,6 +36,7 @@ class BandsController < ApplicationController
 				@advs= Advertisment.where("band_id= ?", @band.id)
 				@bandMembers = @band.users
 				@active_users = @band.active_users
+				@activities = @band.activities
 			rescue ActiveRecord::RecordNotFound
         		redirect_to "/404"
       end

@@ -29,8 +29,27 @@
     </ol>
 </div><br/>
 
-<div>
+<div id="pnlBandActivities">
 	<h4> Band Activities </h4>
+	<ol>
+    	<% @activities.each do |a| %><br/>
+
+    		<li>
+    			<%= link_to a.title, activity_path(a), :method => "get" %>
+					 <b>Start At: </b> <%= a.start_date.strftime("%B %d, %Y at %H:%M") %>
+		   		 <b>In: </b> <%= a.location %>
+					 <%if current_user.id == @band.band_manager.id %>
+		    			<ul>
+		    			<li>
+		    				<%= link_to "edit" , edit_activity_path(a), :method => "get"%>
+
+		    			<%= link_to "delete" , activity_path(a), :method => "delete", data:  { confirm: "Are you sure?" } %>
+		    			</li>
+		    			</ul>
+						<% end %>
+    		</li>
+    	<% end %>
+    </ol>
 	<div id='calendar'></div>
 </div>
 
@@ -79,7 +98,7 @@
 		<% end %>
 <% end %>
 
-<%if !current_user.id==@band.band_manager %>
+<%if !current_user.id==@band.band_manager.id %>
 <div id="following">
 
 	<% if !current_user.following?(@band) %>
