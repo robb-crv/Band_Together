@@ -51,6 +51,19 @@ class ActivitiesController < ApplicationController
     @band = @activity.band
   end
 
+  def destroy
+    @activity= Activity.find(params[:id])
+
+		if(@activity.delete)
+
+			flash[:success] = "The Activity has been deleted correctly."
+			redirect_to band_path(@activity.band)
+		else
+			flash[:danger] = "An error occurred deleting activity..."
+		end
+
+  end
+
 
   def update
     @activity= Activity.find(params[:id])

@@ -98,4 +98,78 @@ RSpec.describe ActivitiesController, type: :controller do
 		end
 	end
 
+  describe 'advertisments#edit' do
+
+		context "when user request the 'edit' page for specified activity" do
+
+			it "the request should succeed" do
+        band =  FactoryGirl.create(:band, :band_manager_id => subject.current_user.id)
+        activity = FactoryGirl.create(:activity, :band_id => band.id, :band_manager_id => subject.current_user.id)
+				get :edit, :id => activity.id
+				expect(response).to have_http_status(200)
+			end
+
+			it 'and it should render the edit page of the activity with that id' do
+        band =  FactoryGirl.create(:band, :band_manager_id => subject.current_user.id)
+  			activity = FactoryGirl.create(:activity, :band_id => band.id, :band_manager_id => subject.current_user.id)
+				get :show, :id => activity.id
+				assigns(:activity).should eq(activity)
+			end
+
+		end
+	end
+
+	describe 'activities#update' do
+
+		context 'when user insert valid parameters' do
+
+			it "should update the activity information" do
+        band =  FactoryGirl.create(:band, :band_manager_id => subject.current_user.id)
+  			activity = FactoryGirl.create(:activity, :band_id => band.id, :band_manager_id => subject.current_user.id)
+
+				post :update, :id => activity.id, :activity => {:title => "TEST_TITLE", :description => "descr"}
+				activity.reload
+				expect(response).to redirect_to(activity_path(activity))
+				expect(activity.title).to eq("TEST_TITLE")
+			end
+		end
+
+		context 'when user insert invalid parameters' do
+
+			it "shouldn't update the activity information" do
+
+        band =  FactoryGirl.create(:band, :band_manager_id => subject.current_user.id)
+        activity = FactoryGirl.create(:activity, :band_id => band.id, :band_manager_id => subject.current_user.id)
+
+				post :update, :id => activity.id, :activity => {:title => ""}
+				activity.reload
+
+				expect(activity.title).to_not eq("")
+			end
+		end
+	end
+
+	describe 'activities#delete' do
+		before(:each) do
+			@band1= FactoryGirl.create(:band, :band_manager_id => subject.current_user.id)
+			@activity1= FactoryGirl.create(:activity, :band_id => @band1.id, :band_manager_id => subject.current_user.id)
+      @activity2= FactoryGirl.create(:activity, :band_id => @band1.id, :band_manager_id => subject.current_user.id)
+
+			expect{
+        		delete :destroy, :id => @activity1.id
+      		}.to change(Activity, :count).by(-1)
+		end
+
+		it 'should return status 302 (redirection)' do
+			expect(response.status).to eq 302
+		end
+
+		it 'should delete the advertisment from the band' do
+
+			expect(@band1.activities).not_to include(@activity1)
+			expect(@band1.activities).to include(@activity2)
+
+		end
+	end
+
 end

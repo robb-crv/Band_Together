@@ -21,7 +21,7 @@
     			<li>
     				<%= link_to "edit" , edit_advertisment_path(a), :method => "get"%>
 
-    			<%= link_to "delete" , advertisment_path(a, band_id: @band.id), :method => "delete", data:  { confirm: "Are you sure?" } %>
+    			<%= link_to "delete" , advertisment_path(a), :method => "delete", data:  { confirm: "Are you sure?" } %>
     			</li>
     			</ul>
     		</li>
