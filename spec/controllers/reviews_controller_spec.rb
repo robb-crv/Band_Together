@@ -2,6 +2,18 @@ require 'rails_helper'
 
 RSpec.describe ReviewsController, type: :controller do
 
+	login_user
+
+	before(:each) do 
+
+      @user1 = FactoryGirl.create(:user)
+      @user2 = FactoryGirl.create(:user)
+
+      @band1 = FactoryGirl.create(:band, band_manager_id: @user1.id)
+      @band2 = FactoryGirl.create(:band, band_manager_id: @user1.id)
+
+    end
+
 	describe 'reviews#new' do
 		
 		context 'when user request "new" page' do
@@ -15,38 +27,32 @@ RSpec.describe ReviewsController, type: :controller do
 
 	describe 'reviews#create' do
 
-		context 'Review is valid' do
-			it 'should create a record in following relationship if Review is valid' do 
+		
+		it 'should create a record in following relationship' do 
 				
-				expect {
-	  				post :create , review: FactoryGirl.create(:review) 
-	  			}.to change(Review, :count).by(1)
-			end	 
-		end
+			expect {
+				params = {:reviewable_id => @user2, :reviewable_type => "User", :rating => 5, :description => "test"}
+	  			post :create , params 
+	  		}.to change(Review, :count).by(1)
 
-		context 'Review is invalid (self review)' do
-
-			it 'should create a record in following relationship if Review is invalid' do 
-				begin
-				rescue ActiveRecord::RecordInvalid
-					expect {
-		  				post :create , review: FactoryGirl.create(:invalid_self_review) 
-		  			}.to change(Review, :count).by(0)
-		  		end
-			end	 
-		end
-
-		context 'Review is invalid (invalid rating)' do
-
-			it 'should create a record in following relationship if Review is invalid' do 
-				begin
-					rescue ActiveRecord::RecordInvalid
-					expect {
-	  					post :create , review: FactoryGirl.create(:invalid_rating_review) 
-	  				}.to change(Review, :count).by(0)
-	  			end
-			end	 
-		end		
+	  		expect(subject.current_user.reviewings_users).to include(@user2)
+		end	 
 
 	end
+
+	describe 'reviews#destroy' do
+
+		it 'should destroy a record in following relationship' do 
+
+			rel = Review.create(reviewer_id: @user2, reviewable_id: @user2.id, freviewable_type: "User")
+			expect {
+				params = {:reviewable_id => @user2, :reviewable_type => "User", :rating => 5, :description => "test"}
+	  			post :destory , params 
+	  		}.to change(Review, :count).by(-1)
+
+	  		expect(subject.current_user.reviewings_users).not_to include(@user2)
+		end	 
+
+	end
+
 end

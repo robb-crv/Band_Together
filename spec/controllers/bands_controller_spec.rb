@@ -17,8 +17,11 @@ RSpec.describe BandsController, type: :controller do
 				user2 = FactoryGirl.create(:user)
 				band1 = FactoryGirl.create(:band, band_manager_id: subject.current_user.id)
 				band2 = FactoryGirl.create(:band, band_manager_id: subject.current_user.id)
-	      get :index
-				expect(assigns[:bands]).to match_array([band1,band2])
+
+		      	band3 = FactoryGirl.create(:band, band_manager_id: user2.id)
+	      		get :index
+	      		expect(assigns(:bands)).to match_array([band1,band2,band3])
+
 			end
 		end
 
@@ -39,10 +42,11 @@ RSpec.describe BandsController, type: :controller do
 
   		context 'with invalid parameters' do
   			it "doesn't creates a new band" do
-	  			expect {
-	  				post :create, band: FactoryGirl.attributes_for(:invalid_band)
-	  			}.to change(Band, :count).by(0)
-
+	  			
+	  			begin
+	  				FactoryGirl.create(:band, :band_manager_id => nil)
+	  			rescue ActiveRecord::RecordInvalid => invalid
+	  			end 
   				expect(subject.current_user.bands).to be_empty
   			end
   		end

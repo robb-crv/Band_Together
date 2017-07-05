@@ -37,6 +37,7 @@ class BandsController < ApplicationController
 				@bandMembers = @band.users
 				@active_users = @band.active_users
 				@activities = @band.activities
+				@followers= @band.followers
 			rescue ActiveRecord::RecordNotFound
         		redirect_to "/404"
       end
