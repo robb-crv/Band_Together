@@ -11,6 +11,6 @@ class CreateJoinRequests < ActiveRecord::Migration[5.0]
     add_index :join_requests, :band_id
     add_index :join_requests, :sender_id
     add_index :join_requests, :receiver_id
-    add_index :join_requests, [:band_id,:sender_id, :receiver_id], unique: true
+    add_index :join_requests, [:band_id, :sender_id, :receiver_id, :pending], unique: true
   end
 end

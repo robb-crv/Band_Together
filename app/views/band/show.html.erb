@@ -1,5 +1,5 @@
 <%= hidden_field_tag 'showed_band_id', @band.id %>
-
+<% @band_manager = @band.band_manager_id %>
 <h2>Band '<%= @band.name %>'</h2><br/>
 <p><strong>Description: </strong> 	<%= @band.description %></p>
 
@@ -56,8 +56,19 @@
 	<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 	<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
+	<h2> pending join request <h2/>
+	
 	<div id="manage_pending_join_req">
-
+		
+		<ul>
+			<%= @band_manager.passive_join_request.each do |req| %>
+				<li>
+					from : <%= link_to req.sender, users_show_path(id: req.sender_id) %>
+					<%= button_to "accept", join_requests_accept_path(), :class => "btn btn-primary btn-md", :method => "post"%>
+					<%= button_to "decline", join_requests_decline_path(), :class => "btn btn-danger btn-md", :method => "post" %>
+				</li>
+			<%end%>
+		</ul>
 	</div>
 
 <% else %>

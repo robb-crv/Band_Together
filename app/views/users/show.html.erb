@@ -73,14 +73,14 @@
 		<p> I'm following (users)</p>
 		<ul>
 			<% @user.followings_users.each do |following| %>
-				<li><%= link_to "#{following.username}", users_show_path(following.id) %></li>
+				<li><%= link_to "#{following.username}", users_show_path(id: following.id) %></li>
 			<%end%>
 		</ul><br/>
 
 		<p> I'm following (bands)</p>
 		<ul>
 			<% @user.followings_bands.each do |following| %>
-				<li><%= link_to "#{following.name}", band_show_path(following.id) %></li>
+				<li><%= link_to "#{following.name}", band_show_path(id: following.id) %></li>
 			<%end%>
 		</ul><br/>
 	</div>

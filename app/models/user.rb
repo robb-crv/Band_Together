@@ -17,7 +17,7 @@ class User < ApplicationRecord
   has_many :advertisment, dependent: :destroy, foreign_key: 'user_id'
 
   #andrea association for band member
-  has_many :member_associations, :dependent => :delete_all, :foreign_key => "user_id"
+  has_many :member_associations, :foreign_key => "user_id", dependent: :delete_all
   has_many :joined_bands, class_name: "Band",  through: :member_associations
 
 
@@ -39,6 +39,9 @@ class User < ApplicationRecord
   
   has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
 
+  #JoinRequest
+  has_many :active_join_request, class_name: "JoinRequest", foreign_key: "sender_id", dependent: :delete_all
+  has_many :passive_join_request, class_name: "JoinRequest", foreign_key: "receiver_id", dependent: :delete_all
 
 
   #attr_accessor :remember_token
