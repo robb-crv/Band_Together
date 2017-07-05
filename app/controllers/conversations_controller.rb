@@ -4,7 +4,7 @@ class ConversationsController < ApplicationController
   def new
     @folder = mailbox.inbox.or mailbox.sentbox
     @mailboxer_active = :inbox
-
+    @contacts = current_user.followings_users
      @bands = Band.active_bands_for(current_user)
   end
 

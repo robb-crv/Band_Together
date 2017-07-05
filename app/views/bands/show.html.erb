@@ -109,6 +109,14 @@
 <div/>
 <%end%>
 
+
+<h3> Band's follower </h3>
+<ul>
+	<% @followers.each do |follower| %>
+		<li><%= link_to "#{follower.username}", users_show_path(id: follower.id) %></li>
+	<%end%>
+</ul>
+
 <% if @active_users.include? current_user %>
 	<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 <% end %>
