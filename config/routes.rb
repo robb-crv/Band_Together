@@ -27,66 +27,18 @@ Rails.application.routes.draw do
 
   post 'users/update_profile_informations'
 
-  # Routes per l'advertisement
-  get 'advertisment/index'
-
-  get 'advertisment/show'
-
-  get 'advertisment/new'
-
-  post 'advertisment/create'
-
-  post 'advertisment/destroy'
-
-  delete 'advertisment/destroy'
-
-  post 'advertisment/update'
-
-  get 'advertisment/edit'
-
-  #Routest per FollowingRelationship
-  get 'following_relationships/create'
-  post 'following_relationships/create'
-  get 'following_relationships/destroy'
-  post 'following_relationships/destroy'
-  delete 'following_relationships/destroy'
+  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations',
+                    :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
-  #Routes per Review
-  get 'reviews/new'
-  get 'reviews/create'
-  post 'reviews/create'
-  post 'reviews/destroy'
-  delete 'reviews/destroy'
+  post 'following_relationships#unfollow' , to: 'following_relationships#unfollow' , as: :unfollow
 
+  resources :advertisments
+  resources :bands
+  resources :following_relationships
+  resources :reviews
+  resources :join_requests
 
-  get 'join_requests/index'
-  get 'join_requests/create'
-  post 'join_requests/create'
-
-  # Routes per le band
-
-  get 'band/new'
-
-  post 'band/create'
-
-  get 'band/show'
-
-  get 'band/index'
-
-  post 'band/destroy'
-
-  delete 'band/destroy'
-
-  get 'band/edit'
-
-  post 'band/update'
-  #resources :users, only: [:show, :edit, :update]
-
-
-  #andrea. per la messaggistica
-
-  # mailbox folder routes
   get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
   get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
 
@@ -104,7 +56,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   resources :activities
 
 
@@ -115,8 +66,7 @@ Rails.application.routes.draw do
   #Route che serve nella form di signup per far apparire nella select della selezione della città la lista delle città appartenenti alla nazione e regione scelta dall'utente
   get  '/states/:nation/:region', to: 'application#cities'
 
-  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations',
-  									:omniauth_callbacks => "users/omniauth_callbacks" }
+
 
 
 end

@@ -5,11 +5,10 @@ RSpec.describe Band, type: :model do
 	before(:each) do
 
 		@band_manager = FactoryGirl.create(:user)
-		@band = FactoryGirl.create(:band, band_manager_id: @band_manager.id, musical_genre_id: "2")
   	end
 
   	it "has a valid factory" do
-  		expect(@band).to be_valid
+  		expect(FactoryGirl.build(:band, band_manager_id: @band_manager.id,  musical_genre_id: "2")).to be_valid
   	end
 
   	context 'validations' do

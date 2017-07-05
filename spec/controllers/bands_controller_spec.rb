@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BandController, type: :controller do
+RSpec.describe BandsController, type: :controller do
 
 	login_user
 
@@ -13,14 +13,15 @@ RSpec.describe BandController, type: :controller do
 				expect(response).to have_http_status(200)
 			end
 
-			it 'and it should shows only the current user bands' do
+			it 'and it should shows the bands' do
 				user2 = FactoryGirl.create(:user)
 				band1 = FactoryGirl.create(:band, band_manager_id: subject.current_user.id)
 				band2 = FactoryGirl.create(:band, band_manager_id: subject.current_user.id)
+
 		      	band3 = FactoryGirl.create(:band, band_manager_id: user2.id)
 	      		get :index
-	      		#assigns(:bands).should eq([band1,band2])
 	      		expect(assigns(:bands)).to match_array([band1,band2,band3])
+
 			end
 		end
 
@@ -110,7 +111,7 @@ RSpec.describe BandController, type: :controller do
 
 				post :update, :id => band.id, :band => {:name => "ModifiedName", :description => "descr"}
 				band.reload
-				expect(response).to redirect_to(band_show_path(:id => band.id))
+				expect(response).to redirect_to(band_path(band))
 				expect(band.name).to eq("ModifiedName")
 			end
 		end
@@ -131,15 +132,15 @@ RSpec.describe BandController, type: :controller do
 	end
 
 	describe 'band#delete' do
-		
-		before(:each) do 
+
+		before(:each) do
 			@user= FactoryGirl.create(:user)
 			@band1= FactoryGirl.create(:band, :band_manager_id => @user.id)
 			@band2= FactoryGirl.create(:band, :band_manager_id => @user.id)
-			
-			expect{ 
+
+			expect{
         		delete :destroy, :id => @band1.id
-      		}.to change(Band, :count).by(-1) 
+      		}.to change(Band, :count).by(-1)
 		end
 
 
@@ -150,7 +151,7 @@ RSpec.describe BandController, type: :controller do
 		it 'should delete the band from the bands of user' do
 
 			expect(@user.bands).not_to include(@band1)
-			expect(@user.bands).to include(@band2)		
+			expect(@user.bands).to include(@band2)
 		end
 
 	end

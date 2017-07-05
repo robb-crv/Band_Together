@@ -34,11 +34,7 @@ end
 
 When /^I visit the page of the band "Band di Rossi"$/ do
   rossiBand = Band.find_by name: "Band di Rossi"
-  visit band_show_path(:id => rossiBand.id)
-end
-
-Then /^I should see the "Join Band" link$/ do
-  expect(page).to have_content "Join Band"
+  visit band_path(rossiBand)
 end
 
 Then /^I should see "Band di Rossi" in the "Created Bands" table$/ do

@@ -4,7 +4,7 @@
 </br>
 <legend><h3> Create Advertisment for the band '<%= @band.name %>' </h4></legend>
 
-<%= form_for(:advertisment, as: :advertisment, url: advertisment_create_path(:band_id => @band.id)) do |f| %>
+<%= form_for(:advertisment, as: :advertisment, url: advertisments_path(:band_id => @band.id)) do |f| %>
   <%= render 'layouts/model_error_messages', object: @advertisment %>
   <div class="field">
   	<%= f.label :title%><br/>
@@ -25,7 +25,7 @@
   	<%= f.label :term_date%><br/>
   	<%= f.date_field :term_date, "data-provide" => 'datepicker' , :required => true , class: 'form-control' %><br/>
   </div><br/>
-  
+
   <legend>Needed Musicians</legend>
   <div class="field">
     <%= f.fields_for :musicians do |f2| %>
@@ -36,7 +36,7 @@
             <div class="col-md-5">
               <%= f2.label tmp %>
             </div>
-            
+
             <div class="col-sm-3">
               <%= f2.number_field tmp, :min => 0, :max => 5, :value => 0%></br>
             </div>
@@ -44,7 +44,7 @@
         <%end%>
       <%end%>
     <%end%>
-  </div>  
+  </div>
 
   </br></br><div class="actions">
   	<%= f.submit "Create", :id => "CreateAdvertisment" , :class => "btn btn-md btn-primary"%>

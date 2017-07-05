@@ -7,10 +7,19 @@ document.addEventListener("turbolinks:load", function() {
         $('#countries').change(function(){
 
 
+          $("#user_nation").val(""); //Setta il value del campo hidden nation al valore selezionato nella select "nation"
+
+ //andrea. questo script viene usato anche dalla view di band new, perciò riempie tutti e due i campi, uno non lo troverà
+          $("#band_nation").val("");
+
+
           //interroga la gemma per prendere le regioni corrispondenti
           $.getJSON('/states/' + $(this).val() , function(data){
-            $('#states-of-country').empty();
-            $('#city-of-region').empty();
+
+
+                      $('#states-of-country').empty();
+                      $('#city-of-region').empty();
+
             $.each(data, function(k, ele){
               var opt = '<option value='+ k +'>' + ele + '</option>';
               $('#states-of-country').append(opt);
@@ -35,10 +44,16 @@ document.addEventListener("turbolinks:load", function() {
         // al cambio di regione
         $('#states-of-country').change(function(){
 
+
+            $("#user_region").val("");
+            $("#band_region").val("");
+
           //interroga la gemma per prendere le città corrispondenti
           $.getJSON('/states/' + $('#countries').val()  + '/' +  $(this).val() , function(data){
-            $('#city-of-region').empty();
+
+              $('#city-of-region').empty();
             $.each(data, function(k, ele){
+
               var opt = '<option value='+ k +'>' + ele + '</option>';
               $('#city-of-region').append(opt);
             });

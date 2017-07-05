@@ -19,7 +19,7 @@ class ActivitiesController < ApplicationController
     @activity.band_manager = current_user
 
     if @activity.save
-      redirect_to band_show_path(:id => @band.id)
+      redirect_to band_path(@band)
       flash[:success] = "The activity has been created successfully."
     else
       render new_activity_path
@@ -46,12 +46,46 @@ class ActivitiesController < ApplicationController
   end
 
 
+  def edit
+    @activity= Activity.find(params[:id])
+    @band = @activity.band
+  end
+
+  def destroy
+    @activity= Activity.find(params[:id])
+
+		if(@activity.delete)
+
+			flash[:success] = "The Activity has been deleted correctly."
+			redirect_to band_path(@activity.band)
+		else
+			flash[:danger] = "An error occurred deleting activity..."
+		end
+
+  end
+
+
+  def update
+    @activity= Activity.find(params[:id])
+		updated = @activity.update(activity_params)
+
+
+		if updated
+			redirect_to activity_path(:id => @activity.id)
+			flash[:success] = "Successfully updated informations."
+		else
+      @band = @activity.band
+			render 'edit'
+		end
+  end
+
+
 
 
 
   private
     def activity_params()
-      params.require(:activity).permit(:title, :description, :location, :accessibility, :start_date, :duration, :start_hours)
+      params.require(:activity).permit(:title, :description, :location, :accessibility, :start_date, :duration)
     end
 
 end

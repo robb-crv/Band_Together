@@ -2,7 +2,7 @@
 <h3> Edit Advertisment</h3>
 
 
-<%= form_for(@advertisment, url: advertisment_update_path(:id => @advertisment.id) , html: { method: :post }) do |f| %>
+<%= form_for(@advertisment, url: advertisment_path( @advertisment) , html: { method: :put }) do |f| %>
 <%= render 'layouts/model_error_messages', object: @advertisment %>
 	</br>
 	<div class="field">
@@ -35,7 +35,7 @@
 	            <div class="col-md-5">
 	              <%= f2.label tmp %>
 	            </div>
-	            
+
 	            <div class="col-sm-3">
 	              <%= f2.number_field tmp, :min => 1, :max => 5, :value => @advertisment.musicians[tmp] %></br>
 	            </div>
@@ -43,7 +43,7 @@
 	        <%end%>
 	      <%end%>
 	    <%end%>
-	  </div> <br/> 
+	  </div> <br/>
 
   	<div class="actions">
     	<%= f.submit "Update", :class => "btn btn-primary btn-md",:id => "UpdateAdvertisment"%>

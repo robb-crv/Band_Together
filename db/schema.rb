@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170630182140) do
     t.index ["followable_type", "followable_id"], name: "reference_followable"
     t.index ["follower_id", "followable_type", "followable_id"], name: "index_on_follower_followable_type", unique: true
     t.index ["follower_id"], name: "index_following_relationships_on_follower_id"
+    t.index ["follower_id"], name: "index_following_relationships_on_follower_id_and_followed_id", unique: true
   end
 
   create_table "join_requests", force: :cascade do |t|

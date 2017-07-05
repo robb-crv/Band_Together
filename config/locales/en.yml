@@ -43,4 +43,4 @@ en:
           attributes:
             start_date:
               invalid_date: "Date not valid"
-              after: "Date is incorrect, must not be passed."
+              after: "Date is incorrect, must not be in the past."
