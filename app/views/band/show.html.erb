@@ -77,17 +77,23 @@
 		<% end %>
 <% end %>
 
-<%if !current_user.id==@band.band_manager %>
-<div id="following">
+<%if current_user.id != @band.band_manager_id %>
+	<div id="following">
 
-	<% if !current_user.following?(@band) %>
-		<%= button_to "Follow the Band!", following_relationships_create_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
-	<%else%>
-		<%=button_to "Unfollow", following_relationships_destroy_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
-	<%end%>
-<div/>
+		<% if !current_user.following?(@band) %>
+			<%= button_to "Follow the Band!", following_relationships_create_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+		<%else%>
+			<%=button_to "Unfollow", following_relationships_destroy_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+		<%end%>
+	<div/>
 <%end%>
 
+<h3> Band's follower </h3>
+<ul>
+	<% @followers.each do |follower| %>
+		<li><%= link_to "#{follower.username}", users_show_path(id: follower.id) %></li>
+	<%end%>
+</ul>
 <% if @active_users.include? current_user %>
 	<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 <% end %>

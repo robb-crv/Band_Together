@@ -29,15 +29,18 @@ class User < ApplicationRecord
   has_many :followings_bands, through: :active_relationships, source: :followable, source_type: 'Band', dependent: :delete_all
   has_many :followings_users, through: :active_relationships, source: :followable, source_type: 'User', dependent: :delete_all
 
-  has_many :followers, through: :passive_relationships, source: :follower, source_type: 'User', dependent: :delete_all
-
+  has_many :followers, through: :passive_relationships, source: :follower, dependent: :delete_all
 
   #Review
   has_many :active_reviews, as: :reviewable, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
   has_many :passive_reviews, as: :reviewable, class_name: 'Review', foreign_key: "reviewable_id", dependent: :destroy
 
-  has_many :reviewings, through: :active_reviews, source: :reviewable, dependent: :destroy
+  has_many :reviewings_bands, through: :active_reviews, source: :reviewable, source_type: 'Band', dependent: :destroy
+  has_many :reviewings_users, through: :active_reviews, source: :reviewable, source_type: 'User', dependent: :destroy
+  
   has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
+
+
 
   #attr_accessor :remember_token
   include ActiveModel::Validations
@@ -236,7 +239,8 @@ end
       Review.exists?(reviewer_id: self.id, reviewable_id: reviewed_id)
   end
 
-  #review lasciate da self
+
+
   def sended_reviews
     Review.where(:reviewer_id => self)
   end

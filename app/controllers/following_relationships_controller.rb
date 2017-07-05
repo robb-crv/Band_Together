@@ -109,8 +109,4 @@ class FollowingRelationshipsController < ApplicationController
 		end
 	end
 
-
-	def review_params()
-    	params.require(:following_relationships).permit(:follower_id, :followable_id, :followable_type)
-   	end
 end
