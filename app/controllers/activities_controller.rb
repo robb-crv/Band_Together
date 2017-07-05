@@ -13,7 +13,7 @@ class ActivitiesController < ApplicationController
       return
     end
     @activity = Activity.new(activity_params)
-    @band= Band.find(params[:band_id])
+    @band = Band.find(params[:band_id])
 
     @activity.band = @band
     @activity.band_manager = current_user
@@ -21,6 +21,14 @@ class ActivitiesController < ApplicationController
     if @activity.save
       redirect_to band_path(@band)
       flash[:success] = "The activity has been created successfully."
+      @users_to_notify = @band.users_to_notify
+      @users_to_notify.delete current_user
+      puts @users_to_notify.length
+      @users_to_notify.each do |usr|
+          puts usr.username
+          Notification.create(recipient: usr, actor: current_user, action: "has just created a new activity called '#{@activity.title}' in the band '#{@band.name}'!", notifiable: @activity)
+      end
+
     else
       render new_activity_path
     end
@@ -53,11 +61,20 @@ class ActivitiesController < ApplicationController
 
   def destroy
     @activity= Activity.find(params[:id])
+    @band  = @activity.band
 
 		if(@activity.delete)
 
 			flash[:success] = "The Activity has been deleted correctly."
-			redirect_to band_path(@activity.band)
+			redirect_to band_path(@band)
+
+      @users_to_notify = @band.users_to_notify
+      @users_to_notify.delete current_user
+      puts @users_to_notify.length
+      @users_to_notify.each do |usr|
+          puts usr.username
+          Notification.create(recipient: usr, actor: current_user, action: "has just removed the activity called '#{@activity.title}' in the band '#{@band.name}'!", notifiable: @band)
+      end
 		else
 			flash[:danger] = "An error occurred deleting activity..."
 		end

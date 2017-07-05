@@ -15,7 +15,7 @@ Feature: Band Manager modifies Advertisment's informations
     And I should see "Sala Prove" in the "Band Activities" table
     When I follow the link to the "Sala Prove" activity
     And I follow "Edit"
-    Then I should be on the Edit Activity Page
+    Then I should be on the Edit Activity Page for "Sala Prove"
 
 Scenario: User "Mario Rossi" changes the duration of the activity "Sala Prove" relative to the band "Band di Rossi"   (happy way)
     When I select as a "Duration" 1 hour
@@ -27,5 +27,5 @@ Scenario: User "Mario Rossi" changes the duration of the activity "Sala Prove" r
 Scenario: User "Mario Rossi" changes the duration of the activity "Sala Prove" relative to the band "Band di Rossi" (sad way)
     When I select as "Duration" 0 hour
     And I follow "Update"
-    Then I should be on the Edit Activity Page
+    Then I should be on the Edit Activity Page for "Sala Prove"
     And I should see an error that tells me that the object couldn't be saved

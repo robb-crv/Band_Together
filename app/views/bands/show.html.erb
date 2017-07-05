@@ -29,8 +29,27 @@
     </ol>
 </div><br/>
 
-<div>
+<div id="pnlBandActivities">
 	<h4> Band Activities </h4>
+	<ol>
+    	<% @activities.each do |a| %><br/>
+
+    		<li>
+    			<%= link_to a.title, activity_path(a), :method => "get" %>
+					 <b>Start At: </b> <%= a.start_date.strftime("%B %d, %Y at %H:%M") %>
+		   		 <b>In: </b> <%= a.location %>
+					 <%if current_user.id == @band.band_manager.id %>
+		    			<ul>
+		    			<li>
+		    				<%= link_to "edit" , edit_activity_path(a), :method => "get"%>
+
+		    			<%= link_to "delete" , activity_path(a), :method => "delete", data:  { confirm: "Are you sure?" } %>
+		    			</li>
+		    			</ul>
+						<% end %>
+    		</li>
+    	<% end %>
+    </ol>
 	<div id='calendar'></div>
 </div>
 
@@ -101,7 +120,9 @@
 		<% end %>
 <% end %>
 
-<%if current_user.id!=@band.band_manager_id %>
+
+<%if current_user.id != @band.band_manager.id %>
+
 <div id="following">
 
 	<% if !current_user.following?(@band) %>
@@ -111,6 +132,14 @@
 	<%end%>
 <div/>
 <%end%>
+
+
+<h3> Band's follower </h3>
+<ul>
+	<% @followers.each do |follower| %>
+		<li><%= link_to "#{follower.username}", users_show_path(id: follower.id) %></li>
+	<%end%>
+</ul>
 
 <% if @active_users.include? current_user %>
 	<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>

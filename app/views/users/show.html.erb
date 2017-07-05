@@ -1,90 +1,158 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>User Pofile</title>
+<div class="col-sm-3 col-md-3 sidebar">
 
-</head>
+      <div class="panel panel-default">
+        <div class="panel-body">
+					<%= gravatar_for @user %>
+					<h2>
+					<%= @user.username %>
+					</h2>
 
-<body>
-	<h1>User's Profile</h1>
 
-	<h2>
-  <%= gravatar_for @user %>
-</h2>
 
-	 <p> <strong>Username:</strong> <%= @user.username %><br/>
+					<p><strong>Email:</strong> <%= @user.email %> </p>
 
-	 <p><strong>Email:</strong> <%= @user.email %> </p>
+					<p><strong>First Name:</strong> <%= @user.first_name %> <p/>
 
-	 <p><strong>First Name:</strong> <%= @user.first_name %> <p/>
+					<p><strong>Last Name:</strong> <%= @user.last_name %><p/>
 
-	 <p><strong>Last Name:</strong> <%= @user.last_name %><p/>
+					<p><strong>From:</strong> <%= @user.city %>, <%= @user.region %>, <%= @user.nation %></p>
 
-	 <p><strong>From:</strong> <%= @user.city %>, <%= @user.region %>, <%= @user.nation %></p>
+					<p><strong>I'm a:</strong> <%= TypeOfMusician.find_by_id(@user.type_of_musician_id).name %> </p>
 
-	 <p><strong>I'm a:</strong> <%= TypeOfMusician.find_by_id(@user.type_of_musician_id).name %> </p>
+					<p><strong>Musical Genre:</strong> <%= MusicalGenre.find_by_id(@user.musical_genre_id).name %> <p/>
 
-	 <p><strong>Musical Genre:</strong> <%= MusicalGenre.find_by_id(@user.musical_genre_id).name %> <p/>
 
-	<% if @user.id != current_user.id %>
-	<div id="following">
-		<% if !current_user.following?(@user) %>
-			<%= button_to "Follow", following_relationships_path(:followable_id => @user.id, :followable_type => "User"), :method => "post", :class => "btn btn-primary btn-md" %>
-		<%else%>
-			<%=button_to "Unfollow", unfollow_url(:followable_id => @user, :followable_type => "User"), :method => "post", :class => "btn btn-primary btn-md" %>
-		<%end%>
-	<div/>
-	<%end%>
+						<% if @user.id != current_user.id %>
+							<% if !current_user.following?(@user) %>
+								<%= button_to "Follow", following_relationships_path(:followable_id => @user.id, :followable_type => "User"), :method => "post", :class => "btn btn-primary btn-md" %>
+							<%else%>
+								<%= button_to "Unfollow", unfollow_url(:followable_id => @user, :followable_type => "User"), :method => "post", :class => "btn btn-primary btn-md" %>
+							<%end%>
+							 <br/><br/>
+						<%end%>
 
-	 <div id="pnlCreatedBands">
-		 <h2>Created Bands</h2>
-		 <ol>
-			<% @createdBands.each do |b| %><br/>
-				<li><%= link_to b.name, band_path(b), :method => "get" %>
-					<% if b.band_manager == current_user %>
-						<%= link_to "edit", edit_band_path(b), :method => "get" %>
-						<%= link_to "delete", band_path(b), :method => "delete", data: { confirm: "Are you sure?" }%>
-					<% end %>
-				</li>
-			<% end %>
-		 </ol>
-	 </div>
 
-	 <div id="pnlJoinedBands">
-		 <h2>Joined Bands</h2>
-		 <ol>
-			<% @joinedBands.each do |b| %><br/>
-				<li><%= link_to b.name, band_path(b), :method => "get" %></li>
-			<% end %>
-		 </ol>
-	 </div>
+						 <%if !current_user.reviewed?(@user.id) %>
+							 <div id="review">
+								<%if current_user != @user %>
+									<h3><%= link_to "Review this user", new_review_path(:id => @user.id, reviewable_type: "User"), :method => "get",:class => "btn btn-primary btn-md" %></h3>
+								<%end%>
+							 </div>
+							 <br/><br/>
+						 <%end%>
 
-	 <br/><br/>
-	 <%if !current_user.reviewed?(@user.id) %>
-		 <div id="review">
-		 	<%if current_user != @user %>
-		 		<h3><%= link_to "Review this user", new_review_path(:id => @user.id, reviewable_type: "User"), :method => "get" %></h3>
-		 	<%end%>
-		 </div>
-	 <%end%>
-	 <br/><br/>
 
-	<div id="show_following">
-		<p> I'm following (users)</p>
-		<ul>
-			<% @user.followings_users.each do |following| %>
-				<li><%= link_to "#{following.username}", users_show_path(id: following.id) %></li>
-			<%end%>
-		</ul><br/>
 
-		<p> I'm following (bands)</p>
-		<ul>
-			<% @user.followings_bands.each do |following| %>
-				<li><%= link_to "#{following.name}", band_show_path(id: following.id) %></li>
-			<%end%>
-		</ul><br/>
+
+      	</div>
+  		</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<div class="col-md-4">
+
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Created Bands
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlCreatedBands">
+			<ol>
+			 <% @createdBands.each do |b| %><br/>
+				 <li><%= link_to b.name, band_path(b), :method => "get" %>
+					 <% if b.band_manager == current_user %>
+						 <%= link_to "edit", edit_band_path(b), :method => "get" %>
+						 <%= link_to "delete", band_path(b), :method => "delete", data: { confirm: "Are you sure?" }%>
+					 <% end %>
+				 </li>
+			 <% end %>
+			</ol>
+		</div>
+	</div>
+</div>
+
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Joined Bands
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlJoinedBands">
+			<ol>
+			 <% @joinedBands.each do |b| %><br/>
+				 <li><%= link_to b.name, band_path(b), :method => "get" %></li>
+			 <% end %>
+			</ol>
+		</div>
+	</div>
+</div>
+
+
+</div>
+
+<div class="col-md-3">
+
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Followed Users
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlFollowedUsers">
+			<ul>
+				<% @user.followings_users.each do |following| %>
+					<li><%= link_to "#{following.username}", users_show_path(id: following.id) %></li>
+				<%end%>
+			</ul><br/>
+		</div>
+	</div>
 	</div>
 
-</body>
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Followers
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlFollowers">
+			<ul>
+				<% @user.followers.each do |follower| %>
+					<li><%= link_to "#{follower.username}", users_show_path(id: follower.id) %></li>
+				<%end%>
+			</ul><br/>
+		</div>
+	</div>
+	</div>
 
-</html>
+
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Followed Bands
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlFollowedBands">
+			<ul>
+				<% @user.followings_bands.each do |following| %>
+					<li><%= link_to "#{following.name}", band_path(following.id) %></li>
+				<%end%>
+			</ul><br/>
+		</div>
+	</div>
+	</div>
+</div>

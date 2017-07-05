@@ -15,6 +15,7 @@
 
 <p> <strong>Location:</strong> <%= @activity.location %>
 
-
+ <%if current_user.id == @activity.band_manager.id %>
 	<%= link_to "Edit" , edit_activity_path(@activity), :method => "get"%>
 	<%= link_to "Delete" , activity_path(@activity), :method => "delete", data:  { confirm: "Are you sure?" } %>
+<% end %>

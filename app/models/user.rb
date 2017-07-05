@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    after_create :send_welcome_notification
   # Include default devise modules. Others available are:
 
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -36,7 +37,7 @@ class User < ApplicationRecord
 
   has_many :reviewings_bands, through: :active_reviews, source: :reviewable, source_type: 'Band', dependent: :destroy
   has_many :reviewings_users, through: :active_reviews, source: :reviewable, source_type: 'User', dependent: :destroy
-  
+
   has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
 
   #JoinRequest
@@ -251,6 +252,14 @@ end
 
     return self.passive_reviews.average('rating').to_f
 
+  end
+
+  def send_welcome_notification
+    Notification.create(
+                     recipient: self,
+                      actor: self,
+                       action: ", Welcome to BandTogether, please complete your profile and start to use the app!",
+                       notifiable: self)
   end
 
 end
