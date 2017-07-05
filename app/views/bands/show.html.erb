@@ -1,126 +1,195 @@
 <%= hidden_field_tag 'showed_band_id', @band.id %>
 
-<h2>Band '<%= @band.name %>'</h2><br/>
-<p><strong>Description: </strong> 	<%= @band.description %></p>
 
-<p><strong>Created At:</strong>	 <%= @band.created_at %>, by <%= link_to @band.band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%></p>
 
-<p><strong>Active in:</strong> <%= @band.city %> (<%= @band.region %>, <%= @band.nation %>)</p>
 
-<p><strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@band.musical_genre_id).name %></p>
 
-<br/><br/>
-<div id="pnlActiveAdvertisments" >
-	<h4> Active Advertisments </h4>
-	<ol>
-    	<% @advs.each do |a| %><br/>
+<div class="col-sm-3 col-md-3 sidebar">
 
-    		<li>
-    			<%= link_to a.title, advertisment_path(a), :method => "get" %>
-    			<ul>
-    			<li>
-    				<%= link_to "edit" , edit_advertisment_path(a), :method => "get"%>
+      <div class="panel panel-default">
+        <div class="panel-body">
 
-    			<%= link_to "delete" , advertisment_path(a), :method => "delete", data:  { confirm: "Are you sure?" } %>
-    			</li>
-    			</ul>
-    		</li>
-    	<% end %>
-    </ol>
-</div><br/>
+					<h2><%= @band.name %></h2><br/>
+					<p><%= @band.description %></p>
 
-<div id="pnlBandActivities">
-	<h4> Band Activities </h4>
-	<ol>
-    	<% @activities.each do |a| %><br/>
+					<p><strong>Created At:</strong>	 <%= @band.created_at.strftime("%B %d, %Y") %> </p>
+					<p><strong>Band Manager: </strong> <%= link_to @band.band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%></p>
 
-    		<li>
-    			<%= link_to a.title, activity_path(a), :method => "get" %>
-					 <b>Start At: </b> <%= a.start_date.strftime("%B %d, %Y at %H:%M") %>
-		   		 <b>In: </b> <%= a.location %>
-					 <%if current_user.id == @band.band_manager.id %>
-		    			<ul>
-		    			<li>
-		    				<%= link_to "edit" , edit_activity_path(a), :method => "get"%>
+					<p><strong>Active in:</strong> <%= @band.city %> (<%= @band.region %>, <%= @band.nation %>)</p>
 
-		    			<%= link_to "delete" , activity_path(a), :method => "delete", data:  { confirm: "Are you sure?" } %>
-		    			</li>
-		    			</ul>
-						<% end %>
-    		</li>
-    	<% end %>
-    </ol>
-	<div id='calendar'></div>
+					<p><strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@band.musical_genre_id).name %></p>
+
+
+					<hr/>
+
+
+					<% if (current_user.id==@band.band_manager_id) %>
+					<!--se l'utente è band manager-->
+						<br/><br/>
+						<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+						<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+
+						<div id="manage_pending_join_req">
+
+						</div>
+
+					<% else %>
+						 	<% if @band.users.include? current_user %>
+							<!--se l'utente è band member-->
+								<br/><%= link_to "Leave Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
+
+								<% else %>
+								<!--se l'utente è generic user-->
+
+								<div id="join_req">
+									<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
+									<% if !current_user.is_waiting_for_join_response(@band) %>
+										<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band.band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %>
+									<%end%>
+								</div><br/>
+							<% end %>
+					<% end %>
+
+					<%if current_user.id != @band.band_manager.id %>
+					<div id="following">
+
+						<% if !current_user.following?(@band) %>
+							<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+						<%else%>
+							<%=button_to "Unfollow", following_relationship_path(:followable_id => @band.id, :followable_type => "Band"), :method => "delete", :class => "btn btn-primary btn-md" %>
+						<%end%>
+					<div/>
+					<%end%>
+
+
+
+					<% if @active_users.include? current_user %>
+						<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+					<% end %>
+
+
+					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
+
+
+      	</div>
+  		</div>
 </div>
 
-<br/>
-
-<div id="pnlBandMembers" >
-	<h4> Band Members </h4>
-	<ol>
-    	<% @bandMembers.each do |member| %><br/>
-
-    		<li>
-    			<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>:
-					<%= TypeOfMusician.find_by_id(member.type_of_musician_id).name %>
-				</li>
-    	<% end %>
-    </ol>
-</div>
 
 
 
+<div class="col-md-3">
 
-<% if (current_user.id==@band.band_manager_id) %>
-<!--se l'utente è band manager-->
-	<br/><br/>
-	<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
-	<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Members
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlBandMembers" >
+			<ol>
+		    	<% @bandMembers.each do |member| %><br/>
 
-	<div id="manage_pending_join_req">
+		    		<li>
+		    			<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>:
+							<%= TypeOfMusician.find_by_id(member.type_of_musician_id).name %>
+						</li>
+		    	<% end %>
+		    </ol>
+		</div>
 
 	</div>
+	</div>
 
-<% else %>
-	 	<% if @band.users.include? current_user %>
-		<!--se l'utente è band member-->
-			<br/><%= link_to "Leave Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
-
-			<% else %>
-			<!--se l'utente è generic user-->
-
-			<div id="join_req">
-				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
-				<% if !current_user.is_waiting_for_join_response(@band) %>
-					<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band.band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %>
-				<%end%>
-			</div><br/>
-		<% end %>
-<% end %>
-
-<%if current_user.id != @band.band_manager.id %>
-<div id="following">
-
-	<% if !current_user.following?(@band) %>
-		<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
-	<%else%>
-		<%=button_to "Unfollow", following_relationship_path(:followable_id => @band.id, :followable_type => "Band"), :method => "delete", :class => "btn btn-primary btn-md" %>
-	<%end%>
-<div/>
-<%end%>
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Followers
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlFollowers">
+			<ul>
+				<ul>
+					<% @followers.each do |follower| %>
+						<li><%= link_to "#{follower.username}", users_show_path(id: follower.id) %></li>
+					<%end%>
+				</ul>
+			</ul><br/>
+		</div>
+	</div>
+	</div>
 
 
-<h3> Band's follower </h3>
-<ul>
-	<% @followers.each do |follower| %>
-		<li><%= link_to "#{follower.username}", users_show_path(id: follower.id) %></li>
-	<%end%>
-</ul>
 
-<% if @active_users.include? current_user %>
-	<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
-<% end %>
 
-<br/><br/>
-<h3><%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band')%></h3>
-<br/>
+</div>
+
+
+<div class="col-md-6">
+
+
+
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Band Activities
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id='calendar'></div>
+		<div id="pnlBandActivities">
+			<ol>
+		    	<% @activities.each do |a| %>
+
+		    		<li>
+		    			<%= link_to a.title, activity_path(a), :method => "get" %>
+							 <b>Start At: </b> <%= a.start_date.strftime("%B %d, %Y at %H:%M") %>
+				   		 <b>In: </b> <%= a.location %>
+							 <%if current_user.id == @band.band_manager.id %>
+				    			<ul>
+				    			<li>
+				    				<%= link_to "edit" , edit_activity_path(a), :method => "get"%>
+
+				    			<%= link_to "delete" , activity_path(a), :method => "delete", data:  { confirm: "Are you sure?" } %>
+				    			</li>
+				    			</ul>
+								<% end %>
+		    		</li>
+		    	<% end %>
+		    </ol>
+
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class = "panel-heading">
+		<h2 class = "panel-title">
+			Active Advertisments
+		</h2>
+	</div>
+<div class="panel-body">
+	<div id="pnlActiveAdvertisments" >
+		<ol>
+				<% @advs.each do |a| %><br/>
+
+					<li>
+						<%= link_to a.title, advertisment_path(a), :method => "get" %>
+						<ul>
+						<li>
+							<%= link_to "edit" , edit_advertisment_path(a), :method => "get"%>
+
+						<%= link_to "delete" , advertisment_path(a), :method => "delete", data:  { confirm: "Are you sure?" } %>
+						</li>
+						</ul>
+					</li>
+				<% end %>
+			</ol>
+	</div><br/>
+</div>
+</div>
+
+
+</div>
