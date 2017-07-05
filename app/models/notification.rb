@@ -19,6 +19,9 @@ class Notification < ApplicationRecord
         when User
           "/users/show?id=#{notifiable.id}"
 
+        when Activity
+          "/activities/#{notifiable.id}"
+
         when Mailboxer::Conversation
           "/conversations/#{notifiable.id}"
 
@@ -34,7 +37,7 @@ class Notification < ApplicationRecord
    class  TypeValidator < ActiveModel::EachValidator
 
      def validate_each(record, attribute, value)
-       record.errors.add attribute, "Not a valid notifiable type" unless ["Mailboxer::Conversation","User","Band"].include? value
+       record.errors.add attribute, "Not a valid notifiable type" unless ["Mailboxer::Conversation","Activity","User","Band"].include? value
      end
    end
 
@@ -53,6 +56,10 @@ class Notification < ApplicationRecord
       when "User"
 
           errors.add(:notifiable_id, "It's not a valid user") unless !User.find_by_id(notifiable_id).nil?
+
+      when "Activity"
+
+          errors.add(:notifiable_id, "It's not a valid activity") unless !Activity.find_by_id(notifiable_id).nil?
 
       when "Mailboxer::Conversation"
 

@@ -11,7 +11,7 @@ class FollowingRelationshipsController < ApplicationController
 
 		if @rel.save
 
-			send_notification_to_followable(@followable, @followable_type, "start following")
+			send_notification_to_followable(@followable, @followable_type, "has just started following")
 
 			redirect_to_followable_path(@followable, @followable_type)
 
@@ -33,7 +33,7 @@ class FollowingRelationshipsController < ApplicationController
 
 		delete_followings_followable(@followable, followable_type)
 		redirect_to_followable_path(@followable, followable_type)
-		send_notification_to_followable(@followable, followable_type, "stop following")
+		send_notification_to_followable(@followable, followable_type, "has just stopped following")
 		redirect_to_followable_path(followable_type, @followable.id)
 
 	end
