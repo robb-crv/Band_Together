@@ -21,7 +21,7 @@ class ActivitiesController < ApplicationController
     if @activity.save
       redirect_to band_path(@band)
       flash[:success] = "The activity has been created successfully."
-      @users_to_notify = @band.active_users
+      @users_to_notify = @band.users_to_notify
       @users_to_notify.delete current_user
       puts @users_to_notify.length
       @users_to_notify.each do |usr|
@@ -68,7 +68,7 @@ class ActivitiesController < ApplicationController
 			flash[:success] = "The Activity has been deleted correctly."
 			redirect_to band_path(@band)
 
-      @users_to_notify = @band.active_users
+      @users_to_notify = @band.users_to_notify
       @users_to_notify.delete current_user
       puts @users_to_notify.length
       @users_to_notify.each do |usr|

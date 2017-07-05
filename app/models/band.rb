@@ -41,7 +41,7 @@ class Band < ApplicationRecord
 
 
 
-	
+
 
 
 	def active_users
@@ -54,6 +54,23 @@ class Band < ApplicationRecord
 		@actives << band_manager
 
 		@actives
+	end
+
+	def users_to_notify
+		@res = []
+
+		users.each do |usr|
+			@res << usr
+		end
+
+		@res << band_manager
+
+		self.followers.each do |usr|
+			if !@res.include?(usr) 
+				@res << usr
+			end
+		end
+		return @res
 	end
 
 
