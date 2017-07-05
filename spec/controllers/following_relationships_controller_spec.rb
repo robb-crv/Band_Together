@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe FollowingRelationshipsController, type: :controller do
 
+	login_user
 
     before(:each) do 
 
@@ -17,29 +18,27 @@ RSpec.describe FollowingRelationshipsController, type: :controller do
 		
 		it 'create new Following relationship' do
 			expect {
+
 				params = {:followable_id => @user2.id, :followable_type => "User"}	
 				post :create, params
 			}.to change(FollowingRelationship, :count).by(1)
-		end
-		it 'followings_users should return corrected collection' do 
-			expect(@user1.followings_users.include?(@user2)).to eq true
+
+			expect(subject.current_user.followings_users).to include(@user2)
 
 		end
 
 	end
 
-	describe 'following_relationships#destroy' do
+	describe 'following_relationships#unfollow' do
 		
 		it 'should destroy a record in following relationship' do 
+			rel = FollowingRelationship.create(follower_id: subject.current_user.id, followable_id: @user2.id, followable_type: "User")
 			expect {
-	  			
-	  			post :destroy
+	  			params = {:followable_id => @user2.id, :followable_type => "User"}	
+	  			post :unfollow, params
 	  			
   			}.to change(FollowingRelationship, :count).by(-1)
-		end
-		
-		it 'should delete the relationship' do 
-			expect(@user1.followings_users.include?(@user2)).to eq false
+  			expect(subject.current_user.followings_users).not_to include(@user2)
 		end
 	end 
 end

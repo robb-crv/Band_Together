@@ -27,7 +27,7 @@ class Review < ApplicationRecord
 	validates :reviewable_type, presence: true, allow_nil: false, type: true
 	validates_inclusion_of :rating, :in => 1..5
 	validates :rating, presence: true, allow_blank: false, allow_nil: false
-	validates :description, presence: true, allow_blank: false, length: {maximum: 200}
+	validates :description, presence: true, allow_blank: false, allow_nil: false, length: {maximum: 200}
 	
 
 	private

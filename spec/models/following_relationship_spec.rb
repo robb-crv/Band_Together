@@ -22,6 +22,7 @@ RSpec.describe FollowingRelationship, type: :model do
 
         it "have follower_id invalid" do
           expect(FactoryGirl.build(:following_relationship, follower_id: 3, followable_id: 1, followable_type: "User") ).not_to be_valid
+          expect(FactoryGirl.build(:following_relationship, follower_id: 0, followable_id: 1, followable_type: "User") ).not_to be_valid
         end
 
   			it {should_not allow_value(nil).for(:follower_id)}
