@@ -22,5 +22,13 @@ class JoinRequest < ApplicationRecord
 	validates :sender_id, presence: true, allow_nil: false, user: true
 	validates :receiver_id, presence: true, allow_nil: false, user: true
 	validates :pending, presence: true, allow_nil: false
-	validates_uniqueness_of :sender_id, scope: :receiver_id
+	validate :self_sender_receiver
+
+
+	private 
+
+	def self_sender_receiver
+
+		errors.add(:sender_id, "sender couldn't be equals to receiver") unless sender_id != receiver_id 
+	end
 end

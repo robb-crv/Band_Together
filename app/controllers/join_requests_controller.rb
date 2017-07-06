@@ -1,8 +1,5 @@
 class JoinRequestsController < ApplicationController
 
-	def index
-		JoinRequest.all
-	end
 
 	def create
 
@@ -13,16 +10,9 @@ class JoinRequestsController < ApplicationController
 		Notification.create(recipient: @receiver, actor: current_user, action: "send you a join request for #{@band.name}", notifiable: @band)
 		
 		flash[:success] = "the request has been sent to the band manager"
-		redirect_to :back
+		redirect_to band_path(@band)
 	end
 
-	def update
-
-		
-	end
-
-	def destroy
-	end
 
 	def accept
 		
@@ -37,7 +27,7 @@ class JoinRequestsController < ApplicationController
 		if @ma.save
 			Notification.create(recipient: @sender, actor: current_user, action: "has accepted your join request for #{@band.name}!", notifiable: @band)
 			flash[:success] = "The request has been accepted"
-			redirect_to :back
+			redirect_to band_path(@band)
 		end
 	end
 
@@ -51,7 +41,7 @@ class JoinRequestsController < ApplicationController
 		
 		Notification.create(recipient: @sender, actor: current_user, action: "hasn't accepted your join request for #{@band.name}", notifiable: @band)
 		flash[:success] = "The request has been refused"
-		redirect_to :back
+		redirect_to band_path(@band)
 	end
 
 	def join_request_params()
