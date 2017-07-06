@@ -17,8 +17,10 @@ class FollowingRelationshipsController < ApplicationController
 
 			if @followable_type == "User"
 				flash[:success] = "You're now following #{@followable.username}"
+				UserAction.create(sender: current_user, action: "has started following #{@followable.username}!", receiver: @followable)
 			elsif @followable_type == "Band"
 				flash[:success] = "You're now following #{@followable.name}"
+					UserAction.create(sender: current_user, action: "has started following the band #{@followable.name}!", receiver: @followable)
 			end
 		else
 			flash[:danger] = "An error occurred"

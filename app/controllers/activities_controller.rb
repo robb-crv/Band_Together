@@ -21,11 +21,16 @@ class ActivitiesController < ApplicationController
     if @activity.save
       redirect_to band_path(@band)
       flash[:success] = "The activity has been created successfully."
-      @users_to_notify = @band.users_to_notify
+
+      if @activity.accessibility == "Private"
+        @users_to_notify = @band.active_users
+      else
+        @users_to_notify = @band.users_to_notify
+        UserAction.create(sender: @band, action: "has created a new activity called '#{@activity.title}', scheduled on #{@activity.start_date.strftime("%B %d, %Y at %H:%M")}!", receiver: @activity)
+      end
+
       @users_to_notify.delete current_user
-      puts @users_to_notify.length
       @users_to_notify.each do |usr|
-          puts usr.username
           Notification.create(recipient: usr, actor: current_user, action: "has just created a new activity called '#{@activity.title}' in the band '#{@band.name}'!", notifiable: @activity)
       end
 
@@ -68,11 +73,16 @@ class ActivitiesController < ApplicationController
 			flash[:success] = "The Activity has been deleted correctly."
 			redirect_to band_path(@band)
 
-      @users_to_notify = @band.users_to_notify
+      if @activity.accessibility == "Private"
+        @users_to_notify = @band.active_users
+      else
+        @users_to_notify = @band.users_to_notify
+        UserAction.create(sender: @band, action: "has removed the activity called '#{@activity.title}', scheduled on #{@activity.start_date.strftime("%B %d, %Y at %H:%M")}!", receiver: @activity)
+      end
+
       @users_to_notify.delete current_user
-      puts @users_to_notify.length
+
       @users_to_notify.each do |usr|
-          puts usr.username
           Notification.create(recipient: usr, actor: current_user, action: "has just removed the activity called '#{@activity.title}' in the band '#{@band.name}'!", notifiable: @band)
       end
 		else

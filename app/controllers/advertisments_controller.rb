@@ -46,6 +46,7 @@ class AdvertismentsController < ApplicationController
 			if @advertisment.save
 				flash[:success] = "Successfully operation"
 				redirect_to advertisment_path(@advertisment)
+				UserAction.create(sender: @band, action: "has created a new advertisement called #{@advertisment.title}!", receiver: @advertisment)
 			else
 				render 'new'
 			end
@@ -61,6 +62,7 @@ class AdvertismentsController < ApplicationController
 		@advertisment= Advertisment.find(params[:id])
 		if @advertisment.update(advertisment_params)
 			redirect_to advertisment_path(@advertisment)
+			UserAction.create(sender: @band, action: "has updated the advertisement #{@advertisment.title}!", receiver: @advertisment)
 			flash[:success] = "Successfully operation"
 		else
 			render 'edit'
@@ -73,6 +75,7 @@ class AdvertismentsController < ApplicationController
 		@adv= Advertisment.find(params[:id])
 		if(@adv.delete)
     		flash[:success] = "The advertisment has been deleted correctly."
+				UserAction.create(sender: @band, action: "has removed the advertisement #{@adv.title}!", receiver: @advertisment)
     		redirect_to band_path(@adv.band)
     	end
 	end

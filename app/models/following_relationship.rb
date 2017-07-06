@@ -27,7 +27,7 @@ class FollowingRelationship < ApplicationRecord
 	validates :followable_type, presence: true, allow_nil: false, type: true
 
 
-   	private 
+   	private
 
    	def followable_exists
 
@@ -43,6 +43,6 @@ class FollowingRelationship < ApplicationRecord
 		if (followable_type == 'User') and (follower_id == followable_id)
 			errors.add(:follower_id, "Can't follows itself")
 		end
-  	end	
+  	end
 
 end
