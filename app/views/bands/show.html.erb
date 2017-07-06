@@ -20,44 +20,51 @@
 
 			<% if (current_user.id==@band.band_manager_id) %>
 			<!--se l'utente è band manager-->
-				<br/><br/>
+				<br/>
 				<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+
+				<br/>
 		
 				<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
 			<% else %>
 				 	<% if @band.users.include? current_user %>
 					<!--se l'utente è band member-->
-						<br/><%= link_to "Leave Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
+						<br/>
+						<%= link_to "Leave Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
 
 					<% else %>
 						<!--se l'utente è generic user-->
 						<div id="join_req">
 			   				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
-							<% if !current_user.is_waiting_for_join_response(@band) !current_user.has_just_sent_join_request(@band)%>
+							<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band)%>
+							<br/>
 								<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band.band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %>
 							<%end%>
-						</div><br/>
+						</div>
+
 					<% end %>
 			<% end %>
 
 			<%if current_user.id != @band.band_manager.id %>
 				<div id="following">
 					<% if !current_user.following?(@band) %>
+					<br/>
 							<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
 					<%else%>
+					<br/>
 						<%=button_to "Unfollow", following_relationship_path(:followable_id => @band.id, :followable_type => "Band"), :method => "delete", :class => "btn btn-primary btn-md" %>
-						<%end%>
-				<div/>
+					<%end%>
+					</br>
+					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
+				</div>
 			<%end%>
 
 
 			<% if @active_users.include? current_user %>
-				<br/><%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+				<br/>
+				<%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 			<% end %>
-
-
-			<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
 	    </div>
   	</div>
 </div>
