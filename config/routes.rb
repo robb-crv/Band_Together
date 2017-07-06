@@ -27,6 +27,9 @@ Rails.application.routes.draw do
 
   post 'users/update_profile_informations'
 
+  post 'join_requests/accept'
+  post 'join_requests/decline'
+
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations',
                     :omniauth_callbacks => "users/omniauth_callbacks" }
 

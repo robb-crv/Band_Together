@@ -77,7 +77,6 @@
 
 
 
-
 <div class="col-md-3">
 
 	<div class="panel panel-default">
@@ -122,10 +121,41 @@
 	</div>
 
 
+  <div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Join Requests
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlJoinRequests">
+      <ul>
+  			<% current_user.passive_join_request.each do |req| %>
+  			<% if req.pending %>
+  				<li>
+  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
+  					&nbsp;&nbsp;
+  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle", :method => "post" do %>
+  						<i class="glyphicon glyphicon-ok"></i>
+  					<% end %>
+  					&nbsp;
+  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", :method =>"post" do %>
+  						<i class="glyphicon glyphicon-remove"></i>
+  					<%end%>
+  				</li>
+  			<%end%>
+  			<br/>
+
+  			<%end%>
+  		</ul>
+		</div>
+	</div>
+	</div>
+
+
 
 
 </div>
-
 
 <div class="col-md-6">
 
