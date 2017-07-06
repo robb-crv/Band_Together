@@ -10,7 +10,7 @@
 			<p><%= @band.description %></p>
 
 			<p><strong>Created At:</strong>	 <%= @band.created_at.strftime("%B %d, %Y") %> </p>
-			<p><strong>Band Manager: </strong> <%= link_to @band.band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%></p>
+			<p><strong>Band Manager: </strong> <%= link_to @band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%></p>
 			
 			<p><strong>Active in:</strong> <%= @band.city %> (<%= @band.region %>, <%= @band.nation %>)</p>
 
@@ -18,7 +18,7 @@
 
 			<hr/>
 
-			<% if (current_user.id==@band.band_manager_id) %>
+			<% if (current_user==@band_manager) %>
 			<!--se l'utente è band manager-->
 				<br/>
 				<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
@@ -39,14 +39,14 @@
 			   				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
 							<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band)%>
 							<br/>
-								<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band.band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %>
+								<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %>
 							<%end%>
 						</div>
 
 					<% end %>
 			<% end %>
 
-			<%if current_user.id != @band.band_manager.id %>
+			<%if current_user != @band_manager %>
 				<div id="following">
 					<% if !current_user.following?(@band) %>
 					<br/>
@@ -171,7 +171,7 @@
 		    			<%= link_to a.title, activity_path(a), :method => "get" %>
 							 <b>Start At: </b> <%= a.start_date.strftime("%B %d, %Y at %H:%M") %>
 				   		 <b>In: </b> <%= a.location %>
-							 <%if current_user.id == @band.band_manager.id %>
+							 <%if current_user== @band_manager %>
 				    			<ul>
 				    				<li>
 				    					<%= link_to "edit" , edit_activity_path(a), :method => "get"%>
