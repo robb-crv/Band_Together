@@ -22,4 +22,5 @@ class JoinRequest < ApplicationRecord
 	validates :sender_id, presence: true, allow_nil: false, user: true
 	validates :receiver_id, presence: true, allow_nil: false, user: true
 	validates :pending, presence: true, allow_nil: false
+	validates_uniqueness_of :sender_id, scope: :receiver_id
 end
