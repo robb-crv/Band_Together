@@ -113,7 +113,8 @@
 
 			<div id="join_req">
 				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
-				<% if !current_user.is_waiting_for_join_response(@band) %>
+				<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band)%>
+					
 					<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band.band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %>
 				<%end%>
 			</div><br/>
@@ -146,5 +147,7 @@
 <% end %>
 
 <br/><br/>
+<% if @band_manager != current_user %>
 <h3><%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band')%></h3>
+<%end%>
 <br/>

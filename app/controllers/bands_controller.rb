@@ -33,6 +33,7 @@ class BandsController < ApplicationController
 	def show
 			begin
 				@band= Band.find(params[:id])
+				@band_manager = User.find(@band.band_manager_id)
 				@advs= Advertisment.where("band_id= ?", @band.id)
 				@bandMembers = @band.users
 				@active_users = @band.active_users

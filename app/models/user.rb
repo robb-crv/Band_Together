@@ -245,7 +245,13 @@ end
 
   def is_waiting_for_join_response(band)
 
-    !JoinRequest.where(band_id: band.id).where(sender_id: self.id).where(receiver_id: band.band_manager_id).where(pending: true).empty?
+    !JoinRequest.where(band_id: band.id, sender_id: self.id, receiver_id: band.band_manager_id, pending: true).empty?
+  end
+
+
+  def has_just_sent_join_request(band)
+
+    !JoinRequest.where(band_id: band.id, sender_id: self.id, receiver_id: band.band_manager_id, pending: false).empty?
   end
 
   def reviews_average

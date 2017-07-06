@@ -18,7 +18,7 @@ class JoinRequestsController < ApplicationController
 
 	def update
 
-		update()
+		
 	end
 
 	def destroy
@@ -28,7 +28,6 @@ class JoinRequestsController < ApplicationController
 		
 		@rel = JoinRequest.where(sender_id: params[:sender_id], receiver_id: params[:receiver_id], band_id: params[:band_id])
 		@rel.update_all(:pending => false)
-		#@rel.save
 
 		@band= Band.find(params[:band_id])
 		@sender= User.find(params[:sender_id])
@@ -50,8 +49,8 @@ class JoinRequestsController < ApplicationController
 		@band= Band.find(params[:band_id])
 		@sender= User.find(params[:sender_id])
 		
-		Notification.create(recipient: @sender, actor: current_user, action: "hasn't accepted your join request for #{@band.name}!", notifiable: @band)
-		flash[:success] = "The request has been declined"
+		Notification.create(recipient: @sender, actor: current_user, action: "hasn't accepted your join request for #{@band.name}", notifiable: @band)
+		flash[:success] = "The request has been refused"
 		redirect_to :back
 	end
 
