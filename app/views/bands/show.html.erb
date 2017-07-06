@@ -4,7 +4,7 @@
 
       <div class="panel panel-default">
         
-        <div class="panel-body">
+        <div class="panel-body" id ="info_panel">
 
 			<h2><%= @band.name %></h2><br/>
 			<p><%= @band.description %></p>
@@ -18,8 +18,9 @@
 
 			<hr/>
 
+
 			<% if (current_user==@band_manager) %>
-			<!--se l'utente è band manager-->
+				<!--se l'utente è band manager-->
 				<br/>
 				<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
@@ -28,6 +29,7 @@
 				<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
 			<% else %>
+
 				 	<% if @band.users.include? current_user %>
 					<!--se l'utente è band member-->
 						<br/>
@@ -39,7 +41,7 @@
 			   				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
 							<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band)%>
 							<br/>
-								<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager_id, pending: true), :class => "btn btn-primary btn-md", :method => "post" %>
+								<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>
 							<%end%>
 						</div>
 
