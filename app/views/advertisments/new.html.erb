@@ -2,7 +2,7 @@
 <div class="col-md-4 col-md-offset-4 ">
 
 </br>
-<legend><h3> Create Advertisment for the band '<%= @band.name %>' </h4></legend>
+<legend><h3> Create Advertisement for the band '<%= @band.name %>' </h4></legend>
 
 <%= form_for(:advertisment, as: :advertisment, url: advertisments_path(:band_id => @band.id)) do |f| %>
   <%= render 'layouts/model_error_messages', object: @advertisment %>

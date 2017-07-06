@@ -51,14 +51,14 @@
 					<% end %>
 
 					<%if current_user.id != @band.band_manager.id %>
-					<div id="following">
+  					<div id="following">
 
-						<% if !current_user.following?(@band) %>
-							<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
-						<%else%>
-							<%=button_to "Unfollow", following_relationship_path(:followable_id => @band.id, :followable_type => "Band"), :method => "delete", :class => "btn btn-primary btn-md" %>
-						<%end%>
-					<div/>
+  						<% if !current_user.following?(@band) %>
+  							<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+  						<%else%>
+  							<%=button_to "Unfollow", following_relationship_path(:followable_id => @band.id, :followable_type => "Band"), :method => "delete", :class => "btn btn-primary btn-md" %>
+  						<%end%>
+  					</div>
 					<%end%>
 
 
@@ -77,7 +77,7 @@
 
 
 
-<div class="col-md-3">
+<div class="col-md-4">
 
 	<div class="panel panel-default">
 		<div class = "panel-heading">
@@ -157,7 +157,7 @@
 
 </div>
 
-<div class="col-md-6">
+<div class="col-md-5">
 
 
 
@@ -197,7 +197,7 @@
 <div class="panel panel-default">
 	<div class = "panel-heading">
 		<h2 class = "panel-title">
-			Active Advertisments
+			Active Advertisements
 		</h2>
 	</div>
 <div class="panel-body">

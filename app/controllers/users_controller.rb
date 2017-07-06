@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def show
 
     if(!params[:id].nil? )
-      begin  	 
+      begin
         @user = User.find(params[:id])
         @createdBands = @user.bands
         @joinedBands = @user.joined_bands
@@ -23,11 +23,20 @@ class UsersController < ApplicationController
       User.search(search)
     else
       User.all
-    end       
+    end
+  end
+
+  def events
+    @activities = current_user.activities_of_interest.where(:accessibility => "Public")
+
+    respond_to do |format|
+      format.json
+    end
   end
 
   def home
-    @user = current_user
+    @interesting_actions = current_user.actions_of_interest
+    @interesting_advertisments = current_user.advertisments_of_interest
   end
 
   #GET
@@ -42,6 +51,7 @@ class UsersController < ApplicationController
     if updated
       redirect_to users_home_path
       flash[:success] = "Successfully updated informations."
+      UserAction.create(sender: current_user, action: "has just updated the profile informations", receiver: nil)
     else
       render users_edit_profile_informations_path
     #  flash[:danger] = "Invalid parameters : " + user.errors.full_messages

@@ -243,6 +243,22 @@ end
   end
 
 
+  def actions_of_interest
+     users_actions = UserAction.where( :sender_id => self.followings_users.map(&:id) ).where( :sender_type => "User")
+     bands_actions = UserAction.where( :sender_id => self.followings_bands.map(&:id) ).where( :sender_type => "Band")
+       bands_actions.or (users_actions)
+  end
+
+  def advertisments_of_interest
+    near_bands = Band.where(nation: self.nation, region: self.region)
+    Advertisment.where(:band_id => near_bands.map(&:id))
+  end
+
+  def activities_of_interest
+    Activity.where(:band_id => self.followings_bands.map(&:id))
+  end
+
+
   def is_waiting_for_join_response(band)
 
     !JoinRequest.where(band_id: band.id).where(sender_id: self.id).where(receiver_id: band.band_manager_id).where(pending: true).empty?
@@ -258,7 +274,7 @@ end
     Notification.create(
                      recipient: self,
                       actor: self,
-                       action: ", Welcome to BandTogether, please complete your profile and start to use the app!",
+                       action: ", Welcome to BandTogether, please complete your profile and enjoy our app!",
                        notifiable: self)
   end
 

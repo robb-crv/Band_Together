@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   post 'users/update_profile_informations'
 
+  get 'users/events'
+
   post 'join_requests/accept'
   post 'join_requests/decline'
 

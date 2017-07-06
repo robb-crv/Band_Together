@@ -1,18 +1,18 @@
 document.addEventListener("turbolinks:load", function() {
-   $('#calendar').empty();
-    $('#calendar').fullCalendar(
+   $('#UserCalendar').empty();
+    $('#UserCalendar').fullCalendar(
       {
 
            // put your options and callbacks here
-           events: '/activities?id=' + $("#showed_band_id").val(), // showed_band_id is defined in band/show.html.erb
+           events: '/users/events',
            height: 410,
            eventMouseover: function(event, jsEvent, view) {
              //alert(event.description);
              $(this).popover({html:true,title: "<b>" + event.title + "</b>",content:
+                  "<strong>Band:</strong> " + event.band +"<br/>" +
                     "<strong>Description:</strong> " + event.description +"<br/>" +
                     "<strong>Location:</strong> " + event.location + "<br/>" +
-                      "<strong>Start At:</strong> " + event.hours + "<br/>" +
-                     event.accessibility + " Event" ,
+                      "<strong>Start At:</strong> " + event.hours,
                     placement:'top',container:'body'}).popover('show');
            },
            eventMouseout: function (event, jsEvent, view ){
