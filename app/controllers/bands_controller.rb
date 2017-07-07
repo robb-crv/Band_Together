@@ -81,15 +81,21 @@ class BandsController < ApplicationController
 	def leave_band
 
 		band= Band.find(params[:band_id])
-		user= params[:user_id]
+		user= User.find(params[:user_id])
 
-		@rel= MemberAssociation.where(user_id: user, joined_band_id: band.id).first
+		@rel= MemberAssociation.where(user_id: user.id, joined_band_id: band.id).first
 		@rel.destroy
 
 		redirect_to band_path(band)
 
 
-		flash[:success] = "you've left the band #{band.name}"
+		if user != current_user
+			Notification.create(recipient: user, actor: current_user, action: "has just removed you from '#{band.name}'!", notifiable: band)
+		end
+
+		UserAction.create(sender: user, action: "has left the band '#{band.name}'!", receiver: band)
+
+		flash[:success] = "#{user.username} has left the band #{band.name}"
 	end
 
 	private

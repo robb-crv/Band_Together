@@ -97,6 +97,14 @@
 		    		<li>
 		    			<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>:
 							<%= TypeOfMusician.find_by_id(member.type_of_musician_id).name %>
+              &nbsp;
+                <% if (current_user==@band_manager) %>
+                    <%= link_to bands_leave_band_path(:user_id => member.id, :band_id => @band.id), data:  { confirm: "Do you want to remove #{member.username} from #{@band.name}?" },  :class => "btn btn-danger btn-circle", :method => "post" do %>
+                        <i class="glyphicon glyphicon-remove"></i>
+                    <% end %>
+
+                <% end %>
+
 						</li>
 		    	<% end %>
 		    </ol>
@@ -139,11 +147,11 @@
   				<li>
   					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
   					&nbsp;&nbsp;
-  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
+  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle",data:  { confirm: "Accept user's join request?" }, :method => "post", :id =>"_#{req.id}_accept" do %>
   						<i class="glyphicon glyphicon-ok"></i>
   					<% end %>
   					&nbsp;
-  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
+  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", data:  { confirm: "Decline user's join request?" }, :method =>"post", :id =>"_#{req.id}_decline" do %>
   						<i class="glyphicon glyphicon-remove"></i>
   					<%end%>
   				</li>
