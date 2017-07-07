@@ -55,7 +55,7 @@
 							<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
 					<%else%>
 					<br/>
-						<%=button_to "Unfollow", following_relationship_path(:followable_id => @band.id, :followable_type => "Band"), :method => "delete", :class => "btn btn-primary btn-md" %>
+						<%=button_to "Unfollow", unfollow_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
 
 					<%end%>
 					</br>
