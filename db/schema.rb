@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 20170706113259) do
     t.boolean  "pending"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["band_id", "sender_id", "receiver_id"], name: "index_join_requests_on_band_id_and_sender_id_and_receiver_id", unique: true
     t.index ["band_id"], name: "index_join_requests_on_band_id"
     t.index ["receiver_id"], name: "index_join_requests_on_receiver_id"
     t.index ["sender_id"], name: "index_join_requests_on_sender_id"
