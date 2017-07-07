@@ -1,22 +1,31 @@
-<table class="table-striped">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Band</th>
-            <th>Start Date</th>
-            <th>Term Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @advertisments.each do |ad| %>
+<div class="col-sm-3">
+    <%= render partial: 'layouts/search_sidebar', locals: {advertisments: @advertisments, type: "ads"} %>  
+</div>
+
+<div class="col-md-9">
+    <table class="table-striped">
+        <thead>
             <tr>
-                <td><%=ad.title%></td>
-                <td><%=ad.description%></td>
-                <td><%=ad.band.name%></td>
-                <td><%=ad.start_date%></td>
-                <td><%=ad.term_date%></td>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Band</th>
+                <th>Band Manager</th>
+                <th>Start Date</th>
+                <th>Term Date</th>
             </tr>
-        <% end %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% @advertisments.each do |ad| %>
+                <tr>
+                    <td><%=ad.title%></td>
+                    <td><%=ad.description%></td>
+                    <td><%=ad.band.name%></td>
+                    <td><%=ad.user.username%></td>
+                    <td><%=ad.start_date%></td>
+                    <td><%=ad.term_date%></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>    
+</div>
+

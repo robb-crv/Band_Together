@@ -1,26 +1,34 @@
-<table class="table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Band Manager</th>
-            <th>Description</th>
-            <th>Musical Genre</th>
-            <th>Nation</th>
-            <th>Region</th>
-            <th>City</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @bands.each do |band| %>
+<div class="col-sm-3">
+    <%= render partial: 'layouts/search_sidebar', locals: {bands: @bands, type: "bands"} %>    
+</div>
+
+<div class="col-md-9">
+    <table class="table-striped">
+        <thead>
             <tr>
-                <td><%=band.name%></td>
-                <td><%=band.band_manager.username%></td>
-                <td><%=band.description%></td>
-                <td><%= MusicalGenre.find_by_id(band.musical_genre_id).name %></td>
-                <td><%=band.nation%></td>
-                <td><%=band.region%></td>
-                <td><%=band.city%></td>
+                <th>Name</th>
+                <th>Band Manager</th>
+                <th>Description</th>
+                <th>Musical Genre</th>
+                <th>Nation</th>
+                <th>Region</th>
+                <th>City</th>
             </tr>
-        <% end %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% @bands.each do |band| %>
+                <tr>
+                    <td><%=band.name%></td>
+                    <td><%=band.band_manager.username%></td>
+                    <td><%=band.description%></td>
+                    <td><%= MusicalGenre.find_by_id(band.musical_genre_id).name %></td>
+                    <td><%=band.nation%></td>
+                    <td><%=band.region%></td>
+                    <td><%=band.city%></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>    
+</div>
+
+

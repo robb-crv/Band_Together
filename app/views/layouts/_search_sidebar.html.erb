@@ -1,0 +1,36 @@
+<div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Filters</h3>
+		</div>
+		<div class="panel-body">
+			<% case type %>
+				<% when "ads" %>
+					<ul>
+						<li></li>
+					</ul>
+				<% when "users" %>
+					<div class="panel-heading">
+						<h4 class="panel-title">Gender</h4>
+					</div>
+					<div class="panel-body">						
+						<%= form_tag(search_index_path, method: "get", id: "gender-check") %>
+						<ul class="list-group">
+							<li class="list-group-item">
+								<%= check_box_tag :gender, params[gender: "M"]%> Male									
+							</li>
+							<li class="list-group-item">
+								<%= check_box_tag :gender, params[gender: "F"]%> Female							
+							</li>
+						</ul>
+						<% end %>											
+					</div>
+					
+				<% else %>
+					<ul>
+						<li></li>
+					</ul>
+			<% end %>
+		</div>
+	</div>
+</div>

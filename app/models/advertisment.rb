@@ -40,7 +40,8 @@ class Advertisment < ApplicationRecord
 			description: description,
 			start_date: start_date,
 			term_date: term_date,
-			band_name: self.band.name
+			band_name: self.band.name,
+			band_manager: self.user.username
 		}
 	end
 
