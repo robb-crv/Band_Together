@@ -3,6 +3,6 @@ When /^I press "edit" for the advertisment "Cercasi chitarrista"$/ do
 end
 
 Then /^I should be on the Edit Advertisment Page$/ do
-  expect(page).to have_content "Edit Advertisment"
+  expect(page).to have_content "Edit Advertisement"
   expect(page).to have_css("#UpdateAdvertisment")
 end

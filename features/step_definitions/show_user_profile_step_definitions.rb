@@ -10,7 +10,3 @@ When /^I follow "Profile"$/ do
 
   find(:css, '#Profile').click
 end
-
-And /^I should see "User's Profile"$/ do
-  expect(page).to have_content "User's Profile"
-end
