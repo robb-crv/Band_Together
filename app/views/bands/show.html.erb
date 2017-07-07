@@ -50,16 +50,15 @@
 
 			<%if current_user != @band_manager %>
 				<div id="following">
-					<% if !current_user.following?(@band) %>
+					<% if current_user.following?(@band)  %>
 					<br/>
-							<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+              <%= button_to "Unfollow the Band", unfollow_url(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+
 					<%else%>
 					<br/>
-						<%=button_to "Unfollow", unfollow_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+								<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
 
 					<%end%>
-					</br>
-					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
 				</div>
 			<%end%>
 
@@ -67,7 +66,9 @@
 			<% if @active_users.include? current_user %>
 				<br/>
 				<%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
-			<% end %>
+        </br>
+        <%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
+      <% end %>
 	    </div>
   	</div>
 </div>
