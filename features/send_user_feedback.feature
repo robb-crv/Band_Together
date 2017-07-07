@@ -1,11 +1,10 @@
-Feature: "Mario Rossi" reviews "Giulio Bianchi"
-	
-	As a Generic User 
+Feature: User reviews another user
+	As a Generic User
 	I can give a feedback to other users
-	because I want to rate them 
+	because I want to rate them
 
-	Background: user "Mario Rossi" is logged in, he's watching "Giulio Bianchi" profile  
-		
+	Background: user "Mario Rossi" is logged in, he's watching "Giulio Bianchi" profile
+
 		Given Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"
   		And I am logged in as "Mario Rossi"
   		Given Exists user "Giulio Bianchi" with email: "giuliobianchi@gmail.com" and password: "123456"
@@ -20,3 +19,4 @@ Feature: "Mario Rossi" reviews "Giulio Bianchi"
   		And I fill in "description" with "descr"
   		And I press on "Send"
   		Then I should be on Giulio Bianchi profile Page
+			And I should see a feedback that confirm the changes
