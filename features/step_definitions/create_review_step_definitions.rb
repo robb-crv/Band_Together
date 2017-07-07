@@ -22,10 +22,10 @@ end
 And /^I press on "Send"$/ do
 
 	click_on "Send"
-	expect(page).to have_content "User's Profile"
 end
 
 Then /^I should be on Giulio Bianchi profile Page$/ do
 	expect(page.current_path).to eq users_show_path
-	expect(page).to have_content "User's Profile"
+	expect(page).to have_content "First Name: Giulio"
+	expect(page).to have_content "Last Name: Bianchi"
 end

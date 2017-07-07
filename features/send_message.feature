@@ -9,7 +9,7 @@ Feature: User Sends message to others
   Background: user is logged in as "Mario Rossi" and he is in the User Home Page
     Given Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"
     And Exists user "Giulio Bianchi" with email: "giuliobianchi@gmail.com" and password: "123456"
-
+    And "Mario Rossi" is following "Giulio Bianchi"
 
 
 
