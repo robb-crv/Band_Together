@@ -12,10 +12,27 @@ Feature: User could join a Band
   		And I am logged in as "Giulio Bianchi"
   		Given I am on the Band Page of "Band di Rossi"
 		
-	Scenario: "Mario Rossi" send join request for 'Band di Rossi'
-		
-		When "Mario Rossi" press 'Join!'
-		Then the request has been sent and user is still on the page 'Band di Rossi'
-				
+	Scenario: "Giulio Bianchi" send join request for 'Band di Rossi' and Mario Rossi accept the request
+			
+  		Given I am on the Band Page of "Band di Rossi"
 
-	
+		When "Giulio Bianchi" press 'Join!'
+		Then the request has been sent and user is still on the page 'Band di Rossi'
+		
+		Given I am not logged in
+		And I am logged in as "Mario Rossi"
+		Given I am on the Band Page of "Band di Rossi"
+		Then "Mario Rossi" see the pending request and accept it
+
+
+	Scenario: "Giulio Bianchi" send join request for 'Band di Rossi' and Mario Rossi decline the request
+
+  		Given I am on the Band Page of "Band di Rossi"
+
+		When "Giulio Bianchi" press 'Join!'
+		Then the request has been sent and user is still on the page 'Band di Rossi'
+		
+		Given I am not logged in
+		And I am logged in as "Mario Rossi"
+		Given I am on the Band Page of "Band di Rossi"
+		Then "Mario Rossi" see the pending request and decline it
