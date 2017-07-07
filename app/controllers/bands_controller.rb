@@ -78,6 +78,18 @@ class BandsController < ApplicationController
 
 	end
 
+	def leave_band
+
+		band= Band.find(params[:band_id])
+		user= params[:user_id]
+
+		@rel= MemberAssociation.where(user_id: user, joined_band_id: band.id)
+		@rel.destroy
+
+
+		flash[:success] = "you've left the band #{band.name}"
+	end
+
 	private
   	def band_params()
     	params.require(:band).permit(:name, :description, :musical_genre_id, :band_manager_id, :nation , :region, :city)

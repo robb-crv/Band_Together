@@ -3,7 +3,6 @@ class MemberAssociation < ApplicationRecord
   belongs_to :joined_band, class_name: "Band", foreign_key: "joined_band_id"
 
 
-
   class UserValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
       record.errors.add attribute, "It's not a valid user" unless !User.find_by_id(value).nil?

@@ -16,7 +16,7 @@ Feature: User modifies profile informations
 		When I fill "First name" with "Carlo"
 		And I fill "Last name" with "Rossi"
 		And I follow "Update"
-		Then I should be on the User Home Page
+		Then I should be on the User Profile Page
 		And I should see a feedback that confirm the changes
 
 

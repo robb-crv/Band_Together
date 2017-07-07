@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   get 'users/events'
 
+  post 'bands/leave_band'
+
   post 'join_requests/accept'
   post 'join_requests/decline'
 
