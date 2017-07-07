@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630182140) do
+ActiveRecord::Schema.define(version: 20170706113259) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "band_manager_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20170630182140) do
     t.boolean  "pending"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["band_id", "sender_id", "receiver_id"], name: "index_join_requests_on_band_id_and_sender_id_and_receiver_id", unique: true
     t.index ["band_id"], name: "index_join_requests_on_band_id"
     t.index ["receiver_id"], name: "index_join_requests_on_receiver_id"
     t.index ["sender_id"], name: "index_join_requests_on_sender_id"
@@ -171,6 +172,16 @@ ActiveRecord::Schema.define(version: 20170630182140) do
     t.index ["reviewable_id", "reviewable_type", "reviewer_id"], name: "index_on_reviewer_reviewed_type", unique: true
     t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable_type_and_reviewable_id"
     t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
+  end
+
+  create_table "user_actions", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.string   "sender_type"
+    t.string   "action"
+    t.integer  "receiver_id"
+    t.string   "receiver_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|

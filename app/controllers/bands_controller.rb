@@ -24,6 +24,7 @@ class BandsController < ApplicationController
 
 			redirect_to band_path(@band)
 			flash[:success] = "The band has been created successfully."
+			UserAction.create(sender: current_user, action: "has created a new band called #{@band.name}!", receiver: @band)
 		else
 
 			render 'new'
@@ -57,6 +58,7 @@ class BandsController < ApplicationController
 		if updated
 			redirect_to band_path( @band)
 			flash[:success] = "Successfully updated informations."
+			UserAction.create(sender: current_user, action: "has updated the informations of the band called #{@band.name}!", receiver: @band)
 		else
 			render 'edit'
 		end

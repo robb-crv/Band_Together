@@ -19,7 +19,9 @@ class ReviewsController < ApplicationController
 				#Notification.create(recipient: @reviewable, actor: current_user, action: "has sent you a feedback!", notifiable: current_user)
 				flash[:success] = "Review correctly created"
 
+
 				redirect_reviewable
+
 
 		else
 			redirect_to new_review_path(:id => @review.reviewable_id)

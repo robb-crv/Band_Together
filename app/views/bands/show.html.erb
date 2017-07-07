@@ -3,7 +3,7 @@
 <div class="col-sm-3 col-md-3 sidebar">
 
       <div class="panel panel-default">
-        
+
         <div class="panel-body" id ="info_panel">
 
 			<h2><%= @band.name %></h2><br/>
@@ -11,7 +11,7 @@
 
 			<p><strong>Created At:</strong>	 <%= @band.created_at.strftime("%B %d, %Y") %> </p>
 			<p><strong>Band Manager: </strong> <%= link_to @band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%></p>
-			
+
 			<p><strong>Active in:</strong> <%= @band.city %> (<%= @band.region %>, <%= @band.nation %>)</p>
 
 			<p><strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@band.musical_genre_id).name %></p>
@@ -25,7 +25,7 @@
 				<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
 				<br/>
-		
+
 				<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
 			<% else %>
@@ -56,6 +56,7 @@
 					<%else%>
 					<br/>
 						<%=button_to "Unfollow", following_relationship_path(:followable_id => @band.id, :followable_type => "Band"), :method => "delete", :class => "btn btn-primary btn-md" %>
+
 					<%end%>
 					</br>
 					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
@@ -73,7 +74,7 @@
 
 
 
-<div class="col-md-3">
+<div class="col-md-4">
 
 	<div class="panel panel-default">
 		<div class = "panel-heading">
@@ -153,7 +154,7 @@
 
 </div>
 
-<div class="col-md-6">
+<div class="col-md-5">
 
 
 
@@ -193,14 +194,14 @@
 <div class="panel panel-default">
 	<div class = "panel-heading">
 		<h2 class = "panel-title">
-			Active Advertisments
+			Active Advertisements
 		</h2>
 	</div>
 <div class="panel-body">
 	<div id="pnlActiveAdvertisments" >
 		<ol>
 			<% @advs.each do |a| %><br/>
-				
+
 				<li>
 					<%= link_to a.title, advertisment_path(a), :method => "get" %>
 					<ul>
