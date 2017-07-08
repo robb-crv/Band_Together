@@ -81,12 +81,13 @@ class BandsController < ApplicationController
 	def leave_band
 
 		band= Band.find(params[:band_id])
+		id= band.id
 		user= params[:user_id]
 
-		@rel= MemberAssociation.where(user_id: user, joined_band_id: band.id)
+		@rel= MemberAssociation.where(user_id: user, joined_band_id: id).first
 		@rel.destroy
 
-
+		redirect_to band_path(id: id)
 		flash[:success] = "you've left the band #{band.name}"
 	end
 
