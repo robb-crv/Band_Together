@@ -2,29 +2,30 @@ require 'rails_helper'
 
 RSpec.describe JoinRequest, type: :model do
   
-  	before(:each) do 
+  before(:each) do 
 
       @user1 = FactoryGirl.create(:user)
       @user2 = FactoryGirl.create(:user)
 
       @band = FactoryGirl.create(:band, band_manager_id: @user1.id)
 
-  	end
+  end
 
   context 'validations' do
 
-    	it { should validate_presence_of :sender_id }
-      	it { should validate_presence_of :receiver_id }
-      	it { should validate_presence_of :band_id }
-      	it { should validate_presence_of :pending }
+      it { should validate_presence_of :sender_id }
+     	it { should validate_presence_of :receiver_id }
+     	it { should validate_presence_of :band_id }  
+      it { should validate_presence_of :pending }
+      it { should validate_presence_of :req_type }
 
-      	context 'for sender_id and receiver_id' do 
+      context 'for sender_id and receiver_id' do 
 
       		[0,3,nil].each do |i|
 
-				it {should_not allow_value(i).for(:sender_id)}
-				it {should_not allow_value(i).for(:receiver_id)}
-			end
+  				  it {should_not allow_value(i).for(:sender_id)}
+  				  it {should_not allow_value(i).for(:receiver_id)}
+			     end
 
 			[1,2].each do |i| 
 				it {should allow_value(i).for(:sender_id)}
@@ -44,12 +45,26 @@ RSpec.describe JoinRequest, type: :model do
       		
       		[0,2,3,nil].each do |i|
 
-				it {should_not allow_value(i).for(:band_id)}
-				it {should_not allow_value(i).for(:band_id)}
-			end
+				  it {should_not allow_value(i).for(:band_id)}
+				  it {should_not allow_value(i).for(:band_id)}
+			 end
 
 			it {should allow_value(1).for(:band_id)} 
       	end
+
+        context 'for type' do
+          
+          ["req", "inv", "", nil].each do |i|
+            it {should_not allow_value(i).for(:req_type)}
+          end
+
+          ["request", "invitation"].each do |i|
+            it {should allow_value(i).for(:req_type)}
+          end
+
+        end
+
+
 
     end
 end
