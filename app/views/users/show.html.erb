@@ -58,21 +58,21 @@
 				Created Bands
 			</h2>
 		</div>
-	<div class="panel-body">
-		<div id="pnlCreatedBands">
-			<ol>
-			 <% @createdBands.each do |b| %><br/>
-				 <li><%= link_to b.name, band_path(b), :method => "get" %>
-					 <% if b.band_manager == current_user %>
-						 <%= link_to "edit", edit_band_path(b), :method => "get" %>
-						 <%= link_to "delete", band_path(b), :method => "delete", data: { confirm: "Are you sure?" }%>
-					 <% end %>
-				 </li>
-			 <% end %>
-			</ol>
+		<div class="panel-body">
+			<div id="pnlCreatedBands">
+				<ol>
+				 <% @createdBands.each do |b| %><br/>
+					 <li><%= link_to b.name, band_path(b), :method => "get" %>
+						 <% if b.band_manager == current_user %>
+							 <%= link_to "edit", edit_band_path(b), :method => "get" %>
+							 <%= link_to "delete", band_path(b), :method => "delete", data: { confirm: "Are you sure?" }%>
+						 <% end %>
+					 </li>
+				 <% end %>
+				</ol>
+			</div>
 		</div>
 	</div>
-</div>
 
 	<div class="panel panel-default">
 		<div class = "panel-heading">
@@ -80,17 +80,16 @@
 				Joined Bands
 			</h2>
 		</div>
-	<div class="panel-body">
-		<div id="pnlJoinedBands">
-			<ol>
-			 <% @joinedBands.each do |b| %><br/>
-				 <li><%= link_to b.name, band_path(b), :method => "get" %></li>
-			 <% end %>
-			</ol>
+		<div class="panel-body">
+			<div id="pnlJoinedBands">
+				<ol>
+				 <% @joinedBands.each do |b| %><br/>
+					 <li><%= link_to b.name, band_path(b), :method => "get" %></li>
+				 <% end %>
+				</ol>
+			</div>
 		</div>
 	</div>
-</div>
-
 
 </div>
 
@@ -147,4 +146,83 @@
 		</div>
 	</div>
 	</div>
+</div>
+
+
+<div class="col-md-2" align="left">
+
+	<div class="panel panel-default">
+		
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				People say about me...
+			</h2>
+		</div>
+	
+		<div class="panel-body">
+			<div id="pnlReceivedReviews">
+				<ul>
+			 	<%@user.passive_reviews.each do |rev| %>
+			 		<%@reviewer = User.find(rev.reviewer_id)%>
+				 	<li>
+					 	<% (1..rev.rating).each do |i| %>
+					 		<span id=i class="glyphicon glyphicon-star" style="color:#FFD700;font-size: 20px;"></span>
+					 	<%end%>
+					 	<% (rev.rating..4).each do |i| %>
+					 		<span id=i class="glyphicon glyphicon-star" style="color:#A9A9A9;font-size: 20px;"></span>
+					 	<%end%>
+
+				 		<br/>
+						<%= rev.description%><br/>
+						<b>from: <%= link_to @reviewer.username, users_show_path(:id => @reviewer.id)%></b> 
+					</li>
+			 	<%end%>
+				</ul><br/>
+			</div><br/>
+		</div>
+	</div>
+
+
+	<div class="panel panel-default">
+
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				My reviews
+			</h2>
+		</div>
+
+		<div class="panel-body">
+			<div id="pnlReceivedReviews">
+				<ul>
+			 	<%@user.active_reviews.each do |rev| %>
+			 		<% if rev.reviewable_type=="Band" %> 
+						<%@reviewed = Band.find(rev.reviewable_id)%>
+					<%else%>
+						<%@reviewed = User.find(rev.reviewable_id)%>
+					<%end%>
+			 		
+			 		<li>
+					 	<% (1..rev.rating).each do |i| %>
+					 		<span id=i class="glyphicon glyphicon-star" style="color:#FFD700;font-size: 20px;"></span>
+					 	<%end%>
+					 	<% (rev.rating..4).each do |i| %>
+					 		<span id=i class="glyphicon glyphicon-star" style="color:#A9A9A9;font-size: 20px;"></span>
+					 	<%end%>
+					 	</br>
+						<%= rev.description %>
+						</br>
+						<b>to: 
+							<% if rev.reviewable_type=="Band" %> 
+								<%= link_to @reviewed.name, band_path(:id => @reviewed.id)%>
+							<%else%>
+								<%= link_to @reviewed.username, users_show_path(:id => @reviewed.id)%>
+							<%end%>
+							</b>
+					</li><br/>
+			 	<%end%>
+			 	</ul>
+			</div>
+		</div>
+	</div>
+
 </div>

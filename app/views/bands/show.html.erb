@@ -48,9 +48,12 @@
 						</div>
 
   					<% end %>
+
+  					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
   			<% end %>
 
   			<%if current_user != @band_manager %>
+  				
   				<div id="following">
   					<% if current_user.following?(@band)  %>
   					<br/>
@@ -62,7 +65,7 @@
 
 					<%end%>
 					</br>
-					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
+					
 				</div>
 				<br/>
 
@@ -82,7 +85,7 @@
   				<br/>
   				<%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 		        </br>
-		        <%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
+		        
         	<%end%>
 
 
@@ -154,7 +157,7 @@
 				Join Requests
 			</h2>
 		</div>
-<<<<<<< HEAD
+
 		<div class="panel-body">
 			<%if current_user == @band_manager %>
 			<div id="pnlJoinRequests">
@@ -178,29 +181,6 @@
 			</div>
 			<%end%>
 		</div>
-=======
-	<div class="panel-body">
-		<div id="pnlJoinRequests">
-      <ul>
-  			<% current_user.passive_join_request.each do |req| %>
-  			<% if req.pending %>
-  				<li>
-  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
-  					&nbsp;&nbsp;
-  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle",data:  { confirm: "Accept user's join request?" }, :method => "post", :id =>"_#{req.id}_accept" do %>
-  						<i class="glyphicon glyphicon-ok"></i>
-  					<% end %>
-  					&nbsp;
-  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", data:  { confirm: "Decline user's join request?" }, :method =>"post", :id =>"_#{req.id}_decline" do %>
-  						<i class="glyphicon glyphicon-remove"></i>
-  					<%end%>
-  				</li>
-  			<%end%>
-  			<br/>
-
-  			<%end%>
-  		</ul>
->>>>>>> 58ebc7b7d9cfcc2443e9ba9952ac034d15067504
 		</div>
 	</div>
 
@@ -271,3 +251,36 @@
 
 
 </div>
+
+<div class="col-md-4">
+
+	<div class="panel panel-default">
+		
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Reviews 
+			</h2>
+		</div>
+	
+		<div class="panel-body">
+			<div id="pnlReceivedReviews">
+
+
+			 	<%@band.reviews.each do |rev| %>
+			 		<%@reviewer = User.find(rev.reviewer_id)%>
+				 	<% (1..rev.rating).each do |i| %>
+				 		<span id=i class="glyphicon glyphicon-star" style="color:#FFD700;font-size: 20px;"></span>
+				 	<%end%>
+				 	<% (rev.rating..4).each do |i| %>
+				 		<span id=i class="glyphicon glyphicon-star" style="color:#A9A9A9;font-size: 20px;"></span>
+				 	<%end%>
+
+			 		<br/>
+					<%= rev.description%><br/>
+					from: <b><%= link_to @reviewer.username, users_show_path(:id => @reviewer.id)%></b> 
+			 	<%end%>
+			
+		 </div><br/>
+	</div>
+</div>
+	 

@@ -32,13 +32,14 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower, dependent: :delete_all 
 
   #Review
-  has_many :active_reviews, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
-  has_many :passive_reviews,  -> {where :reviewable_type => "User"}, class_name: 'Review', foreign_key: "reviewable_id", dependent: :destroy
+  has_many :active_reviews, class_name: 'Review', foreign_key: "reviewer_id", dependent: :delete_all
 
-  has_many :reviewings_bands, through: :active_reviews, source: :reviewable, source_type: 'Band', dependent: :destroy
-  has_many :reviewings_users, through: :active_reviews, source: :reviewable, source_type: 'User', dependent: :destroy
+  has_many :passive_reviews,  -> {where :reviewable_type => "User"}, class_name: 'Review', foreign_key: "reviewable_id", dependent: :delete_all
 
-  has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
+  #has_many :reviewings_bands, through: :active_reviews, source: :reviewable, source_type: 'Band', dependent: :destroy
+  #has_many :reviewings_users, through: :active_reviews, source: :reviewable, source_type: 'User', dependent: :destroy
+
+  #has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
 
   #JoinRequest
   has_many :active_join_request, class_name: "JoinRequest", foreign_key: "sender_id", dependent: :delete_all
@@ -241,7 +242,6 @@ end
   def reviewed?(reviewed_id)
       Review.exists?(reviewer_id: self.id, reviewable_id: reviewed_id)
   end
-
 
   def actions_of_interest
      users_actions = UserAction.where( :sender_id => self.followings_users.map(&:id) ).where( :sender_type => "User")
