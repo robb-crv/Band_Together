@@ -1,36 +1,36 @@
 <div class="col-sm-3">
-    <%= render partial: 'layouts/search_sidebar', locals: {users: @users, type: "users"} %>    
+  <%= render partial: 'layouts/search_sidebar', locals: {users: @users, type: "users", search: params[:search]} %>    
 </div>
 
 <div class="col-md-9">
-    <table class="table-striped">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Musical Instrument</th>
-                <th>Musical Genre</th>
-                <th>Birth</th>
-                <th>Gender</th>
-                <th>Nation</th>
-                <th>Region</th>
-                <th>City</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @users.each do |user| %>
-                <tr>
-                    <td><%=user.username%></td>
-                    <td><%=user.email%></td>
-                    <td><%= TypeOfMusician.find_by_id(user.type_of_musician_id).name %></td>
-                    <td><%= MusicalGenre.find_by_id(user.musical_genre_id).name %></td>
-                    <td><%=user.birth%></td>
-                    <td><%=user.gender%></td>
-                    <td><%=user.nation%></td>
-                    <td><%=user.region%></td>
-                    <td><%=user.city%></td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>    
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Musical Instrument</th>
+        <th>Musical Genre</th>
+        <th>Birth</th>
+        <th>Gender</th>
+        <th>Nation</th>
+        <th>Region</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%=user.username%></td>
+          <td><%=user.email%></td>
+          <td><%= TypeOfMusician.find_by_id(user.type_of_musician_id).name %></td>
+          <td><%= MusicalGenre.find_by_id(user.musical_genre_id).name %></td>
+          <td><%=user.birth%></td>
+          <td><%=user.gender%></td>
+          <td><%=user.nation%></td>
+          <td><%=user.region%></td>
+          <td><%=user.city%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>    
 </div>

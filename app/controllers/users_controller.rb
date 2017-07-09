@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   def index
     search = params[:search].present? ? params[:search] : nil
     @users = if search
-      User.search search, where: where_data
+    	User.search(search, where: where_data)
     else
       User.all
     end
@@ -79,14 +79,14 @@ passatogli dalla view tramite form.
   def where_data
     data = Hash.new
     filtering_params(params).each do |key, value|
-      data[key] = true if value.present?
+      data[key] = value if value.present?
     end
     data      
   end
 
 
   def filtering_params(params)
-    params.slice(:genderM, :genderF)    
+    params.slice(:gender, :musical_genre)    
   end
 
 end

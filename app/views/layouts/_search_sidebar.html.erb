@@ -10,23 +10,32 @@
 						<li></li>
 					</ul>
 				<% when "users" %>
-					<div class="panel-heading">
-						<h4 class="panel-title">Gender</h4>
-					</div>
-					<div class="panel-body">						
-						<ul class="list-group">
-							<li class="list-group-item">
-								<%= form_tag(search_index_path, method: "get", id: "gender-check-m") do %>
-									<%= check_box_tag :genderM, params[:genderM]%> Male	
-								<% end %>								
-							</li>
-							<li class="list-group-item">
-								<%= form_tag(search_index_path, method: "get", id: "gender-check-f") do %>
-									<%= check_box_tag :genderF, params[:genderF]%> Female	
-								<% end %>							
-							</li>
-						</ul>										
-					</div>					
+					<%= form_tag(search_index_path, method: "get", id: "user-filters") do %>
+						<%= hidden_field_tag :search, params[:search] %>
+						
+						<div class="panel-heading">
+							<h4 class="panel-title">Gender</h4>
+						</div>					
+						<div class="panel-body">						
+							<ul class="list-group">
+								<li class="list-group-item">								
+									<%= radio_button_tag :gender, "M", checked: "#{params[:radio]}"%> Male									
+								</li>
+								<li class="list-group-item">
+									<%= radio_button_tag :gender, "F", checked: "#{params[:radio]}"%> Female								
+								</li>
+							</ul>										
+						</div>
+
+						<div class="panel-heading">
+							<h4 class="panel-title">Musical Genre</h4>
+						</div>
+						<div class="panel-body">
+							<%= collection_select :musical_genre_id, :musical_genre_id, MusicalGenre.all, :id, :name, {:selected => "#{params[:select]}"}, {class: 'form-control'} %>
+						</div>
+
+						<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
+					<% end %>					
 				<% else %>
 					<ul>
 						<li></li>
