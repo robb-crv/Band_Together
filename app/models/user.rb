@@ -44,6 +44,11 @@ class User < ApplicationRecord
   has_many :active_join_request, class_name: "JoinRequest", foreign_key: "sender_id", dependent: :delete_all
   has_many :passive_join_request, class_name: "JoinRequest", foreign_key: "receiver_id", dependent: :delete_all
 
+  #Scopes (si usano per aggiungere i filtri alle query di ricerca)
+
+  scope :genderM, ->{where gender: "M"}
+  scope :genderF, ->{where gender: "F"}
+
 
   #attr_accessor :remember_token
   include ActiveModel::Validations

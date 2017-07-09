@@ -14,18 +14,19 @@
 						<h4 class="panel-title">Gender</h4>
 					</div>
 					<div class="panel-body">						
-						<%= form_tag(search_index_path, method: "get", id: "gender-check") %>
 						<ul class="list-group">
 							<li class="list-group-item">
-								<%= check_box_tag :gender, params[gender: "M"]%> Male									
+								<%= form_tag(search_index_path, method: "get", id: "gender-check-m") do %>
+									<%= check_box_tag :genderM, params[:genderM]%> Male	
+								<% end %>								
 							</li>
 							<li class="list-group-item">
-								<%= check_box_tag :gender, params[gender: "F"]%> Female							
+								<%= form_tag(search_index_path, method: "get", id: "gender-check-f") do %>
+									<%= check_box_tag :genderF, params[:genderF]%> Female	
+								<% end %>							
 							</li>
-						</ul>
-						<% end %>											
-					</div>
-					
+						</ul>										
+					</div>					
 				<% else %>
 					<ul>
 						<li></li>

@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   def index
     search = params[:search].present? ? params[:search] : nil
     @users = if search
-      User.search(search)
+      User.search search, where: where_data
     else
       User.all
     end
@@ -64,6 +64,29 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name,:last_name,:gender,:birth,:nation,:region, :city, :musical_genre_id, :type_of_musician_id)
+  end
+
+=begin
+  
+Metodi utilizzati per creare query dinamiche per searchkick. Il metodo where_data ritorna un hash contenente le where 
+conditions da passare alla search. L'hash data è composto da tuple che hanno come chiave il simbolo corrispondente ad 
+uno degli scope definiti nel model e per valore true. Facendo in questo modo searchkick aggiunge la clausola definita
+nel model al where. Il metodo fitering_params prende solo i parametri di cui siamo interessati dall'hash params 
+passatogli dalla view tramite form. 
+  
+=end 
+
+  def where_data
+    data = Hash.new
+    filtering_params(params).each do |key, value|
+      data[key] = true if value.present?
+    end
+    data      
+  end
+
+
+  def filtering_params(params)
+    params.slice(:genderM, :genderF)    
   end
 
 end
