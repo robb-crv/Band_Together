@@ -16,11 +16,12 @@ class SearchController < ApplicationController
     filtering_user_params(params).each do |key, value|
       data[key] = value if value.present?
     end
+    puts(data)
     data      
   end
 
 
   def filtering_user_params(params)
-    params.slice(:gender, :musical_genre_id)    
+    params.slice(:gender, :user)    
   end
 end

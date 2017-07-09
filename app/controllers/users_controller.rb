@@ -79,14 +79,20 @@ passatogli dalla view tramite form.
   def where_data
     data = Hash.new
     filtering_params(params).each do |key, value|
-      data[key] = value if value.present?
-    end
-    data      
+    	if value.present?
+    		if value.class == Hash
+    			data[key] = values[key]
+    		else
+    			data[key] = value
+    		end
+    	end
+    	data      
+  	end     
   end
 
 
   def filtering_params(params)
-    params.slice(:gender, :musical_genre)    
+    params.slice(:gender, :musical_genre_id)    
   end
 
 end

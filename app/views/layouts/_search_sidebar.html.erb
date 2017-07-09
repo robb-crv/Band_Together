@@ -19,10 +19,10 @@
 						<div class="panel-body">						
 							<ul class="list-group">
 								<li class="list-group-item">								
-									<%= radio_button_tag :gender, "M", checked: "#{params[:radio]}"%> Male									
+									<%= radio_button_tag :gender, "M"%> Male									
 								</li>
 								<li class="list-group-item">
-									<%= radio_button_tag :gender, "F", checked: "#{params[:radio]}"%> Female								
+									<%= radio_button_tag :gender, "F"%> Female								
 								</li>
 							</ul>										
 						</div>
@@ -31,7 +31,7 @@
 							<h4 class="panel-title">Musical Genre</h4>
 						</div>
 						<div class="panel-body">
-							<%= collection_select :musical_genre_id, :musical_genre_id, MusicalGenre.all, :id, :name, {:selected => "#{params[:select]}"}, {class: 'form-control'} %>
+							<%= collection_select :user, :musical_genre_id, MusicalGenre.all, :id, :name, {class: 'form-control'} %>
 						</div>
 
 						<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
