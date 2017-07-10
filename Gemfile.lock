@@ -51,6 +51,8 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap-select-rails (1.12.1)
+    bootstrap-slider-rails (9.8.0)
+      railties (>= 3.2, < 6.0)
     builder (3.2.3)
     byebug (9.0.6)
     cancancan (1.17.0)
@@ -372,6 +374,7 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.3.6)
   bootstrap-select-rails
+  bootstrap-slider-rails
   byebug
   cancancan (~> 1.10)
   capybara-webkit

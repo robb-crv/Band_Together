@@ -28,6 +28,24 @@
 						</div>
 
 						<div class="panel-heading">
+							<h5 class="panel-title">Age</h5>
+						</div>					
+						<div class="panel-body">						
+							<ul class="list-group">
+								<li class="list-group-item">								
+									<input id="age" class="slider" data-slider-id='ageSlider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" style="width:100% !important"/>
+									<%= hidden_field_tag :selected_age %>									
+								</li>
+								<li class="list-group-item">
+									<%= radio_button_tag :condition, :lt%> Older than
+								</li>
+								<li class="list-group-item">
+									<%= radio_button_tag :condition, :gt%> Younger than
+								</li>
+							</ul>										
+						</div>
+
+						<div class="panel-heading">
 							<h5 class="panel-title">Musical Genre</h5>
 						</div>
 						<div class="panel-body">

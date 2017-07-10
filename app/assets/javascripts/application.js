@@ -20,9 +20,12 @@
 //= require moment
 //= require fullcalendar
 //= require bootstrap-select
+//= require bootstrap-slider
 //= require_tree .
 
 
 document.addEventListener("turbolinks:load", function() {
     $('.selectpicker').selectpicker();
+
+  	$('.slider').slider();
 });

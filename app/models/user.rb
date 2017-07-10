@@ -63,7 +63,8 @@ class User < ApplicationRecord
       type_of_musician_id: type_of_musician_id,
       musical_genre_name: MusicalGenre.find_by_id(musical_genre_id).name,
       musical_genre_id: musical_genre_id,
-      gender: gender
+      gender: gender,
+      birth: birth
     }
   end
 
