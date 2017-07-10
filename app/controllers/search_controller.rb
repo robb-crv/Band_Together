@@ -22,6 +22,6 @@ class SearchController < ApplicationController
 
 
   def filtering_user_params(params)
-    params.slice(:gender, :user)    
+    params.slice(:gender, :musical_genre_id, :type_of_musician_id)    
   end
 end

@@ -92,7 +92,7 @@ passatogli dalla view tramite form.
 
 
   def filtering_params(params)
-    params.slice(:gender, :musical_genre_id)    
+    params.slice(:gender, :musical_genre_id, :type_of_musician_id)    
   end
 
 end

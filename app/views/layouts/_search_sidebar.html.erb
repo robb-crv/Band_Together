@@ -14,7 +14,7 @@
 						<%= hidden_field_tag :search, params[:search] %>
 						
 						<div class="panel-heading">
-							<h4 class="panel-title">Gender</h4>
+							<h5 class="panel-title">Gender</h5>
 						</div>					
 						<div class="panel-body">						
 							<ul class="list-group">
@@ -28,10 +28,23 @@
 						</div>
 
 						<div class="panel-heading">
-							<h4 class="panel-title">Musical Genre</h4>
+							<h5 class="panel-title">Musical Genre</h5>
 						</div>
 						<div class="panel-body">
-							<%= collection_select :user, :musical_genre_id, MusicalGenre.all, :id, :name, {class: 'form-control'} %>
+							<div class="form-group">
+								<%= collection_select :user, :musical_genre_id, MusicalGenre.all, :id, :name, {}, class: 'form-control' %>
+								<%= hidden_field_tag :musical_genre_id %>
+							</div>							
+						</div>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">Instrument Played</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= collection_select :user, :type_of_musician_id, TypeOfMusician.all, :id, :name, {}, {class: 'form-control'} %>
+								<%= hidden_field_tag :type_of_musician_id %>
+							</div>							
 						</div>
 
 						<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
