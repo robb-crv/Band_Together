@@ -2,6 +2,6 @@
   <%= render partial: 'layouts/search_sidebar', locals: {users: @users, type: "users", search: params[:search]} %>    
 </div>
 
-<div class="col-md-9">
+<div class="col-md-9" id="users_results">
 	<%= render partial: 'users/results', locals: {users: @users} %>
 </div>

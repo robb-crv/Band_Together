@@ -8,8 +8,8 @@ class SearchController < ApplicationController
     @advertisments = Advertisment.search(search)
     @bands = Band.search(search)
     respond_to do |format|
-			format.js
-			format.html
+			format.html 
+			format.js 
     end
 	end
 
