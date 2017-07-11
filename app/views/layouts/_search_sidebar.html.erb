@@ -10,7 +10,7 @@
 						<li></li>
 					</ul>
 				<% when "users" %>
-					<%= form_tag(search_index_path, method: "get", id: "user-filters") do %>
+					<%= form_tag(search_index_path, method: "get", remote: true, id: "user-filters") do %>
 						<%= hidden_field_tag :search, params[:search] %>
 						
 						<div class="panel-heading">
@@ -50,7 +50,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= collection_select :user, :musical_genre_id, MusicalGenre.all, :id, :name, {}, class: 'form-control' %>
+								<%= collection_select :user, :musical_genre_id, MusicalGenre.all, :id, :name, {:prompt => "Select genre"}, class: 'form-control' %>
 								<%= hidden_field_tag :musical_genre_id %>
 							</div>							
 						</div>
@@ -60,8 +60,38 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= collection_select :user, :type_of_musician_id, TypeOfMusician.all, :id, :name, {}, {class: 'form-control'} %>
+								<%= collection_select :user, :type_of_musician_id, TypeOfMusician.all, :id, :name, {:prompt => "Select musician"}, {class: 'form-control'} %>
 								<%= hidden_field_tag :type_of_musician_id %>
+							</div>							
+						</div>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">Nation</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= collection_select :user, :nation, @users, :nation, :nation, {:prompt => "Select Nation"}, {class: 'form-control'} %>
+								<%= hidden_field_tag :nation %>
+							</div>							
+						</div>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">Region</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= collection_select :user, :region, @users, :region, :region, {:prompt => "Select Region"}, {class: 'form-control'} %>
+								<%= hidden_field_tag :region %>
+							</div>							
+						</div>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">City</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= collection_select :user, :city, @users, :city, :city, {:prompt => "Select City"}, {class: 'form-control'} %>
+								<%= hidden_field_tag :city %>
 							</div>							
 						</div>
 

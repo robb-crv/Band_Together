@@ -86,13 +86,22 @@ passatogli dalla view tramite form.
     			data[key] = value
     		end
     	end
+    	age_handler(params, data)
     	data      
   	end     
   end
 
 
   def filtering_params(params)
-    params.slice(:gender, :musical_genre_id, :type_of_musician_id)    
+    params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :city)    
+  end
+
+  def age_handler(params, hash)
+  	data = params.slice(:condition, :selected_age)
+  	if data[:condition].present? && data[:selected_age].present?
+  		hash[:birth] = {data[:condition].to_sym => Date.new((Time.current.year - Integer(data[:selected_age])), 1, 1)}  
+  	end
+  	hash
   end
 
 end

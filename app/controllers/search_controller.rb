@@ -7,6 +7,10 @@ class SearchController < ApplicationController
     @users = User.search search, where: user_where_data
     @advertisments = Advertisment.search(search)
     @bands = Band.search(search)
+    respond_to do |format|
+			format.js
+			format.html
+    end
 	end
 
   private
@@ -23,7 +27,7 @@ class SearchController < ApplicationController
 
 
   def filtering_user_params(params)
-    params.slice(:gender, :musical_genre_id, :type_of_musician_id)    
+    params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :city)    
   end
 
   def age_handler(params, hash)

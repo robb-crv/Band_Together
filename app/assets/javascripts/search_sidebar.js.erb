@@ -11,6 +11,21 @@ document.addEventListener("turbolinks:load", function() {
 		$('#type_of_musician_id').val(select_value);
 	});
 
+	$('#user_nation').change(function(){
+		var select_value = $(this).val();
+		$('#nation').val(select_value);
+	});
+
+	$('#user_region').change(function(){
+		var select_value = $(this).val();
+		$('#region').val(select_value);
+	});
+
+	$('#user_city').change(function(){
+		var select_value = $(this).val();
+		$('#city').val(select_value);
+	});
+
 	$('age').slider({
 		formatter: function(value) {
 			return 'Current value: ' + value;
