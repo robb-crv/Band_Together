@@ -25,9 +25,22 @@ class SearchController < ApplicationController
     data      
   end
 
+  def ad_where_data
+    data = Hash.new
+    filtering_ad_params(params).each do |key, value|
+      data[key] = value if value.present?
+    end
+    puts(data)
+    data      
+  end
+
 
   def filtering_user_params(params)
     params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :city)    
+  end
+
+  def filtering_ad_params(params)
+    params.slice()    
   end
 
   def age_handler(params, hash)
