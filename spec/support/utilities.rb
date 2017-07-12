@@ -130,6 +130,10 @@ def valid_genre
 	["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin"]
 end
 
+def valid_types
+	["Singer", "Drummer", "Lead guitarist"]
+end
+
 
 
 #ADVERTISMENT
