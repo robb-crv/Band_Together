@@ -47,19 +47,7 @@ class Advertisment < ApplicationRecord
 			band_manager: self.user.username
 		}
 	end
-
-	#Metodi che servono per ritornare il nome della band e lo username del bandmanager alle collection_select nella view
-
-	def name
-    	return self.band.name unless self.band.nil?
-    	""
-	end
-
-	def username
-		return self.user.username unless self.user.nil?
-		""
-	end
-
+	
 	#validation
 	VALID_TITLE_REGEX = /\A[^ ].*\z/ #il titolo non può iniziare con uno spazio
 	validates :title, presence: true, length: {maximum: 200}, format: {with: VALID_TITLE_REGEX}, allow_blank: false

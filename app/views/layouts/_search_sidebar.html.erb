@@ -13,7 +13,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= collection_select :ads, :band, @advertisments, :band_id, :name, {:prompt => "Select Band"}, class: 'form-control' %>
+								<%= select_tag "ads_band", options_for_select(select_options(@advertisments, 'ads_band')), {:prompt => "Select Band", class: 'form-control'} %>
 								<%= hidden_field_tag :band_id %>
 							</div>							
 						</div>
@@ -22,7 +22,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= collection_select :ads, :musical_genre_id, MusicalGenre.all, :id, :name, {:prompt => "Select genre"}, class: 'form-control' %>
+								<%= collection_select :ads, :musical_genre_id, MusicalGenre.all, :id, :name, {:prompt => "Select Genre"}, class: 'form-control' %>
 								<%= hidden_field_tag :band_genre_id %>
 							</div>							
 						</div>
@@ -31,7 +31,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= collection_select :ads, :band_manager, @advertisments, :user_id, :username, {:prompt => "Select Band"}, class: 'form-control' %>
+								<%= select_tag "ads_band_manager", options_for_select(select_options(@advertisments, 'ads_band_manager')), {:prompt => "Select Band Manager", class: 'form-control'} %>
 								<%= hidden_field_tag :band_manager %>
 							</div>							
 						</div>
@@ -101,6 +101,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
+								<%= select_tag "user_nation", options_for_select(select_options(@users, 'users_nation')), {:prompt => "Select Nation", class: 'form-control'} %>
 								<%= collection_select :user, :nation, @users, :nation, :nation, {:prompt => "Select Nation"}, {class: 'form-control'} %>
 								<%= hidden_field_tag :nation %>
 							</div>							
