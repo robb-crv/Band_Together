@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def events
-    @activities = current_user.activities_of_interest.where(:accessibility => "Public")
+    @activities = current_user.activities_of_interest
 
     respond_to do |format|
       format.json

@@ -272,7 +272,9 @@ end
   end
 
   def activities_of_interest
-    Activity.where(:band_id => self.followings_bands.map(&:id))
+    @from_followings = Activity.where(:band_id => self.followings_bands.map(&:id)).where(accessibility: "Public")
+    @from_my_bands = Activity.where(:band_id => self.bands.map(&:id))
+    @from_followings.or(@from_my_bands)
   end
 
 
