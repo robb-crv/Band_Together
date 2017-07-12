@@ -115,6 +115,23 @@ class User < ApplicationRecord
        record.errors.add attribute, "Not a valid City" unless CS.cities(CS.states(CS.countries.key(record.nation)).key(record.region),CS.countries.key(record.nation)).include? value
      end
    end
+
+   class  GenreValidator < ActiveModel::EachValidator
+
+      def validate_each(record, attribute, value)
+          record.errors.add attribute, "Not a supported musical genre" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", "Undefined", ""].include? MusicalGenre.find(value).name
+      end
+    end
+
+
+    class  TypeValidator < ActiveModel::EachValidator
+
+      def validate_each(record, attribute, value)
+          record.errors.add attribute, "Not a supported type of musician" unless ["Drummer", "Lead guitarist", "Rhythmic guitarist", "Singer", "Winds", "Keyboardist", "Bass guitarist", "Rhythmic guitarist", "Undefined", ""].include? TypeOfMusician.find(value).name
+      end
+    end
+
+
 	#Validations
 
 =begin
@@ -145,8 +162,8 @@ class User < ApplicationRecord
   validates :city, allow_blank: false, length: {maximum: 50}, allow_nil: true, city: true
 	VALID_GENDER_REGEX = /[MF]/
 	validates :gender, allow_blank: false, length: {maximum: 1}, format: {with: VALID_GENDER_REGEX}, allow_nil: true
-  #validates :type_of_musician_id, allow_nil: true
-  #validates :musical_genre_id, allow_nil: true
+  validates :musical_genre_id,  presence: true, allow_nil: false, genre: true
+  validates :type_of_musician_id, presence: true, allow_nil: false, type: true
 
 
   #Metodo utilizzato per l'autorizzazione dell'utente tramite google
