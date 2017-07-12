@@ -15,4 +15,4 @@ Background: user "Mario Rossi" creates the band "Band di Rossi" and "Giulio Bian
 Scenario: user "Giulio Bianchi" leaves the band "Band di Rossi"
   When I press "Leave Band"
   Then I should be redirected to the band "Band di Rossi"
-  And I should not be member of "Band di Rossi" anymore
+  And "Giulio Bianchi" should not be member of "Band di Rossi" anymore

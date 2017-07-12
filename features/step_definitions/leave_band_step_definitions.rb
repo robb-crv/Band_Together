@@ -13,7 +13,7 @@ Then /^I should be redirected to the band "Band di Rossi"$/ do
   expect(page).to have_content "Band di Rossi"
 end
 
-Then /^I should not be member of "Band di Rossi" anymore$/ do
+Then /^"Giulio Bianchi" should not be member of "Band di Rossi" anymore$/ do
   giulioBianchiUser = User.find_by email: "giuliobianchi@gmail.com"
   bandDiRossi = Band.find_by name: "Band di Rossi"
   rel = MemberAssociation.where(user: giulioBianchiUser, joined_band: bandDiRossi)
