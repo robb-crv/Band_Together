@@ -97,7 +97,7 @@ class AdvertismentsController < ApplicationController
   	end
 
   	def filtering_ad_params(params)
-    	params.slice(:band_genre_id, :band_id)    
+    	params.slice(:band_genre_id, :band_id, :band_manager_id)    
   	end
 
    	#:musicians => [:drummer, :lead_guitarist, :rhythmic_guitarist, :bass_guitarist, :keyboardist, :singer, :winds]

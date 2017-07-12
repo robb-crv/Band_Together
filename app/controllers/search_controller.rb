@@ -36,11 +36,11 @@ class SearchController < ApplicationController
 
 
   def filtering_user_params(params)
-    params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :city)    
+    params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :region, :city)    
   end
 
   def filtering_ad_params(params)
-    params.slice(:band_genre_id, :band_id)    
+    params.slice(:band_genre_id, :band_id, :band_manager_id)    
   end
 
   def age_handler(params, hash)

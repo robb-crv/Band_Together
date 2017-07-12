@@ -1,3 +1,3 @@
-$("#users_results").html("<%= j render partial: "users/results", locals: {users: @users} %>");
+$("#users").html("<%= j render partial: "users/search", locals: {users: @users} %>");
 
-$("#ads_results").html("<%= j render partial: 'advertisments/results', locals: {advertisments: @advertisments} %>");
+$("#advertisments").html("<%= j render partial: 'advertisments/search', locals: {advertisments: @advertisments} %>");

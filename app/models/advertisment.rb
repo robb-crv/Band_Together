@@ -44,7 +44,8 @@ class Advertisment < ApplicationRecord
 			band_id: band_id,
 			band_genre_id:self.band.musical_genre_id,
 			band_genre_name: MusicalGenre.find_by_id(self.band.musical_genre_id).name, 
-			band_manager: self.user.username
+			band_manager: self.user.username,
+			band_manager_id: self.user_id
 		}
 	end
 	

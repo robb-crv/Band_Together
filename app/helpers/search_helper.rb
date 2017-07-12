@@ -7,9 +7,14 @@ module SearchHelper
 			when 'ads_band_manager'
 				value_text[c.user.username] = c.user_id
 			when 'ads_band'
-				value_text[c.band.name] = c.band_id			
-			end
-	  			  		  		
+				value_text[c.band.name] = c.band_id
+			when 'users_nation'
+				value_text[c.nation] = c.nation
+			when 'users_region'
+				value_text[c.region] = c.region
+			when 'users_city'
+				value_text[c.city] = c.city			
+			end	  			  		  		
 	  	end
 	  	keys = value_text.keys.sort
 	  	result = Array.new

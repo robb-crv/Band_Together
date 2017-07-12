@@ -93,7 +93,7 @@ passatogli dalla view tramite form.
 
 
   def filtering_params(params)
-    params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :city)    
+    params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :region, :city)    
   end
 
   def age_handler(params, hash)
