@@ -5,7 +5,7 @@ class SearchController < ApplicationController
 	def index
     search = params[:search].present? ? params[:search] : nil
     @users = User.search search, where: user_where_data
-    @advertisments = Advertisment.search(search)
+    @advertisments = Advertisment.search search, where: ad_where_data
     @bands = Band.search(search)
     respond_to do |format|
 			format.html 
@@ -40,7 +40,7 @@ class SearchController < ApplicationController
   end
 
   def filtering_ad_params(params)
-    params.slice()    
+    params.slice(:band_genre_id, :band_id)    
   end
 
   def age_handler(params, hash)

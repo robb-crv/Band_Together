@@ -4,6 +4,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Band</th>
+      <th>Band's Genre</th>
       <th>Band Manager</th>
       <th>Start Date</th>
       <th>Term Date</th>
@@ -15,6 +16,7 @@
         <td><%=ad.title%></td>
         <td><%=ad.description%></td>
         <td><%=ad.band.name%></td>
+        <td><%=MusicalGenre.find_by_id(ad.band.musical_genre_id).name%></td>
         <td><%=ad.user.username%></td>
         <td><%=ad.start_date%></td>
         <td><%=ad.term_date%></td>

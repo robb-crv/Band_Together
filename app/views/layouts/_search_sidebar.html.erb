@@ -6,9 +6,40 @@
 		<div class="panel-body">
 			<% case type %>
 				<% when "ads" %>
-					<ul>
-						<li></li>
-					</ul>
+					<%= form_tag(search_index_path, method: "get", remote: true, id: "ads-filters") do %>
+						<%= hidden_field_tag :search, params[:search] %>
+						<div class="panel-heading">
+							<h5 class="panel-title">Band</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= collection_select :ads, :band, @advertisments, :band_id, :name, {:prompt => "Select Band"}, class: 'form-control' %>
+								<%= hidden_field_tag :band_id %>
+							</div>							
+						</div>
+						<div class="panel-heading">
+							<h5 class="panel-title">Band's Genre</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= collection_select :ads, :musical_genre_id, MusicalGenre.all, :id, :name, {:prompt => "Select genre"}, class: 'form-control' %>
+								<%= hidden_field_tag :band_genre_id %>
+							</div>							
+						</div>
+						<div class="panel-heading">
+							<h5 class="panel-title">Band Manager</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= collection_select :ads, :band_manager, @advertisments, :user_id, :username, {:prompt => "Select Band"}, class: 'form-control' %>
+								<%= hidden_field_tag :band_manager %>
+							</div>							
+						</div>
+						<div class="col-md-3">
+							<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
+						</div>
+					<% end %>
+					
 				<% when "users" %>
 					<%= form_tag(search_index_path, method: "get", remote: true, id: "user-filters") do %>
 						<%= hidden_field_tag :search, params[:search] %>
@@ -95,13 +126,22 @@
 							</div>							
 						</div>
 
-						<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
-					<% end %>					
+						<div class="col-md-3">
+							<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
+						</div>
+					<% end %>										
 				<% else %>
 					<ul>
 						<li></li>
 					</ul>
 			<% end %>
+
+			<div class="col-md-3">
+				<%= form_tag(search_index_path, method: "get", remote: true, id: "remove-user-filters") do %>
+					<%= hidden_field_tag :search, params[:search] %>
+					<%= submit_tag "Remove Filters", :name => nil, class: "btn btn-secondary" %>
+				<% end %>						
+			</div>
 		</div>
 	</div>
 </div>

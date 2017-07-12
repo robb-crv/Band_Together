@@ -5,7 +5,7 @@ class AdvertismentsController < ApplicationController
 	def index
     	search = params[:search].present? ? params[:search] : nil
     	@advertisments = if search
-      		Advertisment.search(search)
+      		Advertisment.search search, where: where_data
     	else
       		Advertisment.all
     	end
@@ -86,6 +86,19 @@ class AdvertismentsController < ApplicationController
   		mus= musicians_sym
     	params.require(:advertisment).permit(:title, :description, :start_date, :term_date, :band_id, :user_id, :musicians => mus )
    	end
+
+   	def where_data
+	    data = Hash.new
+	    filtering_ad_params(params).each do |key, value|
+	      data[key] = value if value.present?
+	    end
+	    puts(data)
+	    data      
+  	end
+
+  	def filtering_ad_params(params)
+    	params.slice(:band_genre_id, :band_id)    
+  	end
 
    	#:musicians => [:drummer, :lead_guitarist, :rhythmic_guitarist, :bass_guitarist, :keyboardist, :singer, :winds]
 
