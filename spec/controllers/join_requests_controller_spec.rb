@@ -13,11 +13,12 @@ RSpec.describe JoinRequestsController, type: :controller do
     end
 
 	describe 'JoinRequest#create' do 
+
 		
 		it 'should create a record in following relationship' do 
 			
 			expect {
-				params = {:sender_id => @user2, :receiver_id => @user1, :band_id => @band, :pending => true}
+				params = {:join_request => {:req_type => "request", :sender_id => @user2.id, :receiver_id => @user1.id, :band_id => @band.id, :pending => true}}
 	  			post :create , params 
 	  		}.to change(JoinRequest, :count).by(1)
 
@@ -33,9 +34,10 @@ RSpec.describe JoinRequestsController, type: :controller do
 		
 		it ' should accept the request' do
 			
-			@rel = FactoryGirl.create(:join_request, sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
+			@rel = FactoryGirl.create(:join_request, req_type:  "request" , sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
 			
-			post :accept, sender_id: @user2, receiver_id: @user1, band_id: @band
+			params = {:sender_id => @user2.id, :receiver_id => @user1.id, :band_id => @band.id}
+			post :accept, params
 			@rel.reload
 		
 			expect(@rel.pending).to eq false
@@ -47,9 +49,9 @@ RSpec.describe JoinRequestsController, type: :controller do
 		
 		it ' should decline the request' do
 			
-			@rel = FactoryGirl.create(:join_request, sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
+			@rel = FactoryGirl.create(:join_request,req_type:  "request", sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
 			
-			post :decline, sender_id: @user2, receiver_id: @user1, band_id: @band
+			post :decline, sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id
 			@rel.reload
 		
 			expect(@rel.pending).to eq false
