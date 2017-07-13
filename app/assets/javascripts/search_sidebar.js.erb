@@ -1,6 +1,9 @@
-document.addEventListener("turbolinks:load", function() {
+var first_load = true;
 
+function init_sidebar(){
 	// Funzioni per la sidebar dei filtri della ricerca sull'utente
+
+	console.log("Ci sono");
 
 	$('#user_musical_genre_id').change(function(){
 		var select_value = $(this).val();
@@ -27,11 +30,8 @@ document.addEventListener("turbolinks:load", function() {
 		$('#city').val(select_value);
 	});
 
-	$('age').slider({
-		formatter: function(value) {
-			return 'Current value: ' + value;
-		}
-	});
+	if(!first_load)
+	  	$('.slider').slider();
 
 	$('#age').change(function(){
 		var slider_value = $('#age').val();
@@ -54,4 +54,12 @@ document.addEventListener("turbolinks:load", function() {
 		var select_text = $(this).val().text();
 		$('#band_manager').val(select_text);
 	});
+
+	first_load = false;
+} 
+
+$(document).on("turbolinks:load", init_sidebar());
+
+$(document).ready(function(){
+	$("#ads-filters input[type='submit'], #user-filters input[type='submit'], #remove-user-filters input[type='submit']").on("click", function(){init_sidebar()});
 });
