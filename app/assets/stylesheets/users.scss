@@ -35,3 +35,27 @@
     #UserCalendar{
     }
   }
+
+
+.star-container {
+  width: 50px;
+  heigth: 50px;
+  position:relative;
+}
+
+.background-star{
+  position: absolute;
+  color:#FFD700;
+  font-size: 70px;
+}
+.shoppingBadge-custom {
+   position: absolute;
+   margin-top: 25px;
+   margin-left: 18px;
+}
+
+
+
+.shoppingBadge-custom{
+    z-index: 100;
+}

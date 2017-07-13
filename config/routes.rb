@@ -29,8 +29,11 @@ Rails.application.routes.draw do
 
   get 'users/events'
 
+  post 'bands/leave_band'
+
   post 'join_requests/accept'
   post 'join_requests/decline'
+  get 'join_requests/new'
 
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations',
                     :omniauth_callbacks => "users/omniauth_callbacks" }

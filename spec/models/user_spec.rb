@@ -159,25 +159,51 @@ RSpec.describe User, type: :model do
 			end
 		end
 
+		
+
 		context 'for type_of_musician' do
-			it { should validate_length_of :type_of_musician }
 
-			context 'when its value is invalid' do
-				invalid_types.each do |invalid_type|
-					it { should_not allow_value(invalid_type).for(:type_of_musician)}
-				end
-			end
-		end
+	  		context 'when format is valid' do
 
-		context 'for musical_genre' do
-			it { should validate_length_of :musical_genre }
+	  			valid_types.each do |type|
+	  				
+	  				tmp = (TypeOfMusician.where(:name => type).first).id
+	  				
+	  				it { should allow_value(tmp).for(:type_of_musician_id) }
+	  			end
+	  		end
 
-			context 'when its value is invalid' do
-				invalid_genres.each do |invalid_genre|
-					it { should_not allow_value(invalid_genre).for(:musical_genre)}
-				end
-			end
-		end
+	  		context 'when format is invalid' do
+	  			
+	  			invalid_types.each do |type|
+	  				
+	  				it {expect(TypeOfMusician.where(:name => type.to_s)).to eq [] }
+	  				
+	  			end
+	  		end
+	  	end
+
+		context 'for musical genre' do
+
+	  		context 'when format is valid' do
+
+	  			valid_genre.each do |genre|
+	  				
+	  				tmp= MusicalGenre.where(:name => genre.to_s)[0].id
+	  				
+	  				it { should allow_value(tmp).for(:musical_genre_id) }
+	  			end
+	  		end
+
+	  		context 'when format is invalid' do
+	  			
+	  			invalid_genres.each do |genre|
+	  				
+	  				it {expect(MusicalGenre.where(:name => genre.to_s)).to eq [] }
+	  				
+	  			end
+	  		end
+	  	end
 	end
 
 end

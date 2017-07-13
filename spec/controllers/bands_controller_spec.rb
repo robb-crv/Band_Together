@@ -156,4 +156,28 @@ RSpec.describe BandsController, type: :controller do
 
 	end
 
+	describe 'band#leave_band' do
+
+		before(:each) do
+			@user1= FactoryGirl.create(:user)
+			@user2= FactoryGirl.create(:user)
+			@band= FactoryGirl.create(:band, :band_manager_id => @user1.id)
+			
+			@ass= FactoryGirl.create(:member_association, user_id: @user2.id , joined_band_id: @band.id)
+		end
+
+		it 'delete the member association between user and band' do
+			
+			expect{
+				params = {:user_id => @user2.id, :band_id => @band.id}
+	        	post :leave_band, params
+	      	}.to change(MemberAssociation, :count).by(-1)
+
+	      	expect(@band.users.empty?).to eq true 
+
+	      	expect(@user2.joined_bands.empty?).to eq true
+
+		end
+	end
+
 end

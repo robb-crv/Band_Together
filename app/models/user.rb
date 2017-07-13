@@ -24,21 +24,22 @@ class User < ApplicationRecord
 
   #FollowingRelationship
   has_many :active_relationships, class_name: "FollowingRelationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :passive_relationships, class_name: "FollowingRelationship", foreign_key: "followable_id", dependent: :destroy
+  has_many :passive_relationships,  -> {where :followable_type => "User"}, class_name: "FollowingRelationship", foreign_key: "followable_id", dependent: :destroy
 
   has_many :followings_bands, through: :active_relationships, source: :followable, source_type: 'Band', dependent: :delete_all
   has_many :followings_users, through: :active_relationships, source: :followable, source_type: 'User', dependent: :delete_all
 
-  has_many :followers, through: :passive_relationships, source: :follower, dependent: :delete_all
+  has_many :followers, through: :passive_relationships, source: :follower, dependent: :delete_all 
 
   #Review
-  has_many :active_reviews, class_name: 'Review', foreign_key: "reviewer_id", dependent: :destroy
-  has_many :passive_reviews, class_name: 'Review', foreign_key: "reviewable_id", dependent: :destroy
+  has_many :active_reviews, class_name: 'Review', foreign_key: "reviewer_id", dependent: :delete_all
 
-  has_many :reviewings_bands, through: :active_reviews, source: :reviewable, source_type: 'Band', dependent: :destroy
-  has_many :reviewings_users, through: :active_reviews, source: :reviewable, source_type: 'User', dependent: :destroy
+  has_many :passive_reviews,  -> {where :reviewable_type => "User"}, class_name: 'Review', foreign_key: "reviewable_id", dependent: :delete_all
 
-  has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
+  #has_many :reviewings_bands, through: :active_reviews, source: :reviewable, source_type: 'Band', dependent: :destroy
+  #has_many :reviewings_users, through: :active_reviews, source: :reviewable, source_type: 'User', dependent: :destroy
+
+  #has_many :reviewers, through: :passive_reviews, source: :reviewer, dependent: :destroy
 
   #JoinRequest
   has_many :active_join_request, class_name: "JoinRequest", foreign_key: "sender_id", dependent: :delete_all
@@ -114,6 +115,23 @@ class User < ApplicationRecord
        record.errors.add attribute, "Not a valid City" unless CS.cities(CS.states(CS.countries.key(record.nation)).key(record.region),CS.countries.key(record.nation)).include? value
      end
    end
+
+   class  GenreValidator < ActiveModel::EachValidator
+
+      def validate_each(record, attribute, value)
+          record.errors.add attribute, "Not a supported musical genre" unless ["Rock", "Metal", "Jazz", "Blues", "Pop", "Classic", "Latin", "Undefined", ""].include? MusicalGenre.find(value).name
+      end
+    end
+
+
+    class  TypeValidator < ActiveModel::EachValidator
+
+      def validate_each(record, attribute, value)
+          record.errors.add attribute, "Not a supported type of musician" unless ["Drummer", "Lead guitarist", "Rhythmic guitarist", "Singer", "Winds", "Keyboardist", "Bass guitarist", "Rhythmic guitarist", "Undefined", ""].include? TypeOfMusician.find(value).name
+      end
+    end
+
+
 	#Validations
 
 =begin
@@ -144,8 +162,8 @@ class User < ApplicationRecord
   validates :city, allow_blank: false, length: {maximum: 50}, allow_nil: true, city: true
 	VALID_GENDER_REGEX = /[MF]/
 	validates :gender, allow_blank: false, length: {maximum: 1}, format: {with: VALID_GENDER_REGEX}, allow_nil: true
-  #validates :type_of_musician_id, allow_nil: true
-  #validates :musical_genre_id, allow_nil: true
+  validates :musical_genre_id,  presence: true, allow_nil: false, genre: true
+  validates :type_of_musician_id, presence: true, allow_nil: false, type: true
 
 
   #Metodo utilizzato per l'autorizzazione dell'utente tramite google
@@ -242,7 +260,6 @@ end
       Review.exists?(reviewer_id: self.id, reviewable_id: reviewed_id)
   end
 
-
   def actions_of_interest
      users_actions = UserAction.where( :sender_id => self.followings_users.map(&:id) ).where( :sender_type => "User")
      bands_actions = UserAction.where( :sender_id => self.followings_bands.map(&:id) ).where( :sender_type => "Band")
@@ -255,7 +272,9 @@ end
   end
 
   def activities_of_interest
-    Activity.where(:band_id => self.followings_bands.map(&:id))
+    @from_followings = Activity.where(:band_id => self.followings_bands.map(&:id)).where(accessibility: "Public")
+    @from_my_bands = Activity.where(:band_id => self.bands.map(&:id))
+    @from_followings.or(@from_my_bands)
   end
 
 

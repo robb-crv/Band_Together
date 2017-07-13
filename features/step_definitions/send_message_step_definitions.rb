@@ -8,6 +8,12 @@ When /^I go to the Messages Page$/  do
       click_on "Messages"
 end
 
+Given /^"Mario Rossi" is following "Giulio Bianchi"$/ do
+  giulioBianchiUser = User.find_by email: "giuliobianchi@gmail.com"
+  marioRossiUser = User.find_by email: "mariorossi@gmail.com"
+  FollowingRelationship.create(follower: marioRossiUser, followable: giulioBianchiUser)
+end
+
 When /^I follow "New Conversation"$/ do
     click_on "New Conversation"
 end

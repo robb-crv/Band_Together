@@ -11,7 +11,7 @@ And /^"Giulio Bianchi" is a member of "Band di Rossi"$/ do
 end
 
 And /^Exists user "Giulio Bianchi" with email: "giuliobianchi@gmail.com" and password: "123456"$/ do
-  user = FactoryGirl.build(:user, email: "giuliobianchi@gmail.com", password: "123456",username: "giuliobianchi")
+  user = FactoryGirl.build(:user, email: "giuliobianchi@gmail.com", password: "123456",username: "giuliobianchi", first_name: "Giulio", last_name: "Bianchi")
   user.skip_confirmation!
   expect(user.save).to eq true
 end

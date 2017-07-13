@@ -13,15 +13,7 @@ RSpec.describe NotificationsController, type: :controller do
 				expect(response).to have_http_status(200)
 			end
 
-			it 'and it should shows only the current user notifications' do
-				user2 = FactoryGirl.create(:user)
-
-				notification1 = FactoryGirl.create(:notification, recipient_id: subject.current_user.id)
-				notification2 = FactoryGirl.create(:notification, recipient_id: subject.current_user.id)
-        notification3 = FactoryGirl.create(:notification, recipient_id: user2.id)
-	      get :index
-	      assigns(:notifications).should eq([notification1,notification2])
-			end
+			
 		end
 	end
 

@@ -66,6 +66,9 @@ RSpec.describe Ability, type: :model do
     		context "when is a Band Manager" do 
 
     			let(:user){FactoryGirl.create(:band_manager)}
+                let(:user2){FactoryGirl.create(:user)}
+                 let(:band){FactoryGirl.create(:band,band_manager: user)}
+                  let(:band2){FactoryGirl.create(:band,band_manager: user2)}
 
     			context "#create ability" do 
 
@@ -104,8 +107,7 @@ RSpec.describe Ability, type: :model do
     					end
 
     					context "on the ones created by the others" do 
-
-    						it{should_not be_able_to(:update, FactoryGirl.create(:band))}    						
+    						it{should_not be_able_to(:update, FactoryGirl.create(:band, band_manager: user2))}    						
     					end    					
     				end
 
@@ -113,12 +115,12 @@ RSpec.describe Ability, type: :model do
 
     					context "on the ones which he created" do 
 
-    						it{should be_able_to(:update, FactoryGirl.create(:advertisment, user_id: user.id))}    						
+    						it{should be_able_to(:update, FactoryGirl.create(:advertisment,band: band, user_id: user.id))}    						
     					end
 
     					context "on the ones created by the others" do 
 
-    						it{should_not be_able_to(:update, FactoryGirl.create(:advertisment))}    						
+    						it{should_not be_able_to(:update, FactoryGirl.create(:advertisment, band: band2, user: user2))}    						
     					end    					
     				end    				    				
     			end
@@ -147,20 +149,18 @@ RSpec.describe Ability, type: :model do
 
     					context "on the ones created by the others" do 
 
-    						it{should_not be_able_to(:destroy, FactoryGirl.create(:band))}    						
+    						it{should_not be_able_to(:destroy, FactoryGirl.create(:band, band_manager: user2))}    						
     					end    					
     				end
 
     				context "on Advertisments" do 
 
     					context "on the ones which he created" do 
-
-    						it{should be_able_to(:destroy, FactoryGirl.create(:advertisment, user_id: user.id))}    						
+    						it{should be_able_to(:destroy, FactoryGirl.create(:advertisment,band: band,  user_id: user.id))}    						
     					end
 
     					context "on the ones created by the others" do 
-
-    						it{should_not be_able_to(:destroy, FactoryGirl.create(:advertisment))}    						
+    						it{should_not be_able_to(:destroy, FactoryGirl.create(:advertisment,user: user2, band: band2))}    						
     					end    					
     				end    				
     			end

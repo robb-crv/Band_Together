@@ -15,8 +15,8 @@ class Band < ApplicationRecord
 
 	has_many :reviews, as: :reviewable
 
-	has_many :passive_relationships, class_name: "FollowingRelationship", foreign_key: "followable_id", dependent: :destroy
-	has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
+	has_many :following_relationships, as: :followable, dependent: :destroy
+	has_many :followers, through: :following_relationships
 
 	has_many :join_requests, foreign_key: "band_id", source: :band, dependent: :delete_all
 
@@ -66,7 +66,7 @@ class Band < ApplicationRecord
 		@res << band_manager
 
 		self.followers.each do |usr|
-			if !@res.include?(usr) 
+			if !@res.include?(usr)
 				@res << usr
 			end
 		end
@@ -88,9 +88,24 @@ class Band < ApplicationRecord
 
 	def reviews_average
 
-    return self.reviews.average('rating').to_f
+    	return self.reviews.average('rating').to_f
+  	end
 
-  end
+
+  	def pending_invitation(user)
+  		
+  		self.pending_join_requests_invitation.where(:receiver_id => user.id)
+  	end
+
+	def pending_join_requests_request
+
+  		self.join_requests.where(:pending => true, :req_type => "request")
+  	end  	
+
+  	def pending_join_requests_invitation
+
+  		self.join_requests.where(:pending => true, :req_type => "invitation")
+  	end
 
 	class  GenreValidator < ActiveModel::EachValidator
 

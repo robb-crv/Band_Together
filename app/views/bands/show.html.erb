@@ -6,70 +6,108 @@
 
         <div class="panel-body" id ="info_panel">
 
-			<h2><%= @band.name %></h2><br/>
-			<p><%= @band.description %></p>
+  			<h2><%= @band.name %></h2><br/>
+  			<p><%= @band.description %></p>
 
-			<p><strong>Created At:</strong>	 <%= @band.created_at.strftime("%B %d, %Y") %> </p>
-			<p><strong>Band Manager: </strong> <%= link_to @band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%></p>
+  			<p><strong>Created At:</strong>	 <%= @band.created_at.strftime("%B %d, %Y") %> </p>
+  			<p><strong>Band Manager: </strong> <%= link_to @band_manager.username, users_show_path(:id => @band.band_manager.id), :method => "get"%></p>
 
-			<p><strong>Active in:</strong> <%= @band.city %> (<%= @band.region %>, <%= @band.nation %>)</p>
+  			<p><strong>Active in:</strong> <%= @band.city %> (<%= @band.region %>, <%= @band.nation %>)</p>
 
-			<p><strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@band.musical_genre_id).name %></p>
+  			<p><strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@band.musical_genre_id).name %></p>
 
-			<hr/>
+  			<hr/>
 
 
-			<% if (current_user==@band_manager) %>
-				<!--se l'utente è band manager-->
-				<br/>
-				<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+  			<% if (current_user==@band_manager) %>
+  				<!--se l'utente è band manager-->
+  				<br/>
+  				<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+  				<br/>
 
-				<br/>
+  				<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
 
-				<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+
+				<%= link_to "Invite people!", join_requests_new_path(:req_type => "invitation", :band_id => @band.id) , :method => "get", :class => "btn btn-primary btn-md", :id => "invite_btn" %>
 
 			<% else %>
 
-				 	<% if @band.users.include? current_user %>
-					<!--se l'utente è band member-->
-						<br/>
-						<%= link_to "Leave Band", "#", :class => "btn btn-primary btn-md", :method => "get" %>
+  				 	<% if @band.users.include? current_user %>
+  					<!--se l'utente è band member-->
+  						<br/>
+  						<%= link_to "Leave Band", bands_leave_band_path(:user_id => current_user.id, :band_id => @band.id), :class => "btn btn-primary btn-md", :method => "post" %>
 
 					<% else %>
 						<!--se l'utente è generic user-->
 						<div id="join_req">
 			   				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
-							<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band)%>
-							<br/>
-								<%= button_to "Join!", join_requests_path(band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>
+							<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %><br/>
+							
+								<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>
 							<%end%>
 						</div>
 
-					<% end %>
-			<% end %>
+  					<% end %>
 
-			<%if current_user != @band_manager %>
-				<div id="following">
-					<% if !current_user.following?(@band) %>
-					<br/>
-							<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
-					<%else%>
-					<br/>
-						<%=button_to "Unfollow", following_relationship_path(:followable_id => @band.id, :followable_type => "Band"), :method => "delete", :class => "btn btn-primary btn-md" %>
+  					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
+  			<% end %>
+
+  			<%if current_user != @band_manager %>
+  				
+  				<div id="following">
+  					<% if current_user.following?(@band)  %>
+  					<br/>
+                		<%= button_to "Unfollow the Band", unfollow_url(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
+
+  					<%else%>
+  					<br/>
+  						<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
 
 					<%end%>
 					</br>
-					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
+					
 				</div>
+
+				
+				<br/>
+
+				<% @band.pending_invitation(current_user).each do |p| %>
+					
+					<b>accept invite?</b> &nbsp; &nbsp;
+					
+					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, band_id: @band.id), :method => "post" %>&nbsp; &nbsp;
+
+					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id, band_id: @band.id), :method => "post" %>
+				<%end%>
 			<%end%>
 
 
-			<% if @active_users.include? current_user %>
-				<br/>
-				<%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
-			<% end %>
-	    </div>
-  	</div>
+
+  			<% if @active_users.include? current_user %>
+  				<br/>
+  				<%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
+		        </br>
+		        
+        	<%end%>
+
+        	 <% if @band.reviews.count > 0 %> 
+        	 <br/>
+
+				<div class="star-container">
+								
+					<div class="badge shoppingBadge shoppingBadge-custom"><%= @band.reviews_average %></div>
+					<div class="glyphicon glyphicon-star background-star"></div>
+				</div>
+							
+			 <% end %>
+
+
+        <% if (current_user==@band_manager) %>
+          <br/>   <br/>
+          <%= link_to "Delete Band", band_path(@band), :class => "btn btn-danger btn-md", :method => "delete", data: { confirm: "Are you sure?" } %>
+        <% end %>
+  	    </div>
+    </div>
 </div>
 
 
@@ -90,6 +128,14 @@
 		    		<li>
 		    			<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>:
 							<%= TypeOfMusician.find_by_id(member.type_of_musician_id).name %>
+              &nbsp;
+                <% if (current_user==@band_manager) %>
+                    <%= link_to bands_leave_band_path(:user_id => member.id, :band_id => @band.id), data:  { confirm: "Do you want to remove #{member.username} from #{@band.name}?" },  :class => "btn btn-danger btn-circle", :method => "post" do %>
+                        <i class="glyphicon glyphicon-remove"></i>
+                    <% end %>
+
+                <% end %>
+
 						</li>
 		    	<% end %>
 		    </ol>
@@ -118,41 +164,39 @@
 	</div>
 
 
-  <div class="panel panel-default" id="join_req_panel">
+  	<div class="panel panel-default" id="join_req_panel">
 		<div class = "panel-heading">
 			<h2 class = "panel-title">
 				Join Requests
 			</h2>
 		</div>
-	<div class="panel-body">
-		<div id="pnlJoinRequests">
-      <ul>
-  			<% current_user.passive_join_request.each do |req| %>
-  			<% if req.pending %>
-  				<li>
-  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
-  					&nbsp;&nbsp;
-  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
-  						<i class="glyphicon glyphicon-ok"></i>
-  					<% end %>
-  					&nbsp;
-  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
-  						<i class="glyphicon glyphicon-remove"></i>
-  					<%end%>
-  				</li>
-  			<%end%>
-  			<br/>
 
-  			<%end%>
-  		</ul>
+		<div class="panel-body">
+			<%if current_user == @band_manager %>
+			<div id="pnlJoinRequests">
+	      		<ul>
+	  			<% @band.pending_join_requests_request.each do |req| %>
+		  			<% if req.pending %>
+		  				<li>
+		  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
+		  					&nbsp;&nbsp;
+		  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
+		  						<i class="glyphicon glyphicon-ok"></i>
+		  					<% end %>
+		  					&nbsp;
+		  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
+		  						<i class="glyphicon glyphicon-remove"></i>
+		  					<%end%>
+		  				</li>
+		  			<%end%><br/>
+	  			<%end%>
+	  			</ul>
+			</div>
+			<%end%>
+		</div>
 		</div>
 	</div>
-	</div>
 
-
-
-
-</div>
 
 <div class="col-md-5">
 
@@ -220,3 +264,36 @@
 
 
 </div>
+
+<div class="col-md-4">
+
+	<div class="panel panel-default">
+		
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Reviews 
+			</h2>
+		</div>
+	
+		<div class="panel-body">
+			<div id="pnlReceivedReviews">
+
+
+			 	<%@band.reviews.each do |rev| %>
+			 		<%@reviewer = User.find(rev.reviewer_id)%>
+				 	<% (1..rev.rating).each do |i| %>
+				 		<span id=i class="glyphicon glyphicon-star" style="color:#FFD700;font-size: 20px;"></span>
+				 	<%end%>
+				 	<% (rev.rating..4).each do |i| %>
+				 		<span id=i class="glyphicon glyphicon-star" style="color:#A9A9A9;font-size: 20px;"></span>
+				 	<%end%>
+
+			 		<br/>
+					<%= rev.description%><br/>
+					from: <b><%= link_to @reviewer.username, users_show_path(:id => @reviewer.id)%></b> 
+			 	<%end%>
+			
+		 </div><br/>
+	</div>
+</div>
+	 

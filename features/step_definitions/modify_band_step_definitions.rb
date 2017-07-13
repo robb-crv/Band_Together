@@ -8,7 +8,7 @@
  end
 
 And /^I should see "New Description" for the field "Description"$/ do
-   expect(page).to have_content "Description: New Description"
+   expect(page).to have_content "New Description"
 end
 
 When /^I visit my Profile Page$/ do

@@ -5,9 +5,9 @@ FactoryGirl.define do
 		password            {Faker::Internet.password(6,20)}
 		first_name			{Faker::Name.first_name}
 		last_name			{Faker::Name.last_name}
-		birth				{Faker::Date.backward(1000)}
-		type_of_musician_id "2"
-		musical_genre_id 	"2"
+		birth				"06/06/1990"
+		type_of_musician_id 1
+		musical_genre_id 	1
 		nation   			"Italy"
 		region              "Veneto"
 		city 					"Venice"

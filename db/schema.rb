@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706113259) do
+ActiveRecord::Schema.define(version: 20170707134644) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "band_manager_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20170706113259) do
     t.boolean  "pending"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "req_type"
     t.index ["band_id"], name: "index_join_requests_on_band_id"
     t.index ["receiver_id"], name: "index_join_requests_on_receiver_id"
     t.index ["sender_id"], name: "index_join_requests_on_sender_id"

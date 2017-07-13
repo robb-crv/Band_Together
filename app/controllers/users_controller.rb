@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def events
-    @activities = current_user.activities_of_interest.where(:accessibility => "Public")
+    @activities = current_user.activities_of_interest
 
     respond_to do |format|
       format.json
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     @user = current_user
     updated = @user.update_without_password(user_params)
     if updated
-      redirect_to users_home_path
+      redirect_to users_show_path(id: current_user.id)
       flash[:success] = "Successfully updated informations."
       UserAction.create(sender: current_user, action: "has just updated the profile informations", receiver: nil)
     else
