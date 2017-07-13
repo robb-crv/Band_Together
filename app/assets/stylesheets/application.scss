@@ -19,6 +19,7 @@
  *= require fullcalendar
  *= require chosen
  *= require bootstrap-select
+ *= require bootstrap-slider
  */
  @import "bootstrap";
  @import "bootstrap-sprockets";
@@ -34,6 +35,10 @@
  body {
     padding-top: 50px;
  }
+
+ #ageSlider .slider-selection {
+	background: #BABABA;
+}
 
 
 

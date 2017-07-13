@@ -45,7 +45,6 @@ class User < ApplicationRecord
   has_many :active_join_request, class_name: "JoinRequest", foreign_key: "sender_id", dependent: :delete_all
   has_many :passive_join_request, class_name: "JoinRequest", foreign_key: "receiver_id", dependent: :delete_all
 
-
   #attr_accessor :remember_token
   include ActiveModel::Validations
 
@@ -61,8 +60,12 @@ class User < ApplicationRecord
       nation: nation,
       region: region,
       city: city,
-      type_of_musician_id: TypeOfMusician.find_by_id(type_of_musician_id).name,
-      musical_genre_id: MusicalGenre.find_by_id(musical_genre_id).name
+      type_of_musician_name: TypeOfMusician.find_by_id(type_of_musician_id).name,
+      type_of_musician_id: type_of_musician_id,
+      musical_genre_name: MusicalGenre.find_by_id(musical_genre_id).name,
+      musical_genre_id: musical_genre_id,
+      gender: gender,
+      birth: birth
     }
   end
 

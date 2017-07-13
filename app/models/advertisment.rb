@@ -40,10 +40,15 @@ class Advertisment < ApplicationRecord
 			description: description,
 			start_date: start_date,
 			term_date: term_date,
-			band_name: self.band.name
+			band_name: self.band.name,
+			band_id: band_id,
+			band_genre_id:self.band.musical_genre_id,
+			band_genre_name: MusicalGenre.find_by_id(self.band.musical_genre_id).name, 
+			band_manager: self.user.username,
+			band_manager_id: self.user_id
 		}
 	end
-
+	
 	#validation
 	VALID_TITLE_REGEX = /\A[^ ].*\z/ #il titolo non può iniziare con uno spazio
 	validates :title, presence: true, length: {maximum: 200}, format: {with: VALID_TITLE_REGEX}, allow_blank: false
@@ -53,5 +58,4 @@ class Advertisment < ApplicationRecord
 	validates :musicians, presence: true, musicians: true
 	validates :band_id, presence: true, allow_nil: false, band: true
 	validates :user_id, presence: true, allow_nil: false, user: true
-
 end

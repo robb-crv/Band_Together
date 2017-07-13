@@ -120,6 +120,9 @@ gem 'searchkick'
 #SmartListing helps creating AJAX-enabled lists of ActiveRecord collections or arrays with pagination, filtering, sorting and in-place editing.
 gem 'smart_listing'
 
+#Fornisce la stilizzazione bootstrap degli input slider
+gem 'bootstrap-slider-rails'
+
 group :test do
 
   #.roberto
