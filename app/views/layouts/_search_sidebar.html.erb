@@ -33,6 +33,45 @@
 								<%= select_tag "band_manager_id", options_for_select(select_options(@advertisments, 'ads_band_manager'), params[:band_manager_id]), {:prompt => "Select Band Manager", class: 'form-control'} %>
 							</div>							
 						</div>
+						<div class="panel-heading">
+							<h5 class="panel-title">Start Date</h5>
+						</div>
+						<div class="panel-body">
+							<ul class="list-group">
+								<li class="list-group-item">
+									<div class="form-group">
+										<%= date_field_tag "start_date", {"data-provide" => 'datepicker'}, class: 'form-control'  %>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<%= radio_button_tag :con_start_date, :lt, params[:con_start_date] == "lt" %> Before
+								</li>
+								<li class="list-group-item">
+									<%= radio_button_tag :con_start_date, :gt, params[:con_start_date] == "gt" %> After
+								</li>
+							</ul>														
+						</div>
+						<div class="panel-heading">
+							<h5 class="panel-title">Term Date</h5>
+						</div>
+						<div class="panel-body">
+							<ul class="list-group">
+								<li class="list-group-item">
+									<%= check_box_tag "active", true%> All active Ads		
+								</li>
+								<li class="list-group-item">
+									<div class="form-group">
+										<%= date_field_tag "term_date", {"data-provide" => 'datepicker'}, class: 'form-control'  %>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<%= radio_button_tag :con_term_date, :lt, params[:con_term_date] == "lt" %> Before
+								</li>
+								<li class="list-group-item">
+									<%= radio_button_tag :con_term_date, :gt, params[:con_term_date] == "gt" %> After
+								</li>
+							</ul>														
+						</div>
 						<div class="col-md-3">
 							<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
 						</div>
@@ -51,7 +90,7 @@
 									<%= radio_button_tag :gender, "M", params[:gender] == "M"%> Male									
 								</li>
 								<li class="list-group-item">
-									<%= radio_button_tag :gender, "F", params[:gender] == "F"%> Female								
+									<%= radio_button_tag :gender, "F", params[:gender] == "F"%> Female			
 								</li>
 							</ul>										
 						</div>

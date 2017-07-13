@@ -92,6 +92,8 @@ class AdvertismentsController < ApplicationController
 	    filtering_ad_params(params).each do |key, value|
 	      data[key] = value if value.present?
 	    end
+	    start_date_handler(params, data)
+	    term_date_handler(params, data)
 	    puts(data)
 	    data      
   	end
@@ -99,6 +101,23 @@ class AdvertismentsController < ApplicationController
   	def filtering_ad_params(params)
     	params.slice(:band_genre_id, :band_id, :band_manager_id)    
   	end
+
+  	def start_date_handler(params, hash)
+		data = params.slice(:con_start_date, :start_date)
+		if data[:con_start_date].present? && data[:start_date].present?
+		hash[:start_date] = {data[:con_start_date].to_sym => data[:start_date]}  
+		end
+		hash  	
+  	end
+
+  	def term_date_handler(params, hash)
+	  	data = params.slice(:con_term_date, :term_date)
+	  	if data[:con_term_date].present? && data[:term_date].present?
+	  		hash[:term_date] = {data[:con_term_date].to_sym => data[:term_date]}  
+	  	end
+	  	hash  	
+  	end
+
 
    	#:musicians => [:drummer, :lead_guitarist, :rhythmic_guitarist, :bass_guitarist, :keyboardist, :singer, :winds]
 

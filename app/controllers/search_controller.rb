@@ -30,6 +30,8 @@ class SearchController < ApplicationController
     filtering_ad_params(params).each do |key, value|
       data[key] = value if value.present?
     end
+    start_date_handler(params, data)
+    term_date_handler(params, data)
     puts(data)
     data      
   end
@@ -49,5 +51,21 @@ class SearchController < ApplicationController
   		hash[:birth] = {data[:condition].to_sym => Date.new((Time.current.year - Integer(data[:selected_age])), 1, 1)}  
   	end
   	hash
+  end
+
+  def start_date_handler(params, hash)
+  	data = params.slice(:con_start_date, :start_date)
+  	if data[:con_start_date].present? && data[:start_date].present?
+  		hash[:start_date] = {data[:con_start_date].to_sym => data[:start_date]}  
+  	end
+  	hash  	
+  end
+
+  def term_date_handler(params, hash)
+  	data = params.slice(:con_term_date, :term_date)
+  	if data[:con_term_date].present? && data[:term_date].present?
+  		hash[:term_date] = {data[:con_term_date].to_sym => data[:term_date]}  
+  	end
+  	hash  	
   end
 end
