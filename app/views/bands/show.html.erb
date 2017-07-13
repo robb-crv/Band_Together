@@ -90,6 +90,17 @@
 		        
         	<%end%>
 
+        	 <% if @band.reviews.count > 0 %> 
+        	 <br/>
+
+				<div class="star-container">
+								
+					<div class="badge shoppingBadge shoppingBadge-custom"><%= @band.reviews_average %></div>
+					<div class="glyphicon glyphicon-star background-star"></div>
+				</div>
+							
+			 <% end %>
+
 
         <% if (current_user==@band_manager) %>
           <br/>   <br/>

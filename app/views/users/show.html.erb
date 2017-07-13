@@ -42,9 +42,23 @@
 						 <%end%>
 
 
+						 <% if @user.passive_reviews.count > 0 %> 
+
+						 	<div class="star-container">
+								
+								 <div class="badge shoppingBadge shoppingBadge-custom"><%= @user.reviews_average %></div>
+								  <div class="glyphicon glyphicon-star background-star"></div>
+							</div>
+							
+						 <% end %>
 
 
-      	</div>
+
+
+
+
+
+      		</div>
   		</div>
 </div>
 
