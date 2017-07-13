@@ -13,8 +13,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "ads_band", options_for_select(select_options(@advertisments, 'ads_band'), params[:band_id]), {:prompt => "Select Band", class: 'form-control'} %>
-								<%= hidden_field_tag :band_id %>
+								<%= select_tag "band_id", options_for_select(select_options(@advertisments, 'ads_band'), params[:band_id]), {:prompt => "Select Band", class: 'form-control'} %>
 							</div>							
 						</div>
 						<div class="panel-heading">
@@ -31,8 +30,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "ads_band_manager", options_for_select(select_options(@advertisments, 'ads_band_manager'), params[:band_manager_id]), {:prompt => "Select Band Manager", class: 'form-control'} %>
-								<%= hidden_field_tag :band_manager_id %>
+								<%= select_tag "band_manager_id", options_for_select(select_options(@advertisments, 'ads_band_manager'), params[:band_manager_id]), {:prompt => "Select Band Manager", class: 'form-control'} %>
 							</div>							
 						</div>
 						<div class="col-md-3">
@@ -50,10 +48,10 @@
 						<div class="panel-body">						
 							<ul class="list-group">
 								<li class="list-group-item">								
-									<%= radio_button_tag :gender, "M"%> Male									
+									<%= radio_button_tag :gender, "M", params[:gender] == "M"%> Male									
 								</li>
 								<li class="list-group-item">
-									<%= radio_button_tag :gender, "F"%> Female								
+									<%= radio_button_tag :gender, "F", params[:gender] == "F"%> Female								
 								</li>
 							</ul>										
 						</div>
@@ -64,14 +62,14 @@
 						<div class="panel-body">						
 							<ul class="list-group">
 								<li class="list-group-item">								
-									<input id="age" class="slider" data-slider-id='ageSlider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" style="width:100% !important"/>
+									<input id="age" class="slider" data-slider-id='ageSlider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="<%= params[:selected_age]  %>" style="width:100% !important"/>
 									<%= hidden_field_tag :selected_age %>									
 								</li>
 								<li class="list-group-item">
-									<%= radio_button_tag :condition, :lt%> Older than
+									<%= radio_button_tag :condition, :lt, params[:condition] == "lt" %> Older than
 								</li>
 								<li class="list-group-item">
-									<%= radio_button_tag :condition, :gt%> Younger than
+									<%= radio_button_tag :condition, :gt, params[:condition] == "gt" %> Younger than
 								</li>
 							</ul>										
 						</div>
@@ -101,8 +99,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "user_nation", options_for_select(select_options(@users, 'users_nation'), params[:nation]), {:prompt => "Select Nation", class: 'form-control'} %>
-								<%= hidden_field_tag :nation %>
+								<%= select_tag "nation", options_for_select(select_options(@users, 'users_nation'), params[:nation]), {:prompt => "Select Nation", class: 'form-control'} %>
 							</div>							
 						</div>
 
@@ -111,8 +108,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "user_region", options_for_select(select_options(@users, 'users_region'), params[:region]), {:prompt => "Select Region", class: 'form-control'} %>
-								<%= hidden_field_tag :region %>
+								<%= select_tag "region", options_for_select(select_options(@users, 'users_region'), params[:region]), {:prompt => "Select Region", class: 'form-control'} %>
 							</div>							
 						</div>
 
@@ -121,8 +117,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "user_city", options_for_select(select_options(@users, 'users_city'), params[:city]), {:prompt => "Select City", class: 'form-control'} %>
-								<%= hidden_field_tag :city %>
+								<%= select_tag "city", options_for_select(select_options(@users, 'users_city'), params[:city]), {:prompt => "Select City", class: 'form-control'} %>
 							</div>							
 						</div>
 

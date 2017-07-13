@@ -26,6 +26,5 @@
 
 document.addEventListener("turbolinks:load", function() {
     $('.selectpicker').selectpicker();
-
-  	$('.slider').slider();
+    init_sidebar();
 });

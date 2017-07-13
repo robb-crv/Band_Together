@@ -1,5 +1,7 @@
 $("#users").html("<%= j render partial: "users/search", locals: {users: @users} %>");
 
+$('#selected_age').val(<%= params[:selected_age] %>)
+
 $("#advertisments").html("<%= j render partial: 'advertisments/search', locals: {advertisments: @advertisments} %>");
 
 init_sidebar();
