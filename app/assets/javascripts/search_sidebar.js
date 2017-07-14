@@ -1,9 +1,17 @@
 var first_load = true;
 
 function init_sidebar(){
-	// Funzioni per la sidebar dei filtri della ricerca sull'utente
-	
+
 	$('.slider').slider();
+
+	// Funzioni per la sidebar dei filtri della ricerca sugli ads
+
+	$('#ads_musical_genre_id').change(function(){
+		var select_value = $(this).val();
+		$('#ad_genre_id').val(select_value);
+	});
+
+	// Funzioni per la sidebar dei filtri della ricerca sull'utente
 
 	$('#user_musical_genre_id').change(function(){
 		var select_value = $(this).val();
@@ -18,15 +26,16 @@ function init_sidebar(){
   	$('#age').change(function(){
 		var slider_value = $('#age').val();
 		$('#selected_age').val(slider_value);
-	});		
+	});
 
 	// Funzioni per la sidebar dei filtri della ricerca sugli ads
 
-	$('#ads_musical_genre_id').change(function(){
+	$('#band_musical_genre_id').change(function(){
 		var select_value = $(this).val();
 		$('#band_genre_id').val(select_value);
-	});
+	});		
 
-	console.log(first_load);	
+	console.log(first_load);
+
 } 
 

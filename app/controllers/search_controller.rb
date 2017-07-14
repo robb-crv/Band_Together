@@ -6,7 +6,7 @@ class SearchController < ApplicationController
     search = params[:search].present? ? params[:search] : nil
     @users = User.search search, where: user_where_data
     @advertisments = Advertisment.search search, where: ad_where_data
-    @bands = Band.search(search)
+    @bands = Band.search search, where: band_where_data
     respond_to do |format|
 			format.html 
 			format.js 
@@ -32,6 +32,16 @@ class SearchController < ApplicationController
     end
     start_date_handler(params, data)
     term_date_handler(params, data)
+    active_handler(params, data)
+    puts(data)
+    data      
+  end
+
+  def band_where_data
+    data = Hash.new
+    filtering_band_params(params).each do |key, value|
+      data[key] = value if value.present?
+    end
     puts(data)
     data      
   end
@@ -42,7 +52,11 @@ class SearchController < ApplicationController
   end
 
   def filtering_ad_params(params)
-    params.slice(:band_genre_id, :band_id, :band_manager_id)    
+    params.slice(:ad_genre_id, :band_id, :band_manager_id)    
+  end
+
+  def filtering_band_params(params)
+    params.slice(:band_manager, :band_genre_id, :band_nation, :band_region, :band_city)    
   end
 
   def age_handler(params, hash)
@@ -67,5 +81,12 @@ class SearchController < ApplicationController
   		hash[:term_date] = {data[:con_term_date].to_sym => data[:term_date]}  
   	end
   	hash  	
+  end
+
+  def active_handler(params, hash)
+  	if params[:active].present?
+  		hash[:term_date] = {gte: Time.now.strftime("%Y-%m-%d")}
+  	end 	
+  	hash
   end
 end

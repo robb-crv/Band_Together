@@ -4,4 +4,6 @@ $('#selected_age').val(<%= params[:selected_age] %>)
 
 $("#advertisments").html("<%= j render partial: 'advertisments/search', locals: {advertisments: @advertisments} %>");
 
+$("#bands").html("<%= j render partial: 'bands/search', locals: {bands: @bands} %>");
+
 init_sidebar();

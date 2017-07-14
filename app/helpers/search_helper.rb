@@ -8,12 +8,14 @@ module SearchHelper
 				value_text[c.user.username] = c.user_id
 			when 'ads_band'
 				value_text[c.band.name] = c.band_id
-			when 'users_nation'
+			when 'nation'
 				value_text[c.nation] = c.nation
-			when 'users_region'
+			when 'region'
 				value_text[c.region] = c.region
-			when 'users_city'
-				value_text[c.city] = c.city			
+			when 'city'
+				value_text[c.city] = c.city
+			when 'band_manager'
+				value_text[c.band_manager.username] = c.band_manager_id		
 			end	  			  		  		
 	  	end
 	  	keys = value_text.keys.sort
