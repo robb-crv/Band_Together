@@ -102,6 +102,19 @@
 			 <% end %>
 
 
+
+
+
+		
+
+
+	
+			   <a id="share_on_fb" class="btn btn-primary btn-social-icon btn-facebook">
+			    <span class="fa fa-facebook"></span> Share the Band On Facebook!
+			  </a>
+
+
+
         <% if (current_user==@band_manager) %>
           <br/>   <br/>
           <%= link_to "Delete Band", band_path(@band), :class => "btn btn-danger btn-md", :method => "delete", data: { confirm: "Are you sure?" } %>
@@ -296,4 +309,7 @@
 		 </div><br/>
 	</div>
 </div>
-	 
+
+
+
+
