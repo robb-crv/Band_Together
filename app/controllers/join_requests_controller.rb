@@ -68,7 +68,7 @@ class JoinRequestsController < ApplicationController
 				flash[:success] = "the request has been sent to the band manager"
 				redirect_to band_path(@band)
 			else
-				flash[:danger] = "An error occurred creating request -- #{@receiver}"
+				flash[:danger] = "An error occurred creating request for user #{@receiver.username}"
 				redirect_to band_path(@band)
 			end
 		end

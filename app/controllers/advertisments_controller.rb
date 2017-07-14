@@ -14,6 +14,9 @@ class AdvertismentsController < ApplicationController
 	def show
 		begin
 			@advertisment= Advertisment.find(params[:id])
+			@band = Band.find(@advertisment.band_id)
+			@band_manager= User.find(@band.band_manager_id)
+			@bandMembers = @band.users
 		rescue ActiveRecord::RecordNotFound
 			 redirect_to "/404"
 		end

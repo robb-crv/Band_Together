@@ -1,38 +1,112 @@
+<h2>'<%= @advertisment.title %>'</h2><br/>
+<div class="col-sm-3 col-md-3 sidebar">
 
-<p> <h2>Advertisement '<%= @advertisment.title %>'</h2></p>
+      <div class="panel panel-default">
 
-<p> <strong>Band:</strong> <%= @advertisment.band.name %> </p>
+        <div class="panel-body" id ="info_panel">
 
-<p> Created by: <%= @advertisment.user.username%> </p>
 
-<p>
-	<strong>Band Active in:</strong> <%= @advertisment.band.city %> (<%= @advertisment.band.region %> , <%= @advertisment.band.nation %>)
-</p>
+			<p> <strong>Band:</strong> <%= @advertisment.band.name %> </p>
 
-<p>
-	<strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@advertisment.band.musical_genre_id).name %>
-</p>
+			<p> Created by: <%= @advertisment.user.username%> </p>
 
-<p> <strong>Created by:</strong> <%= @advertisment.user.username %> </p>
+			<p>
+				<strong>Band Active in:</strong> <%= @advertisment.band.city %> (<%= @advertisment.band.region %> , <%= @advertisment.band.nation %>)
+			</p>
 
-<p> <strong>Description:</strong> <%= @advertisment.description%> </p>
+			<p>
+				<strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@advertisment.band.musical_genre_id).name %>
+			<p/>
 
-<p> <strong>Valid From:</strong> <%= @advertisment.start_date %>  <strong> To:</strong> <%= @advertisment.term_date %> </p>
-<p> <strong>musicians: </strong>
-	<ul>
-	<% @advertisment.musicians.each do |m| %>
-		<% if m[1]!='' and m[1]!='0'%>
+			<p> <strong>Created by:</strong> <%= link_to  "#{@advertisment.user.username}", users_show_path(:id => @band_manager.id) %> 
+			</p>
 
-			<% s=m[0].to_s.split(/_/) %>
+			<p> <strong>Valid From:</strong> <%= @advertisment.start_date %>  <strong> To:</strong> <%= @advertisment.term_date %> </p>
+			
+		</div>
+	</div>
+</div>
 
-			<li>
-				<%=m[1]%>
-				<%if !s[1].nil? %>
-					<%= s[1].capitalize%>
-				<%end%>
+<div class="col-md-6">
 
-				<%= s[0].capitalize%>
-			</li>
-		<%end%>
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Description
+			</h2>
+		</div>
+		<div class="panel-body">
+			<div id="pnlDescription" >
+
+				<%= @advertisment.description%> 
+			</div>
+		</div>	
+	</div>
+</div>
+
+
+<div class="col-md-3">
+
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Band Members
+			</h2>
+		</div>
+		<div class="panel-body">
+			<div id="pnlBandMembers" >
+
+				<ul>
+		    		<% @bandMembers.each do |member| %><br/>
+		    			<li>
+		    				<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>
+		    			</li>
+		    		<%end%>
+		    	</ul>
+			</div>
+		</div>	
+	</div>
+</div>
+
+<div class="col-md-4">
+
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Needed Musicians
+			</h2>
+		</div>
+		<div class="panel-body">
+			<div id="pnlNeededMusicians" >
+
+				<ul>
+					<% @advertisment.musicians.each do |m| %>
+						<% if m[1]!='' and m[1]!='0'%>
+
+							<% s=m[0].to_s.split(/_/) %>
+
+							<li>
+								<%=m[1]%>
+								<%if !s[1].nil? %>
+									<%= s[1].capitalize%>
+								<%end%>
+
+								<%= s[0].capitalize%>
+							</li>
+						<%end%>
+					<%end%>
+				</ul> 
+			</div>
+		</div>	
+	</div>
+</div>
+
+<% if current_user != @band_manager %>
+<div id="join_req">
+	<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
+	<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %><br/>
+							
+		<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>		
 	<%end%>
-	</ul>
+</div>
+<%end %>
