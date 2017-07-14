@@ -99,7 +99,7 @@ class AdvertismentsController < ApplicationController
   	end
 
   	def filtering_ad_params(params)
-    	params.slice(:band_genre_id, :band_id, :band_manager_id)    
+    	params.slice(:ad_genre_id, :band_id, :band_manager_id)    
   	end
 
   	def start_date_handler(params, hash)
@@ -117,6 +117,13 @@ class AdvertismentsController < ApplicationController
 	  	end
 	  	hash  	
   	end
+
+  	def active_handler(params, hash)
+	  	if params[:active].present?
+	  		hash[:term_date] = {gte: Time.now.strftime("%Y-%m-%d")}
+	  	end 	
+	  	hash
+	end
 
 
    	#:musicians => [:drummer, :lead_guitarist, :rhythmic_guitarist, :bass_guitarist, :keyboardist, :singer, :winds]
