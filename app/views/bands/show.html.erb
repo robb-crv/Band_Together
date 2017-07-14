@@ -36,20 +36,10 @@
   					<!--se l'utente è band member-->
   						<br/>
   						<%= link_to "Leave Band", bands_leave_band_path(:user_id => current_user.id, :band_id => @band.id), :class => "btn btn-primary btn-md", :method => "post" %>
-
-					<% else %>
-						<!--se l'utente è generic user-->
-						<div id="join_req">
-			   				<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
-							<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %><br/>
-							
-								<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>
-							<%end%>
-						</div>
+  						<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>	
 
   					<% end %>
 
-  					<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>
   			<% end %>
 
   			<%if current_user != @band_manager %>
@@ -80,7 +70,6 @@
 					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id, band_id: @band.id), :method => "post" %>
 				<%end%>
 			<%end%>
-
 
 
   			<% if @active_users.include? current_user %>

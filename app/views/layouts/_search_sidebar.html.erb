@@ -22,7 +22,7 @@
 						<div class="panel-body">
 							<div class="form-group">
 								<%= collection_select :ads, :musical_genre_id, MusicalGenre.all, :id, :name, {:prompt => "Select Genre"}, class: 'form-control' %>
-								<%= hidden_field_tag :band_genre_id %>
+								<%= hidden_field_tag :ad_genre_id %>
 							</div>							
 						</div>
 						<div class="panel-heading">
@@ -57,7 +57,7 @@
 						<div class="panel-body">
 							<ul class="list-group">
 								<li class="list-group-item">
-									<%= check_box_tag "active", true%> All active Ads		
+									<%= check_box_tag "active"%> All active Ads		
 								</li>
 								<li class="list-group-item">
 									<div class="form-group">
@@ -138,7 +138,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "nation", options_for_select(select_options(@users, 'users_nation'), params[:nation]), {:prompt => "Select Nation", class: 'form-control'} %>
+								<%= select_tag "nation", options_for_select(select_options(@users, 'nation'), params[:nation]), {:prompt => "Select Nation", class: 'form-control'} %>
 							</div>							
 						</div>
 
@@ -147,7 +147,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "region", options_for_select(select_options(@users, 'users_region'), params[:region]), {:prompt => "Select Region", class: 'form-control'} %>
+								<%= select_tag "region", options_for_select(select_options(@users, 'region'), params[:region]), {:prompt => "Select Region", class: 'form-control'} %>
 							</div>							
 						</div>
 
@@ -156,7 +156,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "city", options_for_select(select_options(@users, 'users_city'), params[:city]), {:prompt => "Select City", class: 'form-control'} %>
+								<%= select_tag "city", options_for_select(select_options(@users, 'city'), params[:city]), {:prompt => "Select City", class: 'form-control'} %>
 							</div>							
 						</div>
 
@@ -165,9 +165,60 @@
 						</div>
 					<% end %>										
 				<% else %>
-					<ul>
-						<li></li>
-					</ul>
+
+					<%= form_tag(search_index_path, method: "get", remote: true, id: "bands-filters") do %>
+						<%= hidden_field_tag :search, params[:search] %>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">Band Manager</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= select_tag "band_manager", options_for_select(select_options(@bands, 'band_manager'), params[:band_manager]), {:prompt => "Select Band Manager", class: 'form-control'} %>
+							</div>							
+						</div>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">Band's Genre</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= collection_select :band, :musical_genre_id, MusicalGenre.all, :id, :name, {:prompt => "Select Genre"}, class: 'form-control' %>
+								<%= hidden_field_tag :band_genre_id %>
+							</div>							
+						</div>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">Nation</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= select_tag "band_nation", options_for_select(select_options(@bands, 'nation'), params[:band_nation]), {:prompt => "Select Nation", class: 'form-control'} %>
+							</div>							
+						</div>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">Region</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= select_tag "band_region", options_for_select(select_options(@bands, 'region'), params[:band_region]), {:prompt => "Select Region", class: 'form-control'} %>
+							</div>							
+						</div>
+
+						<div class="panel-heading">
+							<h5 class="panel-title">City</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<%= select_tag "band_city", options_for_select(select_options(@bands, 'city'), params[:band_city]), {:prompt => "Select City", class: 'form-control'} %>
+							</div>							
+						</div>
+
+						<div class="col-md-3">
+							<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
+						</div>
+					<% end %>
 			<% end %>
 
 			<div class="col-md-3">

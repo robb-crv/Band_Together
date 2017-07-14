@@ -42,8 +42,8 @@ class Advertisment < ApplicationRecord
 			term_date: term_date,
 			band_name: self.band.name,
 			band_id: band_id,
-			band_genre_id:self.band.musical_genre_id,
-			band_genre_name: MusicalGenre.find_by_id(self.band.musical_genre_id).name, 
+			ad_genre_id:self.band.musical_genre_id,
+			ad_genre_name: MusicalGenre.find_by_id(self.band.musical_genre_id).name, 
 			band_manager: self.user.username,
 			band_manager_id: self.user_id
 		}

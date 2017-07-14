@@ -30,12 +30,13 @@ class Band < ApplicationRecord
 	def search_data
 		{
 			name: name,
-			nation: nation,
-			region: region,
-			city: city,
+			band_nation: nation,
+			band_region: region,
+			band_city: city,
 			description: description,
-			band_manager: band_manager,
-			musical_genre_id: MusicalGenre.find_by_id(musical_genre_id).name
+			band_manager: band_manager_id,
+			musical_genre_name: MusicalGenre.find_by_id(musical_genre_id).name,
+			band_genre_id: musical_genre_id
 		}
 	end
 
