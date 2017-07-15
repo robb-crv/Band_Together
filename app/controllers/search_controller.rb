@@ -4,8 +4,8 @@ class SearchController < ApplicationController
 	
 	def index
     search = params[:search].present? ? params[:search] : nil
-    @users = User.search search, where: user_where_data
-    @advertisments = Advertisment.search search, where: ad_where_data
+    @users = User.search search, {where: user_where_data, fields: user_fields, match: :word_start}
+    @advertisments = Advertisment.search search, {where: ad_where_data, fields: ad_fields}
     @bands = Band.search search, where: band_where_data
     respond_to do |format|
 			format.html 
@@ -46,6 +46,13 @@ class SearchController < ApplicationController
     data      
   end
 
+  def user_fields
+  	[:username, :email, :type_of_musician_name, :nation, :region, :city, :musical_genre_name]  	
+  end
+
+  def ad_fields
+  	[{title: :word_start}, {band_name: :word_start}, {band_manager: :word_start}, {ad_genre_name: :word_start}, {description: :text_middle}]  	
+  end
 
   def filtering_user_params(params)
     params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :region, :city)    
