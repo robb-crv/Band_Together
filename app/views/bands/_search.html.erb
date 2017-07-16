@@ -2,8 +2,23 @@
   <%= render partial: 'layouts/search_sidebar', locals: {bands: @bands, type: "bands"} %>    
 </div>
 
-<div class="col-md-9">
-  <%= render partial: 'bands/results', locals: {bands: @bands} %>
+<div class="col-md-9" id="bands_results">
+  <div class="panel panel-default">
+    <div class = "panel-heading">
+      	  <h2 class = "panel-title" style="margin-top:5px;">
+	        <b>Bands found:</b>
+	      </h2>
+    </div> 
+    <div class="panel-body" id="pnlEntriesFound">
+        <ul class="entries">
+           <%= render partial: 'bands/results', collection: @bands , as: :band %>
+        </ul>
+     </div>
+  </div>
 </div>
+
+
+
+
 
 

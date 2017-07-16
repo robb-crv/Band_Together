@@ -1,3 +1,25 @@
 // Place all the styles related to the Search controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#pnlEntriesFound{
+	overflow-y: scroll;
+  	height: 900px;
+}
+
+
+.entries{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.listing-entry{
+	 margin-top: 3px;
+}
+
+.listing-link{
+	overflow: hidden;
+}

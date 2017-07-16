@@ -1,4 +1,4 @@
-<table class="table-striped">
+<!--<table class="table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -24,3 +24,33 @@
       <% end %>
   </tbody>
 </table>    
+-->
+
+<li class="right clearfix listing-entry" >
+   <%= link_to band_path(band) , class: "list-group-item list-group-item-action listing-link" do %>
+
+      <%= "
+        <strong class='primary-font'>
+
+                #{band.name}
+
+                </strong><br/>
+
+                <i>#{band.description}</i>
+             <br/>
+             <u>Band Manager:</u> #{band.band_manager.username}
+             <br/>
+             <u>Musical Genre:</u> #{MusicalGenre.find_by_id(band.musical_genre_id).name}
+              <br/>
+             <u>Located At:</u> #{band.city}, #{band.region} (#{band.nation})
+              <br/>
+                <small class='pull-left text-muted'>
+                  <b>Created At: </b>
+                  <span class='glyphicon glyphicon-time'></span>
+                  #{band.created_at.strftime("%B %d, %Y at %H:%M") }
+                </small>
+          ".html_safe %>
+
+
+   <% end %>
+</li>

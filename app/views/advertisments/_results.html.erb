@@ -1,3 +1,4 @@
+<!--
 <table class="table-striped">
   <thead>
     <tr>
@@ -24,3 +25,59 @@
     <% end %>
   </tbody>
 </table>    
+-->
+
+<% htmlForMusicians = "" %>
+
+ <% advertisment.musicians.each do |m| %>
+    <% if m[1]!='' and m[1]!='0'%>
+        <% htmlForMusicians  << "<br/>" %>
+       <% s = m[0].to_s.split(/_/) %>
+       <% htmlForMusicians  << m[1] %>
+       <% htmlForMusicians  << " " %>
+        
+        <% htmlForMusicians << s[0].capitalize%>
+        <%if !s[1].nil? %>
+              <% htmlForMusicians  << " " %>
+              <% htmlForMusicians << s[1].capitalize%>               
+        <%end%>
+        
+
+    <%end%>
+  <%end%>
+
+<li class="right clearfix listing-entry" >
+   <%= link_to advertisment_path(advertisment) , class: "list-group-item list-group-item-action listing-link" do %>
+
+      <%= "
+        <strong class='primary-font'>
+
+                #{advertisment.title}
+
+                </strong><br/>
+
+                <i>#{advertisment.description}</i>
+             <br/>
+             <u>Band Manager:</u>  #{advertisment.user.username}
+             <br/>
+             <u>Band Musical Genre:</u>  #{MusicalGenre.find_by_id(advertisment.band.musical_genre_id).name}
+              <br/>
+             <u>Located At:</u> #{advertisment.band.city}, #{advertisment.band.region} (#{advertisment.band.nation})
+              <br/>
+              <u>Musicians Needed:</u>
+                #{htmlForMusicians}
+               
+            <br/>
+
+              <u>Expires:</u> #{advertisment.term_date.strftime("%B %d, %Y")}
+              <br/><br/>
+                <small class='pull-left text-muted'>
+                  <b>Created At: </b>
+                  <span class='glyphicon glyphicon-time'></span>
+                  #{advertisment.created_at.strftime("%B %d, %Y at %H:%M") }
+                </small>
+          ".html_safe %>
+
+
+   <% end %>
+</li>
