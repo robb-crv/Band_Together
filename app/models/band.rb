@@ -34,7 +34,8 @@ class Band < ApplicationRecord
 			band_region: region,
 			band_city: city,
 			description: description,
-			band_manager: band_manager_id,
+			band_manager: band_manager.username,
+			band_manager_id: band_manager.id,
 			musical_genre_name: MusicalGenre.find_by_id(musical_genre_id).name,
 			band_genre_id: musical_genre_id
 		}

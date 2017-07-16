@@ -2,6 +2,17 @@
   <%= render partial: 'layouts/search_sidebar', locals: {users: @users, type: "users", search: params[:search]} %>    
 </div>
 
-<div class="col-md-9" id="users_results">
-	<%= render partial: 'users/results', locals: {users: @users} %>
+<div class="col-md-9" id="users_results">	
+	 <div class="panel panel-default">
+    <div class = "panel-heading">
+      	  <h2 class = "panel-title" style="margin-top:5px;">
+	        <b>Users found:</b>
+	      </h2>
+    </div> 
+    <div class="panel-body" id="pnlEntriesFound">
+        <ul class="entries">
+          <%= render partial: 'users/results', collection: @users , as: :user %>
+        </ul>
+     </div>
+  </div>
 </div>
