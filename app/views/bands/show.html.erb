@@ -96,12 +96,12 @@
 
 		
 
-
+			<% if @bandMembers.include? current_user %>
 	
 			   <a id="share_on_fb" class="btn btn-primary btn-social-icon btn-facebook">
 			    <span class="fa fa-facebook"></span> Share the Band On Facebook!
 			  </a>
-
+			<%end%>
 
 
         <% if (current_user==@band_manager) %>

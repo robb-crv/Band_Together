@@ -1,4 +1,13 @@
 
+And /^Exists advertisment "Adv" for "Band di Rossi"$/ do 
+	adv = FactoryGirl.create(:advertisment, title: "Adv", description: "description", user_id: 2, musicians: {"drummer" => 1}, band_id: 1, start_date: "2/2/2018", term_date: "2/3/2018")
+end
+
+Given /^I am on the "Adv" page$/ do 
+
+	adv = Advertisment.find_by title: "Adv"
+	visit advertisment_path(:id => adv.id)
+end
 
 Given /^I am on the Band Page of "Band di Rossi"$/ do
 	band = Band.find_by name: "Band di Rossi"
@@ -6,7 +15,7 @@ Given /^I am on the Band Page of "Band di Rossi"$/ do
 end
 
 When /^"Giulio Bianchi" press 'Join!'$/ do
-	find(:css,"#info_panel", :text => "Band di Rossi").find(:css, "#join_btn").click
+	find(:css,"#join_req").find(:css, "#join_btn").click
 end
 
 Then /^the request has been sent and user is still on the page 'Band di Rossi'$/ do
@@ -21,7 +30,7 @@ Then /^"Mario Rossi" see the pending request and accept it$/ do
 end
 
 Then /^"Mario Rossi" see the pending request and decline it$/ do
-	#expect(page).to have_content("AAAAAA")
 	find(:css, "#pnlJoinRequests ul li").find(:css, "#_1_decline").click
-	
 end
+
+
