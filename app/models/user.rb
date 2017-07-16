@@ -51,7 +51,7 @@ class User < ApplicationRecord
 #SEARCH ENGINE PARAMETER DEFINITIONS
 
   # Include integration with searchkick
-  searchkick text_middle: [:email]
+  searchkick word_start: [:username, :email, :type_of_musician_name, :nation, :region, :city, :musical_genre_name]
 
   def search_data
     {
@@ -304,6 +304,6 @@ end
                       actor: self,
                        action: ", Welcome to BandTogether, please complete your profile and enjoy our app!",
                        notifiable: self)
-  end
+  end 
 
 end

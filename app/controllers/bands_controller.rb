@@ -3,12 +3,7 @@ class BandsController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		search = params[:search].present? ? params[:search] : nil
-		@bands = if search
-			Band.search search, where: where_data
-		else
-			Band.all
-		end
+		@bands = Band.all
 	end
 
 	def new
@@ -102,18 +97,5 @@ class BandsController < ApplicationController
   	def band_params()
     	params.require(:band).permit(:name, :description, :musical_genre_id, :band_manager_id, :nation , :region, :city)
    	end
-
-   	def filtering_band_params(params)
-    	params.slice(:band_manager)    
-  	end
-
-   	def where_data
-	    data = Hash.new
-	    filtering_band_params(params).each do |key, value|
-	      data[key] = value if value.present?
-	    end
-	    puts(data)
-	    data      
-	end
 
 end

@@ -13,7 +13,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "band_id", options_for_select(select_options(@advertisments, 'ads_band'), params[:band_id]), {:prompt => "Select Band", class: 'form-control'} %>
+								<%= select_tag "band_name", options_for_select(select_options(@advertisments, 'ads_band'), params[:band_name]), {:prompt => "Select Band", class: 'form-control'} %>
 							</div>							
 						</div>
 						<div class="panel-heading">
@@ -30,7 +30,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<%= select_tag "band_manager_id", options_for_select(select_options(@advertisments, 'ads_band_manager'), params[:band_manager_id]), {:prompt => "Select Band Manager", class: 'form-control'} %>
+								<%= select_tag "band_manager_ad", options_for_select(select_options(@advertisments, 'ads_band_manager'), params[:band_manager_ad]), {:prompt => "Select Band Manager", class: 'form-control'} %>
 							</div>							
 						</div>
 						<div class="panel-heading">

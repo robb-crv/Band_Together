@@ -32,7 +32,7 @@ class Advertisment < ApplicationRecord
 #Da aggiornare quando sarà finita la form per l'advertisment
 
 	# Include integration with searchkick
-	searchkick word_middle: [:title, :description]
+	searchkick word_start: [:band_name, :band_manager_ad, :ad_genre_name], text_middle: [:title, :description]
 
 	def search_data
 		{
@@ -41,10 +41,10 @@ class Advertisment < ApplicationRecord
 			start_date: start_date,
 			term_date: term_date,
 			band_name: self.band.name,
-			band_id: band_id,
+			band_id: self.band_id,
 			ad_genre_id:self.band.musical_genre_id,
 			ad_genre_name: MusicalGenre.find_by_id(self.band.musical_genre_id).name, 
-			band_manager: self.user.username,
+			band_manager_ad: self.user.username,
 			band_manager_id: self.user_id
 		}
 	end
