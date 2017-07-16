@@ -46,29 +46,35 @@ class SearchController < ApplicationController
     data      
   end
 
+  #Metodi che ritornano l'array degli attributi da dare al campo fields della ricerca
+
   def user_fields
   	[:username, :email, :type_of_musician_name, :nation, :region, :city, :musical_genre_name]  	
   end
 
   def ad_fields
-  	[{title: :text_middle}, {band_name: :word_start}, {band_manager: :word_start}, {ad_genre_name: :word_start}, {description: :text_middle}]  	
+  	[{title: :text_middle}, {band_name: :word_start}, {band_manager_ad: :word_start}, {ad_genre_name: :word_start}, {description: :text_middle}]  	
   end
 
   def band_fields
   	[{name: :word_start}, {band_manager: :word_start}, {musical_genre_name: :word_start}, {band_nation: :word_start}, {band_region: :word_start}, {band_city: :word_start}, {description: :text_middle}]  	
   end
 
+  #Metodi che filtrano params per prendere solamente i valori necessari alla ricerca
+
   def filtering_user_params(params)
     params.slice(:gender, :musical_genre_id, :type_of_musician_id, :nation, :region, :city)    
   end
 
   def filtering_ad_params(params)
-    params.slice(:ad_genre_id, :band_id, :band_manager_id)    
+    params.slice(:ad_genre_id, :band_name, :band_manager_ad)    
   end
 
   def filtering_band_params(params)
     params.slice(:band_manager, :band_genre_id, :band_nation, :band_region, :band_city)    
   end
+
+  #Handlers di casi specifici
 
   def age_handler(params, hash)
   	data = params.slice(:condition, :selected_age)
