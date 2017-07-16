@@ -25,7 +25,7 @@ class Band < ApplicationRecord
 	#SEARCH ENGINE PARAMETER DEFINITIONS
 
 	# Include integration with searchkick
-	searchkick word_middle: [:name, :description]
+	searchkick word_start: [:name, :band_nation, :band_region, :band_city, :band_manager, :musical_genre_name], text_middle: [:description]
 
 	def search_data
 		{
@@ -34,16 +34,12 @@ class Band < ApplicationRecord
 			band_region: region,
 			band_city: city,
 			description: description,
-			band_manager: band_manager_id,
+			band_manager: band_manager.username,
+			band_manager_id: band_manager_id,
 			musical_genre_name: MusicalGenre.find_by_id(musical_genre_id).name,
 			band_genre_id: musical_genre_id
 		}
 	end
-
-
-
-
-
 
 	def active_users
 		@actives = []

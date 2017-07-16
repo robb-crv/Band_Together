@@ -6,7 +6,7 @@ class SearchController < ApplicationController
     search = params[:search].present? ? params[:search] : nil
     @users = User.search search, {where: user_where_data, fields: user_fields, match: :word_start}
     @advertisments = Advertisment.search search, {where: ad_where_data, fields: ad_fields}
-    @bands = Band.search search, where: band_where_data
+    @bands = Band.search search, {where: band_where_data, fields: band_fields}
     respond_to do |format|
 			format.html 
 			format.js 
@@ -51,7 +51,11 @@ class SearchController < ApplicationController
   end
 
   def ad_fields
-  	[{title: :word_start}, {band_name: :word_start}, {band_manager: :word_start}, {ad_genre_name: :word_start}, {description: :text_middle}]  	
+  	[{title: :text_middle}, {band_name: :word_start}, {band_manager: :word_start}, {ad_genre_name: :word_start}, {description: :text_middle}]  	
+  end
+
+  def band_fields
+  	[{name: :word_start}, {band_manager: :word_start}, {musical_genre_name: :word_start}, {band_nation: :word_start}, {band_region: :word_start}, {band_city: :word_start}, {description: :text_middle}]  	
   end
 
   def filtering_user_params(params)
