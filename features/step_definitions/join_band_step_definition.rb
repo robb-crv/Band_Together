@@ -26,11 +26,12 @@ end
 Then /^"Mario Rossi" see the pending request and accept it$/ do
 	
 	find(:css, "#pnlJoinRequests ul li").find(:css, "#_1_accept").click
-	
+	expect(page).to have_content("The request has been accepted")
 end
 
 Then /^"Mario Rossi" see the pending request and decline it$/ do
 	find(:css, "#pnlJoinRequests ul li").find(:css, "#_1_decline").click
+	expect(page).to have_content("The request has been refused")
 end
 
 

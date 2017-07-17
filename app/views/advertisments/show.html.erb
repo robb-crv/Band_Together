@@ -98,12 +98,14 @@
 
 				<ul>
 					<% @advertisment.musicians.each do |m| %>
-						<% if m[1]!='' and m[1]!='0'%>
+						<% number= m[1]; type= m[0] %>
 
-							<% s=m[0].to_s.split(/_/) %>
+						<% if number!='' and number!='0'%>
+
+							<% s= type.to_s.split(/_/) %>
 
 							<li>
-								<%=m[1]%>
+								<%=number%>
 								<%if !s[1].nil? %>
 									<%= s[1].capitalize%>
 								<%end%>

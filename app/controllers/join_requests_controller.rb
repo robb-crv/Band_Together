@@ -88,7 +88,7 @@ class JoinRequestsController < ApplicationController
 		@rel.update_all(:pending => false)
 
 
-		@ma= MemberAssociation.new(user_id: @receiver.id , joined_band_id: @band.id)
+		@ma= MemberAssociation.new(user_id: @sender.id , joined_band_id: @band.id)
 
 		if @ma.save
 			
@@ -98,7 +98,7 @@ class JoinRequestsController < ApplicationController
 			
 			redirect_to band_path(@band.id)
 		else 
-			flash[:danger] = "error"
+			flash[:danger] = "An error occurred"
 			redirect_to band_path(@band.id)
 		end
 

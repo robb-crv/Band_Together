@@ -125,20 +125,23 @@
 	<div class="panel-body">
 		<div id="pnlBandMembers" >
 			<ol>
+
 		    	<% @bandMembers.each do |member| %><br/>
 
 		    		<li>
 		    			<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>:
 							<%= TypeOfMusician.find_by_id(member.type_of_musician_id).name %>
               &nbsp;
-                <% if (current_user==@band_manager) %>
-                    <%= link_to bands_leave_band_path(:user_id => member.id, :band_id => @band.id), data:  { confirm: "Do you want to remove #{member.username} from #{@band.name}?" },  :class => "btn btn-danger btn-circle", :method => "post" do %>
-                        <i class="glyphicon glyphicon-remove"></i>
-                    <% end %>
+              	<% if member != @band_manager %> 
+	                <% if (current_user==@band_manager) %>
+	                    <%= link_to bands_leave_band_path(:user_id => member.id, :band_id => @band.id), data:  { confirm: "Do you want to remove #{member.username} from #{@band.name}?" },  :class => "btn btn-danger btn-circle", :method => "post" do %>
+	                        <i class="glyphicon glyphicon-remove"></i>
+	                    <% end %>
 
-                <% end %>
+	                <% end %>
+	            <%end%>
 
-						</li>
+				</li>
 		    	<% end %>
 		    </ol>
 		</div>
