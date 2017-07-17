@@ -1,14 +1,16 @@
-<h2>'<%= @advertisment.title %>'</h2><br/>
+
 <div class="col-sm-3 col-md-3 sidebar">
 
       <div class="panel panel-default">
 
         <div class="panel-body" id ="info_panel">
 
+        	<h2>'<%= @advertisment.title %>'</h2><br/>
 
-			<p> <strong>Band:</strong> <%= @advertisment.band.name %> </p>
 
-			<p> Created by: <%= @advertisment.user.username%> </p>
+			<p> <strong>Band:</strong> <%= link_to @advertisment.band.name, band_path(@advertisment.band) %> </p>
+
+			<p> <strong>Created by: </strong> <%= @advertisment.user.username%> </p>
 
 			<p>
 				<strong>Band Active in:</strong> <%= @advertisment.band.city %> (<%= @advertisment.band.region %> , <%= @advertisment.band.nation %>)
@@ -23,6 +25,21 @@
 
 			<p> <strong>Valid From:</strong> <%= @advertisment.start_date %>  <strong> To:</strong> <%= @advertisment.term_date %> </p>
 			
+
+			<% if current_user == @advertisment.user %>
+				<%= link_to "Close Advertisement", advertisment_path(@advertisment) , :method => :delete, :class => "btn btn-danger" %>
+			<% end %>
+
+			<% if current_user != @band_manager %>
+				<div id="join_req">
+					<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
+					<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %><br/>
+											
+						<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>		
+					<%end%>
+				</div>
+			<%end %>
+
 		</div>
 	</div>
 </div>
@@ -101,12 +118,3 @@
 	</div>
 </div>
 
-<% if current_user != @band_manager %>
-<div id="join_req">
-	<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
-	<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %><br/>
-							
-		<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>		
-	<%end%>
-</div>
-<%end %>
