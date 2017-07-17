@@ -65,9 +65,9 @@
 					
 					<b>accept invite?</b> &nbsp; &nbsp;
 					
-					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, band_id: @band.id), :method => "post" %>&nbsp; &nbsp;
+					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, band_id: @band.id, req_type: "invitation"), :method => "post" %>&nbsp; &nbsp;
 
-					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id, band_id: @band.id), :method => "post" %>
+					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id, band_id: @band.id, req_type: "invitation"), :method => "post" %>
 				<%end%>
 			<%end%>
 
@@ -126,7 +126,7 @@
 		<div id="pnlBandMembers" >
 			<ol>
 
-		    	<% @bandMembers.each do |member| %><br/>
+		    	<% @active_users.each do |member| %><br/>
 
 		    		<li>
 		    			<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>:
@@ -185,11 +185,11 @@
 		  				<li>
 		  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
 		  					&nbsp;&nbsp;
-		  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
+		  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id, req_type: "request"), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
 		  						<i class="glyphicon glyphicon-ok"></i>
 		  					<% end %>
 		  					&nbsp;
-		  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
+		  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id, req_type: "request"), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
 		  						<i class="glyphicon glyphicon-remove"></i>
 		  					<%end%>
 		  				</li>

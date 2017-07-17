@@ -18,8 +18,7 @@ RSpec.describe JoinRequestsController, type: :controller do
 		it 'should create a record in following relationship' do 
 			
 			expect {
-				params = {:join_request => {:req_type => "request", :sender_id => @user2.id, :receiver_id => @user1.id, :band_id => @band.id, :pending => true}}
-	  			post :create , params 
+				FactoryGirl.create(:join_request, :req_type => "request", :sender_id => @user2.id, :receiver_id => @user1.id, :band_id => @band.id, :pending => true)
 	  		}.to change(JoinRequest, :count).by(1)
 
 	  		expect(@user2.is_waiting_for_join_response(@band))
@@ -36,9 +35,11 @@ RSpec.describe JoinRequestsController, type: :controller do
 			
 			@rel = FactoryGirl.create(:join_request, req_type:  "request" , sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
 			
-			params = {:sender_id => @user2.id, :receiver_id => @user1.id, :band_id => @band.id}
-			post :accept, params
-			@rel.reload
+			expect {
+				params = {:sender_id => @user2.id, :receiver_id => @user1.id, :band_id => @band.id}
+				post :accept, params
+				@rel.reload
+			}.to change(MemberAssociation, :count).by(1)
 		
 			expect(@rel.pending).to eq false
 			expect(@user1.is_waiting_for_join_response(@band)).to eq false
@@ -49,7 +50,7 @@ RSpec.describe JoinRequestsController, type: :controller do
 		
 		it ' should decline the request' do
 			
-			@rel = FactoryGirl.create(:join_request,req_type:  "request", sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
+			@rel = FactoryGirl.create(:join_request, req_type:  "request", sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
 			
 			post :decline, sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id
 			@rel.reload

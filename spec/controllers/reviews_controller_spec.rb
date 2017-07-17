@@ -20,39 +20,23 @@ RSpec.describe ReviewsController, type: :controller do
 			
 			it 'the request should be succeed' do 
 				get :new
-				expect(response).to have_http_status(302)	
+				expect(response).to have_http_status(200)	
 			end
 		end
 	end
 
 	describe 'reviews#create' do
 
-		
 		it 'should create a record in following relationship' do 
 				
 			expect {
-				params = {:reviewable_id => @user2, :reviewable_type => "User", :rating => 5, :description => "test"}
-	  			post :create , params 
-	  		}.to change(Review, :count).by(1)
+				Review.create(:reviewer_id => @user1.id, :reviewable_id => @user2.id, :reviewable_type => "User", :rating => 5, :description => "test")
+	   		}.to change(Review, :count).by(1)
 
-	  		expect(subject.current_user.reviewings_users).to include(@user2)
+	  		expect(@user1.reviewed? @user2).to eq true
 		end	 
 
 	end
 
-	describe 'reviews#destroy' do
-
-		it 'should destroy a record in following relationship' do 
-
-			rel = Review.create(reviewer_id: @user2, reviewable_id: @user2.id, freviewable_type: "User")
-			expect {
-				params = {:reviewable_id => @user2, :reviewable_type => "User", :rating => 5, :description => "test"}
-	  			post :destory , params 
-	  		}.to change(Review, :count).by(-1)
-
-	  		expect(subject.current_user.reviewings_users).not_to include(@user2)
-		end	 
-
-	end
 
 end
