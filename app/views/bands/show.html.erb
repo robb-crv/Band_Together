@@ -74,9 +74,9 @@
 					
 					<b>accept invite?</b> &nbsp; &nbsp;
 					
-					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, band_id: @band.id, req_type: "invitation"), :method => "post" %>&nbsp; &nbsp;
+					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, receiver_id: p.receiver_id, band_id: @band.id, req_type: "invitation"), :method => "post" %>&nbsp; &nbsp;
 
-					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id, band_id: @band.id, req_type: "invitation"), :method => "post" %>
+					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id,  receiver_id: p.receiver_id, band_id: @band.id, req_type: "invitation"), :method => "post" %>
 				<%end%>
 			<%end%>
 

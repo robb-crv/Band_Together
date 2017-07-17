@@ -48,12 +48,14 @@ class JoinRequestsController < ApplicationController
 			@band = Band.find(params[:band_id])
 			@sender= User.find(params[:sender_id])			
 
-			@rel = JoinRequest.where(:sender_id => @sender.id, :receiver_id => @receiver.id, :band_id => @band.id, :req_type => @type)
-			@rel.update_all(:pending => false)
-		
+			
 		rescue ActiveRecord::RecordNotFound
 			return 
 		end	
+
+		@rel = JoinRequest.where(:sender_id => @sender.id, :receiver_id => @receiver.id, :band_id => @band.id, :req_type => @type)
+		@rel.update_all(:pending => false)
+		
 
 		if @type=="request"
 

@@ -1,6 +1,6 @@
 When /^I fill the search bar with "Mario"$/ do 
 	fill_in("Search", with: "Mario")
-	find('#search-form').native.send_keys(:enter)	
+	find('#search-form').send_keys(:enter)	
 end
 
 
@@ -17,7 +17,7 @@ When /^I follow Users$/ do
 end
 
 Then /^I should see "Mario Rossi" as a result$/ do 
-	expect(page).to have_content "Mario Rossi"	
+	expect(page).to have_content "mariorossi@gmail.com"	
 end
 
 When /^I follow Bands$/ do 
