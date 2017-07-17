@@ -1,62 +1,5 @@
 
 
-<div class="col-md-4">
-
-		<div class="panel panel-default">
-			<div class = "panel-heading">
-				<h2 class = "panel-title">
-					Advertisements Near You
-				</h2>
-			</div>
-		<div class="panel-body">
-			<div id="pnlFollowingActions">
-				 <% @interesting_advertisments.reorder('id DESC').each do |b| %>
-					 <div class="media">
-						 <div class="media-body">
-								  <h4 class="media-heading">
-							 			<strong> <%= link_to b.title,  advertisment_path(b)  %>  </strong>
-
-										<br/>
-
-								 <strong>Description: </strong> <%= b.description %>
-										 <br/>
-								 <strong>Band: </strong> <%= b.band.name %>
-										 <br/>
-								 <strong>Position: </strong> <%= b.band.city %> (<%= b.band.region %> , <%= b.band.nation %>)
-										 <br/>
-
-								 <small>
-									 <span class='glyphicon glyphicon-time'></span>
-									 <b>Expires on: </b>
-											<%=  b.term_date.strftime("%B %d, %Y") %>
-								 </small>
-
-								  	</h4>
-
-						 </div>
-			 	 		</div>
-			 			<hr />
-		 			<% end %>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-<div class="col-md-5">
-		<div class="panel panel-default">
-			<div class = "panel-heading">
-				<h2 class = "panel-title">
-					Next Events
-				</h2>
-			</div>
-		<div class="panel-body">
-			<div id='UserCalendar'></div>
-		</div>
-	</div>
-</div>
-
 
 <div class="col-md-3">
 
@@ -92,6 +35,63 @@
 			 			<hr />
 		 			<% end %>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-4">
+
+		<div class="panel panel-default">
+			<div class = "panel-heading">
+				<h2 class = "panel-title">
+					Advertisements Near You
+				</h2>
+			</div>
+		<div class="panel-body">
+			<div id="pnlFollowingAds">
+				 <% @interesting_advertisments.reorder('id DESC').each do |b| %>
+					 <div class="media">
+						 <div class="media-body">
+								  <h4 class="media-heading">
+							 			<strong> <%= link_to b.title,  advertisment_path(b)  %>  </strong>
+
+										<br/>
+
+								 <strong>Description: </strong> <%= b.description %>
+										 <br/>
+								 <strong>Band: </strong> <%= link_to b.band.name,  band_path(b.band)  %> 
+										 <br/>
+								 <strong>Position: </strong> <%= b.band.city %> (<%= b.band.region %> , <%= b.band.nation %>)
+										 <br/>
+
+								 <small>
+									 <span class='glyphicon glyphicon-time'></span>
+									 <b>Expires on: </b>
+											<%=  b.term_date.strftime("%B %d, %Y") %>
+								 </small>
+
+								  	</h4>
+
+						 </div>
+			 	 		</div>
+			 			<hr />
+		 			<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="col-md-5">
+		<div class="panel panel-default">
+			<div class = "panel-heading">
+				<h2 class = "panel-title">
+					Next Events
+				</h2>
+			</div>
+		<div class="panel-body">
+			<div id='UserCalendar'></div>
 		</div>
 	</div>
 </div>

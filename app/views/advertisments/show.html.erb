@@ -10,8 +10,8 @@
 
 			<p> <strong>Band:</strong> <%= link_to @advertisment.band.name, band_path(@advertisment.band) %> </p>
 
-			<p> <strong>Created by: </strong> <%= @advertisment.user.username%> </p>
-
+			<p> <strong>Created by:</strong> <%= link_to  "#{@advertisment.user.username}", users_show_path(:id => @band_manager.id) %> 
+			</p>
 			<p>
 				<strong>Band Active in:</strong> <%= @advertisment.band.city %> (<%= @advertisment.band.region %> , <%= @advertisment.band.nation %>)
 			</p>
@@ -20,14 +20,13 @@
 				<strong>Musical Genre:</strong>	<%= MusicalGenre.find_by_id(@advertisment.band.musical_genre_id).name %>
 			<p/>
 
-			<p> <strong>Created by:</strong> <%= link_to  "#{@advertisment.user.username}", users_show_path(:id => @band_manager.id) %> 
-			</p>
+			
 
 			<p> <strong>Valid From:</strong> <%= @advertisment.start_date %>  <strong> To:</strong> <%= @advertisment.term_date %> </p>
 			
 
 			<% if current_user == @advertisment.user %>
-				<%= link_to "Close Advertisement", advertisment_path(@advertisment) , :method => :delete, :class => "btn btn-danger" %>
+				<%= link_to "Close Advertisement", advertisment_path(@advertisment) , :method => :delete, :class => "btn btn-danger", data: { confirm: "Are you sure?" }%>
 			<% end %>
 
 			<% if current_user != @band_manager %>
@@ -44,7 +43,7 @@
 	</div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-5">
 
 	<div class="panel panel-default">
 		<div class = "panel-heading">
@@ -59,10 +58,7 @@
 			</div>
 		</div>	
 	</div>
-</div>
 
-
-<div class="col-md-3">
 
 	<div class="panel panel-default">
 		<div class = "panel-heading">
@@ -74,7 +70,7 @@
 			<div id="pnlBandMembers" >
 
 				<ul>
-		    		<% @bandMembers.each do |member| %><br/>
+		    		<% @active_users.each do |member| %><br/>
 		    			<li>
 		    				<%= link_to member.username, users_show_path(:id => member.id), :method => "get" %>
 		    			</li>
@@ -106,11 +102,12 @@
 
 							<li>
 								<%=number%>
+								<%= s[0].capitalize%>
 								<%if !s[1].nil? %>
 									<%= s[1].capitalize%>
 								<%end%>
 
-								<%= s[0].capitalize%>
+								
 							</li>
 						<%end%>
 					<%end%>

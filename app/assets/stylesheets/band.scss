@@ -33,3 +33,10 @@ tr:nth-child(even) {
   #calendar{
   }
 }
+
+
+#pnlReceivedReviews,
+#pnlFollowers{
+  overflow-y: scroll;
+  height: 300px;
+}

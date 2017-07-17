@@ -44,11 +44,13 @@ class Band < ApplicationRecord
 	def active_users
 		@actives = []
 
+		@actives << band_manager
+
 		users.each do |usr|
 			@actives << usr
 		end
 
-		@actives << band_manager
+		
 
 		@actives
 	end
