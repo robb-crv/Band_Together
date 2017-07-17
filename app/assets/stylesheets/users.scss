@@ -52,10 +52,31 @@
    position: absolute;
    margin-top: 25px;
    margin-left: 18px;
+   background-color:#FFD700 !important;
+   color: black !important;
 }
 
 
 
 .shoppingBadge-custom{
     z-index: 100;
+}
+
+
+#pnlSendedReviews,
+#pnlFollowedUsers,
+#pnlFollowedBands{
+  overflow-y: scroll;
+  height: 200px;
+}
+
+#pnlCreatedBands{
+    overflow-y: scroll;
+  height: 500px;
+}
+
+#pnlFollowingActions,
+#pnlFollowingAds{
+    overflow-y: scroll;
+  height: 500px;
 }
