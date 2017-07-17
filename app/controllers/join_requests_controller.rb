@@ -43,12 +43,12 @@ class JoinRequestsController < ApplicationController
 	def accept
 		
 		begin
-			@receiver= current_user
+			@receiver = User.find(params[:receiver_id])
 			@type= params[:req_type]
 			@band = Band.find(params[:band_id])
-			@sender= User.find(params[:sender_id])
+			@sender= User.find(params[:sender_id])			
 
-			@rel = JoinRequest.where(sender_id: @sender.id, receiver_id: @receiver.id, band_id: @band.id, req_type: @type)
+			@rel = JoinRequest.where(:sender_id => @sender.id, :receiver_id => @receiver.id, :band_id => @band.id, :req_type => @type)
 			@rel.update_all(:pending => false)
 		
 		rescue ActiveRecord::RecordNotFound
@@ -79,10 +79,15 @@ class JoinRequestsController < ApplicationController
 
 	def decline
 		
-		@type = params[:req_type]
-		@band= Band.find(params[:band_id])
-		@sender= User.find(params[:sender_id])
-		@receiver = current_user
+		begin 
+			@receiver = User.find(params[:receiver_id])
+			@type = params[:req_type]
+			@band= Band.find(params[:band_id])
+			@sender= User.find(params[:sender_id])
+		
+		rescue ActiveRecord::RecordNotFound
+			return 
+		end
 
 		@rel = JoinRequest.where(sender_id: @sender.id, receiver_id: @receiver.id, band_id: @band.id, req_type: @type)
 		@rel.update_all(:pending => false)

@@ -36,7 +36,7 @@ RSpec.describe JoinRequestsController, type: :controller do
 			@rel = FactoryGirl.create(:join_request, req_type:  "request" , sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
 			
 			expect {
-				params = {:sender_id => @user2.id, :receiver_id => @user1.id, :band_id => @band.id}
+				params = {:sender_id => @user2.id, :receiver_id => @user1.id, :band_id => @band.id, :req_type => "request"}
 				post :accept, params
 				@rel.reload
 			}.to change(MemberAssociation, :count).by(1)
@@ -52,7 +52,7 @@ RSpec.describe JoinRequestsController, type: :controller do
 			
 			@rel = FactoryGirl.create(:join_request, req_type:  "request", sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, pending: true )
 			
-			post :decline, sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id
+			post :decline, sender_id: @user2.id, receiver_id: @user1.id, band_id: @band.id, req_type: "request"
 			@rel.reload
 		
 			expect(@rel.pending).to eq false
