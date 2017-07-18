@@ -21,7 +21,6 @@ class SearchController < ApplicationController
       data[key] = value if value.present?
     end
     age_handler(params, data)
-    puts(data)
     data      
   end
 
@@ -33,7 +32,6 @@ class SearchController < ApplicationController
     start_date_handler(params, data)
     term_date_handler(params, data)
     active_handler(params, data)
-    puts(data)
     data      
   end
 
@@ -42,7 +40,6 @@ class SearchController < ApplicationController
     filtering_band_params(params).each do |key, value|
       data[key] = value if value.present?
     end
-    puts(data)
     data      
   end
 

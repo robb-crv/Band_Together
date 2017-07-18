@@ -12,11 +12,13 @@ class User < ApplicationRecord
   acts_as_messageable
 
   has_many :notifications, foreign_key: 'recipient_id', :dependent => :destroy
+  has_many :active_notifications,class_name: 'Notification', foreign_key: 'actor_id', :dependent => :destroy
   has_many :passive_notifications,  -> {where :notifiable_type => "User"}, class_name: 'Notification', foreign_key: "notifiable_id", dependent: :destroy
 
   #association
   has_many :bands, dependent: :destroy, foreign_key: 'band_manager_id'
   has_many :advertisment, dependent: :destroy, foreign_key: 'user_id'
+
 
   #andrea association for band member
   has_many :member_associations, :foreign_key => "user_id", dependent: :destroy

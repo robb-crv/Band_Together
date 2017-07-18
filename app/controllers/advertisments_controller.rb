@@ -72,7 +72,7 @@ class AdvertismentsController < ApplicationController
 	def destroy
 
 		@adv= Advertisment.find(params[:id])
-		if(@adv.delete)
+		if(@adv.destroy)
     		flash[:success] = "The advertisment has been deleted correctly."
 				UserAction.create(sender: @band, action: "has removed the advertisement #{@adv.title}!", receiver: @advertisment)
     		redirect_to band_path(@adv.band)
