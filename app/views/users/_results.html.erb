@@ -35,29 +35,28 @@
 <li class="right clearfix listing-entry" >
    <%= link_to users_show_path(:id => user.id) , class: "list-group-item list-group-item-action listing-link" do %>
 
-      <%= "
+      
         <strong class='primary-font'>
 
-                #{user.username}
+                <%= user.username %>
 
                 </strong><br/>
 
-                <i>#{user.email}</i>
+                <i> <%= user.email %></i>
              <br/>
-             <u>Musical Genre:</u> #{MusicalGenre.find_by_id(user.musical_genre_id).name}
+             <u>Musical Genre:</u> <%= MusicalGenre.find_by_id(user.musical_genre_id).name %>
               <br/>
-              <u>Type Of Musician:</u> #{TypeOfMusician.find_by_id(user.type_of_musician_id).name} 
+              <u>Type Of Musician:</u> <%= TypeOfMusician.find_by_id(user.type_of_musician_id).name %>
               <br/>
               
-             <u>Active in:</u> #{user.city}, #{user.region} (#{user.nation})
+             <u>Active in:</u> <%= user.city %>  <%= user.region %>  <%= user.nation %>
               <br/>
                 <small class='pull-left text-muted'>
                   <b>Birth Date: </b>
                   <span class='glyphicon glyphicon-time'></span>
-                  #{user.birth.strftime("%B %d, %Y") }
+                  <% if user.birth %>
+                    <%= user.birth.strftime("%B %d, %Y") %>
+                  <%end%>
                 </small>
-          ".html_safe %>
-
-
    <% end %>
 </li>

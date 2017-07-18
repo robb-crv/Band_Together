@@ -2,8 +2,7 @@
 #MODIFY PROFILE INFORMATIONS
 
 Given /^Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"$/ do
-
-  user = FactoryGirl.build(:user, email: "mariorossi@gmail.com", password: "123456", first_name: "Mario", last_name: "Rossi")
+  user = FactoryGirl.build(:user, email: "mariorossi@gmail.com", password: "123456", first_name: "Mario", last_name: "Rossi", username: "Marione93")
   user.skip_confirmation!
   expect(user.save).to eq true
 end
