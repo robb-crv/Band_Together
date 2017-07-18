@@ -26,6 +26,8 @@
 			
 
 			<% if current_user == @advertisment.user %>
+				<%= link_to "Edit Advertisement", edit_advertisment_path(@advertisment), :method => :get, :class => "btn btn-info" %>
+				<br/><br/>
 				<%= link_to "Close Advertisement", advertisment_path(@advertisment) , :method => :delete, :class => "btn btn-danger", data: { confirm: "Are you sure?" }%>
 			<% end %>
 

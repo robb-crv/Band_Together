@@ -27,17 +27,17 @@ class BandsController < ApplicationController
 	end
 
 	def show
-			begin
-				@band= Band.find(params[:id])
-				@band_manager = User.find(@band.band_manager_id)
-				@advs= Advertisment.where("band_id= ?", @band.id)
-				@bandMembers = @band.users
-				@active_users = @band.active_users
-				@activities = @band.activities
-				@followers= @band.followers
-			rescue ActiveRecord::RecordNotFound
-        		redirect_to "/404"
-      end
+		begin
+			@band= Band.find(params[:id])
+			@band_manager = User.find(@band.band_manager_id)
+			@advs= Advertisment.where("band_id= ?", @band.id)
+			@bandMembers = @band.users
+			@active_users = @band.active_users
+			@activities = @band.activities
+			@followers= @band.followers
+		rescue ActiveRecord::RecordNotFound
+        	redirect_to "/404"
+      	end
 	end
 
 	def edit

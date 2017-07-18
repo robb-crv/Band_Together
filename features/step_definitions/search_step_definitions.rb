@@ -1,9 +1,3 @@
-And /^Exists band "Band Rossi 2" created by user "Mario Rossi"$/ do 
-	@userRossi = User.find_by email: "mariorossi@gmail.com"
-	@band2 = FactoryGirl.build(:band, :band_manager_id => @userRossi.id)
-	@band2.save
-end
-
 When /^I fill the search bar with "Marione93"$/ do
     fill_in("Search", with: "Marione93")
     find('#search-form').send_keys(:enter)    
