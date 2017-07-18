@@ -62,10 +62,6 @@ class JoinRequestsController < ApplicationController
 			return 
 		end	
 
-		puts @receiver.id
-		puts @sender.id
-		puts @type
-		puts @band.id
 
 		@rel = JoinRequest.where(:sender_id => @sender.id, :receiver_id => @receiver.id, :band_id => @band.id, :req_type => @type, :pending => true)
 		@rel.update_all(:pending => false)

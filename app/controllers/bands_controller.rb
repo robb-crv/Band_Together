@@ -63,7 +63,7 @@ class BandsController < ApplicationController
 		@band= Band.find(params[:id])
 		#@bm= @band.band_manager.id
 
-		if(@band.delete)
+		if(@band.destroy)
 
 			flash[:success] = "The Band has been deleted correctly."
 			redirect_to users_show_path(:id => current_user.id)

@@ -1,27 +1,28 @@
 class Band < ApplicationRecord
+	 before_destroy :destroy_conversations
 
 	include ActiveModel::Validations
 
 	#association
 	belongs_to :band_manager, class_name: "User"
 
-	has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
+	has_many :advertisment,  foreign_key: 'band_id', dependent: :destroy
 
-	has_many :band_conversations, :dependent => :destroy, :foreign_key => "band_id"
-	has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_conversations, :dependent => :destroy
+	has_many :band_conversations, :foreign_key => "band_id", dependent: :destroy
+	has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_conversations #, dependent: :destroy
 
 	#andrea association for band member
-	has_many :member_associations, :dependent => :destroy, foreign_key: :joined_band_id, inverse_of: :joined_band
+	has_many :member_associations,  foreign_key: :joined_band_id, inverse_of: :joined_band, dependent: :destroy
 	has_many :users,  through: :member_associations
 
-	has_many :reviews, as: :reviewable, :dependent => :destroy
+	has_many :reviews, as: :reviewable, dependent: :destroy
 
 	has_many :following_relationships, as: :followable, dependent: :destroy
 	has_many :followers, through: :following_relationships
 
 	has_many :join_requests, foreign_key: "band_id", source: :band, dependent: :destroy
 
-	has_many :activities,  :dependent => :destroy
+	has_many :activities,  dependent: :destroy
 
 	has_many :passive_notification,  -> {where :notifiable_type => "Band"}, class_name: 'Notification', foreign_key: "notifiable_id", dependent: :destroy
 
@@ -60,6 +61,9 @@ class Band < ApplicationRecord
 
 		@actives
 	end
+
+
+
 
 
 
@@ -166,4 +170,12 @@ class Band < ApplicationRecord
   	validates :city, allow_blank: false, length: {maximum: 50}, allow_nil: true, city: true
 	validates :band_manager_id, presence: true, allow_nil: false, user: true
 	validates :musical_genre_id, length: {maximum: 50}, presence: true, allow_nil: false, genre: true
+
+
+
+	private
+
+	def destroy_conversations
+     self.conversations.each(&:destroy)
+   end
 end

@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :authenticate_user!
+  
 
   def new
     @activity = Activity.new()
@@ -68,7 +69,7 @@ class ActivitiesController < ApplicationController
     @activity= Activity.find(params[:id])
     @band  = @activity.band
 
-		if(@activity.delete)
+		if(@activity.destroy)
 
 			flash[:success] = "The Activity has been deleted correctly."
 			redirect_to band_path(@band)
