@@ -3,7 +3,7 @@
 
 Given /^Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"$/ do
 
-  user = FactoryGirl.build(:user, email: "mariorossi@gmail.com", password: "123456", first_name: "Giulio", last_name: "Bianchi")
+  user = FactoryGirl.build(:user, email: "mariorossi@gmail.com", password: "123456", first_name: "Mario", last_name: "Rossi")
   user.skip_confirmation!
   expect(user.save).to eq true
 end

@@ -3,6 +3,7 @@ class Activity < ApplicationRecord
   belongs_to :band_manager, class_name: "User"
 	belongs_to :band, dependent: :destroy
 
+  has_many :passive_user_action, -> {where :receiver_type => "User"}, class_name: "Activity", foreign_key: "receiver_id", dependent: :destroy
 
 
 

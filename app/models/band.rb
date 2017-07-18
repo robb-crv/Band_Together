@@ -4,23 +4,29 @@ class Band < ApplicationRecord
 
 	#association
 	belongs_to :band_manager, class_name: "User"
+
 	has_many :advertisment, dependent: :destroy, foreign_key: 'band_id'
 
-	has_many :band_conversations, :dependent => :delete_all, :foreign_key => "band_id"
-	has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_conversations
+	has_many :band_conversations, :dependent => :destroy, :foreign_key => "band_id"
+	has_many :conversations, class_name: "Mailboxer::Conversation",  through: :band_conversations, :dependent => :destroy
 
 	#andrea association for band member
-	has_many :member_associations, :dependent => :delete_all, foreign_key: :joined_band_id, inverse_of: :joined_band
+	has_many :member_associations, :dependent => :destroy, foreign_key: :joined_band_id, inverse_of: :joined_band
 	has_many :users,  through: :member_associations
 
-	has_many :reviews, as: :reviewable
+	has_many :reviews, as: :reviewable, :dependent => :destroy
 
 	has_many :following_relationships, as: :followable, dependent: :destroy
 	has_many :followers, through: :following_relationships
 
-	has_many :join_requests, foreign_key: "band_id", source: :band, dependent: :delete_all
+	has_many :join_requests, foreign_key: "band_id", source: :band, dependent: :destroy
 
-	has_many :activities,  :dependent => :delete_all
+	has_many :activities,  :dependent => :destroy
+
+	has_many :passive_notification,  -> {where :notifiable_type => "Band"}, class_name: 'Notification', foreign_key: "notifiable_id", dependent: :destroy
+
+	has_many :active_user_action, -> {where :sender_type => "Band"}, class_name: "UserAction", foreign_key: "sender_id", dependent: :destroy
+	has_many :passive_user_action, -> {where :receiver_type => "Band"}, class_name: "UserAction", foreign_key: "receiver_id", dependent: :destroy
 
 	#SEARCH ENGINE PARAMETER DEFINITIONS
 
@@ -54,6 +60,9 @@ class Band < ApplicationRecord
 
 		@actives
 	end
+
+
+
 
 	def users_to_notify
 		@res = []

@@ -9,4 +9,5 @@ class MusicalGenre < ActiveHash::Base
 		{id: 6, name: "Classic"},
 		{id: 7, name: "Latin"}
 	]
+
 end

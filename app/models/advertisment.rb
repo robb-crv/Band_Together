@@ -4,6 +4,9 @@ class Advertisment < ApplicationRecord
 	belongs_to :user, foreign_key: "user_id"
 	belongs_to :band, dependent: :destroy, foreign_key: "band_id"
 
+
+	has_many :passive_user_action, -> {where :receiver_type => "Advertisment"}, class_name: "UserAction", foreign_key: "receiver_id", dependent: :destroy
+
 	class MusiciansValidator < ActiveModel::EachValidator
 		def validate_each(record, attribute, value)
 			ret = false
@@ -40,12 +43,12 @@ class Advertisment < ApplicationRecord
 			description: description,
 			start_date: start_date,
 			term_date: term_date,
-			band_name: self.band.name,
 			band_id: self.band_id,
-			ad_genre_id:self.band.musical_genre_id,
-			ad_genre_name: MusicalGenre.find_by_id(self.band.musical_genre_id).name, 
-			band_manager_ad: self.user.username,
-			band_manager_id: self.user_id
+			band_name: self.band.name,		
+			ad_genre_id: self.band.musical_genre_id,
+			ad_genre_name: MusicalGenre.find(self.band.musical_genre_id).name,
+			band_manager_id: self.user_id,
+			band_manager_ad: self.user.username			
 		}
 	end
 	
