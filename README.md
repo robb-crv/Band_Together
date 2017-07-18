@@ -1,38 +1,13 @@
-BandTogether
+<h1>BandTogether</h1>
 
-Contributors
+<h2>Contributors</h2>
 
 - Amarelli Alessandro
 - Caravelli Roberto
 - Coluzzi Andrea
 
 
-Installazione: 
-
-L'applicazione richiede l'installazione di elasticsearch: 
-
-da riga di comando lanciare i seguenti comandi:
-
-
-  git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
-  
-  sh ~/.linuxbrew/bin/brew install elasticsearch
-  
-  sh ~/.linuxbrew/bin/elasticsearch 
-
-successivamente, per installare le gemme ed effettuare le migration 
-
- bundle install
- rails db:migrate
- 
-A questo punto avviamo il server con il comando   
- 
- rails s
-
-il comando rails s seleziona di default la porta 3000, dunque aprire il browser e inserire url: localhost:3000
-
-
-Descrizione:
+<h2>Descrizione:</h2>
 
 BandTogether è una Web Application basata su framework Ruby on Rails, in cui gli utenti possono creare Band musicali, reclutare membri tramite annunci e organizzare eventi.
 
@@ -58,4 +33,29 @@ Gli Utenti si dividono in:
 
 - Band Member (Generic user membr di una band; può visualizzare gli eventi della band tramite il calendario e lasciare recensioni alla stessa e agli utenti che ne fanno parte)
 
-- Band Manager(Generic user creatore di una band; può modificare le info della band, pubblicare gli annunci ad essa relativi e creare evneti)
+- Band Manager(Generic user creatore di una band; può modificare le info della band, pubblicare gli annunci ad essa relativi e creare eventi)
+
+
+<h2>Installazione:</h2>
+
+Una volta clonato il repository,l'applicazione richiede l'installazione di elasticsearch: 
+
+da terminale lanciare i seguenti comandi:
+
+  >git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+  
+  >sh ~/.linuxbrew/bin/brew install elasticsearch
+  
+  >sh ~/.linuxbrew/bin/elasticsearch 
+
+successivamente, posizionarsi nella cartella del progetto per installare le gemme ed effettuare le migration del db:
+
+ >bundle install
+ >rails db:migrate
+ 
+A questo punto avviamo il server con il comando   
+ 
+ >rails s
+
+il comando rails s seleziona di default la porta 3000, dunque aprire il browser al seguente URL: 
+    http://localhost:3000
