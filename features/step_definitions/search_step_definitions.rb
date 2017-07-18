@@ -1,29 +1,35 @@
-When /^I fill the search bar with "Mario"$/ do 
-	fill_in("Search", with: "Mario")
-	find('#search-form').native.send_keys(:enter)	
+And /^Exists band "Band Rossi 2" created by user "Mario Rossi"$/ do 
+	@userRossi = User.find_by email: "mariorossi@gmail.com"
+	@band2 = FactoryGirl.build(:band, :band_manager_id => @userRossi.id)
+	@band2.save
 end
 
-
-Then /^I should be on the Search Index Page$/ do 
-	expect(page.current_path).to eq search_index_path	
+When /^I fill the search bar with "Marione93"$/ do
+    fill_in("Search", with: "Marione93")
+    find('#search-form').send_keys(:enter)    
 end
 
-And /^I should see "Adv" as a result$/ do 
-	expect(page).to have_content "Adv"	
+Then /^I should be on the Search Index Page$/ do
+    expect(page.current_path).to eq search_index_path    
 end
 
-When /^I follow Users$/ do 
-	find(:css, "#user-tab", text: "Users").click	
+And /^I should see "Adv" as a result$/ do
+    expect(page).to have_content "Adv"    
 end
 
-Then /^I should see "Mario Rossi" as a result$/ do 
-	expect(page).to have_content "Mario Rossi"	
+When /^I follow Users$/ do
+    find(:css, "#user-tab", text: "Users").click    
 end
 
-When /^I follow Bands$/ do 
-	find(:css, "#band-tab", text: "Bands").click	
+Then /^I should see "Mario Rossi" as a result$/ do
+    expect(page).to have_content "mariorossi@gmail.com"    
 end
 
-Then /^I should see "Band di Rossi" as a result$/ do 
-	expect(page).to have_content "Band di Rossi"	
+When /^I follow Bands$/ do
+    find(:css, "#band-tab", text: "Bands").click    
+end
+
+Then /^I should see "Band di Rossi" as a result$/ do
+	print page.html
+    expect(page).to have_content "Band di Rossi"    
 end
