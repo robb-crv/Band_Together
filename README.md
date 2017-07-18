@@ -6,6 +6,25 @@ Contributors
 - Caravelli Roberto
 - Coluzzi Andrea
 
+
+Installazione: 
+
+L'applicazione richiede l'installazione di elasticsearch: 
+
+> git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+> brew install elasticsearch
+> sh ~/.linuxbrew/bin/elasticsearch 
+
+successivamente, da riga di comando lanciare i seguenti comandi:
+
+> bundle install
+> rails db:migrate
+> rails s
+
+il comando rails s seleziona di default la porta 3000, dunque aprire il browser e inserire url: localhost:3000
+
+Descrizione:
+
 BandTogether è una Web Application basata su framework Ruby on Rails, in cui gli utenti possono creare Band musicali, reclutare membri tramite annunci e organizzare eventi.
 
 L'utente, al fine di usufruire dei servizi della piattaforma, deve autenticarsi; l'autenticazione può essere effettuata tramite la piattaforma stessa o attraverso servizi esterni come Google o Facebook , basati su protocollo oauth, con chiamate REST alle API di questi ultimi; (in caso di non autenticazione, l'utente non potrà interagire con alcun tipo di servizio)
