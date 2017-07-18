@@ -11,17 +11,26 @@ Installazione:
 
 L'applicazione richiede l'installazione di elasticsearch: 
 
-> git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
-> brew install elasticsearch
-> sh ~/.linuxbrew/bin/elasticsearch 
+da riga di comando lanciare i seguenti comandi:
 
-successivamente, da riga di comando lanciare i seguenti comandi:
 
-> bundle install
-> rails db:migrate
-> rails s
+  git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+  
+  sh ~/.linuxbrew/bin/brew install elasticsearch
+  
+  sh ~/.linuxbrew/bin/elasticsearch 
+
+successivamente, per installare le gemme ed effettuare le migration 
+
+ bundle install
+ rails db:migrate
+ 
+A questo punto avviamo il server con il comando   
+ 
+ rails s
 
 il comando rails s seleziona di default la porta 3000, dunque aprire il browser e inserire url: localhost:3000
+
 
 Descrizione:
 
