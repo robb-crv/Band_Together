@@ -74,9 +74,9 @@
 					
 					<b>accept invite?</b> &nbsp; &nbsp;
 					
-					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, band_id: @band.id), :method => "post" %>&nbsp; &nbsp;
+					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, receiver_id: p.receiver_id, band_id: @band.id, req_type: "invitation"), :method => "post" %>&nbsp; &nbsp;
 
-					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id, band_id: @band.id), :method => "post" %>
+					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id,  receiver_id: p.receiver_id, band_id: @band.id, req_type: "invitation"), :method => "post" %>
 				<%end%>
 			<%end%>
 
@@ -99,11 +99,6 @@
 							
 			 <% end %>
 
-
-
-
-
-		
 
 			<% if @bandMembers.include? current_user %>
 	
@@ -181,6 +176,40 @@
 		    	<% end %>
 		    </ol>
 		</div>
+
+
+	</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Followers
+			</h2>
+		</div>
+	<div class="panel-body">
+		<div id="pnlFollowers">
+			<ul>
+				<ul>
+					<% @followers.each do |follower| %>
+						<li><%= link_to "#{follower.username}", users_show_path(id: follower.id) %></li>
+					<%end%>
+				</ul>
+			</ul><br/>
+		</div>
+	</div>
+	</div>
+
+
+  	<div class="panel panel-default" id="join_req_panel">
+		<div class = "panel-heading">
+			<h2 class = "panel-title">
+				Join Requests
+			</h2>
+		</div>
+
+		<div class="panel-body">
+			
 		<%if current_user == @band_manager and !@band.pending_join_requests_request.empty? %>
 				<div id="pnlJoinRequests">
 					<hr/>
@@ -190,24 +219,24 @@
 						</h2>
 					</div>
 		      		<ul>
-		  			<% @band.pending_join_requests_request.each do |req| %>
-			  			<% if req.pending %>
-			  				<li>
-			  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
-			  					&nbsp;&nbsp;
-			  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
-			  						<i class="glyphicon glyphicon-ok"></i>
-			  					<% end %>
-			  					&nbsp;
-			  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
-			  						<i class="glyphicon glyphicon-remove"></i>
-			  					<%end%>
-			  				</li>
-			  			<%end%><br/>
-		  			<%end%>
+			      		<% @band.pending_join_requests_request.each do |req| %>
+				  			<% if req.pending %>
+				  				<li>
+				  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
+				  					&nbsp;&nbsp;
+				  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
+				  						<i class="glyphicon glyphicon-ok"></i>
+				  					<% end %>
+				  					&nbsp;
+				  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
+				  						<i class="glyphicon glyphicon-remove"></i>
+				  					<%end%>
+				  				</li>
+				  			<%end%><br/>
+			  			<%end%>
 		  			</ul>
-				</div>
-			<%end%>
+			</div>
+		<%end%>
 
 
 

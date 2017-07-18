@@ -4,9 +4,6 @@ class ReviewsController < ApplicationController
 	#before_filter :find_reviewable
 
 	def new
-		#@reviewable = User.find(params[:id])
-		#@review = Review.new
-
 		@reviewable = find_reviewable
 		@review = Review.new
 	end
@@ -14,15 +11,13 @@ class ReviewsController < ApplicationController
 	def create
 
 		@review = Review.new(review_params)
+		@reviewable = User.find(params[:id])
 
 		if @review.save
-				#Notification.create(recipient: @reviewable, actor: current_user, action: "has sent you a feedback!", notifiable: current_user)
+
+				Notification.create(recipient: @reviewable, actor: current_user, action: "has sent you a feedback!", notifiable: current_user)
 				flash[:success] = "Review correctly created"
-
-
 				redirect_reviewable
-
-
 		else
 			redirect_to new_review_path(:id => @review.reviewable_id)
 		end
@@ -64,7 +59,7 @@ class ReviewsController < ApplicationController
   		end
 	end
 
-  	def review_params()
+  	def review_params
     	params.require(:review).permit(:rating, :description, :reviewer_id, :reviewable_id, :reviewable_type)
    	end
 

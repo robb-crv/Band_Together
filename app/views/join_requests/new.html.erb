@@ -18,6 +18,11 @@
 	</div>  
 
 	<div class="field">
+	   
+	  	<%= f.number_field :sender_id , :value => current_user.id, class: 'form-control', :type => "hidden" %>
+	</div>  
+
+	<div class="field">
 	  
 	  <%= f.text_field :req_type , :value => @type, class: 'form-control', :type => "hidden" %>
 	</div>
