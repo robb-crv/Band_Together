@@ -24,6 +24,5 @@ When /^I follow Bands$/ do
 end
 
 Then /^I should see "Band di Rossi" as a result$/ do
-	print page.html
     expect(page).to have_content "Band di Rossi"    
 end

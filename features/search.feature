@@ -9,7 +9,6 @@ Feature: User searches for informations about other users, advertisments and ban
 		Given Exists user "Giulio Bianchi" with email: "giuliobianchi@gmail.com" and password: "123456"
 		Given Exists user "Mario Rossi" with email: "mariorossi@gmail.com" and password: "123456"
   		And Exists band "Band di Rossi" created by user "Mario Rossi"
-  		And Exists band "Band Rossi 2" created by user "Mario Rossi"
   		And Exists advertisment "Adv" for "Band di Rossi" 
   		And I am logged in as "Giulio Bianchi"
   		And I am on the User Home Page
