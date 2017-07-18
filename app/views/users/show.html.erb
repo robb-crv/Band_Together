@@ -158,7 +158,7 @@
 					 <li><%= link_to b.name, band_path(b), :method => "get" %>
 						 <% if b.band_manager == current_user %>
 						 &nbsp;
-						 	<%= link_to edit_band_path(b), :method => "get", :class => "btn btn-info btn-circle" do %>
+						 	<%= link_to edit_band_path(b), :method => "get", :class => "btn btn-info btn-circle" , :id => "edit_band_#{b.id}" do %>
 								  <i class="glyphicon glyphicon-pencil"></i>
 								<% end %>
 								&nbsp;

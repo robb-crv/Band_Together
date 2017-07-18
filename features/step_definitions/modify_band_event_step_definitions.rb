@@ -6,7 +6,7 @@ Given /^Exists activity "Sala Prove" for the band "Band di Rossi"$/ do
 end
 
 Then /^I should see "Sala Prove" in the "Band Activities" table$/ do
-  expect(page).to have_css("#pnlBandActivities ol li a", :text => "Sala Prove")
+  expect(page).to have_css("#pnlBandActivities ul li a", :text => "Sala Prove")
 end
 
 When /^I follow the link to the "Sala Prove" activity$/ do

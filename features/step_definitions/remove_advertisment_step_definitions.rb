@@ -10,7 +10,8 @@ And /^I should see "Cercasi chitarrista" in the "Active Advertisments" table$/ d
 end
 
 When /^I press "delete" for the advertisment "Cercasi chitarrista"$/ do
-  (find(:css,"#pnlActiveAdvertisments ol li", :text => "Cercasi chitarrista").find_link "delete"). click
+  #(find(:css,"#pnlActiveAdvertisments ol li", :text => "Cercasi chitarrista").find_link "delete"). click
+  find(:css , "#delete_adv_1").click
 end
 
 Then /^I should not see "Cercasi chitarrista" in the "Active Advertisments" table anymore$/ do

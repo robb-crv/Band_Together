@@ -13,12 +13,19 @@ class JoinRequestsController < ApplicationController
 
 	def create
 
-		@type = params[:join_request][:req_type]
-		@band_id = params[:join_request][:band_id]
-		@band = Band.find(@band_id)
-	
+		begin
+			@type = params[:join_request][:req_type]
+			@band_id = params[:join_request][:band_id]
+			@band = Band.find(@band_id)
+
+		rescue ActiveRecord::RecordNotFound
+			redirect_to "/"
+			flash[:danger] = "Invalid Parameters."
+			return 
+		end	
 
 		@receiver = User.find_by username: params[:join_request][:receiver] 
+
 		if @receiver.nil? 
 			flash[:danger] = "user #{params[:join_request][:receiver]} does not exists"
 			redirect_to new_join_request_path(:band_id => @band, :req_type => @type)
@@ -29,8 +36,8 @@ class JoinRequestsController < ApplicationController
 		@req= JoinRequest.new(:sender_id => params[:join_request][:sender_id], :receiver_id => @receiver.id, :req_type => @type, :band_id => @band_id, :pending => true)
 	
 		if @req.save
-			Notification.create(recipient: @receiver, actor: current_user, action: "send you invitation for #{@band.name}", notifiable: @band)
-			flash[:success] = "invitation sent to #{@receiver.username}"
+			Notification.create(recipient: @receiver, actor: current_user, action: "send you a request for #{@band.name}", notifiable: @band)
+			flash[:success] = "Request was sent to #{@receiver.username}"
 			redirect_to band_path(@band)
 		else	
 			flash[:danger] = @req.errors.full_messages
@@ -50,10 +57,17 @@ class JoinRequestsController < ApplicationController
 
 			
 		rescue ActiveRecord::RecordNotFound
+			redirect_to "/"
+			flash[:danger] = "Invalid Parameters."
 			return 
 		end	
 
-		@rel = JoinRequest.where(:sender_id => @sender.id, :receiver_id => @receiver.id, :band_id => @band.id, :req_type => @type)
+		puts @receiver.id
+		puts @sender.id
+		puts @type
+		puts @band.id
+
+		@rel = JoinRequest.where(:sender_id => @sender.id, :receiver_id => @receiver.id, :band_id => @band.id, :req_type => @type, :pending => true)
 		@rel.update_all(:pending => false)
 		
 

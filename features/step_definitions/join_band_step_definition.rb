@@ -19,7 +19,7 @@ When /^"Giulio Bianchi" press 'Join!'$/ do
 end
 
 Then /^the request has been sent and user is still on the page 'Band di Rossi'$/ do
-	expect(page).to have_content("the request has been sent to the band manager")
+	expect(page).to have_content("Request was sent")
 	expect(page.current_path).to eq band_path(id: 1)
 end
 

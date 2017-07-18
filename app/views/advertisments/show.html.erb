@@ -36,7 +36,7 @@
 					<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
 					<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %><br/>
 											
-						<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>		
+						<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver: @band_manager.username, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>		
 					<%end%>
 				</div>
 			<%end %>
