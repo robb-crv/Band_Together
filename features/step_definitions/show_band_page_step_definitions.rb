@@ -39,7 +39,7 @@ end
 
 Then /^I should see "Band di Rossi" in the "Created Bands" table$/ do
 
-  expect(page).to have_css("#pnlCreatedBands ol li a", :text => "Band di Rossi")
+  expect(page).to have_css("#pnlCreatedBands ul li a", :text => "Band di Rossi")
 end
 
 When /^I follow the link to "Band di Rossi"$/ do
@@ -61,7 +61,7 @@ Given /^I am logged in as "Giulio Bianchi"$/ do
 end
 
 Then /^I should see "Band di Rossi" in the "Joined Bands" table$/ do
-  expect(page).to have_css("#pnlJoinedBands ol li a", :text => "Band di Rossi")
+  expect(page).to have_css("#pnlCreatedBands ul li a", :text => "Band di Rossi")
 end
 
 Then /^I should see the "Leave Band" link$/ do

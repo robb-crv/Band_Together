@@ -18,7 +18,8 @@ end
 
 
 When /^I press "edit" for the band "Band di Rossi"$/ do
-  (find(:css,"#pnlCreatedBands ol li", :text => "Band di Rossi").find_link "edit"). click
+  #(find(:css,"#pnlCreatedBands ul li", :text => "Band di Rossi").find_link "edit"). click
+  find(:css, "#edit_band_1").click
 end
 
  And /^I should see "Rome" for the field "City"$/ do

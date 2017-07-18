@@ -60,12 +60,12 @@
 
 				
 				<br/>
-				<% if current_user != @band_manager %>
+				<% if current_user != @band_manager and !@bandMembers.include? current_user %>
 					<div id="join_req">
 						<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
 						<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %><br/>
 												
-							<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver_id: @band_manager.id, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>		
+						<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver: @band_manager.username, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>
 						<%end%>
 					</div>
 				<%end %>
@@ -177,6 +177,35 @@
 		    </ol>
 		</div>
 
+		<%if current_user == @band_manager and !@band.pending_join_requests_request.empty? %>
+				<div id="pnlJoinRequests">
+					<hr/>
+					<div class = "panel-heading">
+						<h2 class = "panel-title">
+							Join Requests:
+						</h2>
+					</div>
+		      		<ul>
+			      		<% @band.pending_join_requests_request.each do |req| %>
+				  			<% if req.pending %>
+				  				<li>
+				  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
+				  					&nbsp;&nbsp;
+				  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id, req_type: "request"), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
+				  						<i class="glyphicon glyphicon-ok"></i>
+				  					<% end %>
+				  					&nbsp;
+				  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id, req_type: "request"), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
+				  						<i class="glyphicon glyphicon-remove"></i>
+				  					<%end%>
+				  				</li>
+				  			<%end%><br/>
+			  			<%end%>
+		  			</ul>
+			</div>
+		<%end%>
+
+
 
 	</div>
 	</div>
@@ -201,48 +230,6 @@
 	</div>
 
 
-  	<div class="panel panel-default" id="join_req_panel">
-		<div class = "panel-heading">
-			<h2 class = "panel-title">
-				Join Requests
-			</h2>
-		</div>
-
-		<div class="panel-body">
-			
-		<%if current_user == @band_manager and !@band.pending_join_requests_request.empty? %>
-				<div id="pnlJoinRequests">
-					<hr/>
-					<div class = "panel-heading">
-						<h2 class = "panel-title">
-							Join Requests:
-						</h2>
-					</div>
-		      		<ul>
-			      		<% @band.pending_join_requests_request.each do |req| %>
-				  			<% if req.pending %>
-				  				<li>
-				  					<strong style="font-size:20px;"><%= link_to "#{req.sender.username}", users_show_path(id: req.sender_id) %></strong>
-				  					&nbsp;&nbsp;
-				  					<%= button_to join_requests_accept_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-info btn-circle", :method => "post", :id =>"_#{req.id}_accept" do %>
-				  						<i class="glyphicon glyphicon-ok"></i>
-				  					<% end %>
-				  					&nbsp;
-				  					<%= button_to join_requests_decline_path(sender_id: req.sender_id, receiver_id: req.receiver_id, band_id: req.band_id), :class => "btn btn-danger btn-circle", :method =>"post", :id =>"_#{req.id}_decline" do %>
-				  						<i class="glyphicon glyphicon-remove"></i>
-				  					<%end%>
-				  				</li>
-				  			<%end%><br/>
-			  			<%end%>
-		  			</ul>
-			</div>
-		<%end%>
-
-
-
-	</div>
-	</div>
-
 
 	<div class="panel panel-default">
 	<div class = "panel-heading">
@@ -259,11 +246,11 @@
 					<%= link_to a.title, advertisment_path(a), :method => "get" %>
 						&nbsp;
 						 <%if current_user== @band_manager %>
-							<%= link_to edit_advertisment_path(a), :method => "get", :class => "btn btn-info btn-circle" do %>
+							<%= link_to edit_advertisment_path(a), :method => "get", :class => "btn btn-info btn-circle" , :id => "edit_adv_#{a.id}" do %>
 							  <i class="glyphicon glyphicon-pencil"></i>
 							<% end %>
 							&nbsp;
-							<%= link_to advertisment_path(a), :method => "delete", :class => "btn btn-danger btn-circle", data:  { confirm: "Are you sure?" } do %>
+							<%= link_to advertisment_path(a), :method => "delete", :class => "btn btn-danger btn-circle", data:  { confirm: "Are you sure?" } , :id => "delete_adv_#{a.id}" do %>
 								<i class="glyphicon glyphicon-trash"></i>
 							<% end %>
 						  <% end %>
@@ -334,7 +321,7 @@
 								  <i class="glyphicon glyphicon-pencil"></i>
 								<% end %>
 								&nbsp;
-								<%= link_to activity_path(a), :method => "delete", :class => "btn btn-danger btn-circle", data:  { confirm: "Are you sure?" } do %>
+								<%= link_to activity_path(a), :method => "delete", :class => "btn btn-danger btn-circle", data:  { confirm: "Are you sure?" }  do %>
 									<i class="glyphicon glyphicon-trash"></i>
 								<% end %>
 						  <% end %>
