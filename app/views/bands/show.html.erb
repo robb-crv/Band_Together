@@ -22,11 +22,13 @@
   			<% if (current_user==@band_manager) %>
   				<!--se l'utente è band manager-->
   				<br/>
+  				<br/>
   				<%= link_to "New Advertisment", new_advertisment_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
   				<br/>
-
+  				<br/>
   				<%= link_to "New Activity", new_activity_path(:band_id => @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
-
+  				<br/>
+  				<br/>
 
 				<%= link_to "Invite people!", join_requests_new_path(:req_type => "invitation", :band_id => @band.id) , :method => "get", :class => "btn btn-primary btn-md", :id => "invite_btn" %>
 
@@ -35,7 +37,10 @@
   				 	<% if @band.users.include? current_user %>
   					<!--se l'utente è band member-->
   						<br/>
+  						<br/>
   						<%= link_to "Leave Band", bands_leave_band_path(:user_id => current_user.id, :band_id => @band.id), :class => "btn btn-primary btn-md", :method => "post" %>
+  						<br/>
+  						<br/>
   						<%= link_to "Review this Band", new_review_path(:id => @band.id, reviewable_type: 'Band'), :class => "btn btn-primary btn-md"%>	
 
   					<% end %>
@@ -47,14 +52,15 @@
   				<div id="following">
   					<% if current_user.following?(@band)  %>
   					<br/>
+  					<br/>
                 		<%= button_to "Unfollow the Band", unfollow_url(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
 
   					<%else%>
   					<br/>
+  					<br/>
   						<%= button_to "Follow the Band!", following_relationships_path(:followable_id => @band.id, :followable_type => "Band"), :method => "post", :class => "btn btn-primary btn-md" %>
 
 					<%end%>
-					</br>
 					
 				</div>
 
@@ -63,7 +69,10 @@
 				<% if current_user != @band_manager and !@bandMembers.include? current_user %>
 					<div id="join_req">
 						<!-- se l'utente non ha gia una richiesta di join pendente verso quella band -->
-						<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %><br/>
+						<% if !current_user.is_waiting_for_join_response(@band) and !current_user.has_just_sent_join_request(@band) and @band.pending_invitation(current_user).empty? %>
+
+						<br/>
+  						<br/>
 												
 						<%= button_to "Join!", join_requests_path( :join_request => {band_id: @band.id, sender_id: current_user.id, receiver: @band_manager.username, pending: true, req_type:  "request"} ), :class => "btn btn-primary btn-md", :method => "post", :id => "join_btn" %>
 						<%end%>
@@ -71,25 +80,29 @@
 				<%end %>
 
 				<% @band.pending_invitation(current_user).each do |p| %>
-					
-					<b>accept invite?</b> &nbsp; &nbsp;
-					
-					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, receiver_id: p.receiver_id, band_id: @band.id, req_type: "invitation"), :method => "post" %>&nbsp; &nbsp;
 
-					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id,  receiver_id: p.receiver_id, band_id: @band.id, req_type: "invitation"), :method => "post" %>
+					<br/>
+  					<br/>
+					
+					<b>You have an invitation for this band, do you want to accept?</b> &nbsp; &nbsp;
+					
+					<%= link_to "yes", join_requests_accept_path(sender_id: @band_manager.id, receiver_id: p.receiver_id, band_id: @band.id, req_type: "invitation"), :class => "btn btn-success", :method => "post" %>&nbsp; &nbsp;
+
+					<%= link_to "no", join_requests_decline_path(sender_id: @band_manager.id,  receiver_id: p.receiver_id, band_id: @band.id, req_type: "invitation"),:class => "btn btn-secondary", :method => "post" %>
 				<%end%>
 			<%end%>
 
 
   			<% if @active_users.include? current_user %>
   				<br/>
+  				<br/>
   				<%= link_to "Messages", mailbox_inbox_path(selected_band_id: @band.id), :class => "btn btn-primary btn-md", :method => "get" %>
-		        </br>
 		        
         	<%end%>
 
         	 <% if @band.reviews.count > 0 %> 
         	 <br/>
+  			<br/>
 
 				<div class="star-container">
 								
@@ -101,6 +114,8 @@
 
 
 			<% if @bandMembers.include? current_user %>
+				<br/>
+  					<br/>
 	
 			   <a id="share_on_fb" class="btn btn-primary btn-social-icon btn-facebook">
 			    <span class="fa fa-facebook"></span> Share the Band On Facebook!
@@ -111,6 +126,7 @@
         <% if (current_user==@band_manager) %>
           <br/>   <br/>
           <%= link_to "Edit Band" , edit_band_path(@band) ,:class => "btn btn-info btn-md", :method => "get" %>
+	        &nbsp;
           <%= link_to "Delete Band", band_path(@band), :class => "btn btn-danger btn-md", :method => "delete", data: { confirm: "Are you sure?" } %>
         <% end %>
   	    </div>

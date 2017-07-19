@@ -73,7 +73,7 @@
 							</ul>														
 						</div>
 						<div class="col-md-3">
-							<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
+							<%= submit_tag "Filter", :name => nil, class: "btn btn-secondary" %>
 						</div>
 					<% end %>
 					
@@ -161,7 +161,7 @@
 						</div>
 
 						<div class="col-md-3">
-							<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
+							<%= submit_tag "Filter", :name => nil, class: "btn btn-secondary" %>
 						</div>
 					<% end %>										
 				<% else %>
@@ -216,7 +216,7 @@
 						</div>
 
 						<div class="col-md-3">
-							<%= submit_tag "Add Filters", :name => nil, class: "btn btn-secondary" %>
+							<%= submit_tag "Filter", :name => nil, class: "btn btn-secondary" %>
 						</div>
 					<% end %>
 			<% end %>
@@ -224,7 +224,7 @@
 			<div class="col-md-3">
 				<%= form_tag(search_index_path, method: "get", remote: true, id: "remove-user-filters") do %>
 					<%= hidden_field_tag :search, params[:search] %>
-					<%= submit_tag "Remove Filters", :name => nil, class: "btn btn-secondary" %>
+					<%= submit_tag "Reset", :name => nil, class: "btn btn-secondary" %>
 				<% end %>						
 			</div>
 		</div>
