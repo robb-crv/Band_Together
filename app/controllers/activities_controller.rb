@@ -42,7 +42,12 @@ class ActivitiesController < ApplicationController
 
   def index
     @band = Band.find(params[:id])
-    @activities = Activity.where(band: @band)
+
+    if @band.active_users.include? current_user
+        @activities = @band.activities
+      else
+        @activities = @band.activities.where(:accessibility => "Public")
+      end
 
     respond_to do |format|
       format.json

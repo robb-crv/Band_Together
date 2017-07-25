@@ -236,6 +236,8 @@ end
     SecureRandom.urlsafe_base64
   end
 
+
+
   # Override del metodo di devise che controlla se un utente è attivo per l'autenticazione
   # In questo modo controlla se l'utente è bannato prima di autenticarlo
 
